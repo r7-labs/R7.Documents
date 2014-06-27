@@ -43,11 +43,10 @@ namespace R7.Documents
 	/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
 	/// </history>
 	/// -----------------------------------------------------------------------------
-	public partial class ViewDocuments : DotNetNuke.Entities.Modules.PortalModuleBase, DotNetNuke.Entities.Modules.IActionable
+	public partial class ViewDocuments : DocumentsPortalModuleBase, IActionable
 	{
 		private const int NOT_READ = -2;
-		private DocumentsSettingsInfo mobjSettings;
-
+		
 		private ArrayList mobjDocumentList;
 		private int mintTitleColumnIndex = NOT_READ;
 		private int mintDownloadLinkColumnIndex = NOT_READ;
@@ -68,8 +67,8 @@ namespace R7.Documents
 		private void Page_Load(System.Object sender, System.EventArgs e)
 		{
 			try {
-				mobjSettings = LoadSettings();
-				grdDocuments.AllowSorting = mobjSettings.AllowUserSort;
+				//  mobjSettings = LoadSettings();
+				grdDocuments.AllowSorting = DocumentsSettings.AllowUserSort;
 				LoadColumns();
 				LoadData();
 				grdDocuments.DataSource = mobjDocumentList;
@@ -143,7 +142,7 @@ namespace R7.Documents
 				LoadData();
 
 				// Use Documents IComparer to do sort based on the default sort order (mobjSettings.SortOrder)
-				mobjDocumentList.Sort(new DocumentComparer(mobjSettings.SortColumnList));
+				mobjDocumentList.Sort(new DocumentComparer(DocumentsSettings.GetSortColumnList(this.LocalResourceFile)));
 
 				//Bind the grid
 				grdDocuments.DataSource = mobjDocumentList;
@@ -191,9 +190,9 @@ namespace R7.Documents
 						// value here
 						objDocument = (DocumentInfo)mobjDocumentList[e.Item.ItemIndex];
 
-						if (mobjSettings.ShowTitleLink) {
+						if (DocumentsSettings.ShowTitleLink) {
 							if (mintTitleColumnIndex == NOT_READ) {
-								mintTitleColumnIndex = DocumentsSettingsInfo.FindGridColumn(DocumentsDisplayColumnInfo.COLUMN_TITLE, mobjSettings.DisplayColumnList, true);
+								mintTitleColumnIndex = DocumentsSettings.FindGridColumn(DocumentsDisplayColumnInfo.COLUMN_TITLE, DocumentsSettings.DisplayColumnList, true);
 							}
 
 							if (mintTitleColumnIndex >= 0) {
@@ -211,7 +210,7 @@ namespace R7.Documents
 
 						// If there's a "download" link, set the NavigateUrl 
 						if (mintDownloadLinkColumnIndex == NOT_READ) {
-							mintDownloadLinkColumnIndex = DocumentsSettingsInfo.FindGridColumn(DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK, mobjSettings.DisplayColumnList, true);
+							mintDownloadLinkColumnIndex = DocumentsSettings.FindGridColumn(DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK, DocumentsSettings.DisplayColumnList, true);
 						}
 						if (mintDownloadLinkColumnIndex >= 0) {
 							var _with2 = (HyperLink)e.Item.Controls[mintDownloadLinkColumnIndex].FindControl("ctlDownloadLink");
@@ -271,7 +270,7 @@ namespace R7.Documents
 			DocumentsDisplayColumnInfo objDisplayColumn = null;
 
 			// Add columns dynamically
-			foreach (DocumentsDisplayColumnInfo objDisplayColumn_loopVariable in mobjSettings.DisplayColumnList) {
+			foreach (DocumentsDisplayColumnInfo objDisplayColumn_loopVariable in DocumentsSettings.DisplayColumnList) {
 				objDisplayColumn = objDisplayColumn_loopVariable;
 
 				if (objDisplayColumn.Visible) {
@@ -317,7 +316,7 @@ namespace R7.Documents
 
 							break;
 						case DocumentsDisplayColumnInfo.COLUMN_TITLE:
-							if (mobjSettings.ShowTitleLink) {
+							if (DocumentsSettings.ShowTitleLink) {
 								AddDownloadLink(Localization.GetString("Title", LocalResourceFile), "ctlTitle");
 							} else {
 								AddDocumentColumn(Localization.GetString("Title", LocalResourceFile), "Title", "Title");
@@ -371,7 +370,7 @@ namespace R7.Documents
 			}
 
 			//Sort documents
-			mobjDocumentList.Sort(new DocumentComparer(mobjSettings.SortColumnList));
+			mobjDocumentList.Sort(new DocumentComparer(DocumentsSettings.GetSortColumnList(this.LocalResourceFile)));
 
 			IsReadComplete = true;
 		}
@@ -417,7 +416,7 @@ namespace R7.Documents
 			objBoundColumn.HeaderText = Title;
 			//Added 5/17/2007
 			//By Mitchel Sellers
-			if (mobjSettings.AllowUserSort) {
+			if (DocumentsSettings.AllowUserSort) {
 				objBoundColumn.SortExpression = DataField;
 			}
 
@@ -462,12 +461,13 @@ namespace R7.Documents
 			//Added 5/17/2007
 			//By Mitchel Sellers
 			// Add the sort expression, however ensure that it is NOT added for download
-			if (mobjSettings.AllowUserSort && !Name.Equals("ctlDownloadLink")) {
+			if (DocumentsSettings.AllowUserSort && !Name.Equals("ctlDownloadLink")) {
 				objTemplateColumn.SortExpression = Title;
 			}
 			this.grdDocuments.Columns.Add(objTemplateColumn);
 		}
 
+/*
 		/// -----------------------------------------------------------------------------
 		/// <summary>
 		/// Load module settings from the database.
@@ -489,6 +489,7 @@ namespace R7.Documents
 
 			return objDocumentsSettings;
 		}
+*/
 		public ViewDocuments()
 		{
 			Init += Page_Init;

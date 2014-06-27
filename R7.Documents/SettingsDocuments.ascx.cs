@@ -41,7 +41,7 @@ namespace R7.Documents
 	/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
 	/// </history>
 	/// -----------------------------------------------------------------------------
-	public partial class SettingsDocuments : ModuleSettingsBase
+	public partial class SettingsDocuments : DocumentsModuleSettingsBase
 	{
 
 		private const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
@@ -84,7 +84,6 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		public override void LoadSettings()
 		{
-			DocumentsSettingsInfo objDocumentsSettings = null;
 			ArrayList objColumnSettings = new ArrayList();
 			DocumentsDisplayColumnInfo objColumnInfo = null;
 			string strColumnName = null;
@@ -94,34 +93,24 @@ namespace R7.Documents
 					LoadFolders();
 					LoadLists();
 
-					// Read current documentsSettings object
-					var _with1 = new DocumentsController();
-					objDocumentsSettings = _with1.GetDocumentsSettings(ModuleId);
-					if ((objDocumentsSettings != null)) {
-						objDocumentsSettings.LocalResourceFile = this.LocalResourceFile;
-					} else {
-						// first time around, no existing documents settings will exist
-						objDocumentsSettings = new DocumentsSettingsInfo(base.LocalResourceFile);
-					}
-
-					chkShowTitleLink.Checked = objDocumentsSettings.ShowTitleLink;
-					chkUseCategoriesList.Checked = objDocumentsSettings.UseCategoriesList;
-					chkAllowUserSort.Checked = objDocumentsSettings.AllowUserSort;
+					chkShowTitleLink.Checked = DocumentsSettings.ShowTitleLink;
+					chkUseCategoriesList.Checked = DocumentsSettings.UseCategoriesList;
+					chkAllowUserSort.Checked = DocumentsSettings.AllowUserSort;
 
 					try {
-						cboDefaultFolder.SelectedValue = objDocumentsSettings.DefaultFolder;
+						cboDefaultFolder.SelectedValue = DocumentsSettings.DefaultFolder;
 					} catch (Exception exc) {
 						// suppress exception.  Can be caused if the selected folder has been deleted
 					}
 
 					try {
-						cboCategoriesList.SelectedValue = objDocumentsSettings.CategoriesListName;
+						cboCategoriesList.SelectedValue = DocumentsSettings.CategoriesListName;
 					} catch (Exception ex) {
 						// suppress exception.  Can be caused if the selected list has been deleted
 					}
 
 					// read "saved" column sort orders in first
-					objColumnSettings = objDocumentsSettings.DisplayColumnList;
+					objColumnSettings = DocumentsSettings.DisplayColumnList;
 					foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings) {
 						objColumnInfo = objColumnInfo_loopVariable;
 						// Set localized column names
@@ -131,7 +120,7 @@ namespace R7.Documents
 					// Add any missing columns to the end
 					foreach (string strColumnName_loopVariable in DocumentsDisplayColumnInfo.AvailableDisplayColumns) {
 						strColumnName = strColumnName_loopVariable;
-						if (DocumentsSettingsInfo.FindColumn(strColumnName, objColumnSettings, false) < 0) {
+						if (DocumentsSettings.FindColumn(strColumnName, objColumnSettings, false) < 0) {
 							objColumnInfo = new DocumentsDisplayColumnInfo();
 							objColumnInfo.ColumnName = strColumnName;
 							objColumnInfo.LocalizedColumnName = Localization.GetString(objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
@@ -153,7 +142,7 @@ namespace R7.Documents
 						lstSortFields.Items.Add(new ListItem(Localization.GetString(strSortColumn + ".Header", base.LocalResourceFile), strSortColumn));
 					}
 
-					BindSortSettings(objDocumentsSettings.SortColumnList);
+					BindSortSettings(DocumentsSettings.GetSortColumnList(this.LocalResourceFile));
 				}
 			//Module failed to load
 			} catch (Exception exc) {
@@ -211,29 +200,12 @@ namespace R7.Documents
 		public override void UpdateSettings()
 		{
 			try {
-				DocumentsSettingsInfo objDocumentsSettings = null;
-
-
-				if (Page.IsValid) {
-					var _with3 = new DocumentsController();
-					objDocumentsSettings = _with3.GetDocumentsSettings(ModuleId);
-
-					if (objDocumentsSettings == null) {
-						// first time around, no existing documents settings will exist, so
-						// create one
-						objDocumentsSettings = new DocumentsSettingsInfo(base.LocalResourceFile);
-						objDocumentsSettings.ModuleId = ModuleId;
-						FillSettings(objDocumentsSettings);
-						var _with4 = new DocumentsController();
-						_with4.AddDocumentsSettings(objDocumentsSettings);
-					} else {
-						// Documents settings found, update
-						FillSettings(objDocumentsSettings);
-
-						var _with5 = new DocumentsController();
-						_with5.UpdateDocumentsSettings(objDocumentsSettings);
-					}
-
+				
+				if (Page.IsValid) 
+				{
+					
+					FillSettings();
+				
 					SynchronizeModule();
 					DataCache.RemoveCache(this.CacheKey + ";anon-doclist");
 				}
@@ -400,7 +372,7 @@ namespace R7.Documents
 		/// <history>
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void FillSettings(DocumentsSettingsInfo objDocumentsSettings)
+		private void FillSettings()
 		{
 			string strDisplayColumns = "";
 			ArrayList objColumnSettings = default(ArrayList);
@@ -413,17 +385,17 @@ namespace R7.Documents
 			//Ensure that if categories list is checked that we did have an available category
 			if ((chkUseCategoriesList.Checked && !lstNoListsAvailable.Visible)) {
 				//If so, set normally
-				objDocumentsSettings.UseCategoriesList = chkUseCategoriesList.Checked;
-				objDocumentsSettings.CategoriesListName = cboCategoriesList.SelectedValue;
+				DocumentsSettings.UseCategoriesList = chkUseCategoriesList.Checked;
+				DocumentsSettings.CategoriesListName = cboCategoriesList.SelectedValue;
 			} else {
 				//Otherwise default values
-				objDocumentsSettings.UseCategoriesList = false;
-				objDocumentsSettings.CategoriesListName = "";
+				DocumentsSettings.UseCategoriesList = false;
+				DocumentsSettings.CategoriesListName = "";
 			}
 
-			objDocumentsSettings.ShowTitleLink = chkShowTitleLink.Checked;
-			objDocumentsSettings.DefaultFolder = cboDefaultFolder.SelectedValue;
-			objDocumentsSettings.AllowUserSort = chkAllowUserSort.Checked;
+			DocumentsSettings.ShowTitleLink = chkShowTitleLink.Checked;
+			DocumentsSettings.DefaultFolder = cboDefaultFolder.SelectedValue;
+			DocumentsSettings.AllowUserSort = chkAllowUserSort.Checked;
 
 			objColumnSettings = RetrieveDisplayColumnSettings();
 			intIndex = 0;
@@ -440,7 +412,7 @@ namespace R7.Documents
 				intIndex = intIndex + 1;
 			}
 
-			objDocumentsSettings.DisplayColumns = strDisplayColumns;
+			DocumentsSettings.DisplayColumns = strDisplayColumns;
 
 			objSortColumns = RetrieveSortColumnSettings();
 			foreach (DocumentsSortColumnInfo objSortColumn_loopVariable in objSortColumns) {
@@ -450,7 +422,7 @@ namespace R7.Documents
 				}
 				strSortColumnList = strSortColumnList + (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Descending ? "-" : "").ToString() + objSortColumn.ColumnName;
 			}
-			objDocumentsSettings.SortOrder = strSortColumnList;
+			DocumentsSettings.SortOrder = strSortColumnList;
 		}
 
 		private void SwapColumn(string ColumnName, System.ComponentModel.ListSortDirection Direction)
@@ -461,7 +433,7 @@ namespace R7.Documents
 
 			// First, find the column we want
 			objColumnSettings = RetrieveDisplayColumnSettings();
-			intIndex = DocumentsSettingsInfo.FindColumn(ColumnName, objColumnSettings, false);
+			intIndex = DocumentsSettings.FindColumn(ColumnName, objColumnSettings, false);
 
 			// Swap display orders
 			if (intIndex >= 0) {

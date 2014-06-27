@@ -102,6 +102,7 @@ namespace R7.Documents
 			DataProvider.Instance().UpdateDocument(objDocument.ModuleId, objDocument.ItemId, objDocument.Title, objDocument.Url, objDocument.CreatedByUserId, objDocument.OwnedByUserId, objDocument.Category, objDocument.SortOrderIndex, objDocument.Description, objDocument.ForceDownload);
 		}
 
+		/*
 		public void AddDocumentsSettings(DocumentsSettingsInfo objDocumentsSettings)
 		{
 			DataProvider.Instance().AddDocumentsSettings(objDocumentsSettings.ModuleId, objDocumentsSettings.ShowTitleLink, objDocumentsSettings.SortOrder, objDocumentsSettings.DisplayColumns, objDocumentsSettings.UseCategoriesList, objDocumentsSettings.DefaultFolder, objDocumentsSettings.CategoriesListName, objDocumentsSettings.AllowUserSort);
@@ -121,6 +122,7 @@ namespace R7.Documents
 		{
 			DataProvider.Instance().UpdateDocumentsSettings(objDocumentsSettings.ModuleId, objDocumentsSettings.ShowTitleLink, objDocumentsSettings.SortOrder, objDocumentsSettings.DisplayColumns, objDocumentsSettings.UseCategoriesList, objDocumentsSettings.DefaultFolder, objDocumentsSettings.CategoriesListName, objDocumentsSettings.AllowUserSort);
 		}
+*/
 
 		#endregion
 
@@ -193,22 +195,10 @@ namespace R7.Documents
 
 			ModuleController objModules = new ModuleController();
 			ModuleInfo objModule = objModules.GetModule(ModuleID, Null.NullInteger);
-			DocumentsSettingsInfo objDocumentsSettings = GetDocumentsSettings(ModuleID);
-
-			StringBuilder strXML = new StringBuilder("<documents>");
+		
+			StringBuilder strXML = new StringBuilder("");
+		
 			try {
-				if ((objDocumentsSettings != null)) {
-					strXML.Append("<documentssettings>");
-					strXML.AppendFormat("<displaycolumns>{0}</displaycolumns>", DotNetNuke.Common.Utilities.XmlUtils.XMLEncode(objDocumentsSettings.DisplayColumns));
-					strXML.AppendFormat("<showtitlelink>{0}</showtitlelink>", DotNetNuke.Common.Utilities.XmlUtils.XMLEncode(objDocumentsSettings.ShowTitleLink.ToString()));
-					strXML.AppendFormat("<sortorder>{0}</sortorder>", DotNetNuke.Common.Utilities.XmlUtils.XMLEncode(objDocumentsSettings.SortOrder));
-					strXML.AppendFormat("<usecategorieslist>{0}</usecategorieslist>", DotNetNuke.Common.Utilities.XmlUtils.XMLEncode(objDocumentsSettings.UseCategoriesList.ToString()));
-					strXML.AppendFormat("<allowusersort>{0}</allowusersort>", DotNetNuke.Common.Utilities.XmlUtils.XMLEncode(objDocumentsSettings.AllowUserSort.ToString()));
-					strXML.AppendFormat("<defaultfolder>{0}</defaultfolder>", DotNetNuke.Common.Utilities.XmlUtils.XMLEncode(objDocumentsSettings.DefaultFolder.ToString()));
-					strXML.AppendFormat("<categorieslistname>{0}</categorieslistname>", DotNetNuke.Common.Utilities.XmlUtils.XMLEncode(objDocumentsSettings.CategoriesListName.ToString()));
-					strXML.Append("</documentssettings>");
-				}
-
 				ArrayList arrDocuments = GetDocuments(ModuleID, objModule.PortalID);
 				if (arrDocuments.Count != 0) {
 					DocumentInfo objDocument = null;
@@ -271,15 +261,21 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		public void ImportModule(int ModuleID, string Content, string Version, int UserId)
 		{
+			
+/*
+// NOTE: Settings now imported by DNN
 			bool isNewSettings = false;
 			XmlNode xmlDocumentsSettings = Globals.GetContent(Content, "documents/documentssettings");
 			if (((xmlDocumentsSettings != null))) {
 				// Need to check before adding settings - update may be required instead
-				DocumentsSettingsInfo objDocumentsSettings = GetDocumentsSettings(ModuleID);
+				var objDocumentsSettings = new DocumentsSettings(objModule);
+
+				
 				if ((objDocumentsSettings == null)) {
 					objDocumentsSettings = new DocumentsSettingsInfo();
 					isNewSettings = true;
 				}
+
 				objDocumentsSettings.ModuleId = ModuleID;
 				objDocumentsSettings.DisplayColumns = XmlUtils.GetNodeValue(xmlDocumentsSettings, "displaycolumns");
 				objDocumentsSettings.ShowTitleLink = XmlUtils.GetNodeValueBoolean(xmlDocumentsSettings, "showtitlelink");
@@ -288,13 +284,14 @@ namespace R7.Documents
 				objDocumentsSettings.AllowUserSort = XmlUtils.GetNodeValueBoolean(xmlDocumentsSettings, "allowusersort");
 				objDocumentsSettings.DefaultFolder = XmlUtils.GetNodeValue(xmlDocumentsSettings, "defaultfolder");
 				objDocumentsSettings.CategoriesListName = XmlUtils.GetNodeValue(xmlDocumentsSettings, "categorieslistname");
+				
 				if (isNewSettings) {
 					AddDocumentsSettings(objDocumentsSettings);
 				} else {
 					UpdateDocumentsSettings(objDocumentsSettings);
 				}
 
-			}
+			}*/
 
 			// XmlNode xmlDocument = default(XmlNode);
 			string strUrl = string.Empty;

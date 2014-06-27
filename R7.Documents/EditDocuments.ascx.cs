@@ -48,7 +48,7 @@ namespace R7.Documents
 	///   [ag]  11 March 2007 Migrated to VS2005
 	/// </history>
 	/// -----------------------------------------------------------------------------
-	public partial class EditDocuments : PortalModuleBase
+	public partial class EditDocuments : DocumentsPortalModuleBase
 	{
 		#region "Private Members"
 
@@ -71,8 +71,6 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		private void Page_Load(System.Object sender, System.EventArgs e)
 		{
-			DocumentsSettingsInfo objDocumentsSettings = null;
-		
 			try {
 				// Determine ItemId of Document to Update
 				if ((Request.QueryString["ItemId"] != null)) {
@@ -83,17 +81,15 @@ namespace R7.Documents
 
 				// Load module instance settings
 				if (!IsPostBack) {
-					objDocumentsSettings = LoadSettings();
-
 					// Configure categories entry as a list or textbox, based on user settings
-					if (objDocumentsSettings.UseCategoriesList) {
+					if (DocumentsSettings.UseCategoriesList) {
 						// Configure category entry as a list
 						lstCategory.Visible = true;
 						txtCategory.Visible = false;
 
 						// Populate categories list
 						var _with1 = new DotNetNuke.Common.Lists.ListController();
-						lstCategory.DataSource = _with1.GetListEntryInfoCollection(objDocumentsSettings.CategoriesListName);
+						lstCategory.DataSource = _with1.GetListEntryInfoCollection(DocumentsSettings.CategoriesListName);
 						lstCategory.DataTextField = "Text";
 						lstCategory.DataValueField = "Value";
 
@@ -185,7 +181,7 @@ namespace R7.Documents
 						ctlTracking.Visible = false;
 
 						// Set default folder
-						ctlUrl.Url = objDocumentsSettings.DefaultFolder + "a";
+						ctlUrl.Url = DocumentsSettings.DefaultFolder + "a";
 
 					}
 				}
@@ -531,20 +527,6 @@ namespace R7.Documents
 			set { mintItemId = value; }
 		}
 
-		private DocumentsSettingsInfo LoadSettings()
-		{
-			DocumentsSettingsInfo objDocumentsSettings = null;
-			// Load module instance settings
-			var _with2 = new DocumentsController();
-			objDocumentsSettings = _with2.GetDocumentsSettings(ModuleId);
-
-			// first time around, no existing documents settings will exist
-			if (objDocumentsSettings == null) {
-				objDocumentsSettings = new DocumentsSettingsInfo(base.LocalResourceFile);
-			}
-
-			return objDocumentsSettings;
-		}
 		#endregion
 
 		#region " Web Form Designer Generated Code "

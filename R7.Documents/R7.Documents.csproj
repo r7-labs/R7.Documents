@@ -74,6 +74,7 @@
     <None Include="ReleaseNotes.txt" />
     <None Include="Install.01.00.00.SqlDataProvider" />
     <None Include="R7.Documents.dnn" />
+    <None Include="DocumentSettingsInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
@@ -106,9 +107,9 @@
     <Compile Include="DocumentComparer.cs" />
     <Compile Include="components\DocumentInfo.cs" />
     <Compile Include="DocumentDisplayColumnInfo.cs" />
-    <Compile Include="DocumentSettingsInfo.cs" />
     <Compile Include="DocumentSortColumnInfo.cs" />
     <Compile Include="DownloadColumnTemplate.cs" />
+    <Compile Include="components\DocumentModuleBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
