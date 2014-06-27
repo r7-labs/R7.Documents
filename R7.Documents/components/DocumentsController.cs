@@ -50,6 +50,32 @@ namespace R7.Documents
 
 		}
 
+		public DocumentInfo GetDocument (int ItemId, int ModuleId)
+		{
+			DocumentInfo document;
+
+			using (var ctx = DataContext.Instance ())
+			{
+				document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
+					System.Data.CommandType.StoredProcedure, "GetDocument", ItemId, ModuleId);
+			}
+
+			return document;
+		}
+
+		public IEnumerable<DocumentInfo> GetDocuments (int ModuleId, int PortalId)
+		{
+			IEnumerable<DocumentInfo> documents;
+
+			using (var ctx = DataContext.Instance ())
+			{
+				documents = ctx.ExecuteQuery<DocumentInfo> (
+					System.Data.CommandType.StoredProcedure, "GetDocuments", ModuleId, PortalId);
+			}
+
+			return documents;
+		}
+
 		#region ModuleSearchBase implementaion
 
 		public override IList<SearchDocument> GetModifiedSearchDocuments (ModuleInfo modInfo, DateTime beginDate)
@@ -70,6 +96,7 @@ namespace R7.Documents
 		#region "Public Methods"
 
 
+		/*
 		public void AddDocument(DocumentInfo objDocument)
 		{
 			DataProvider.Instance().AddDocument(objDocument.ModuleId, objDocument.Title, objDocument.Url, objDocument.CreatedByUserId, objDocument.OwnedByUserId, objDocument.Category, objDocument.SortOrderIndex, objDocument.Description, objDocument.ForceDownload);
@@ -101,7 +128,7 @@ namespace R7.Documents
 		{
 			DataProvider.Instance().UpdateDocument(objDocument.ModuleId, objDocument.ItemId, objDocument.Title, objDocument.Url, objDocument.CreatedByUserId, objDocument.OwnedByUserId, objDocument.Category, objDocument.SortOrderIndex, objDocument.Description, objDocument.ForceDownload);
 		}
-
+*/
 		#endregion
 
 		#region "Optional Interfaces"
@@ -122,12 +149,13 @@ namespace R7.Documents
 		public DotNetNuke.Services.Search.SearchItemInfoCollection GetSearchItems(ModuleInfo ModInfo)
 		{
 			SearchItemInfoCollection SearchItemCollection = new SearchItemInfoCollection();
-			ArrayList Documents = GetDocuments(ModInfo.ModuleID, ModInfo.PortalID);
+			// ArrayList Documents = GetDocuments(ModInfo.ModuleID, ModInfo.PortalID);
+			var documents = GetObjects<DocumentInfo>(ModInfo.ModuleID); // PortalID!
 
 			// TODO: Add new fields
 
 			object objDocument = null;
-			foreach (object objDocument_loopVariable in Documents) {
+			foreach (object objDocument_loopVariable in documents) {
 				objDocument = objDocument_loopVariable;
 				SearchItemInfo SearchItem = default(SearchItemInfo);
 				var _with1 = (DocumentInfo)objDocument;
@@ -177,11 +205,12 @@ namespace R7.Documents
 			StringBuilder strXML = new StringBuilder("");
 		
 			try {
-				ArrayList arrDocuments = GetDocuments(ModuleID, objModule.PortalID);
-				if (arrDocuments.Count != 0) {
-					DocumentInfo objDocument = null;
+				var arrDocuments = GetObjects<DocumentInfo>(ModuleID); // objModule.PortalID!!!
+				//if (arrDocuments.Count != 0) {
+				if (arrDocuments.Any()) 
+				{
 					foreach (DocumentInfo objDocument_loopVariable in arrDocuments) {
-						objDocument = objDocument_loopVariable;
+						var objDocument = objDocument_loopVariable;
 						strXML.Append("<document>");
 						strXML.AppendFormat("<title>{0}</title>", XmlUtils.XMLEncode(objDocument.Title));
 						strXML.AppendFormat("<url>{0}</url>", XmlUtils.XMLEncode(objDocument.Url));
@@ -297,7 +326,7 @@ namespace R7.Documents
 				objDocument.SortOrderIndex = XmlUtils.GetNodeValueInt(xmlDocument, "sortorderindex");
 				objDocument.ForceDownload = XmlUtils.GetNodeValueBoolean(xmlDocument, "forcedownload");
 
-				AddDocument(objDocument);
+				Add<DocumentInfo>(objDocument);
 
 				// Update Tracking options
 				ModuleController objModules = new ModuleController();
