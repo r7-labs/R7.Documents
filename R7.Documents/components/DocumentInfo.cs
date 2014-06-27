@@ -79,14 +79,14 @@ namespace R7.Documents
 				try {
 					if (!DotNetNuke.Common.Utilities.Null.IsNull(Size)) {
 						if (Size > (1024 * 1024)) {
-							return String.Format("#,##0.00 MB", Size / (1024 * 1024));
+							return String.Format("{0:#,##0.00} MB", Size / 1024 / 1024);
 						} else {
-							return String.Format("#,##0.00 KB", Size / 1024);
+							return String.Format("{0:#,##0.00} KB", Size / 1024);
 						}
 					} else {
 						return Localization.GetString("Unknown");
 					}
-				} catch (Exception exc) {
+				} catch {
 					return Localization.GetString("Unknown");
 				}
 			}
