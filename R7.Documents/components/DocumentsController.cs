@@ -102,28 +102,6 @@ namespace R7.Documents
 			DataProvider.Instance().UpdateDocument(objDocument.ModuleId, objDocument.ItemId, objDocument.Title, objDocument.Url, objDocument.CreatedByUserId, objDocument.OwnedByUserId, objDocument.Category, objDocument.SortOrderIndex, objDocument.Description, objDocument.ForceDownload);
 		}
 
-		/*
-		public void AddDocumentsSettings(DocumentsSettingsInfo objDocumentsSettings)
-		{
-			DataProvider.Instance().AddDocumentsSettings(objDocumentsSettings.ModuleId, objDocumentsSettings.ShowTitleLink, objDocumentsSettings.SortOrder, objDocumentsSettings.DisplayColumns, objDocumentsSettings.UseCategoriesList, objDocumentsSettings.DefaultFolder, objDocumentsSettings.CategoriesListName, objDocumentsSettings.AllowUserSort);
-		}
-
-		public void DeleteDocumentsSettings(int ModuleID)
-		{
-			DataProvider.Instance().DeleteDocumentsSettings(ModuleID);
-		}
-
-		public DocumentsSettingsInfo GetDocumentsSettings(int ModuleId)
-		{
-			return (DocumentsSettingsInfo)CBO.FillObject(DataProvider.Instance().GetDocumentsSettings(ModuleId), typeof(DocumentsSettingsInfo));
-		}
-
-		public void UpdateDocumentsSettings(DocumentsSettingsInfo objDocumentsSettings)
-		{
-			DataProvider.Instance().UpdateDocumentsSettings(objDocumentsSettings.ModuleId, objDocumentsSettings.ShowTitleLink, objDocumentsSettings.SortOrder, objDocumentsSettings.DisplayColumns, objDocumentsSettings.UseCategoriesList, objDocumentsSettings.DefaultFolder, objDocumentsSettings.CategoriesListName, objDocumentsSettings.AllowUserSort);
-		}
-*/
-
 		#endregion
 
 		#region "Optional Interfaces"
