@@ -1,0 +1,171 @@
+﻿-- NOTE: To manually execute this script you must 
+-- replace {databaseOwner} and {objectQualifier} with real values. 
+-- Defaults is "dbo." for database owner and "" for object qualifier 
+
+-- Create tables
+
+IF (SELECT COLUMNPROPERTY( OBJECT_ID('{databaseOwner}{objectQualifier}Documents'),'ForceDownload','AllowsNull')) IS NULL 
+	ALTER TABLE {databaseOwner}{objectQualifier}Documents 
+		ADD ForceDownload BIT 
+GO
+
+UPDATE {databaseOwner}{objectQualifier}Documents 
+SET ForceDownload = 0
+GO
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}UpdateDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	DROP PROCEDURE {databaseOwner}{objectQualifier}UpdateDocument
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}UpdateDocument
+	@ModuleId		  INT,
+	@ItemId           INT,
+	@Title            nvarchar(150),
+	@URL              nvarchar(250),
+	@UserId           INT,
+	@Category         nvarchar(50),
+	@OwnedByUserID    INT,
+	@SortOrderIndex   INT, 
+	@Description      nvarchar(255),
+	@ForceDownload BIT
+AS
+UPDATE {databaseOwner}{objectQualifier}Documents
+SET    Title             = @Title,
+       URL               = @URL,
+       Category          = @Category,
+       OwnedByUserID     = @OwnedByUserID,
+       ModifiedByUserID  = @UserId,
+       ModifiedDate      = getdate(),
+       SortOrderIndex    = @SortOrderIndex,
+       Description       = @Description,
+	   ForceDownload	 = @ForceDownload
+WHERE  ItemId = @ItemId
+	AND ModuleId = @ModuleId
+GO
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocument
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}GetDocument
+	@ItemId   INT,
+	@ModuleId INT
+AS
+SELECT {objectQualifier}Documents.Itemid,
+       {objectQualifier}Documents.Moduleid,
+       {objectQualifier}Documents.Title,
+       {objectQualifier}Documents.Url,
+       {objectQualifier}Documents.Category,
+       CreatedByUser.FirstName + ' ' + CreatedByUser.LastName AS "CreatedByUser",
+       OwnedByUser.FirstName + ' ' + OwnedByUser.LastName AS "OwnedByUser",
+       ModifiedByUser.FirstName + ' ' + ModifiedByUser.LastName AS "ModifiedByUser",       
+       {objectQualifier}Files.Size,
+       {objectQualifier}Files.ContentType,
+       {objectQualifier}UrlTracking.TrackClicks,
+       {objectQualifier}UrlTracking.Clicks,
+       {objectQualifier}UrlTracking.NewWindow,
+       {objectQualifier}Documents.OwnedByUserID, 
+       {objectQualifier}Documents.ModifiedByUserID, 
+       {objectQualifier}Documents.ModifiedDate,
+       {objectQualifier}Documents.CreatedByUserID, 
+       {objectQualifier}Documents.CreatedDate, 
+       {objectQualifier}Documents.SortOrderIndex,
+       {objectQualifier}Documents.Description,
+	   {objectQualifier}Documents.ForceDownload
+FROM {databaseOwner}{objectQualifier}Documents
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on {objectQualifier}Documents.CreatedByUserID = CreatedByUser.UserId 
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on {objectQualifier}Documents.OwnedByUserID = OwnedByUser.UserId
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users  AS ModifiedByUser on {objectQualifier}Documents.ModifiedByUserID = ModifiedByUser.UserId
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking on {objectQualifier}Documents.URL = {objectQualifier}UrlTracking.Url and {objectQualifier}UrlTracking.ModuleId = @ModuleID
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Files on {objectQualifier}Documents.URL = 'fileid=' +
+convert(varchar,{databaseOwner}{objectQualifier}Files.FileID)
+WHERE  {databaseOwner}{objectQualifier}Documents.ItemId = @ItemId
+and    {databaseOwner}{objectQualifier}Documents.ModuleId = @ModuleId
+
+GO
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocuments') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocuments
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}GetDocuments
+	@ModuleId INT,
+	@PortalId INT
+AS
+SELECT {objectQualifier}Documents.ItemId,
+        {objectQualifier}Documents.Moduleid,
+       {objectQualifier}Documents.Title,
+       {objectQualifier}Documents.Url,
+       CreatedByUser.FirstName + ' ' + CreatedByUser.LastName AS "CreatedByUser",
+       OwnedByUser.FirstName + ' ' + OwnedByUser.LastName AS "OwnedByUser",
+       ModifiedByUser.FirstName + ' ' + ModifiedByUser.LastName AS "ModifiedByUser",       
+       {objectQualifier}Documents.Category,
+       {objectQualifier}Files.Size,
+       {objectQualifier}UrlTracking.TrackClicks,
+       {objectQualifier}UrlTracking.Clicks,
+       {objectQualifier}UrlTracking.NewWindow,
+       {objectQualifier}Documents.OwnedByUserID, 
+       {objectQualifier}Documents.ModifiedByUserID, 
+       {objectQualifier}Documents.ModifiedDate,
+       {objectQualifier}Documents.CreatedByUserID, 
+       {objectQualifier}Documents.CreatedDate, 
+       {objectQualifier}Documents.SortOrderIndex,
+       {objectQualifier}Documents.Description,
+	   {objectQualifier}Documents.ForceDownload
+FROM {databaseOwner}{objectQualifier}Documents
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on {databaseOwner}{objectQualifier}Documents.CreatedByUserID = CreatedByUser.UserId 
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on {databaseOwner}{objectQualifier}Documents.OwnedByUserID = OwnedByUser.UserId
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users  AS ModifiedByUser on {databaseOwner}{objectQualifier}Documents.ModifiedByUserID = ModifiedByUser.UserId
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Files on {databaseOwner}{objectQualifier}Documents.URL = 'fileid=' + convert(varchar,{databaseOwner}{objectQualifier}Files.FileID)
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking on {databaseOwner}{objectQualifier}Documents.URL = {databaseOwner}{objectQualifier}UrlTracking.Url and {databaseOwner}{objectQualifier}UrlTracking.ModuleId = @ModuleID
+WHERE  {objectQualifier}Documents.ModuleId = @ModuleId
+ORDER by {objectQualifier}Documents.Title
+GO
+
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}AddDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	DROP PROCEDURE {databaseOwner}{objectQualifier}AddDocument
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}AddDocument
+	@ModuleId         INT,
+	@Title            NVARCHAR(150),
+	@URL              NVARCHAR(250),
+	@UserId           INT,
+	@OwnedByUserId    INT,
+	@Category         NVARCHAR(50),
+	@SortOrderIndex   INT, 
+	@Description      NVARCHAR(255),
+	@ForceDownload	BIT
+AS
+INSERT INTO {databaseOwner}{objectQualifier}Documents (
+  ModuleId,
+  Title,
+  URL,
+  CreatedByUserID,
+  CreatedDate,
+  Category,
+  OwnedByUserID,
+  ModifiedByUserID,
+  ModifiedDate,
+  SortOrderIndex,
+  Description,
+  ForceDownload
+)
+VALUES (
+  @ModuleId,
+  @Title,
+  @URL,
+  @UserId,
+  getdate(),
+  @Category,
+  @OwnedByUserId,
+  @UserId,
+  getdate(),
+  @SortOrderIndex,
+  @Description,
+  @ForceDownload
+)
+SELECT SCOPE_IDENTITY()
+GO
+

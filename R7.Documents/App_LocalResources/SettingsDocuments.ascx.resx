@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="plUseCategoriesList.Text" xml:space="preserve">
+    <value>Use Categories List?</value>
+  </data>
+  <data name="plUseCategoriesList.Help" xml:space="preserve">
+    <value>Controls whether to allow free-text entry of the document category, or to use the 'Document Categories' list defined in the host lists page.</value>
+  </data>
+  <data name="plShowTitleLink.Text" xml:space="preserve">
+    <value>Show Title Link?</value>
+  </data>
+  <data name="plShowTitleLink.Help" xml:space="preserve">
+    <value>Controls whether to display the title as a download link, or as plain text.</value>
+  </data>
+  <data name="plDisplayColumns.Text" xml:space="preserve">
+    <value>Display Columns</value>
+  </data>
+  <data name="plDisplayColumns.Help" xml:space="preserve">
+    <value>Use the visible checkboxes to switch display of columns on and off.  You can set the display order of columns using the up and down arrows.</value>
+  </data>
+  <data name="plAllowUserSort.Text" xml:space="preserve">
+    <value>Allow users to sort?</value>
+  </data>
+  <data name="plAllowUserSort.Help" xml:space="preserve">
+    <value>Controls whether to allow users to sort by clicking column headers.</value>
+  </data>
+  <data name="plSorting.Text" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="plSorting.Help" xml:space="preserve">
+    <value>Add/remove sort columns to the list to sort the documents module by the selected columns.</value>
+  </data>
+  <data name="Name.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Visible.Header" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="Title.Header" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="CreatedBy.Header" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="DownloadLink.Header" xml:space="preserve">
+    <value>Download Link</value>
+  </data>
+  <data name="CreatedDate.Header" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="Description.Header" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="SortIndex.Header" xml:space="preserve">
+    <value>Sort Index</value>
+  </data>
+  <data name="ModifiedBy.Header" xml:space="preserve">
+    <value>Modified By</value>
+  </data>
+  <data name="ModifiedDate.Header" xml:space="preserve">
+    <value>Modified Date</value>
+  </data>
+  <data name="Owner.Header" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="Category.Header" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="LastUpdated.Header" xml:space="preserve">
+    <value>Last Updated</value>
+  </data>
+  <data name="Size.Header" xml:space="preserve">
+    <value>Size (Kb)</value>
+  </data>
+  <data name="ModuleHelp.Text" xml:space="preserve">
+    <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
+&lt;p&gt;The Documents Module produces a list of documents with links to view 
+  (depending on user's file associations) or download the document. Documents can 
+  be located within the portal, or can be a link to a document on another website 
+  or portal. 
+&lt;/p&gt; 
+&lt;p&gt;
+  The document title, category, description, name of the user who created the document, 
+  document owner, the user who last updated the document, the date that the document was added or last updated, 
+  and the file size (internal documents only) are automatically available for 
+  each listing. Link click tracking and logging are also available.
+&lt;/p&gt;
+&lt;p&gt;
+  In the module settings page, you can configure the columns that are displayed 
+  and the sort order of the documents listed.  The documents module supports the
+  DotNetNuke core "secure storage" feature, so documents stored securely are not
+  available to unauthorized users.
+&lt;/p&gt;
+  
+&lt;h1&gt;Document Module Settings&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;b&gt;Use Documents Categories List:&lt;/b&gt;  Sets whether to use a free-text field for the
+    document category field, or use a list defined in the Host-&gt;Lists page.  If you
+    want to use a drop-down list, create a list in the Lists page called "Document 
+    Categories".
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;b&gt;Show Title Link:&lt;/b&gt;  Sets whether or not to show the document title (if included in
+    the display columns) as a hyperlink to the document.
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;b&gt;Display Columns: &lt;/b&gt;  Sets which columns to display, and allows you to set what
+    order to display the columns in.  
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;b&gt;Sorting: &lt;/b&gt;  Sets the sort order that documents are displayed in.  You can
+    add multiple sort orders to add more than one "key" to sort by.
+  &lt;/li&gt;
+&lt;/ol&gt;
+  
+&lt;h1&gt;Add a Document&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    Add a &lt;b&gt;Documents&lt;/b&gt; module, or go to an existing &lt;b&gt;Documents&lt;/b&gt;
+  module.
+  &lt;li&gt;
+    Click &lt;b&gt;Add New Document&lt;/b&gt;.
+  &lt;li&gt;
+    At &lt;b&gt;Title&lt;/b&gt;, enter a title for the document.
+  &lt;li&gt;
+    At &lt;b&gt;Link Type&lt;/b&gt;, select &lt;b&gt;URL&lt;/b&gt; or &lt;b&gt;File&lt;/b&gt; and then at &lt;b&gt;Link&lt;/b&gt;
+  select or enter the required URL or file.
+  &lt;li&gt;
+    At &lt;b&gt;Track Number Of Times This Link Is Clicked?&lt;/b&gt;
+  (optional), check the box if required.
+  &lt;li&gt;
+    At &lt;b&gt;Log The User, Date, And Time For Every Link Click&lt;/b&gt;
+  (optional), check the box if required.
+  &lt;li&gt;
+    At &lt;b&gt;Category&lt;/b&gt;
+  (optional), enter a category for the document.
+  &lt;li&gt;
+    Click &lt;b&gt;Update&lt;/b&gt;.
+&lt;/ol&gt;
+</value>
+  </data>
+  <data name="ControlTitle_settings.Text" xml:space="preserve">
+    <value>Documents Module Settings</value>
+  </data>
+  <data name="cmdAdd.Text" xml:space="preserve">
+    <value>Add Sort Order</value>
+  </data>
+  <data name="cmdDelete.Text" xml:space="preserve">
+    <value>Delete Sort Order</value>
+  </data>
+  <data name="cmdUp.Text" xml:space="preserve">
+    <value>Move Up</value>
+  </data>
+  <data name="cmdDown.Text" xml:space="preserve">
+    <value>Move Down</value>
+  </data>
+  <data name="plDefaultFolder.Help" xml:space="preserve">
+    <value>Select a folder to serve as the default location for new documents</value>
+  </data>
+  <data name="plDefaultFolder.Text" xml:space="preserve">
+    <value>Default Folder</value>
+  </data>
+  <data name="Root.Text" xml:space="preserve">
+    <value>Root</value>
+  </data>
+  <data name="plCategoriesListName.Help" xml:space="preserve">
+    <value>Select the name of the list you want to use for document categories</value>
+  </data>
+  <data name="plCategoriesListName.Text" xml:space="preserve">
+    <value>Categories List Name</value>
+  </data>
+  <data name="lnkEditLists.Text" xml:space="preserve">
+    <value>List Editor</value>
+  </data>
+  <data name="msgNoListsAvailable.Text" xml:space="preserve">
+    <value>There are no lists available for use.  Use the List Editor to manage lists.</value>
+  </data>
+  <data name="SortOrderAscending.Text" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="SortOrderDescending.Text" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="Clicks.Header" xml:space="preserve">
+    <value>Clicks</value>
+  </data>
+  <data name="NoListAccess.Text" xml:space="preserve">
+    <value>In order to create/edit a list you must contact your hosting provider.</value>
+  </data>
+  <data name="UnableToFindLists.Text" xml:space="preserve">
+    <value>You can manage lists under "Host" -&gt; "Lists"</value>
+  </data>
+</root>

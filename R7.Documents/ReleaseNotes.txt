@@ -1,0 +1,12 @@
+﻿<!-- 
+<h3>Version 01.00.01</h3>
+<p>This is the stabilization release for 01.00.00.</p>
+<ul>
+	<li>Added new feature.</li>
+	<li>Fixed bug.</li>
+</ul>
+-->
+
+<h3>Version 01.00.00</h3>
+<p>This is the initial release.</p>
+

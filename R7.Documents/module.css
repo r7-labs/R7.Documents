@@ -1,0 +1,18 @@
+﻿/* Original */
+.DNN_Documents TD
+{
+  padding: 4px;
+}
+
+.SizeCell, .ClicksCell
+{
+	text-align:right;
+}
+
+.dnnEditDocs{width:100%;margin:2em auto;}
+	.dnnEditDocs .dnnFormItem input[type=checkbox], .dnnTabsModule .dnnFormItem input[type=radio]{width:auto;}
+	.dnnEditDocs .dnnRight{display:block;width: 68%;}
+	.dnnEditDocs .urlControl br{display:block;}
+	.dnnEditDocs .urlControl > label{display:block;float: none;text-align:left;}
+	
+	

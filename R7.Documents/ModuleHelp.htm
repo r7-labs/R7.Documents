@@ -1,0 +1,74 @@
+﻿<h1>About the Documents Module</h1>
+<p>The Documents Module produces a list of documents with links to view or 
+  download the document (depending on the user's browser settings). Documents can 
+  be located within the portal, or can be a link to another website or portal.
+</p>
+<p>
+  The document title, category, description, document owner, name of the user who 
+  created the document, the user who last updated the document, creation date, 
+  the date that the document was added or last updated, and the file size 
+  (internal documents only) are available for each listing. Link click tracking 
+  and logging are also available.
+</p>
+<p>
+  In the module settings page, you can configure the columns that are displayed, 
+  the column order&nbsp;and the sort order of the documents listed. The documents 
+  module supports the DotNetNuke core "secure storage" feature, so that documents 
+  stored securely are not available to unauthorized users.
+</p>
+<h1>Document Module Settings</h1>
+<ol>
+  <li>
+    <b>Use Documents Categories List:</b>
+  Sets whether to use a free-text field for the document category field, or use a 
+  list defined in the Host-&gt;Lists page. If you want to use a drop-down list, 
+  create a list in the Lists page called "Document Categories".
+  <li>
+    <b>Show Title Link:</b>
+  Sets whether or not to show the document title (if included in the display 
+  columns) as a hyperlink to the document.
+  <li>
+    <b>Display Columns: </b>
+  Sets which columns to display, and allows you to set what order to display the 
+  columns in.
+  <li>
+    <b>Sorting: </b>Sets the sort order that documents are displayed in. You can 
+    add multiple sort orders to add more than one "key" to sort by.
+  </li>
+</ol>
+<h1>Add a Document</h1>
+<ol>
+  <li>
+    Add a <b>Documents</b> module, or go to an existing <b>Documents</b>
+  module.
+  <li>
+    Click <b>Add New Document</b>.
+  <li>
+    At <b>Title</b>, enter a title for the document.
+  <li>
+    At <b>Link Type</b>, select <b>URL</b> or <b>File</b> and then at <b>Link</b>
+  select or enter the required URL or file.
+  <li>
+    At <b>Track Number Of Times This Link Is Clicked?</b>
+  (optional), check the box if required.
+  <li>
+    At <b>Log The User, Date, And Time For Every Link Click</b>
+  (optional), check the box if required.
+  <li>
+    At <b>Category</b>
+  (optional), enter a category for the document.
+  <li>
+    Click <b>Update</b>.</li>
+</ol>
+<h1>CSS Styling for the Documents Module</h1>
+<P>The documents module renders an "outside" DIV tag with a CLASS attribute of 
+  "DNN_Documents". Each header cell has a CLASS attribute of [Name]Header, where 
+  [Name] is the column name - for example "TitleHeader", "SizeHeader", 
+  "CategoryHeader". Each data cell has a CLASS attribute of [Name]Item, for 
+  example "TitleItem", "SizeItem", "CategoryItem".</P>
+<P>This allows skin developers to control the CSS style of individual columns. 
+  For example, use the following CSS to render the size column in red and set the 
+  column width to 50 pixels:</P>
+<P><FONT face="Courier New" size="2">&nbsp; .DNN_Documents .SizeItem {color: red; 
+    width: 50px} </FONT>
+</P>
