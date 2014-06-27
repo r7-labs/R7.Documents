@@ -18,11 +18,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 using System;
+using System.Linq;
 using DotNetNuke;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using System.Collections;
+using System.Collections.Generic;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Security;
 using System.Web.UI.WebControls;
@@ -342,8 +344,9 @@ namespace R7.Documents
 			}
 
 			if (mobjDocumentList == null) {
-				objDocuments = new DocumentsController();
-				mobjDocumentList = objDocuments.GetDocuments(ModuleId, PortalId);
+			//	mobjDocumentList = (ArrayList) DocumentsController.GetObjects<DocumentInfo>(ModuleId); // PortalId!!!
+
+				mobjDocumentList = new ArrayList(DocumentsController.GetDocuments(ModuleId, PortalId).ToArray());
 
 				// Check security on files
 				int intCount = 0;

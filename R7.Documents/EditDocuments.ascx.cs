@@ -110,8 +110,7 @@ namespace R7.Documents
 
 					if (!Null.IsNull(ItemID)) {
 						// Read document information
-						DocumentsController objDocuments = new DocumentsController();
-						DocumentInfo objDocument = objDocuments.GetDocument(ItemID, ModuleId);
+						var objDocument = DocumentsController.GetDocument(ItemID, ModuleId);
 
 						// Read values from documentInfo object on to page
 						if ((objDocument != null)) {
@@ -380,8 +379,7 @@ namespace R7.Documents
 			try {
 
 				if (!Null.IsNull(ItemID)) {
-					DocumentsController objdocuments = new DocumentsController();
-					objdocuments.DeleteDocument(this.ModuleId, ItemID);
+					DocumentsController.Delete<DocumentInfo>(ItemID); // ModuleID!
 				}
 
 				SynchronizeModule();
@@ -444,11 +442,8 @@ namespace R7.Documents
 						}
 					}
 
-					DocumentInfo objDocument = null;
-					DocumentsController objDocuments = new DocumentsController();
-
 					// Get existing document record
-					objDocument = objDocuments.GetDocument(ItemID, ModuleId);
+					var objDocument = DocumentsController.GetDocument(ItemID, ModuleId);
 
 					if (objDocument == null) {
 						// New record
@@ -497,9 +492,9 @@ namespace R7.Documents
 					// Create an instance of the Document DB component
 
 					if (Null.IsNull(ItemID)) {
-						objDocuments.AddDocument(objDocument);
+						DocumentsController.Add<DocumentInfo>(objDocument);
 					} else {
-						objDocuments.UpdateDocument(objDocument);
+						DocumentsController.Update<DocumentInfo>(objDocument);
 					}
 
 					// url tracking
@@ -556,11 +551,8 @@ namespace R7.Documents
 			PopulateOwnerList();
 
 			try {
-				DocumentInfo objDocument = null;
-				DocumentsController objDocuments = new DocumentsController();
-
 				// Get existing document record
-				objDocument = objDocuments.GetDocument(ItemID, ModuleId);
+				var objDocument = DocumentsController.GetDocument(ItemID, ModuleId);
 
 				try {
 					if (objDocument == null) {
