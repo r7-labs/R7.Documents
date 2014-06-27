@@ -35,7 +35,7 @@ namespace R7.Documents
 	public class DocumentsPortalModuleBase : PortalModuleBase
 	{
 		private DocumentsController ctrl = null;
-		protected DocumentsController EmployeeController 
+		protected DocumentsController DocumentsController 
 		{
 			get { return ctrl ?? (ctrl = new DocumentsController ()); }
 		}
@@ -53,7 +53,7 @@ namespace R7.Documents
 	public class DocumentsModuleSettingsBase : ModuleSettingsBase
 	{
 		private DocumentsController ctrl = null;
-		protected DocumentsController EmployeeController 
+		protected DocumentsController DocumentsController 
 		{
 			get { return ctrl ?? (ctrl = new DocumentsController ()); }
 		}
