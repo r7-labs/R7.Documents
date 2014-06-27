@@ -88,7 +88,7 @@ namespace R7.Documents
 
 		public bool UseCategoriesList 
 		{
-			get { return ReadSetting<bool> ("Documents_UseCategoriesList", true, false); }
+			get { return ReadSetting<bool> ("Documents_UseCategoriesList", false, false); }
 			set { WriteSetting<bool> ("Documents_UseCategoriesList", value, false);  }
 		}
 		
