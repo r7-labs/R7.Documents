@@ -371,6 +371,8 @@ namespace R7.Documents
 							// remove document from the list
 							mobjDocumentList.Remove(objDocument);
 						}
+
+						objDocument.OnLocalize += new LocalizeHandler(OnLocalize);
 					}
 				}
 
@@ -386,6 +388,11 @@ namespace R7.Documents
 			IsReadComplete = true;
 		}
 
+		private string OnLocalize (string text)
+		{
+			return Localization.GetString(text, this.LocalResourceFile);
+		}
+		
 		private bool IsReadComplete {
 			get { return mblnReadComplete; }
 			set { mblnReadComplete = value; }
@@ -507,8 +514,7 @@ namespace R7.Documents
 			PreRender += Page_PreRender;
 			Load += Page_Load;
 		}
+
 		#endregion
-
 	}
-
 }

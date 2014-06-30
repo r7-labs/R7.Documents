@@ -122,4 +122,13 @@
   <data name="Clicks.Text" xml:space="preserve">
     <value>Clicks</value>
   </data>
+	<data name="Megabytes.Text" xml:space="preserve">
+    <value>Mb</value>
+  </data>
+	<data name="Kilobytes.Text" xml:space="preserve">
+    <value>Kb</value>
+  </data>
+	<data name="Unknown.Text" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
 </root>

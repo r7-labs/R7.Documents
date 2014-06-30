@@ -33,6 +33,8 @@ using DotNetNuke.Services.FileSystem;
 
 namespace R7.Documents
 {
+	public delegate string LocalizeHandler(string text); 
+
 	/// <summary>
 	/// Holds the information about a single document
 	/// </summary>
@@ -184,6 +186,17 @@ namespace R7.Documents
 				return _formatIcon;
 			} 
 		}
+		
+		
+		public event LocalizeHandler OnLocalize;
+
+		private string Localize (string text)
+		{
+			if (OnLocalize != null)
+				return OnLocalize(text);
+			else
+				return text;
+		}
 
 		/// <summary>
 		/// Gets the size of the format.
@@ -200,21 +213,23 @@ namespace R7.Documents
 					{
 						if (Size > (1024 * 1024))
 						{
-							return String.Format ("{0:#,##0.00} MB", Size / 1024 / 1024);
+							// return String.Format ("{0:#,##0.00} MB", Size / 1024 / 1024);
+							return string.Format ("{0:#,##0.00} {1}", Size / 1024 / 1024, Localize("Megabytes.Text"));
 						}
 						else
 						{
-							return String.Format ("{0:#,##0.00} KB", Size / 1024);
+							// return String.Format ("{0:#,##0.00} KB", Size / 1024);
+							return string.Format ("{0:#,##0.00} {1}", Size / 1024, Localize("Kilobytes.Text"));
 						}
 					}
 					else
 					{
-						return Localization.GetString ("Unknown");
+						return Localize ("Unknown.Text");
 					}
 				}
 				catch
 				{
-					return Localization.GetString ("Unknown");
+					return Localize ("Unknown.Text");
 				}
 			}
 		}
