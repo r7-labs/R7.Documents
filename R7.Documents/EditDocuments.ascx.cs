@@ -491,9 +491,15 @@ namespace R7.Documents
 
 					// Create an instance of the Document DB component
 
-					if (Null.IsNull(ItemID)) {
+					if (Null.IsNull(ItemID)) 
+					{
+						objDocument.CreatedDate = DateTime.Now;
+						objDocument.ModifiedDate = objDocument.CreatedDate;
 						DocumentsController.Add<DocumentInfo>(objDocument);
-					} else {
+					} 
+					else 
+					{
+						objDocument.ModifiedDate = DateTime.Now;
 						DocumentsController.Update<DocumentInfo>(objDocument);
 					}
 
