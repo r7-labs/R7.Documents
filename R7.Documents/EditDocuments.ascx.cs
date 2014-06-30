@@ -505,7 +505,7 @@ namespace R7.Documents
 					UrlController objUrls = new UrlController();
 					objUrls.UpdateUrl(PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
-					SynchronizeModule();
+					Utils.SynchronizeModule(this);
 					DataCache.RemoveCache(this.CacheKey + ";anon-doclist");
 
 					// Redirect back to the portal home page
