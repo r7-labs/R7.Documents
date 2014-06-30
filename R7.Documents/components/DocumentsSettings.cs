@@ -65,6 +65,7 @@ namespace R7.Documents
 			get 
 			{ 
 				return ReadSetting<string> ("Documents_DisplayColumns", 
+					DocumentsDisplayColumnInfo.COLUMN_ICON + ";true," + 
 					DocumentsDisplayColumnInfo.COLUMN_TITLE + ";true," + 
 					DocumentsDisplayColumnInfo.COLUMN_OWNEDBY + ";true," + 
 					DocumentsDisplayColumnInfo.COLUMN_CATEGORY + ";true," + 

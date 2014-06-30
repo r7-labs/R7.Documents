@@ -19,13 +19,17 @@
 //
 
 using System;
+using System.IO;
 using System.Configuration;
 using System.Data;
 using DotNetNuke;
 using DotNetNuke.Data;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Icons;
+using DotNetNuke.Entities.Portals;
 using DotNetNuke.ComponentModel.DataAnnotations;
 using DotNetNuke.Services.Localization;
+using DotNetNuke.Services.FileSystem;
 
 namespace R7.Documents
 {
@@ -47,6 +51,7 @@ namespace R7.Documents
 		#region Private Members
 
 		private int _clicks;
+		private string _formatIcon;
 
 		#endregion
 
@@ -108,6 +113,50 @@ namespace R7.Documents
 		
 		#region Custom properties
 		
+		/// <summary>
+		/// Formats document's type icon image.
+		/// </summary>
+		/// <value>Document's type icon image HTML code.</value>
+		[IgnoreColumn]
+		public string FormatIcon
+		{ 
+			get
+			{
+				if (_formatIcon == null)
+				{
+					_formatIcon =  "";
+					
+					if (Url.ToUpperInvariant ().StartsWith ("FILEID="))
+					{
+						var fileId = Utils.ParseToNullableInt (Url.Substring ("FILEID=".Length));
+						if (fileId != null)
+						{
+							var fileInfo = FileManager.Instance.GetFile (fileId.Value);
+							if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension))
+							{
+								// Optimistic way 
+								_formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+									IconController.IconURL("Ext" + fileInfo.Extension), fileInfo.Extension.ToLowerInvariant ());
+								
+								/* 
+								// Less optimistic way
+								var iconFile = IconController.IconURL ("Ext" + file.Extension);
+
+								if (File.Exists (PortalSettings.Current.HomeDirectoryMapPath + "../.." + iconFile))
+								{
+
+									_icon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+										iconFile, file.Extension.ToLowerInvariant ());
+								}*/
+							}
+						}
+					}
+				}
+
+				return _formatIcon;
+			} 
+		}
+
 		/// <summary>
 		/// Gets the size of the format.
 		/// </summary>
