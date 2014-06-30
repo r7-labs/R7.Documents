@@ -39,6 +39,9 @@
   <data name="Size.Text" xml:space="preserve">
     <value>Size</value>
   </data>
+	<data name="FileName.Text" xml:space="preserve">
+    <value>File Name</value>
+  </data>
   <data name="ModuleHelp.Text" xml:space="preserve">
     <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
 &lt;p&gt;The Documents Module produces a list of documents with links to view or 

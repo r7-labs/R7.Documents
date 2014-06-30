@@ -52,6 +52,7 @@ namespace R7.Documents
 
 		private int _clicks;
 		private string _formatIcon;
+		private string _fileName;
 
 		#endregion
 
@@ -112,7 +113,34 @@ namespace R7.Documents
 		#endregion
 		
 		#region Custom properties
-		
+
+		[IgnoreColumn]
+		public string FileName
+		{
+			get
+			{
+				if (_fileName == null)
+				{
+					_fileName = "";
+
+					if (Url.ToUpperInvariant ().StartsWith ("FILEID="))
+					{
+						var fileId = Utils.ParseToNullableInt (Url.Substring ("FILEID=".Length));
+						if (fileId != null)
+						{
+							var fileInfo = FileManager.Instance.GetFile (fileId.Value);
+							if (fileInfo != null)
+							{
+								_fileName = fileInfo.RelativePath;
+							}
+						}
+					}
+				}
+			
+				return _fileName;
+			}
+		}
+
 		/// <summary>
 		/// Formats document's type icon image.
 		/// </summary>

@@ -321,6 +321,10 @@ namespace R7.Documents
 							AddDocumentColumn(Localization.GetString("Icon", LocalResourceFile), "Icon", "FormatIcon");
 
 							break;
+						case DocumentsDisplayColumnInfo.COLUMN_FILENAME:
+							AddDocumentColumn(Localization.GetString("FileName", LocalResourceFile), "FileName", "FileName");
+
+							break;
 						case DocumentsDisplayColumnInfo.COLUMN_TITLE:
 							if (DocumentsSettings.ShowTitleLink) {
 								AddDownloadLink(Localization.GetString("Title", LocalResourceFile), "ctlTitle");
