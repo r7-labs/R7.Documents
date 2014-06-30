@@ -51,12 +51,15 @@
     </div>
     <div class="dnnFormItem">
         <dnn:label id="plSorting" runat="server" controlname="" suffix=":" />
-        <asp:DropDownList id="lstSortFields" runat="server" />
-        <asp:DropDownList ID="cboSortOrderDirection" runat="server" />
+        <asp:DropDownList id="lstSortFields" runat="server" Style="width:250px" />
+	</div>
+    <div class="dnnFormItem">
+        <label class="dnnLabel"></label>
+        <asp:DropDownList ID="cboSortOrderDirection" runat="server" Style="width:250px" />
         <asp:LinkButton id="lnkAddSortColumn" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdAdd" />
     </div>
     <div class="dnnFormItem">
-        <label></label>
+        <label class="dnnLabel"></label>
         <asp:DataGrid id="grdSortColumns" runat="server" GridLines="None" AutoGenerateColumns="False" ShowHeader="False" Width="400px" CssClass="dnnGrid">
             <headerstyle cssclass="dnnGridHeader" verticalalign="Top" />
             <itemstyle cssclass="dnnGridItem" horizontalalign="Left" />
