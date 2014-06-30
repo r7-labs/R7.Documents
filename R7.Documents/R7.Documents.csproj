@@ -74,7 +74,6 @@
     <None Include="ReleaseNotes.txt" />
     <None Include="Install.01.00.00.SqlDataProvider" />
     <None Include="R7.Documents.dnn" />
-    <None Include="DocumentSettingsInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
