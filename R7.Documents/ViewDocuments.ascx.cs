@@ -371,9 +371,8 @@ namespace R7.Documents
 							// remove document from the list
 							mobjDocumentList.Remove(objDocument);
 						}
-
-						objDocument.OnLocalize += new LocalizeHandler(OnLocalize);
 					}
+					objDocument.OnLocalize += new LocalizeHandler(OnLocalize);
 				}
 
 				// Only write to the cache if the user is not logged in
