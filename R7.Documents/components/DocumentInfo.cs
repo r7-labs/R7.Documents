@@ -116,6 +116,7 @@ namespace R7.Documents
 		
 		#region Custom properties
 
+		// REVIEW: Rename to RawUrl?
 		[IgnoreColumn]
 		public string FileName
 		{
@@ -136,6 +137,10 @@ namespace R7.Documents
 								_fileName = fileInfo.RelativePath;
 							}
 						}
+					}
+					else // Url
+					{
+						_fileName = Url;
 					}
 				}
 			
