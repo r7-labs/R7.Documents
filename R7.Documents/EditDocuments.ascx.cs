@@ -380,7 +380,7 @@ namespace R7.Documents
 					DocumentsController.Delete<DocumentInfo>(ItemID); // ModuleID!
 				}
 
-				Utils.SynchronizeModule();
+				Utils.SynchronizeModule(this);
 				DataCache.RemoveCache(this.CacheKey + ";anon-doclist");
 
 				// Redirect back to the portal home page
