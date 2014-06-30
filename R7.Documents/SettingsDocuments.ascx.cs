@@ -99,13 +99,13 @@ namespace R7.Documents
 
 					try {
 						cboDefaultFolder.SelectedValue = DocumentsSettings.DefaultFolder;
-					} catch (Exception exc) {
+					} catch {
 						// suppress exception.  Can be caused if the selected folder has been deleted
 					}
 
 					try {
 						cboCategoriesList.SelectedValue = DocumentsSettings.CategoriesListName;
-					} catch (Exception ex) {
+					} catch {
 						// suppress exception.  Can be caused if the selected list has been deleted
 					}
 
@@ -553,7 +553,7 @@ namespace R7.Documents
 				try {
 					var _with7 = new DotNetNuke.Entities.Tabs.TabController();
 					lnkEditLists.NavigateUrl = _with7.GetTabByName("Lists", DotNetNuke.Common.Utilities.Null.NullInteger).FullUrl;
-				} catch (Exception ex) {
+				} catch {
 					//Unable to locate "Lists" tab
 					lblCannotEditLists.Text = Localization.GetString("UnableToFindLists", base.LocalResourceFile);
 					lblCannotEditLists.Visible = true;

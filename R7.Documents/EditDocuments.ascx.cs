@@ -170,7 +170,7 @@ namespace R7.Documents
 						try {
 							lstOwner.SelectedValue = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().UserID.ToString();
 							lblOwner.Text = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().DisplayName;
-						} catch (Exception exc) {
+						} catch {
 							// suppress error (defensive code only, would only happen if the owner
 							// user has been deleted)
 						}
@@ -564,11 +564,11 @@ namespace R7.Documents
 					} else {
 						lstOwner.SelectedValue = objDocument.OwnedByUserId.ToString();
 					}
-				} catch (Exception exc) {
+				} catch {
 					// suppress error selecting owner user
 				}
 
-			} catch (Exception exc) {
+			} catch {
 				// suppress error if the user no longer exists
 			}
 		}
