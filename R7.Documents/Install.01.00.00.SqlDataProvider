@@ -31,14 +31,7 @@ IF NOT EXISTS (select * from dbo.sysobjects where id = object_id(N'{databaseOwne
 	END
 GO
 
-/* Procs for Documents */
-IF EXISTS (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DeleteDocument]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	DROP PROCEDURE {databaseOwner}[{objectQualifier}DeleteDocument]
-GO
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}UpdateDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	DROP PROCEDURE {databaseOwner}{objectQualifier}UpdateDocument
-GO
+-- Drop stored procedures 
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocument
@@ -48,47 +41,7 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{o
 	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocuments
 GO
 
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}AddDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	DROP PROCEDURE {databaseOwner}{objectQualifier}AddDocument
-GO
-
-CREATE PROCEDURE {databaseOwner}{objectQualifier}UpdateDocument
-	@ModuleId		  INT,
-	@ItemId           INT,
-	@Title            nvarchar(150),
-	@URL              nvarchar(250),
-	@UserId           INT,
-	@Category         nvarchar(50),
-	@OwnedByUserID    INT,
-	@SortOrderIndex   INT, 
-	@Description      nvarchar(255),
-	@ForceDownload BIT
-AS
-UPDATE {databaseOwner}{objectQualifier}Documents
-SET    Title             = @Title,
-       URL               = @URL,
-       Category          = @Category,
-       OwnedByUserID     = @OwnedByUserID,
-       ModifiedByUserID  = @UserId,
-       ModifiedDate      = getdate(),
-       SortOrderIndex    = @SortOrderIndex,
-       Description       = @Description,
-	   ForceDownload	 = @ForceDownload
-WHERE  ItemId = @ItemId
-	AND ModuleId = @ModuleId
-GO
-
-CREATE PROCEDURE {databaseOwner}[{objectQualifier}DeleteDocument]
-	@ModuleId INT, 
-	@ItemId INT
-AS
-
-DELETE FROM {objectQualifier}Documents
-WHERE  ItemId = @ItemId
-	AND ModuleId = @ModuleId
-
-GO
-
+-- Create stored procedures
 
 CREATE PROCEDURE {databaseOwner}{objectQualifier}GetDocument
 	@ItemId   INT,
@@ -159,46 +112,4 @@ LEFT OUTER JOIN {databaseOwner}{objectQualifier}Files on {databaseOwner}{objectQ
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking on {databaseOwner}{objectQualifier}Documents.URL = {databaseOwner}{objectQualifier}UrlTracking.Url and {databaseOwner}{objectQualifier}UrlTracking.ModuleId = @ModuleID
 WHERE  {objectQualifier}Documents.ModuleId = @ModuleId
 ORDER by {objectQualifier}Documents.Title
-GO
-
-CREATE PROCEDURE {databaseOwner}{objectQualifier}AddDocument
-	@ModuleId         INT,
-	@Title            NVARCHAR(150),
-	@URL              NVARCHAR(250),
-	@UserId           INT,
-	@OwnedByUserId    INT,
-	@Category         NVARCHAR(50),
-	@SortOrderIndex   INT, 
-	@Description      NVARCHAR(255),
-	@ForceDownload	BIT
-AS
-INSERT INTO {databaseOwner}{objectQualifier}Documents (
-  ModuleId,
-  Title,
-  URL,
-  CreatedByUserID,
-  CreatedDate,
-  Category,
-  OwnedByUserID,
-  ModifiedByUserID,
-  ModifiedDate,
-  SortOrderIndex,
-  Description,
-  ForceDownload
-)
-VALUES (
-  @ModuleId,
-  @Title,
-  @URL,
-  @UserId,
-  getdate(),
-  @Category,
-  @OwnedByUserId,
-  @UserId,
-  getdate(),
-  @SortOrderIndex,
-  @Description,
-  @ForceDownload
-)
-SELECT SCOPE_IDENTITY()
 GO

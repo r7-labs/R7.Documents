@@ -16,41 +16,10 @@ GO
 DROP TABLE {databaseOwner}[{objectQualifier}Documents]
 GO
 
-ALTER TABLE {databaseOwner}[{objectQualifier}DocumentsSettings] DROP CONSTRAINT [PK_{objectQualifier}DocumentsSettings]  
-GO
-
-ALTER TABLE {databaseOwner}[{objectQualifier}DocumentsSettings] DROP CONSTRAINT [FK_{objectQualifier}DocumentsSettings_Modules] 
-GO
-
-DROP TABLE {databaseOwner}[{objectQualifier}DocumentsSettings]
-GO
-
-
-/** Drop Stored Procedures **/
+-- Drop stored procedures
 
 DROP PROCEDURE {databaseOwner}[{objectQualifier}GetDocument]
 GO
 
-DROP PROCEDURE {databaseOwner}[{objectQualifier}AddDocument]
-GO
-
-DROP PROCEDURE {databaseOwner}[{objectQualifier}UpdateDocument]
-GO
-
 DROP PROCEDURE {databaseOwner}[{objectQualifier}GetDocuments]
-GO
-
-DROP PROCEDURE {databaseOwner}[{objectQualifier}DeleteDocument]
-GO
-
-DROP PROCEDURE {databaseOwner}{objectQualifier}AddDocumentsSettings
-GO
-
-DROP PROCEDURE {databaseOwner}{objectQualifier}DeleteDocumentsSettings
-GO
-
-DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocumentsSettings
-GO
-
-DROP PROCEDURE {databaseOwner}{objectQualifier}UpdateDocumentsSettings
 GO

@@ -13,39 +13,17 @@ UPDATE {databaseOwner}{objectQualifier}Documents
 SET ForceDownload = 0
 GO
 
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}UpdateDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	DROP PROCEDURE {databaseOwner}{objectQualifier}UpdateDocument
-GO
-
-CREATE PROCEDURE {databaseOwner}{objectQualifier}UpdateDocument
-	@ModuleId		  INT,
-	@ItemId           INT,
-	@Title            nvarchar(150),
-	@URL              nvarchar(250),
-	@UserId           INT,
-	@Category         nvarchar(50),
-	@OwnedByUserID    INT,
-	@SortOrderIndex   INT, 
-	@Description      nvarchar(255),
-	@ForceDownload BIT
-AS
-UPDATE {databaseOwner}{objectQualifier}Documents
-SET    Title             = @Title,
-       URL               = @URL,
-       Category          = @Category,
-       OwnedByUserID     = @OwnedByUserID,
-       ModifiedByUserID  = @UserId,
-       ModifiedDate      = getdate(),
-       SortOrderIndex    = @SortOrderIndex,
-       Description       = @Description,
-	   ForceDownload	 = @ForceDownload
-WHERE  ItemId = @ItemId
-	AND ModuleId = @ModuleId
-GO
+-- Drop stored procedures
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocument
 GO
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocuments') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocuments
+GO
+
+-- Create stored procedures
 
 CREATE PROCEDURE {databaseOwner}{objectQualifier}GetDocument
 	@ItemId   INT,
@@ -84,10 +62,6 @@ and    {databaseOwner}{objectQualifier}Documents.ModuleId = @ModuleId
 
 GO
 
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocuments') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocuments
-GO
-
 CREATE PROCEDURE {databaseOwner}{objectQualifier}GetDocuments
 	@ModuleId INT,
 	@PortalId INT
@@ -121,51 +95,3 @@ LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking on {databaseOwner}{o
 WHERE  {objectQualifier}Documents.ModuleId = @ModuleId
 ORDER by {objectQualifier}Documents.Title
 GO
-
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}AddDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	DROP PROCEDURE {databaseOwner}{objectQualifier}AddDocument
-GO
-
-CREATE PROCEDURE {databaseOwner}{objectQualifier}AddDocument
-	@ModuleId         INT,
-	@Title            NVARCHAR(150),
-	@URL              NVARCHAR(250),
-	@UserId           INT,
-	@OwnedByUserId    INT,
-	@Category         NVARCHAR(50),
-	@SortOrderIndex   INT, 
-	@Description      NVARCHAR(255),
-	@ForceDownload	BIT
-AS
-INSERT INTO {databaseOwner}{objectQualifier}Documents (
-  ModuleId,
-  Title,
-  URL,
-  CreatedByUserID,
-  CreatedDate,
-  Category,
-  OwnedByUserID,
-  ModifiedByUserID,
-  ModifiedDate,
-  SortOrderIndex,
-  Description,
-  ForceDownload
-)
-VALUES (
-  @ModuleId,
-  @Title,
-  @URL,
-  @UserId,
-  getdate(),
-  @Category,
-  @OwnedByUserId,
-  @UserId,
-  getdate(),
-  @SortOrderIndex,
-  @Description,
-  @ForceDownload
-)
-SELECT SCOPE_IDENTITY()
-GO
-
