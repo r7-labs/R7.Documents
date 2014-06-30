@@ -340,8 +340,7 @@ namespace R7.Documents
 		private void LoadData()
 		{
 			string strCacheKey = null;
-			DocumentsController objDocuments = default(DocumentsController);
-
+			
 			if (IsReadComplete)
 				return;
 
@@ -364,8 +363,7 @@ namespace R7.Documents
 					objDocument = (DocumentInfo)mobjDocumentList[intCount];
 					if (objDocument.Url.ToLower().IndexOf("fileid=") >= 0) {
 						// document is a file, check security
-						FileController objFiles = new FileController();
-						DotNetNuke.Services.FileSystem.FileInfo objFile = objFiles.GetFileById(int.Parse(objDocument.Url.Split(char.Parse("="))[1]), PortalId);
+						var objFile = FileManager.Instance.GetFile(int.Parse(objDocument.Url.Split('=')[1]));
 
 						if ((objFile != null) && !DotNetNuke.Security.PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(objFile.Folder, PortalSettings.PortalId, "READ"))) {
 							// remove document from the list

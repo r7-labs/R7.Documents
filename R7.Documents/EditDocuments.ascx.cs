@@ -206,8 +206,7 @@ namespace R7.Documents
 		{
 			int intFileId = 0;
 			DotNetNuke.Services.FileSystem.FileController objFiles = new DotNetNuke.Services.FileSystem.FileController();
-			DotNetNuke.Services.FileSystem.FileInfo objFile = new DotNetNuke.Services.FileSystem.FileInfo();
-		
+					
 			switch (Globals.GetURLType(Url)) {
 				case TabType.File:
 					if (Url.ToLower().StartsWith("fileid=") == false) {
@@ -217,7 +216,7 @@ namespace R7.Documents
 
 					intFileId = int.Parse(UrlUtils.GetParameterValue(Url));
 
-					objFile = objFiles.GetFileById(intFileId, PortalId);
+					var objFile = FileManager.Instance.GetFile(intFileId);
 					if ((objFile != null)) {
 						// Get file's folder security
 						return CheckRolesMatch(this.ModuleConfiguration.AuthorizedViewRoles, FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ"));
@@ -287,7 +286,6 @@ namespace R7.Documents
 		{
 			int intFileId = 0;
 			DotNetNuke.Services.FileSystem.FileController objFiles = new DotNetNuke.Services.FileSystem.FileController();
-			DotNetNuke.Services.FileSystem.FileInfo objFile = new DotNetNuke.Services.FileSystem.FileInfo();
 			bool blnAddWarning = false;
 
 			if (Url == string.Empty) {
@@ -304,7 +302,7 @@ namespace R7.Documents
 
 						intFileId = int.Parse(UrlUtils.GetParameterValue(Url));
 
-						objFile = objFiles.GetFileById(intFileId, PortalId);
+						var objFile = FileManager.Instance.GetFile(intFileId);
 
 						blnAddWarning = false;
 						if (objFile == null) {
