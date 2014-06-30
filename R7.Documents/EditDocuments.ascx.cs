@@ -560,7 +560,7 @@ namespace R7.Documents
 
 				try {
 					if (objDocument == null) {
-						lstOwner.SelectedValue = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().UserID.ToString();
+						lstOwner.SelectedValue = UserId.ToString();
 					} else {
 						lstOwner.SelectedValue = objDocument.OwnedByUserId.ToString();
 					}
@@ -577,7 +577,7 @@ namespace R7.Documents
 		{
 			// populate owner list
 			//'With New DotNetNuke.Entities.Users.UserController
-			lstOwner.DataSource = DotNetNuke.Entities.Users.UserController.GetUsers(PortalId, false);
+			lstOwner.DataSource = UserController.GetUsers(PortalId);
 
 			lstOwner.DataTextField = "FullName";
 			lstOwner.DataValueField = "UserId";
@@ -586,8 +586,7 @@ namespace R7.Documents
 
 			// .GetUsers doesn't return super-users, but they can own documents
 			// so add them to the list
-			DotNetNuke.Entities.Users.UserInfo objSuperUser = default(DotNetNuke.Entities.Users.UserInfo);
-			foreach (UserInfo objsu in DotNetNuke.Entities.Users.UserController.GetUsers(Null.NullInteger, false)) {
+			foreach (UserInfo objsu in DotNetNuke.Entities.Users.UserController.GetUsers(Null.NullInteger)) {
 				lstOwner.Items.Insert(0, new System.Web.UI.WebControls.ListItem(objsu.DisplayName, objsu.UserID.ToString()));
 			}
 
