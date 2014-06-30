@@ -102,8 +102,6 @@
     <Compile Include="EditDocuments.ascx.controls.cs">
       <DependentUpon>EditDocuments.ascx</DependentUpon>
     </Compile>
-    <Compile Include="SqlDataProvider.cs" />
-    <Compile Include="DataProvider.cs" />
     <Compile Include="DocumentComparer.cs" />
     <Compile Include="components\DocumentInfo.cs" />
     <Compile Include="DocumentDisplayColumnInfo.cs" />
