@@ -26,6 +26,7 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Common.Utilities;
 
 namespace R7.Documents
@@ -154,7 +155,9 @@ namespace R7.Documents
 		{
 			cboDefaultFolder.Items.Clear();
 
-			foreach (DotNetNuke.Services.FileSystem.FolderInfo objFolder in FileSystemUtils.GetFoldersByUser(PortalId, true, true, "READ, WRITE")) {
+			//foreach (DotNetNuke.Services.FileSystem.FolderInfo objFolder in FileSystemUtils.GetFoldersByUser(PortalId, true, true, "READ, WRITE")) {
+			foreach (FolderInfo objFolder in FolderManager.Instance.GetFolders(UserInfo, "READ, WRITE")) 
+			{				
 				ListItem FolderItem = new ListItem();
 
 				if (objFolder.FolderPath == Null.NullString) {

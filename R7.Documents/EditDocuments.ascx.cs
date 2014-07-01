@@ -30,6 +30,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.UI.UserControls;
+using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
@@ -89,7 +90,7 @@ namespace R7.Documents
 
 						// Populate categories list
 						var _with1 = new DotNetNuke.Common.Lists.ListController();
-						lstCategory.DataSource = _with1.GetListEntryInfoCollection(DocumentsSettings.CategoriesListName);
+						lstCategory.DataSource = _with1.GetListEntryInfoItems(DocumentsSettings.CategoriesListName);
 						lstCategory.DataTextField = "Text";
 						lstCategory.DataValueField = "Value";
 
@@ -205,21 +206,23 @@ namespace R7.Documents
 		private bool CheckFileSecurity(string Url)
 		{
 			int intFileId = 0;
-			DotNetNuke.Services.FileSystem.FileController objFiles = new DotNetNuke.Services.FileSystem.FileController();
 					
 			switch (Globals.GetURLType(Url)) {
 				case TabType.File:
 					if (Url.ToLower().StartsWith("fileid=") == false) {
 						// to handle legacy scenarios before the introduction of the FileServerHandler
-						Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
+						Url = "FileID=" + FileManager.Instance.GetFile(PortalId, Url).FileId;
+						// Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
 					}
 
 					intFileId = int.Parse(UrlUtils.GetParameterValue(Url));
-
 					var objFile = FileManager.Instance.GetFile(intFileId);
 					if ((objFile != null)) {
 						// Get file's folder security
-						return CheckRolesMatch(this.ModuleConfiguration.AuthorizedViewRoles, FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ"));
+						return CheckRolesMatch(
+							this.ModuleConfiguration.ModulePermissions..AuthorizedViewRoles, 
+							FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
+						);
 					}
 					break;
 			}
@@ -285,7 +288,6 @@ namespace R7.Documents
 		private bool CheckFileExists(string Url)
 		{
 			int intFileId = 0;
-			DotNetNuke.Services.FileSystem.FileController objFiles = new DotNetNuke.Services.FileSystem.FileController();
 			bool blnAddWarning = false;
 
 			if (Url == string.Empty) {
@@ -297,7 +299,8 @@ namespace R7.Documents
 					case TabType.File:
 						if (Url.ToLower().StartsWith("fileid=") == false) {
 							// to handle legacy scenarios before the introduction of the FileServerHandler
-							Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
+							Url = "FileID=" + FileManager.Instance.GetFile(PortalId, Url).FileId;
+							// Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
 						}
 
 						intFileId = int.Parse(UrlUtils.GetParameterValue(Url));
