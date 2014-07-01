@@ -220,7 +220,7 @@ namespace R7.Documents
 					if ((objFile != null)) {
 						// Get file's folder security
 						return CheckRolesMatch(
-							this.ModuleConfiguration.ModulePermissions..AuthorizedViewRoles, 
+							this.ModuleConfiguration.AuthorizedViewRoles, 
 							FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
 						);
 					}
