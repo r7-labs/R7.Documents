@@ -206,7 +206,7 @@ namespace R7.Documents
 					
 					FillSettings();
 				
-					SynchronizeModule();
+					Utils.SynchronizeModule(this);
 					DataCache.RemoveCache(this.CacheKey + ";anon-doclist");
 				}
 			//Module failed to load
