@@ -14,15 +14,19 @@ namespace R7.Documents
 	{
 		private System.Web.UI.WebControls.DataGrid withEventsField_grdDocuments;
 
-		protected System.Web.UI.WebControls.DataGrid grdDocuments {
+		protected System.Web.UI.WebControls.DataGrid grdDocuments
+		{
 			get { return withEventsField_grdDocuments; }
-			set {
-				if (withEventsField_grdDocuments != null) {
+			set
+			{
+				if (withEventsField_grdDocuments != null)
+				{
 					withEventsField_grdDocuments.SortCommand -= grdDocuments_SortCommand;
 					withEventsField_grdDocuments.ItemCreated -= grdDocuments_ItemCreated;
 				}
 				withEventsField_grdDocuments = value;
-				if (withEventsField_grdDocuments != null) {
+				if (withEventsField_grdDocuments != null)
+				{
 					withEventsField_grdDocuments.SortCommand += grdDocuments_SortCommand;
 					withEventsField_grdDocuments.ItemCreated += grdDocuments_ItemCreated;
 				}

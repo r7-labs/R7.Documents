@@ -133,5 +133,5 @@ namespace R7.Documents
 	}
 	// class
 }
- // namespace
+// namespace
 

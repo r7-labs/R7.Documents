@@ -25,18 +25,19 @@ using DotNetNuke;
 
 namespace R7.Documents
 {
-	[Serializable()]
+	[Serializable ()]
 	public class DocumentsSortColumnInfo
 	{
 		private SortDirection _Direction = SortDirection.Ascending;
-		
+
 		public enum SortDirection : int
 		{
 			Ascending,
 			Descending
 		}
 
-		public SortDirection Direction {
+		public SortDirection Direction
+		{
 			get { return _Direction; }
 			set { _Direction = value; }
 		}

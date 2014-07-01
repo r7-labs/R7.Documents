@@ -25,53 +25,76 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.DropDownList lstOwner;
 		//tasks
 		private System.Web.UI.WebControls.LinkButton withEventsField_cmdUpdate;
-		protected System.Web.UI.WebControls.LinkButton cmdUpdate {
+
+		protected System.Web.UI.WebControls.LinkButton cmdUpdate
+		{
 			get { return withEventsField_cmdUpdate; }
-			set {
-				if (withEventsField_cmdUpdate != null) {
+			set
+			{
+				if (withEventsField_cmdUpdate != null)
+				{
 					withEventsField_cmdUpdate.Click -= cmdUpdate_Click;
 				}
 				withEventsField_cmdUpdate = value;
-				if (withEventsField_cmdUpdate != null) {
+				if (withEventsField_cmdUpdate != null)
+				{
 					withEventsField_cmdUpdate.Click += cmdUpdate_Click;
 				}
 			}
 		}
+
 		private System.Web.UI.WebControls.LinkButton withEventsField_cmdCancel;
-		protected System.Web.UI.WebControls.LinkButton cmdCancel {
+
+		protected System.Web.UI.WebControls.LinkButton cmdCancel
+		{
 			get { return withEventsField_cmdCancel; }
-			set {
-				if (withEventsField_cmdCancel != null) {
+			set
+			{
+				if (withEventsField_cmdCancel != null)
+				{
 					withEventsField_cmdCancel.Click -= cmdCancel_Click;
 				}
 				withEventsField_cmdCancel = value;
-				if (withEventsField_cmdCancel != null) {
+				if (withEventsField_cmdCancel != null)
+				{
 					withEventsField_cmdCancel.Click += cmdCancel_Click;
 				}
 			}
 		}
+
 		private System.Web.UI.WebControls.LinkButton withEventsField_cmdDelete;
-		protected System.Web.UI.WebControls.LinkButton cmdDelete {
+
+		protected System.Web.UI.WebControls.LinkButton cmdDelete
+		{
 			get { return withEventsField_cmdDelete; }
-			set {
-				if (withEventsField_cmdDelete != null) {
+			set
+			{
+				if (withEventsField_cmdDelete != null)
+				{
 					withEventsField_cmdDelete.Click -= cmdDelete_Click;
 				}
 				withEventsField_cmdDelete = value;
-				if (withEventsField_cmdDelete != null) {
+				if (withEventsField_cmdDelete != null)
+				{
 					withEventsField_cmdDelete.Click += cmdDelete_Click;
 				}
 			}
 		}
+
 		private System.Web.UI.WebControls.LinkButton withEventsField_cmdUpdateOverride;
-		protected System.Web.UI.WebControls.LinkButton cmdUpdateOverride {
+
+		protected System.Web.UI.WebControls.LinkButton cmdUpdateOverride
+		{
 			get { return withEventsField_cmdUpdateOverride; }
-			set {
-				if (withEventsField_cmdUpdateOverride != null) {
+			set
+			{
+				if (withEventsField_cmdUpdateOverride != null)
+				{
 					withEventsField_cmdUpdateOverride.Click -= cmdUpdateOverride_Click;
 				}
 				withEventsField_cmdUpdateOverride = value;
-				if (withEventsField_cmdUpdateOverride != null) {
+				if (withEventsField_cmdUpdateOverride != null)
+				{
 					withEventsField_cmdUpdateOverride.Click += cmdUpdateOverride_Click;
 				}
 			}
@@ -84,14 +107,19 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.RangeValidator valSortIndex;
 		protected System.Web.UI.WebControls.Label lblOwner;
 		private System.Web.UI.WebControls.LinkButton withEventsField_lnkChange;
-		protected System.Web.UI.WebControls.LinkButton lnkChange {
+
+		protected System.Web.UI.WebControls.LinkButton lnkChange
+		{
 			get { return withEventsField_lnkChange; }
-			set {
-				if (withEventsField_lnkChange != null) {
+			set
+			{
+				if (withEventsField_lnkChange != null)
+				{
 					withEventsField_lnkChange.Click -= lnkChange_Click;
 				}
 				withEventsField_lnkChange = value;
-				if (withEventsField_lnkChange != null) {
+				if (withEventsField_lnkChange != null)
+				{
 					withEventsField_lnkChange.Click += lnkChange_Click;
 				}
 			}

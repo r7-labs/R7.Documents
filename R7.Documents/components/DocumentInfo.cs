@@ -33,7 +33,7 @@ using DotNetNuke.Services.FileSystem;
 
 namespace R7.Documents
 {
-	public delegate string LocalizeHandler(string text); 
+	public delegate string LocalizeHandler (string text);
 
 	/// <summary>
 	/// Holds the information about a single document
@@ -113,7 +113,7 @@ namespace R7.Documents
 		public string ModifiedByUser { get; set; }
 
 		#endregion
-		
+
 		#region Custom properties
 
 		// REVIEW: Rename to RawUrl?
@@ -159,7 +159,7 @@ namespace R7.Documents
 			{
 				if (_formatIcon == null)
 				{
-					_formatIcon =  "";
+					_formatIcon = "";
 					
 					if (Url.ToUpperInvariant ().StartsWith ("FILEID="))
 					{
@@ -171,7 +171,7 @@ namespace R7.Documents
 							{
 								// Optimistic way 
 								_formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-									IconController.IconURL("Ext" + fileInfo.Extension), fileInfo.Extension.ToLowerInvariant ());
+									IconController.IconURL ("Ext" + fileInfo.Extension), fileInfo.Extension.ToLowerInvariant ());
 								
 								/* 
 								// Less optimistic way
@@ -191,14 +191,14 @@ namespace R7.Documents
 				return _formatIcon;
 			} 
 		}
-		
+
 		
 		public event LocalizeHandler OnLocalize;
 
 		private string Localize (string text)
 		{
 			if (OnLocalize != null)
-				return OnLocalize(text);
+				return OnLocalize (text);
 			else
 				return text;
 		}
@@ -219,12 +219,12 @@ namespace R7.Documents
 						if (Size > (1024 * 1024))
 						{
 							// return String.Format ("{0:#,##0.00} MB", Size / 1024 / 1024);
-							return string.Format ("{0:#,##0.00} {1}", Size / 1024 / 1024, Localize("Megabytes.Text"));
+							return string.Format ("{0:#,##0.00} {1}", Size / 1024 / 1024, Localize ("Megabytes.Text"));
 						}
 						else
 						{
 							// return String.Format ("{0:#,##0.00} KB", Size / 1024);
-							return string.Format ("{0:#,##0.00} {1}", Size / 1024, Localize("Kilobytes.Text"));
+							return string.Format ("{0:#,##0.00} {1}", Size / 1024, Localize ("Kilobytes.Text"));
 						}
 					}
 					else

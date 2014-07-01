@@ -25,7 +25,7 @@ using DotNetNuke;
 
 namespace R7.Documents
 {
-	[Serializable()]
+	[Serializable ()]
 	public class DocumentsDisplayColumnInfo : IComparable
 	{
 
@@ -73,43 +73,55 @@ namespace R7.Documents
 			COLUMN_CLICKS,
 			COLUMN_FILENAME
 		};
+
 		#region "Private Members"
+
 		private string _ColumnName;
 		private int _DisplayOrder;
 		private bool _Visible;
-			#endregion
+
+		#endregion
+
 		private string _LocalizedColumnName;
 
 		#region "Properties"
-		public string ColumnName {
+
+		public string ColumnName
+		{
 			get { return _ColumnName; }
 			set { _ColumnName = value; }
 		}
 
-		public string LocalizedColumnName {
+		public string LocalizedColumnName
+		{
 			get { return _LocalizedColumnName; }
 			set { _LocalizedColumnName = value; }
 		}
 
-		public int DisplayOrder {
+		public int DisplayOrder
+		{
 			get { return _DisplayOrder; }
 			set { _DisplayOrder = value; }
 		}
 
-		public bool Visible {
+		public bool Visible
+		{
 			get { return _Visible; }
 			set { _Visible = value; }
 		}
+
 		#endregion
 
 		#region "ICompareable Interface"
-		public int CompareTo(object obj)
+
+		public int CompareTo (object obj)
 		{
 			DocumentsDisplayColumnInfo objYItem = null;
 
 			objYItem = (DocumentsDisplayColumnInfo)obj;
-			return this.DisplayOrder.CompareTo(objYItem.DisplayOrder);
+			return this.DisplayOrder.CompareTo (objYItem.DisplayOrder);
 		}
+
 		#endregion
 
 

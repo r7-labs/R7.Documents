@@ -28,29 +28,32 @@ namespace R7.Documents
 		private string mstrID;
 
 		private string mstrCaption;
-		public DownloadColumnTemplate(string ID, string Caption, System.Web.UI.WebControls.ListItemType Type)
+
+		public DownloadColumnTemplate (string ID, string Caption, System.Web.UI.WebControls.ListItemType Type)
 		{
 			mobjTemplateType = Type;
 			mstrID = ID;
 			mstrCaption = Caption;
-			if (mstrCaption == string.Empty) {
+			if (mstrCaption == string.Empty)
+			{
 				mstrCaption = "Download";
 			}
 		}
 
-		public void InstantiateIn(System.Web.UI.Control container)
+		public void InstantiateIn (System.Web.UI.Control container)
 		{
 			System.Web.UI.WebControls.HyperLink objButton = default(System.Web.UI.WebControls.HyperLink);
 
-			switch (mobjTemplateType) {
+			switch (mobjTemplateType)
+			{
 				case System.Web.UI.WebControls.ListItemType.Item:
 				case System.Web.UI.WebControls.ListItemType.AlternatingItem:
 				case System.Web.UI.WebControls.ListItemType.SelectedItem:
-					objButton = new System.Web.UI.WebControls.HyperLink();
+					objButton = new System.Web.UI.WebControls.HyperLink ();
 					objButton.Text = mstrCaption;
 					objButton.ID = mstrID;
 
-					container.Controls.Add(objButton);
+					container.Controls.Add (objButton);
 					break;
 			}
 			//itemcount += 1

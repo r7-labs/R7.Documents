@@ -56,6 +56,7 @@ namespace R7.Documents
 
 
 		private int mintItemId;
+
 		#endregion
 
 		#region "Event Handlers"
@@ -71,85 +72,107 @@ namespace R7.Documents
 		///                       and localisation
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void Page_Load(System.Object sender, System.EventArgs e)
+		private void Page_Load (System.Object sender, System.EventArgs e)
 		{
-			try {
+			try
+			{
 				// Determine ItemId of Document to Update
-				if ((Request.QueryString["ItemId"] != null)) {
-					ItemID = Int32.Parse(Request.QueryString["ItemId"]);
-				} else {
-					ItemID = Convert.ToInt32(Null.NullInteger);
+				if ((Request.QueryString ["ItemId"] != null))
+				{
+					ItemID = Int32.Parse (Request.QueryString ["ItemId"]);
+				}
+				else
+				{
+					ItemID = Convert.ToInt32 (Null.NullInteger);
 				}
 
 				// Load module instance settings
-				if (!IsPostBack) {
+				if (!IsPostBack)
+				{
 					// Configure categories entry as a list or textbox, based on user settings
-					if (DocumentsSettings.UseCategoriesList) {
+					if (DocumentsSettings.UseCategoriesList)
+					{
 						// Configure category entry as a list
 						lstCategory.Visible = true;
 						txtCategory.Visible = false;
 
 						// Populate categories list
-						var _with1 = new DotNetNuke.Common.Lists.ListController();
-						lstCategory.DataSource = _with1.GetListEntryInfoItems(DocumentsSettings.CategoriesListName);
+						var _with1 = new DotNetNuke.Common.Lists.ListController ();
+						lstCategory.DataSource = _with1.GetListEntryInfoItems (DocumentsSettings.CategoriesListName);
 						lstCategory.DataTextField = "Text";
 						lstCategory.DataValueField = "Value";
 
-						lstCategory.DataBind();
-						lstCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem(Localization.GetString("None_Specified"), "-1"));
-					} else {
+						lstCategory.DataBind ();
+						lstCategory.Items.Insert (0, new System.Web.UI.WebControls.ListItem (Localization.GetString ("None_Specified"), "-1"));
+					}
+					else
+					{
 						// Configure category entry as a free-text entry
 						lstCategory.Visible = false;
 						txtCategory.Visible = true;
 					}
 
 					// Add the "are you sure" message to the delete button click event
-					cmdDelete.Attributes.Add("onClick", "javascript:return confirm('" + Localization.GetString("DeleteItem") + "');");
+					cmdDelete.Attributes.Add ("onClick", "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
 
 					// If the page is being requested the first time, determine if an
 					// document itemId value is specified, and if so populate page
 					// contents with the document details
 
-					if (!Null.IsNull(ItemID)) {
+					if (!Null.IsNull (ItemID))
+					{
 						// Read document information
-						var objDocument = DocumentsController.GetDocument(ItemID, ModuleId);
+						var objDocument = DocumentsController.GetDocument (ItemID, ModuleId);
 
 						// Read values from documentInfo object on to page
-						if ((objDocument != null)) {
+						if ((objDocument != null))
+						{
 							txtName.Text = objDocument.Title;
 							txtDescription.Text = objDocument.Description;
 							chkForceDownload.Checked = objDocument.ForceDownload;
 
-							if (objDocument.Url != string.Empty) {
+							if (objDocument.Url != string.Empty)
+							{
 								ctlUrl.Url = objDocument.Url;
 							}
 
 							// Test to see if the document has been removed/deleted
-							if (CheckFileExists(objDocument.Url) == false) {
+							if (CheckFileExists (objDocument.Url) == false)
+							{
 								ctlUrl.UrlType = "N";
 							}
 
-							CheckFileSecurity(objDocument.Url);
+							CheckFileSecurity (objDocument.Url);
 
-							txtSortIndex.Text = objDocument.SortOrderIndex.ToString();
+							txtSortIndex.Text = objDocument.SortOrderIndex.ToString ();
 
-							if (objDocument.OwnedByUser == string.Empty) {
-								lblOwner.Text = Localization.GetString("None_Specified");
-							} else {
+							if (objDocument.OwnedByUser == string.Empty)
+							{
+								lblOwner.Text = Localization.GetString ("None_Specified");
+							}
+							else
+							{
 								lblOwner.Text = objDocument.OwnedByUser;
 							}
 
-							if (txtCategory.Visible) {
+							if (txtCategory.Visible)
+							{
 								txtCategory.Text = objDocument.Category;
-							} else {
+							}
+							else
+							{
 								//Look for the category by name
-								ListItem found = lstCategory.Items.FindByText(objDocument.Category);
-								if (found != null) {
+								ListItem found = lstCategory.Items.FindByText (objDocument.Category);
+								if (found != null)
+								{
 									lstCategory.SelectedValue = found.Value;
-								} else {
+								}
+								else
+								{
 									//Legacy support, do a fall-back
-									found = lstCategory.Items.FindByValue(objDocument.Category);
-									if (found != null) {
+									found = lstCategory.Items.FindByValue (objDocument.Category);
+									if (found != null)
+									{
 										lstCategory.SelectedValue = found.Value;
 									}
 								}
@@ -159,20 +182,27 @@ namespace R7.Documents
 							// "CreatedByUser" actually means "last modified user", and the property
 							// called "CreatedDate" actually means "ModifiedDate"
 							ctlAudit.CreatedByUser = objDocument.ModifiedByUser;
-							ctlAudit.CreatedDate = objDocument.ModifiedDate.ToString();
+							ctlAudit.CreatedDate = objDocument.ModifiedDate.ToString ();
 
 							ctlTracking.URL = objDocument.Url;
 							ctlTracking.ModuleID = ModuleId;
 
-						// security violation attempt to access item not related to this Module
-						} else {
-							Response.Redirect(Globals.NavigateURL(), true);
+							// security violation attempt to access item not related to this Module
 						}
-					} else {
-						try {
-							lstOwner.SelectedValue = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().UserID.ToString();
-							lblOwner.Text = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().DisplayName;
-						} catch {
+						else
+						{
+							Response.Redirect (Globals.NavigateURL (), true);
+						}
+					}
+					else
+					{
+						try
+						{
+							lstOwner.SelectedValue = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo ().UserID.ToString ();
+							lblOwner.Text = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo ().DisplayName;
+						}
+						catch
+						{
 							// suppress error (defensive code only, would only happen if the owner
 							// user has been deleted)
 						}
@@ -186,9 +216,11 @@ namespace R7.Documents
 
 					}
 				}
-			//Module failed to load
-			} catch (Exception exc) {
-				Exceptions.ProcessModuleLoadException(this, exc);
+				//Module failed to load
+			}
+			catch (Exception exc)
+			{
+				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 
 		}
@@ -218,10 +250,10 @@ namespace R7.Documents
 						// Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
 					}
 
-					intFileId = int.Parse(UrlUtils.GetParameterValue(Url));
+					intFileId = int.Parse (UrlUtils.GetParameterValue (Url));
 					var objFile = FileManager.Instance.GetFile (intFileId);
 					
-					if (objFile != null) 
+					if (objFile != null)
 					{
 						// module view roles
 						var moduleViewRoles = new StringBuilder ();
@@ -250,11 +282,11 @@ namespace R7.Documents
 							}
 						}
 					
-						return CheckRolesMatch(
+						return CheckRolesMatch (
 							// this.ModuleConfiguration.AuthorizedViewRoles, 
-							moduleViewRoles.ToString(),
+							moduleViewRoles.ToString (),
 							// FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
-							folderViewRoles.ToString()
+							folderViewRoles.ToString ()
 						);
 					}
 					break;
@@ -332,38 +364,47 @@ namespace R7.Documents
 		/// 	[ag]	11 March 2007	Created
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private bool CheckFileExists(string Url)
+		private bool CheckFileExists (string Url)
 		{
 			int intFileId = 0;
 			bool blnAddWarning = false;
 
-			if (Url == string.Empty) {
+			if (Url == string.Empty)
+			{
 				// File not selected
-				DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, DotNetNuke.Services.Localization.Localization.GetString("msgNoFileSelected.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
+				DotNetNuke.UI.Skins.Skin.AddModuleMessage (this, DotNetNuke.Services.Localization.Localization.GetString ("msgNoFileSelected.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
 				return false;
-			} else {
-				switch (Globals.GetURLType(Url)) {
+			}
+			else
+			{
+				switch (Globals.GetURLType (Url))
+				{
 					case TabType.File:
-						if (Url.ToLower().StartsWith("fileid=") == false) {
+						if (Url.ToLower ().StartsWith ("fileid=") == false)
+						{
 							// to handle legacy scenarios before the introduction of the FileServerHandler
-							Url = "FileID=" + FileManager.Instance.GetFile(PortalId, Url).FileId;
+							Url = "FileID=" + FileManager.Instance.GetFile (PortalId, Url).FileId;
 							// Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
 						}
 
-						intFileId = int.Parse(UrlUtils.GetParameterValue(Url));
+						intFileId = int.Parse (UrlUtils.GetParameterValue (Url));
 
-						var objFile = FileManager.Instance.GetFile(intFileId);
+						var objFile = FileManager.Instance.GetFile (intFileId);
 
 						blnAddWarning = false;
-						if (objFile == null) {
+						if (objFile == null)
+						{
 							blnAddWarning = true;
-						} else {
-							switch ((FolderController.StorageLocationTypes)objFile.StorageLocation) {
+						}
+						else
+						{
+							switch ((FolderController.StorageLocationTypes)objFile.StorageLocation)
+							{
 								case FolderController.StorageLocationTypes.InsecureFileSystem:
-									blnAddWarning = !File.Exists(objFile.PhysicalPath);
+									blnAddWarning = !File.Exists (objFile.PhysicalPath);
 									break;
 								case FolderController.StorageLocationTypes.SecureFileSystem:
-									blnAddWarning = !File.Exists(objFile.PhysicalPath + Globals.glbProtectedExtension);
+									blnAddWarning = !File.Exists (objFile.PhysicalPath + Globals.glbProtectedExtension);
 									break;
 								case FolderController.StorageLocationTypes.DatabaseSecure:
 									blnAddWarning = false;
@@ -372,16 +413,17 @@ namespace R7.Documents
 							}
 						}
 
-						if (blnAddWarning) {
+						if (blnAddWarning)
+						{
 							// Display a "file not found" warning
-							DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, DotNetNuke.Services.Localization.Localization.GetString("msgFileDeleted.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
+							DotNetNuke.UI.Skins.Skin.AddModuleMessage (this, DotNetNuke.Services.Localization.Localization.GetString ("msgFileDeleted.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
 							return false;
 						}
 
 						break;
 					case TabType.Url:
 						break;
-					// Cannot validate "Url" link types 
+				// Cannot validate "Url" link types 
 				}
 			}
 			return true;
@@ -400,14 +442,17 @@ namespace R7.Documents
 		///                       and localisation
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void cmdCancel_Click(object sender, EventArgs e)
+		private void cmdCancel_Click (object sender, EventArgs e)
 		{
-			try {
+			try
+			{
 				// Redirect back to the portal home page
-				Response.Redirect(Globals.NavigateURL(), true);
-			//Module failed to load
-			} catch (Exception exc) {
-				Exceptions.ProcessModuleLoadException(this, exc);
+				Response.Redirect (Globals.NavigateURL (), true);
+				//Module failed to load
+			}
+			catch (Exception exc)
+			{
+				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}
 
@@ -422,22 +467,26 @@ namespace R7.Documents
 		///                       and localisation
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void cmdDelete_Click(object sender, EventArgs e)
+		private void cmdDelete_Click (object sender, EventArgs e)
 		{
-			try {
+			try
+			{
 
-				if (!Null.IsNull(ItemID)) {
-					DocumentsController.Delete<DocumentInfo>(ItemID); // ModuleID!
+				if (!Null.IsNull (ItemID))
+				{
+					DocumentsController.Delete<DocumentInfo> (ItemID); // ModuleID!
 				}
 
-				Utils.SynchronizeModule(this);
-				DataCache.RemoveCache(this.DataCacheKey + ";anon-doclist");
+				Utils.SynchronizeModule (this);
+				DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
 
 				// Redirect back to the portal home page
-				Response.Redirect(Globals.NavigateURL(), true);
-			//Module failed to load
-			} catch (Exception exc) {
-				Exceptions.ProcessModuleLoadException(this, exc);
+				Response.Redirect (Globals.NavigateURL (), true);
+				//Module failed to load
+			}
+			catch (Exception exc)
+			{
+				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}
 
@@ -452,9 +501,9 @@ namespace R7.Documents
 		///                       and localisation
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void cmdUpdate_Click(object sender, EventArgs e)
+		private void cmdUpdate_Click (object sender, EventArgs e)
 		{
-			Update(false);
+			Update (false);
 		}
 
 		/// -----------------------------------------------------------------------------
@@ -467,35 +516,40 @@ namespace R7.Documents
 		/// 	[ag]	11 March 2007	Created
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void cmdUpdateOverride_Click(object sender, System.EventArgs e)
+		private void cmdUpdateOverride_Click (object sender, System.EventArgs e)
 		{
-			Update(true);
+			Update (true);
 		}
 
-		private void Update(bool Override)
+		private void Update (bool Override)
 		{
-			try {
+			try
+			{
 				// Only Update if Input Data is Valid
 
-				if (Page.IsValid == true) {
-					if (!Override) {
+				if (Page.IsValid == true)
+				{
+					if (!Override)
+					{
 						// Test file exists, security
-						if (!CheckFileExists(ctlUrl.Url) || !CheckFileSecurity(ctlUrl.Url)) {
+						if (!CheckFileExists (ctlUrl.Url) || !CheckFileSecurity (ctlUrl.Url))
+						{
 							this.cmdUpdateOverride.Visible = true;
 							this.cmdUpdate.Visible = false;
 
 							// '' Display page-level warning instructing users to click update again if they want to ignore the warning
-							DotNetNuke.UI.Skins.Skin.AddPageMessage(this.Page,Localization.GetString("msgFileWarningHeading.Text", this.LocalResourceFile), DotNetNuke.Services.Localization.Localization.GetString("msgFileWarning.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
+							DotNetNuke.UI.Skins.Skin.AddPageMessage (this.Page, Localization.GetString ("msgFileWarningHeading.Text", this.LocalResourceFile), DotNetNuke.Services.Localization.Localization.GetString ("msgFileWarning.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
 							return;
 						}
 					}
 
 					// Get existing document record
-					var objDocument = DocumentsController.GetDocument(ItemID, ModuleId);
+					var objDocument = DocumentsController.GetDocument (ItemID, ModuleId);
 
-					if (objDocument == null) {
+					if (objDocument == null)
+					{
 						// New record
-						objDocument = new DocumentInfo();
+						objDocument = new DocumentInfo ();
 						objDocument.ItemId = ItemID;
 						objDocument.ModuleId = ModuleId;
 
@@ -511,67 +565,86 @@ namespace R7.Documents
 					objDocument.Description = txtDescription.Text;
 					objDocument.ForceDownload = chkForceDownload.Checked;
 
-					if (lstOwner.Visible) {
-						if (lstOwner.SelectedValue != string.Empty) {
-							objDocument.OwnedByUserId = Convert.ToInt32(lstOwner.SelectedValue);
-						} else {
+					if (lstOwner.Visible)
+					{
+						if (lstOwner.SelectedValue != string.Empty)
+						{
+							objDocument.OwnedByUserId = Convert.ToInt32 (lstOwner.SelectedValue);
+						}
+						else
+						{
 							objDocument.OwnedByUserId = -1;
 						}
-					} else {
+					}
+					else
+					{
 						// User never clicked "change", leave ownedbyuserid as is
 					}
 
-					if (txtCategory.Visible) {
+					if (txtCategory.Visible)
+					{
 						objDocument.Category = txtCategory.Text;
-					} else {
-						if (lstCategory.SelectedItem.Text == Localization.GetString("None_Specified")) {
+					}
+					else
+					{
+						if (lstCategory.SelectedItem.Text == Localization.GetString ("None_Specified"))
+						{
 							objDocument.Category = "";
-						} else {
+						}
+						else
+						{
 							objDocument.Category = lstCategory.SelectedItem.Value;
 						}
 					}
 
-					if (txtSortIndex.Text == string.Empty) {
+					if (txtSortIndex.Text == string.Empty)
+					{
 						objDocument.SortOrderIndex = 0;
-					} else {
-						objDocument.SortOrderIndex = Convert.ToInt32(txtSortIndex.Text);
+					}
+					else
+					{
+						objDocument.SortOrderIndex = Convert.ToInt32 (txtSortIndex.Text);
 					}
 
 					// Create an instance of the Document DB component
 
-					if (Null.IsNull(ItemID)) 
+					if (Null.IsNull (ItemID))
 					{
 						objDocument.CreatedDate = DateTime.Now;
 						objDocument.ModifiedDate = objDocument.CreatedDate;
-						DocumentsController.Add<DocumentInfo>(objDocument);
-					} 
-					else 
+						DocumentsController.Add<DocumentInfo> (objDocument);
+					}
+					else
 					{
 						objDocument.ModifiedDate = DateTime.Now;
-						DocumentsController.Update<DocumentInfo>(objDocument);
+						DocumentsController.Update<DocumentInfo> (objDocument);
 					}
 
 					// url tracking
-					UrlController objUrls = new UrlController();
-					objUrls.UpdateUrl(PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
+					UrlController objUrls = new UrlController ();
+					objUrls.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
-					Utils.SynchronizeModule(this);
-					DataCache.RemoveCache(this.DataCacheKey + ";anon-doclist");
+					Utils.SynchronizeModule (this);
+					DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
 
 					// Redirect back to the portal home page
-					Response.Redirect(Globals.NavigateURL(), true);
+					Response.Redirect (Globals.NavigateURL (), true);
 
 				}
-			//Module failed to load
-			} catch (Exception exc) {
-				Exceptions.ProcessModuleLoadException(this, exc);
+				//Module failed to load
+			}
+			catch (Exception exc)
+			{
+				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}
 
 		#endregion
 
 		#region "Private methods"
-		private int ItemID {
+
+		private int ItemID
+		{
 			get { return mintItemId; }
 			set { mintItemId = value; }
 		}
@@ -581,69 +654,80 @@ namespace R7.Documents
 		#region " Web Form Designer Generated Code "
 
 		//This call is required by the Web Form Designer.
-		[System.Diagnostics.DebuggerStepThrough()]
+		[System.Diagnostics.DebuggerStepThrough ()]
 
-		private void InitializeComponent()
+		private void InitializeComponent ()
 		{
 		}
 
-		private void Page_Init(System.Object sender, System.EventArgs e)
+		private void Page_Init (System.Object sender, System.EventArgs e)
 		{
 			//CODEGEN: This method call is required by the Web Form Designer
 			//Do not modify it using the code editor.
-			InitializeComponent();
+			InitializeComponent ();
 		}
 
 		#endregion
 
-		private void lnkChange_Click(System.Object sender, System.EventArgs e)
+		private void lnkChange_Click (System.Object sender, System.EventArgs e)
 		{
 			lblOwner.Visible = false;
 			lnkChange.Visible = false;
 			lstOwner.Visible = true;
 
-			PopulateOwnerList();
+			PopulateOwnerList ();
 
-			try {
+			try
+			{
 				// Get existing document record
-				var objDocument = DocumentsController.GetDocument(ItemID, ModuleId);
+				var objDocument = DocumentsController.GetDocument (ItemID, ModuleId);
 
-				try {
-					if (objDocument == null) {
-						lstOwner.SelectedValue = UserId.ToString();
-					} else {
-						lstOwner.SelectedValue = objDocument.OwnedByUserId.ToString();
+				try
+				{
+					if (objDocument == null)
+					{
+						lstOwner.SelectedValue = UserId.ToString ();
 					}
-				} catch {
+					else
+					{
+						lstOwner.SelectedValue = objDocument.OwnedByUserId.ToString ();
+					}
+				}
+				catch
+				{
 					// suppress error selecting owner user
 				}
 
-			} catch {
+			}
+			catch
+			{
 				// suppress error if the user no longer exists
 			}
 		}
 
-		private void PopulateOwnerList()
+		private void PopulateOwnerList ()
 		{
 			// populate owner list
 			//'With New DotNetNuke.Entities.Users.UserController
-			lstOwner.DataSource = UserController.GetUsers(PortalId);
+			lstOwner.DataSource = UserController.GetUsers (PortalId);
 
 			lstOwner.DataTextField = "FullName";
 			lstOwner.DataValueField = "UserId";
 
-			lstOwner.DataBind();
+			lstOwner.DataBind ();
 
 			// .GetUsers doesn't return super-users, but they can own documents
 			// so add them to the list
-			foreach (UserInfo objsu in DotNetNuke.Entities.Users.UserController.GetUsers(Null.NullInteger)) {
-				lstOwner.Items.Insert(0, new System.Web.UI.WebControls.ListItem(objsu.DisplayName, objsu.UserID.ToString()));
+			foreach (UserInfo objsu in DotNetNuke.Entities.Users.UserController.GetUsers(Null.NullInteger))
+			{
+				lstOwner.Items.Insert (0, new System.Web.UI.WebControls.ListItem (objsu.DisplayName, objsu.UserID.ToString ()));
 			}
 
-			lstOwner.Items.Insert(0, new System.Web.UI.WebControls.ListItem(Localization.GetString("None_Specified"), "-1"));
+			lstOwner.Items.Insert (0, new System.Web.UI.WebControls.ListItem (Localization.GetString ("None_Specified"), "-1"));
 			//' End With
 		}
-		public EditDocuments()
+
+		public EditDocuments ()
 		{
 			Init += Page_Init;
 			Load += Page_Load;

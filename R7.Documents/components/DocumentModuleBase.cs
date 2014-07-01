@@ -35,23 +35,25 @@ namespace R7.Documents
 	public class DocumentsPortalModuleBase : PortalModuleBase
 	{
 		private DocumentsController ctrl = null;
-		protected DocumentsController DocumentsController 
+
+		protected DocumentsController DocumentsController
 		{
 			get { return ctrl ?? (ctrl = new DocumentsController ()); }
 		}
 
 		private DocumentsSettings settings = null;
-		protected DocumentsSettings DocumentsSettings 
+
+		protected DocumentsSettings DocumentsSettings
 		{
 			get { return settings ?? (settings = new DocumentsSettings (this)); }
 		}
-		
-		public string DataCacheKey 
+
+		public string DataCacheKey
 		{
-			get 
+			get
 			{
 				return "TabModule:" + TabModuleId + ":" +
-					System.Threading.Thread.CurrentThread.CurrentCulture;
+				System.Threading.Thread.CurrentThread.CurrentCulture;
 			}
 		}
 	}
@@ -62,23 +64,25 @@ namespace R7.Documents
 	public class DocumentsModuleSettingsBase : ModuleSettingsBase
 	{
 		private DocumentsController ctrl = null;
-		protected DocumentsController DocumentsController 
+
+		protected DocumentsController DocumentsController
 		{
 			get { return ctrl ?? (ctrl = new DocumentsController ()); }
 		}
 
 		private DocumentsSettings settings = null;
-		protected DocumentsSettings DocumentsSettings 
+
+		protected DocumentsSettings DocumentsSettings
 		{
 			get { return settings ?? (settings = new DocumentsSettings (this)); }
 		}
 
-		public string DataCacheKey 
+		public string DataCacheKey
 		{
-			get 
+			get
 			{
 				return "TabModule:" + TabModuleId + ":" +
-					System.Threading.Thread.CurrentThread.CurrentCulture;
+				System.Threading.Thread.CurrentThread.CurrentCulture;
 			}
 		}
 	}
