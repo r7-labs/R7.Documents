@@ -27,6 +27,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Security;
+using DotNetNuke.Security.Permissions;
 using System.Web.UI.WebControls;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Exceptions;
@@ -337,7 +338,7 @@ namespace R7.Documents
 			}
 		}
 
-		private void LoadData()
+		private void LoadData ()
 		{
 			string strCacheKey = null;
 			
@@ -346,28 +347,38 @@ namespace R7.Documents
 
 			// Only read from the cache if the users is not logged in
 			strCacheKey = this.DataCacheKey + ";anon-doclist";
-			if (!Request.IsAuthenticated) {
-				mobjDocumentList = (ArrayList)DataCache.GetCache(strCacheKey);
+			if (!Request.IsAuthenticated)
+			{
+				mobjDocumentList = (ArrayList)DataCache.GetCache (strCacheKey);
 			}
 
-			if (mobjDocumentList == null) {
-			//	mobjDocumentList = (ArrayList) DocumentsController.GetObjects<DocumentInfo>(ModuleId); // PortalId!!!
+			if (mobjDocumentList == null)
+			{
+				//	mobjDocumentList = (ArrayList) DocumentsController.GetObjects<DocumentInfo>(ModuleId); // PortalId!!!
 
-				mobjDocumentList = new ArrayList(DocumentsController.GetDocuments(ModuleId, PortalId).ToArray());
+				mobjDocumentList = new ArrayList (DocumentsController.GetDocuments (ModuleId, PortalId).ToArray ());
 
 				// Check security on files
 				int intCount = 0;
 				DocumentInfo objDocument = null;
 
-				for (intCount = mobjDocumentList.Count - 1; intCount >= 0; intCount += -1) {
-					objDocument = (DocumentInfo)mobjDocumentList[intCount];
-					if (objDocument.Url.ToLower().IndexOf("fileid=") >= 0) {
+				for (intCount = mobjDocumentList.Count - 1; intCount >= 0; intCount += -1)
+				{
+					objDocument = (DocumentInfo)mobjDocumentList [intCount];
+					if (objDocument.Url.ToLower ().IndexOf ("fileid=") >= 0)
+					{
 						// document is a file, check security
-						var objFile = FileManager.Instance.GetFile(int.Parse(objDocument.Url.Split('=')[1]));
-
-						if ((objFile != null) && !DotNetNuke.Security.PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(objFile.Folder, PortalSettings.PortalId, "READ"))) {
-							// remove document from the list
-							mobjDocumentList.Remove(objDocument);
+						var objFile = FileManager.Instance.GetFile (int.Parse (objDocument.Url.Split ('=') [1]));
+					
+						//if ((objFile != null) && !PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(objFile.Folder, PortalSettings.PortalId, "READ"))) {
+						if (objFile != null)
+						{
+							var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
+							if (!FolderPermissionController.CanViewFolder ((FolderInfo)folder))
+							{
+								// remove document from the list
+								mobjDocumentList.Remove (objDocument);
+							}
 						}
 					}
 					objDocument.OnLocalize += new LocalizeHandler(OnLocalize);
