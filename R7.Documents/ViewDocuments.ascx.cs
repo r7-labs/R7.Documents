@@ -50,7 +50,8 @@ namespace R7.Documents
 	{
 		private const int NOT_READ = -2;
 		
-		private ArrayList mobjDocumentList;
+		// private ArrayList mobjDocumentList;
+		private List<DocumentInfo> mobjDocumentList;
 		private int mintTitleColumnIndex = NOT_READ;
 		private int mintDownloadLinkColumnIndex = NOT_READ;
 
@@ -122,7 +123,8 @@ namespace R7.Documents
 			objCustomSortColumn.Direction = objCustomSortDirecton;
 			objCustomSortList.Add (objCustomSortColumn);
 
-			mobjDocumentList.Sort (new DocumentComparer (objCustomSortList));
+			var docComparer = new DocumentComparer (objCustomSortList);
+			mobjDocumentList.Sort (docComparer.Compare);
 			grdDocuments.DataSource = mobjDocumentList;
 			grdDocuments.DataBind ();
 
@@ -151,8 +153,9 @@ namespace R7.Documents
 			{
 				LoadData ();
 
-				// Use Documents IComparer to do sort based on the default sort order (mobjSettings.SortOrder)
-				mobjDocumentList.Sort (new DocumentComparer (DocumentsSettings.GetSortColumnList (this.LocalResourceFile)));
+				// Use DocumentComparer to do sort based on the default sort order (mobjSettings.SortOrder)
+				var docComparer = new DocumentComparer (DocumentsSettings.GetSortColumnList (this.LocalResourceFile));
+				mobjDocumentList.Sort (docComparer.Compare);
 
 				//Bind the grid
 				grdDocuments.DataSource = mobjDocumentList;
@@ -381,14 +384,14 @@ namespace R7.Documents
 			strCacheKey = this.DataCacheKey + ";anon-doclist";
 			if (!Request.IsAuthenticated)
 			{
-				mobjDocumentList = (ArrayList)DataCache.GetCache (strCacheKey);
+				mobjDocumentList = (List<DocumentInfo>)DataCache.GetCache (strCacheKey);
 			}
 
 			if (mobjDocumentList == null)
 			{
 				//	mobjDocumentList = (ArrayList) DocumentsController.GetObjects<DocumentInfo>(ModuleId); // PortalId!!!
 
-				mobjDocumentList = new ArrayList (DocumentsController.GetDocuments (ModuleId, PortalId).ToArray ());
+				mobjDocumentList = DocumentsController.GetDocuments (ModuleId, PortalId).ToList();
 
 				// Check security on files
 				int intCount = 0;
@@ -424,7 +427,8 @@ namespace R7.Documents
 			}
 
 			//Sort documents
-			mobjDocumentList.Sort (new DocumentComparer (DocumentsSettings.GetSortColumnList (this.LocalResourceFile)));
+			var docComparer = new DocumentComparer (DocumentsSettings.GetSortColumnList (this.LocalResourceFile));
+			mobjDocumentList.Sort (docComparer.Compare);
 
 			IsReadComplete = true;
 		}

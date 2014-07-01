@@ -18,19 +18,33 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace R7.Documents
 {
 	public class DocumentComparer : IComparer
 	{
-
-
 		private ArrayList mobjSortColumns;
 
 		public DocumentComparer (ArrayList SortColumns)
 		{
 			mobjSortColumns = SortColumns;
+		}
+		
+        /// <summary>
+        /// Compares two documents and returns a value indicating whether one is less than, 
+		/// equal to, or greater than the other. This method is of Comparison<T> delegate type
+        /// </summary>
+        /// <param name="x">First document.</param>
+        /// <param name="y">Second document.</param>
+		public int Compare (DocumentInfo x, DocumentInfo y)
+		{
+			if (mobjSortColumns.Count == 0)
+				return 0;
+
+			return Compare (0, x, y);
 		}
 
 		public int Compare (object x, object y)
