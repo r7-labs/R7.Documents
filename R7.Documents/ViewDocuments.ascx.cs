@@ -161,7 +161,7 @@ namespace R7.Documents
 
 			// Localize the Data Grid
 			// REVIEW: Original: Localization.LocalizeDataGrid(ref grdDocuments, this.LocalResourceFile);
-			Localization.LocalizeDataGrid (ref withEventsField_grdDocuments, this.LocalResourceFile);
+			Localization.LocalizeDataGrid (ref grdDocuments, this.LocalResourceFile);
 		}
 
 		/// -----------------------------------------------------------------------------
@@ -286,7 +286,8 @@ namespace R7.Documents
 			//Do not modify it using the code editor.
 			InitializeComponent ();
 
-			// declare module actions
+			grdDocuments.SortCommand += grdDocuments_SortCommand;
+			grdDocuments.ItemCreated += grdDocuments_ItemCreated;
 		}
 
 		#endregion

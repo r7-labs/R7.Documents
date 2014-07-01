@@ -63,6 +63,12 @@ namespace R7.Documents
 			//CODEGEN: This method call is required by the Web Form Designer
 			//Do not modify it using the code editor.
 			InitializeComponent ();
+
+			grdSortColumns.ItemCreated += grdSortColumns_ItemCreated;
+			grdSortColumns.DeleteCommand += grdSortColumns_DeleteCommand;
+			grdDisplayColumns.ItemCreated += grdDisplayColumns_ItemCreated;
+			grdDisplayColumns.ItemCommand += grdDisplayColumns_ItemCommand;
+			lnkAddSortColumn.Click += lnkAddSortColumn_Click;
 		}
 
 		#endregion
@@ -368,7 +374,7 @@ namespace R7.Documents
 			grdSortColumns.DataKeyField = "ColumnName";
 
 			// REVIEW: Original:			Localization.LocalizeDataGrid(ref grdSortColumns, this.LocalResourceFile);
-			Localization.LocalizeDataGrid (ref withEventsField_grdSortColumns, this.LocalResourceFile);
+			Localization.LocalizeDataGrid (ref grdSortColumns, this.LocalResourceFile);
 			grdSortColumns.DataBind ();
 		}
 
@@ -383,7 +389,7 @@ namespace R7.Documents
 			{
 				
 				// REVIEW: Original: Localization.LocalizeDataGrid(ref grdDisplayColumns, this.LocalResourceFile);
-				Localization.LocalizeDataGrid (ref withEventsField_grdSortColumns, this.LocalResourceFile);
+				Localization.LocalizeDataGrid (ref grdSortColumns, this.LocalResourceFile);
 			}
  
 			grdDisplayColumns.DataBind ();

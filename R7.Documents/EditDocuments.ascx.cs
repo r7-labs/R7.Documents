@@ -665,6 +665,12 @@ namespace R7.Documents
 			//CODEGEN: This method call is required by the Web Form Designer
 			//Do not modify it using the code editor.
 			InitializeComponent ();
+			
+			cmdUpdate.Click += cmdUpdate_Click;
+			cmdCancel.Click += cmdCancel_Click;
+			cmdDelete.Click += cmdDelete_Click;
+			cmdUpdateOverride.Click += cmdUpdateOverride_Click;
+			lnkChange.Click += lnkChange_Click;
 		}
 
 		#endregion
