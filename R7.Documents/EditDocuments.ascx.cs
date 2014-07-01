@@ -20,6 +20,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Collections;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -203,25 +204,57 @@ namespace R7.Documents
 		/// 	[ag]	11 March 2007	Created
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private bool CheckFileSecurity(string Url)
+		private bool CheckFileSecurity (string Url)
 		{
 			int intFileId = 0;
 					
-			switch (Globals.GetURLType(Url)) {
+			switch (Globals.GetURLType (Url))
+			{
 				case TabType.File:
-					if (Url.ToLower().StartsWith("fileid=") == false) {
+					if (Url.ToLower ().StartsWith ("fileid=") == false)
+					{
 						// to handle legacy scenarios before the introduction of the FileServerHandler
-						Url = "FileID=" + FileManager.Instance.GetFile(PortalId, Url).FileId;
+						Url = "FileID=" + FileManager.Instance.GetFile (PortalId, Url).FileId;
 						// Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
 					}
 
 					intFileId = int.Parse(UrlUtils.GetParameterValue(Url));
-					var objFile = FileManager.Instance.GetFile(intFileId);
-					if ((objFile != null)) {
-						// Get file's folder security
+					var objFile = FileManager.Instance.GetFile (intFileId);
+					
+					if (objFile != null) 
+					{
+						// module view roles
+						var moduleViewRoles = new StringBuilder ();
+						foreach (ModulePermissionInfo modulePerm in ModuleConfiguration.ModulePermissions)
+						{
+							if (modulePerm.PermissionKey == "VIEW" && modulePerm.AllowAccess)
+							{
+								if (moduleViewRoles.Length > 0)
+									moduleViewRoles.Append (';');
+	
+								moduleViewRoles.Append (modulePerm.RoleName);
+							}
+						}
+	
+						// folder view roles
+						var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
+						var folderViewRoles = new StringBuilder ();
+						foreach (FolderPermissionInfo folderPerm in folder.FolderPermissions)
+						{
+							if (folderPerm.PermissionKey == "READ" && folderPerm.AllowAccess)
+							{
+								if (folderViewRoles.Length > 0)
+									folderViewRoles.Append (';');
+	
+								folderViewRoles.Append (folderPerm.RoleName);
+							}
+						}
+					
 						return CheckRolesMatch(
-							this.ModuleConfiguration.AuthorizedViewRoles, 
-							FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
+							// this.ModuleConfiguration.AuthorizedViewRoles, 
+							moduleViewRoles.ToString(),
+							// FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
+							folderViewRoles.ToString()
 						);
 					}
 					break;
@@ -240,39 +273,53 @@ namespace R7.Documents
 		/// 	[ag]	11 March 2007	Created
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private bool CheckRolesMatch(string ModuleRoles, string FileRoles)
+		private bool CheckRolesMatch (string ModuleRoles, string FileRoles)
 		{
-			Hashtable objFileRoles = new Hashtable();
+			Hashtable objFileRoles = new Hashtable ();
 			bool blnNotMatching = false;
 			string strRolesForMessage = "";
 
-			foreach (string strFileRole in FileRoles.Split(';')) {
-				objFileRoles.Add(strFileRole, strFileRole);
-				if (strFileRole == DotNetNuke.Common.Globals.glbRoleAllUsersName) {
+			foreach (string strFileRole in FileRoles.Split(';'))
+			{
+				objFileRoles.Add (strFileRole, strFileRole);
+				if (strFileRole == DotNetNuke.Common.Globals.glbRoleAllUsersName)
+				{
 					// If read access to the file is available for "all users", the file can
 					// always be accessed
 					return true;
 				}
 			}
 
-			foreach (string strModuleRole in ModuleRoles.Split(';')) {
-				if (!objFileRoles.ContainsKey(strModuleRole)) {
+			foreach (string strModuleRole in ModuleRoles.Split(';'))
+			{
+				if (!objFileRoles.ContainsKey (strModuleRole))
+				{
 					// A view role exists for the module that is not available for the file
 					blnNotMatching = true;
-					if (strRolesForMessage != string.Empty) {
+					if (strRolesForMessage != string.Empty)
+					{
 						strRolesForMessage = strRolesForMessage + ", ";
 					}
 					strRolesForMessage = strRolesForMessage + strModuleRole;
 				}
 			}
 
-			if (blnNotMatching) {
+			if (blnNotMatching)
+			{
+				// if no roles selected for message, assume it "All users"
+				if (string.IsNullOrWhiteSpace (strRolesForMessage))
+					strRolesForMessage = Globals.glbRoleAllUsersName;
+
 				// Warn user that roles do not match
-				DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, DotNetNuke.Services.Localization.Localization.GetString("msgFileSecurityWarning.Text", this.LocalResourceFile).Replace("[$ROLELIST]", (strRolesForMessage.IndexOf(",") >= 0 ? "s" : "").ToString() + "'" + strRolesForMessage + "'"), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
+				DotNetNuke.UI.Skins.Skin.AddModuleMessage (
+					this, 
+					Localization.GetString ("msgFileSecurityWarning.Text", this.LocalResourceFile)
+					.Replace ("[$ROLELIST]", strRolesForMessage), 
+					DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
 				return false;
-			} else {
-				return true;
 			}
+
+			return true;
 		}
 
 		/// -----------------------------------------------------------------------------
