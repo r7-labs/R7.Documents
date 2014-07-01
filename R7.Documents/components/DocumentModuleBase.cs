@@ -45,6 +45,15 @@ namespace R7.Documents
 		{
 			get { return settings ?? (settings = new DocumentsSettings (this)); }
 		}
+		
+		public string DataCacheKey 
+		{
+			get 
+			{
+				return "TabModule:" + TabModuleId + ":" +
+					System.Threading.Thread.CurrentThread.CurrentCulture;
+			}
+		}
 	}
 
 	/// <summary>
@@ -62,6 +71,15 @@ namespace R7.Documents
 		protected DocumentsSettings DocumentsSettings 
 		{
 			get { return settings ?? (settings = new DocumentsSettings (this)); }
+		}
+
+		public string DataCacheKey 
+		{
+			get 
+			{
+				return "TabModule:" + TabModuleId + ":" +
+					System.Threading.Thread.CurrentThread.CurrentCulture;
+			}
 		}
 	}
 }

@@ -207,20 +207,11 @@ namespace R7.Documents
 					FillSettings();
 				
 					Utils.SynchronizeModule(this);
-					DataCache.RemoveCache(this.CacheKey + ";anon-doclist");
+					DataCache.RemoveCache(this.DataCacheKey + ";anon-doclist");
 				}
 			//Module failed to load
 			} catch (Exception exc) {
 				Exceptions.ProcessModuleLoadException(this, exc);
-			}
-		}
-
-		public string CacheKey {
-			get {
-				string strCacheKey = "TabModule:";
-				strCacheKey += TabModuleId.ToString() + ":";
-				strCacheKey += System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
-				return strCacheKey;
 			}
 		}
 

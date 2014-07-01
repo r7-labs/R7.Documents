@@ -345,7 +345,7 @@ namespace R7.Documents
 				return;
 
 			// Only read from the cache if the users is not logged in
-			strCacheKey = this.CacheKey + ";anon-doclist";
+			strCacheKey = this.DataCacheKey + ";anon-doclist";
 			if (!Request.IsAuthenticated) {
 				mobjDocumentList = (ArrayList)DataCache.GetCache(strCacheKey);
 			}

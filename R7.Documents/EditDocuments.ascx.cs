@@ -381,7 +381,7 @@ namespace R7.Documents
 				}
 
 				Utils.SynchronizeModule(this);
-				DataCache.RemoveCache(this.CacheKey + ";anon-doclist");
+				DataCache.RemoveCache(this.DataCacheKey + ";anon-doclist");
 
 				// Redirect back to the portal home page
 				Response.Redirect(Globals.NavigateURL(), true);
@@ -506,7 +506,7 @@ namespace R7.Documents
 					objUrls.UpdateUrl(PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
 					Utils.SynchronizeModule(this);
-					DataCache.RemoveCache(this.CacheKey + ";anon-doclist");
+					DataCache.RemoveCache(this.DataCacheKey + ";anon-doclist");
 
 					// Redirect back to the portal home page
 					Response.Redirect(Globals.NavigateURL(), true);
