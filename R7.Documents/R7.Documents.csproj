@@ -82,7 +82,6 @@
     <Compile Include="lib\Properties\AssemblyInfo.cs" />
     <Compile Include="components\DocumentsSettings.cs" />
     <Compile Include="components\DocumentsController.cs" />
-    <Compile Include="components\DocumentsInfo.cs" />
     <Compile Include="ViewDocuments.ascx.cs">
       <DependentUpon>ViewDocuments.ascx</DependentUpon>
     </Compile>
