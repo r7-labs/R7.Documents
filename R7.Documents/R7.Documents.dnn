@@ -23,8 +23,8 @@
            </supportedFeatures>
            <moduleDefinitions>
              <moduleDefinition>
-               <friendlyName>Documents</friendlyName>
-               <definitionName>Documents</definitionName>
+               <friendlyName>R7.Documents</friendlyName>
+               <definitionName>R7.Documents</definitionName>
                <defaultCacheTime>0</defaultCacheTime>
                <moduleControls>
                  <moduleControl>
