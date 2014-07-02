@@ -38,7 +38,7 @@ namespace R7.Documents
 	/// <summary>
 	/// Holds the information about a single document
 	/// </summary>
-	[TableName ("Documents")]
+	[TableName ("Documents_Documents")]
 	[PrimaryKey ("ItemId", AutoIncrement = true)]
 	[Scope ("ModuleId")]
 	public class DocumentInfo

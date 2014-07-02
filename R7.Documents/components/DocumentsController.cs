@@ -57,7 +57,7 @@ namespace R7.Documents
 			using (var ctx = DataContext.Instance ())
 			{
 				document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
-					System.Data.CommandType.StoredProcedure, "GetDocument", ItemId, ModuleId);
+					System.Data.CommandType.StoredProcedure, "Documents_GetDocument", ItemId, ModuleId);
 			}
 
 			return document;
@@ -70,7 +70,7 @@ namespace R7.Documents
 			using (var ctx = DataContext.Instance ())
 			{
 				documents = ctx.ExecuteQuery<DocumentInfo> (
-					System.Data.CommandType.StoredProcedure, "GetDocuments", ModuleId, PortalId);
+					System.Data.CommandType.StoredProcedure, "Documents_GetDocuments", ModuleId, PortalId);
 			}
 
 			return documents;

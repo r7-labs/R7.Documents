@@ -5,93 +5,91 @@
 -- Create tables
 
 IF (SELECT COLUMNPROPERTY( OBJECT_ID('{databaseOwner}{objectQualifier}Documents'),'ForceDownload','AllowsNull')) IS NULL 
-	ALTER TABLE {databaseOwner}{objectQualifier}Documents 
+	ALTER TABLE {databaseOwner}{objectQualifier}Documents_Documents 
 		ADD ForceDownload BIT 
 GO
 
-UPDATE {databaseOwner}{objectQualifier}Documents 
+UPDATE {databaseOwner}{objectQualifier}Documents_Documents 
 SET ForceDownload = 0
 GO
 
 -- Drop stored procedures
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocument
+	DROP PROCEDURE {databaseOwner}{objectQualifier}Documents_GetDocument
 GO
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocuments') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	DROP PROCEDURE {databaseOwner}{objectQualifier}GetDocuments
+	DROP PROCEDURE {databaseOwner}{objectQualifier}Documents_GetDocuments
 GO
 
 -- Create stored procedures
 
-CREATE PROCEDURE {databaseOwner}{objectQualifier}GetDocument
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Documents_GetDocument
 	@ItemId   INT,
 	@ModuleId INT
 AS
-SELECT {objectQualifier}Documents.Itemid,
-       {objectQualifier}Documents.Moduleid,
-       {objectQualifier}Documents.Title,
-       {objectQualifier}Documents.Url,
-       {objectQualifier}Documents.Category,
+SELECT D.Itemid,
+       D.Moduleid,
+       D.Title,
+       D.Url,
+       D.Category,
        CreatedByUser.FirstName + ' ' + CreatedByUser.LastName AS "CreatedByUser",
        OwnedByUser.FirstName + ' ' + OwnedByUser.LastName AS "OwnedByUser",
        ModifiedByUser.FirstName + ' ' + ModifiedByUser.LastName AS "ModifiedByUser",       
-       {objectQualifier}Files.Size,
-       {objectQualifier}Files.ContentType,
-       {objectQualifier}UrlTracking.TrackClicks,
-       {objectQualifier}UrlTracking.Clicks,
-       {objectQualifier}UrlTracking.NewWindow,
-       {objectQualifier}Documents.OwnedByUserID, 
-       {objectQualifier}Documents.ModifiedByUserID, 
-       {objectQualifier}Documents.ModifiedDate,
-       {objectQualifier}Documents.CreatedByUserID, 
-       {objectQualifier}Documents.CreatedDate, 
-       {objectQualifier}Documents.SortOrderIndex,
-       {objectQualifier}Documents.Description,
-	   {objectQualifier}Documents.ForceDownload
-FROM {databaseOwner}{objectQualifier}Documents
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on {objectQualifier}Documents.CreatedByUserID = CreatedByUser.UserId 
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on {objectQualifier}Documents.OwnedByUserID = OwnedByUser.UserId
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users  AS ModifiedByUser on {objectQualifier}Documents.ModifiedByUserID = ModifiedByUser.UserId
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking on {objectQualifier}Documents.URL = {objectQualifier}UrlTracking.Url and {objectQualifier}UrlTracking.ModuleId = @ModuleID
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}Files on {objectQualifier}Documents.URL = 'fileid=' +
-convert(varchar,{databaseOwner}{objectQualifier}Files.FileID)
-WHERE  {databaseOwner}{objectQualifier}Documents.ItemId = @ItemId
-and    {databaseOwner}{objectQualifier}Documents.ModuleId = @ModuleId
+       F.Size,
+       F.ContentType,
+       UT.TrackClicks,
+       UT.Clicks,
+       UT.NewWindow,
+       D.OwnedByUserID, 
+       D.ModifiedByUserID, 
+       D.ModifiedDate,
+       D.CreatedByUserID, 
+       D.CreatedDate, 
+       D.SortOrderIndex,
+       D.Description,
+	   D.ForceDownload
+FROM {databaseOwner}{objectQualifier}Documents_Documents AS D
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on D.CreatedByUserID = CreatedByUser.UserId 
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on D.OwnedByUserID = OwnedByUser.UserId
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS ModifiedByUser on D.ModifiedByUserID = ModifiedByUser.UserId
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking AS UT on D.URL = UT.Url and UT.ModuleId = @ModuleID
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Files AS F on D.URL = 'fileid=' + convert(varchar,F.FileID)
+WHERE D.ItemId = @ItemId and D.ModuleId = @ModuleId
 
 GO
 
-CREATE PROCEDURE {databaseOwner}{objectQualifier}GetDocuments
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Documents_GetDocuments
 	@ModuleId INT,
 	@PortalId INT
 AS
-SELECT {objectQualifier}Documents.ItemId,
-        {objectQualifier}Documents.Moduleid,
-       {objectQualifier}Documents.Title,
-       {objectQualifier}Documents.Url,
+SELECT D.ItemId,
+       D.Moduleid,
+       D.Title,
+       D.Url,
        CreatedByUser.FirstName + ' ' + CreatedByUser.LastName AS "CreatedByUser",
        OwnedByUser.FirstName + ' ' + OwnedByUser.LastName AS "OwnedByUser",
        ModifiedByUser.FirstName + ' ' + ModifiedByUser.LastName AS "ModifiedByUser",       
-       {objectQualifier}Documents.Category,
-       {objectQualifier}Files.Size,
-       {objectQualifier}UrlTracking.TrackClicks,
-       {objectQualifier}UrlTracking.Clicks,
-       {objectQualifier}UrlTracking.NewWindow,
-       {objectQualifier}Documents.OwnedByUserID, 
-       {objectQualifier}Documents.ModifiedByUserID, 
-       {objectQualifier}Documents.ModifiedDate,
-       {objectQualifier}Documents.CreatedByUserID, 
-       {objectQualifier}Documents.CreatedDate, 
-       {objectQualifier}Documents.SortOrderIndex,
-       {objectQualifier}Documents.Description,
-	   {objectQualifier}Documents.ForceDownload
-FROM {databaseOwner}{objectQualifier}Documents
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on {databaseOwner}{objectQualifier}Documents.CreatedByUserID = CreatedByUser.UserId 
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on {databaseOwner}{objectQualifier}Documents.OwnedByUserID = OwnedByUser.UserId
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users  AS ModifiedByUser on {databaseOwner}{objectQualifier}Documents.ModifiedByUserID = ModifiedByUser.UserId
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}Files on {databaseOwner}{objectQualifier}Documents.URL = 'fileid=' + convert(varchar,{databaseOwner}{objectQualifier}Files.FileID)
-LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking on {databaseOwner}{objectQualifier}Documents.URL = {databaseOwner}{objectQualifier}UrlTracking.Url and {databaseOwner}{objectQualifier}UrlTracking.ModuleId = @ModuleID
-WHERE  {objectQualifier}Documents.ModuleId = @ModuleId
-ORDER by {objectQualifier}Documents.Title
+       D.Category,
+       F.Size,
+       UT.TrackClicks,
+       UT.Clicks,
+       UT.NewWindow,
+       D.OwnedByUserID, 
+       D.ModifiedByUserID, 
+       D.ModifiedDate,
+       D.CreatedByUserID, 
+       D.CreatedDate, 
+       D.SortOrderIndex,
+       D.Description,
+	   D.ForceDownload
+FROM {databaseOwner}{objectQualifier}Documents_Documents AS D
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on D.CreatedByUserID = CreatedByUser.UserId 
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on D.OwnedByUserID = OwnedByUser.UserId
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS ModifiedByUser on D.ModifiedByUserID = ModifiedByUser.UserId
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}Files AS F on D.URL = 'fileid=' + convert(varchar, F.FileID)
+LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking AS UT on D.URL = UT.Url and UT.ModuleId = @ModuleID
+WHERE  D.ModuleId = @ModuleId
+ORDER by D.Title
 GO
