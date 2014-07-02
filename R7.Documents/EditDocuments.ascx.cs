@@ -181,8 +181,11 @@ namespace R7.Documents
 							// The audit control methods are mis-named.  The property called 
 							// "CreatedByUser" actually means "last modified user", and the property
 							// called "CreatedDate" actually means "ModifiedDate"
-							ctlAudit.CreatedByUser = objDocument.ModifiedByUser;
-							ctlAudit.CreatedDate = objDocument.ModifiedDate.ToString ();
+							
+							ctlAudit.CreatedByUser = objDocument.CreatedByUser;
+							ctlAudit.CreatedDate = objDocument.CreatedDate.ToString ();
+							ctlAudit.LastModifiedByUser = objDocument.ModifiedByUser;
+							ctlAudit.LastModifiedDate = objDocument.ModifiedDate.ToString();
 
 							ctlTracking.URL = objDocument.Url;
 							ctlTracking.ModuleID = ModuleId;
@@ -554,11 +557,13 @@ namespace R7.Documents
 						objDocument.ModuleId = ModuleId;
 
 						objDocument.CreatedByUserId = UserInfo.UserID;
-
+						
 						// Default ownerid value for new documents is current user, may be changed
 						// by the value of the dropdown list (below)
 						objDocument.OwnedByUserId = UserId;
 					}
+					
+					objDocument.ModifiedByUserId = UserInfo.UserID;
 
 					objDocument.Title = txtName.Text;
 					objDocument.Url = ctlUrl.Url;
@@ -607,7 +612,6 @@ namespace R7.Documents
 					}
 
 					// Create an instance of the Document DB component
-
 					if (Null.IsNull (ItemID))
 					{
 						objDocument.CreatedDate = DateTime.Now;
