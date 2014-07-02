@@ -218,13 +218,11 @@ namespace R7.Documents
 					{
 						if (Size > (1024 * 1024))
 						{
-							// return String.Format ("{0:#,##0.00} MB", Size / 1024 / 1024);
-							return string.Format ("{0:#,##0.00} {1}", Size / 1024 / 1024, Localize ("Megabytes.Text"));
+							return string.Format ("{0:#,##0.00} {1}", Size / 1024f / 1024f,  Localize ("Megabytes.Text"));
 						}
 						else
 						{
-							// return String.Format ("{0:#,##0.00} KB", Size / 1024);
-							return string.Format ("{0:#,##0.00} {1}", Size / 1024, Localize ("Kilobytes.Text"));
+							return string.Format ("{0:#,##0.00} {1}", Size / 1024f,  Localize ("Kilobytes.Text"));
 						}
 					}
 					else
