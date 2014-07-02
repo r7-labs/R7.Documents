@@ -40,8 +40,8 @@
         <asp:CheckBox runat="server" ID="chkForceDownload" />
     </div>
     <div class="dnnFormItem">
-        <asp:label id="lblAudit" runat="server" />
-        <div class="dnnRight">
+        <dnn:label id="plAudit" runat="server" controlname="ctlTracking" suffix=":" />
+        <div class="dnnLeft">
             <portal:tracking id="ctlTracking" runat="server" />
         </div>
     </div>

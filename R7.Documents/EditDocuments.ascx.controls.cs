@@ -34,6 +34,6 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.RangeValidator valSortIndex;
 		protected System.Web.UI.WebControls.Label lblOwner;
 		protected System.Web.UI.WebControls.LinkButton lnkChange;
-		protected System.Web.UI.WebControls.Label lblAudit;
+		protected LabelControl lblAudit;
 	}
 }
