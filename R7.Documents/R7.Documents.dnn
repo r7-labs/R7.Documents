@@ -73,15 +73,15 @@
          <scripts>
            <basePath>DesktopModules\R7.Documents\R7.Documents</basePath>
            <script type="Install">
-             <name>Install.01.00.00.SqlDataProvider</name>
+             <name>SqlDataProvider\Install.01.00.00.SqlDataProvider</name>
              <version>01.00.00</version>
            </script>
 		   <script type="Install">
-             <name>01.00.00.SqlDataProvider</name>
+             <name>SqlDataProvider\01.00.00.SqlDataProvider</name>
              <version>01.00.00</version>
            </script>
 		   <script type="UnInstall">
-             <name>Uninstall.SqlDataProvider</name>
+             <name>SqlDataProvider\Uninstall.SqlDataProvider</name>
              <version>01.00.00</version>
            </script>
          </scripts>

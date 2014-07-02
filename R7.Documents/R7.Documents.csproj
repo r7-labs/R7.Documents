@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="js\" />
+    <Folder Include="SqlDataProvider\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="module.css" />
@@ -64,16 +65,16 @@
     <Content Include="ModuleHelp.htm" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="01.00.00.SqlDataProvider" />
-    <None Include="Uninstall.SqlDataProvider" />
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
     <None Include="App_LocalResources\EditDocuments.ascx.resx" />
     <None Include="App_LocalResources\SettingsDocuments.ascx.resx" />
     <None Include="Readme.txt" />
     <None Include="License.txt" />
     <None Include="ReleaseNotes.txt" />
-    <None Include="Install.01.00.00.SqlDataProvider" />
     <None Include="R7.Documents.dnn" />
+    <None Include="SqlDataProvider\01.00.00.SqlDataProvider" />
+    <None Include="SqlDataProvider\Uninstall.SqlDataProvider" />
+    <None Include="SqlDataProvider\Install.01.00.00.SqlDataProvider" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
