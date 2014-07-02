@@ -79,7 +79,7 @@ namespace R7.Documents
 
 		public bool AllowUserSort
 		{
-			get { return ReadSetting<bool> ("Documents_AllowUserSort", true, true); }
+			get { return ReadSetting<bool> ("Documents_AllowUserSort", false, true); }
 			set { WriteSetting<bool> ("Documents_AllowUserSort", value, true); }
 		}
 
