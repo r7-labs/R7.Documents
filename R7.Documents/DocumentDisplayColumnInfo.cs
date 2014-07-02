@@ -42,7 +42,7 @@ namespace R7.Documents
 		public const string COLUMN_DOWNLOADLINK = "DownloadLink";
 		public const string COLUMN_CLICKS = "Clicks";
 		public const string COLUMN_ICON = "Icon";
-		public const string COLUMN_FILENAME = "FileName";
+		public const string COLUMN_URL = "Url";
 
 		public static string[] AvailableDisplayColumns = new string[] {
 			COLUMN_TITLE,
@@ -57,7 +57,7 @@ namespace R7.Documents
 			COLUMN_DESCRIPTION,
 			COLUMN_CLICKS,
 			COLUMN_ICON,
-			COLUMN_FILENAME
+			COLUMN_URL
 		};
 		public static string[] AvailableSortColumns = new string[] {
 			COLUMN_SORTORDER,
@@ -71,7 +71,7 @@ namespace R7.Documents
 			COLUMN_MODIFIEDBY,
 			COLUMN_DESCRIPTION,
 			COLUMN_CLICKS,
-			COLUMN_FILENAME
+			COLUMN_URL
 		};
 
 		#region "Private Members"

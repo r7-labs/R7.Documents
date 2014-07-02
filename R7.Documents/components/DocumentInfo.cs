@@ -54,7 +54,7 @@ namespace R7.Documents
 
 		private int _clicks;
 		private string _formatIcon;
-		private string _fileName;
+		private string _formatUrl;
 
 		#endregion
 
@@ -118,15 +118,14 @@ namespace R7.Documents
 
 		#region Custom properties
 
-		// REVIEW: Rename to RawUrl?
 		[IgnoreColumn]
-		public string FileName
+		public string FormatUrl
 		{
 			get
 			{
-				if (_fileName == null)
+				if (_formatUrl == null)
 				{
-					_fileName = "";
+					_formatUrl = "";
 
 					if (Url.ToUpperInvariant ().StartsWith ("FILEID="))
 					{
@@ -136,17 +135,19 @@ namespace R7.Documents
 							var fileInfo = FileManager.Instance.GetFile (fileId.Value);
 							if (fileInfo != null)
 							{
-								_fileName = fileInfo.RelativePath;
+								// REVIEW: Must use Request.Url.Scheme
+								_formatUrl =  "http://" + PortalSettings.Current.PortalAlias.HTTPAlias + 
+									"/portals/" +  PortalSettings.Current.PortalId + "/" + fileInfo.RelativePath;
 							}
 						}
 					}
 					else // Url
 					{
-						_fileName = Url;
+						_formatUrl = Url;
 					}
 				}
 			
-				return _fileName;
+				return _formatUrl;
 			}
 		}
 

@@ -75,8 +75,8 @@
   <data name="Icon.Header" xml:space="preserve">
     <value>Icon</value>
   </data>
-  <data name="FileName.Header" xml:space="preserve">
-    <value>File Name</value>
+  <data name="Url.Header" xml:space="preserve">
+    <value>Url</value>
   </data>
   <data name="ModuleHelp.Text" xml:space="preserve">
     <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;

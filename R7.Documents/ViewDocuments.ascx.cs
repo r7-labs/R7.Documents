@@ -366,8 +366,8 @@ namespace R7.Documents
 							AddDocumentColumn (Localization.GetString ("Icon", LocalResourceFile), "Icon", "FormatIcon");
 
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_FILENAME:
-							AddDocumentColumn (Localization.GetString ("FileName", LocalResourceFile), "FileName", "FileName");
+						case DocumentsDisplayColumnInfo.COLUMN_URL:
+							AddDocumentColumn (Localization.GetString ("Url", LocalResourceFile), "Url", "FormatUrl");
 
 							break;
 						case DocumentsDisplayColumnInfo.COLUMN_TITLE:
