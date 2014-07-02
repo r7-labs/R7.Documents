@@ -25,23 +25,23 @@
         <asp:linkbutton id="lnkChange" runat="server" cssclass="dnnSecondaryAction" resourcekey="lnkChangeOwner" causesvalidation="False" text="Change Owner" />
     </div>
     <div class="dnnFormItem">
-        <dnn:label id="plUrl" runat="server" controlname="ctlURL" suffix=":" />
-       	<div class="dnnLeft" style="width:440px">
-            <portal:url id="ctlUrl" runat="server" showtabs="False" shownone="True" urltype="F" shownewwindow="True" ShowSecure="True" ShowDatabase="True" />
-        </div>
-    </div>
-    <div class="dnnFormItem">
         <dnn:label id="plSortIndex" runat="server" controlname="txtSortIndex" suffix=":" />
         <asp:textbox id="txtSortIndex" runat="server" maxlength="3" CssClass="dnnFormRequired" />
         <asp:rangevalidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError" ErrorMessage="Please enter a value from 0-999." Display="Dynamic" ControlToValidate="txtSortIndex" Type="Integer" MaximumValue="999" MinimumValue="0" />
     </div>
     <div class="dnnFormItem">
+        <dnn:label id="plUrl" runat="server" controlname="ctlURL" suffix=":" />
+       	<div class="dnnLeft" style="width:440px">
+            <portal:url id="ctlUrl" runat="server" showtabs="False" shownone="True" urltype="F" shownewwindow="True" ShowSecure="True" ShowDatabase="True" />
+        </div>
+    </div>
+	<div class="dnnFormItem">
         <dnn:Label id="plForceDownload" runat="server" controlname="chkForceDownload" suffix="?" />
         <asp:CheckBox runat="server" ID="chkForceDownload" />
     </div>
-    <div class="dnnFormItem">
+	<div class="dnnFormItem">
         <dnn:label id="plAudit" runat="server" controlname="ctlTracking" suffix=":" />
-        <div class="dnnLeft">
+        <div class="dnnLeft" style="padding:1.5em;margin-top:0.5em;background-color:#eee">
             <portal:tracking id="ctlTracking" runat="server" />
         </div>
     </div>
