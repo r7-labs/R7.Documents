@@ -208,7 +208,7 @@ namespace R7.Documents
 		
 			try
 			{
-				var arrDocuments = GetDocuments(ModuleID, objModule.PortalID);
+				var arrDocuments = GetDocuments (ModuleID, objModule.PortalID);
 				
 				if (arrDocuments.Any ())
 				{
@@ -242,8 +242,18 @@ namespace R7.Documents
 						}
 						strXML.Append ("</document>");
 					}
-
 				}
+
+				var settings = new DocumentsSettings (objModule);
+				strXML.Append ("<settings>");
+				strXML.AppendFormat ("<allowusersort>{0}</allowusersort>", XmlUtils.XMLEncode (settings.AllowUserSort.ToString ()));
+				strXML.AppendFormat ("<showtitlelink>{0}</showtitlelink>", XmlUtils.XMLEncode (settings.ShowTitleLink.ToString ()));
+				strXML.AppendFormat ("<usecategorieslist>{0}</usecategorieslist>", XmlUtils.XMLEncode (settings.UseCategoriesList.ToString ()));
+				strXML.AppendFormat ("<categorieslistname>{0}</categorieslistname>", XmlUtils.XMLEncode (settings.CategoriesListName));
+				strXML.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder));
+				strXML.AppendFormat ("<displaycolumns>{0}</displaycolumns>", XmlUtils.XMLEncode (settings.DisplayColumns));
+				strXML.AppendFormat ("<sortorder>{0}</sortorder>", XmlUtils.XMLEncode (settings.SortOrder));
+				strXML.Append ("</settings>");
 			}
 			catch
 			{
@@ -277,38 +287,9 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		public void ImportModule (int ModuleID, string Content, string Version, int UserId)
 		{
+			ModuleController objModules = new ModuleController ();
+			ModuleInfo objModule = objModules.GetModule (ModuleID, Null.NullInteger);
 			
-/*
-// NOTE: Settings now imported by DNN
-			bool isNewSettings = false;
-			XmlNode xmlDocumentsSettings = Globals.GetContent(Content, "documents/documentssettings");
-			if (((xmlDocumentsSettings != null))) {
-				// Need to check before adding settings - update may be required instead
-				var objDocumentsSettings = new DocumentsSettings(objModule);
-
-				
-				if ((objDocumentsSettings == null)) {
-					objDocumentsSettings = new DocumentsSettingsInfo();
-					isNewSettings = true;
-				}
-
-				objDocumentsSettings.ModuleId = ModuleID;
-				objDocumentsSettings.DisplayColumns = XmlUtils.GetNodeValue(xmlDocumentsSettings, "displaycolumns");
-				objDocumentsSettings.ShowTitleLink = XmlUtils.GetNodeValueBoolean(xmlDocumentsSettings, "showtitlelink");
-				objDocumentsSettings.SortOrder = XmlUtils.GetNodeValue(xmlDocumentsSettings, "sortorder");
-				objDocumentsSettings.UseCategoriesList = XmlUtils.GetNodeValueBoolean(xmlDocumentsSettings, "usecategorieslist");
-				objDocumentsSettings.AllowUserSort = XmlUtils.GetNodeValueBoolean(xmlDocumentsSettings, "allowusersort");
-				objDocumentsSettings.DefaultFolder = XmlUtils.GetNodeValue(xmlDocumentsSettings, "defaultfolder");
-				objDocumentsSettings.CategoriesListName = XmlUtils.GetNodeValue(xmlDocumentsSettings, "categorieslistname");
-				
-				if (isNewSettings) {
-					AddDocumentsSettings(objDocumentsSettings);
-				} else {
-					UpdateDocumentsSettings(objDocumentsSettings);
-				}
-
-			}*/
-
 			// XmlNode xmlDocument = default(XmlNode);
 			string strUrl = string.Empty;
 			XmlNode xmlDocuments = Globals.GetContent (Content, "documents");
@@ -332,7 +313,6 @@ namespace R7.Documents
 				objDocument.CreatedDate = XmlUtils.GetNodeValueDate (xmlDocument, "createddate", DateTime.Now);
 				objDocument.Description = XmlUtils.GetNodeValue (xmlDocument, "description");
 				objDocument.CreatedByUserId = UserId;
-
 				objDocument.OwnedByUserId = XmlUtils.GetNodeValueInt (xmlDocument, "ownedbyuserid");
 				objDocument.ModifiedByUserId = XmlUtils.GetNodeValueInt (xmlDocument, "modifiedbyuserid");
 				objDocument.ModifiedDate = XmlUtils.GetNodeValueDate (xmlDocument, "modifieddate", DateTime.Now);
@@ -343,8 +323,6 @@ namespace R7.Documents
 				Add<DocumentInfo> (objDocument);
 
 				// Update Tracking options
-				ModuleController objModules = new ModuleController ();
-				ModuleInfo objModule = objModules.GetModule (ModuleID, Null.NullInteger);
 				string urlType = "U";
 				if (objDocument.Url.StartsWith ("FileID"))
 				{
@@ -353,8 +331,24 @@ namespace R7.Documents
 				UrlController urlController = new UrlController ();
 				// If nodes not found, all values will be false
 				urlController.UpdateUrl (objModule.PortalID, objDocument.Url, urlType, XmlUtils.GetNodeValueBoolean (xmlDocument, "logactivity"), XmlUtils.GetNodeValueBoolean (xmlDocument, "trackclicks", true), ModuleID, XmlUtils.GetNodeValueBoolean (xmlDocument, "newwindow"));
-
 			}
+
+			XmlNode xmlDocumentsSettings = Globals.GetContent (Content, "documents/settings");
+			if (xmlDocumentsSettings != null)
+			{
+				var settings = new DocumentsSettings (objModule);
+			
+				settings.AllowUserSort = XmlUtils.GetNodeValueBoolean (xmlDocumentsSettings, "allowusersort");
+				settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlDocumentsSettings, "showtitlelink");
+				settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlDocumentsSettings, "usecategorieslist");
+				settings.CategoriesListName = XmlUtils.GetNodeValue (xmlDocumentsSettings, "categorieslistname");
+				settings.DefaultFolder = XmlUtils.GetNodeValue (xmlDocumentsSettings, "defaultfolder");
+				settings.DisplayColumns = XmlUtils.GetNodeValue (xmlDocumentsSettings, "displaycolumns");
+				settings.SortOrder = XmlUtils.GetNodeValue (xmlDocumentsSettings, "sortorder");
+
+				// Need Utils.SynchronizeModule() call
+			}
+
 		}
 
 		#endregion
