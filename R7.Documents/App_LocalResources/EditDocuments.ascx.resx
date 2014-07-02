@@ -9,10 +9,10 @@
   <data name="Name.ErrorMessage" xml:space="preserve">
     <value>&lt;br&gt;You Must Enter A Title For The Document</value>
   </data>
-  <data name="plURL.Text" xml:space="preserve">
+  <data name="plUrl.Text" xml:space="preserve">
     <value>Link</value>
   </data>
-  <data name="plURL.Help" xml:space="preserve">
+  <data name="plUrl.Help" xml:space="preserve">
     <value>Select the Url for the Document</value>
   </data>
   <data name="plDescription.Text" xml:space="preserve">

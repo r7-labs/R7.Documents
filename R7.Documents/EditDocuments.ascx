@@ -26,7 +26,7 @@
     </div>
     <div class="dnnFormItem">
         <dnn:label id="plUrl" runat="server" controlname="ctlURL" suffix=":" />
-        <div class="dnnRight">
+       	<div class="dnnLeft" style="width:440px">
             <portal:url id="ctlUrl" runat="server" showtabs="False" shownone="True" urltype="F" shownewwindow="True" ShowSecure="True" ShowDatabase="True" />
         </div>
     </div>
