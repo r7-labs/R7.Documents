@@ -204,12 +204,12 @@ namespace R7.Documents
 			ModuleController objModules = new ModuleController ();
 			ModuleInfo objModule = objModules.GetModule (ModuleID, Null.NullInteger);
 		
-			StringBuilder strXML = new StringBuilder ("");
+			StringBuilder strXML = new StringBuilder ("<documents>");
 		
 			try
 			{
-				var arrDocuments = GetObjects<DocumentInfo> (ModuleID); // objModule.PortalID!!!
-				//if (arrDocuments.Count != 0) {
+				var arrDocuments = GetDocuments(ModuleID, objModule.PortalID);
+				
 				if (arrDocuments.Any ())
 				{
 					foreach (DocumentInfo objDocument_loopVariable in arrDocuments)
@@ -224,7 +224,7 @@ namespace R7.Documents
 						strXML.AppendFormat ("<description>{0}</description>", XmlUtils.XMLEncode (objDocument.Description));
 						strXML.AppendFormat ("<createdbyuserid>{0}</createdbyuserid>", XmlUtils.XMLEncode (objDocument.CreatedByUserId.ToString ()));
 						strXML.AppendFormat ("<forcedownload>{0}</forcedownload>", XmlUtils.XMLEncode ((objDocument.ForceDownload.ToString ())));
-
+						strXML.AppendFormat ("<ispublished>{0}</ispublished>", XmlUtils.XMLEncode ((objDocument.IsPublished.ToString ())));
 						strXML.AppendFormat ("<ownedbyuserid>{0}</ownedbyuserid>", XmlUtils.XMLEncode (objDocument.OwnedByUserId.ToString ()));
 						strXML.AppendFormat ("<modifiedbyuserid>{0}</modifiedbyuserid>", XmlUtils.XMLEncode (objDocument.ModifiedByUserId.ToString ()));
 						strXML.AppendFormat ("<modifieddate>{0}</modifieddate>", XmlUtils.XMLEncode (objDocument.ModifiedDate.ToString ("dd-MMM-yyyy hh:mm:ss tt")));
@@ -338,6 +338,7 @@ namespace R7.Documents
 				objDocument.ModifiedDate = XmlUtils.GetNodeValueDate (xmlDocument, "modifieddate", DateTime.Now);
 				objDocument.SortOrderIndex = XmlUtils.GetNodeValueInt (xmlDocument, "sortorderindex");
 				objDocument.ForceDownload = XmlUtils.GetNodeValueBoolean (xmlDocument, "forcedownload");
+				objDocument.IsPublished = XmlUtils.GetNodeValueBoolean (xmlDocument, "ispublished");
 
 				Add<DocumentInfo> (objDocument);
 

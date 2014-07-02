@@ -205,6 +205,18 @@ namespace R7.Documents
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
 						objDocument = (DocumentInfo)mobjDocumentList [e.Item.ItemIndex];
+						
+						// decorate unpublished items
+						if (!objDocument.IsPublished)
+						{
+							if (e.Item.ItemType == ListItemType.Item)
+								e.Item.CssClass = grdDocuments.ItemStyle.CssClass + " _nonpublished";
+							else if (e.Item.ItemType == ListItemType.AlternatingItem)
+								e.Item.CssClass = grdDocuments.AlternatingItemStyle.CssClass + " _nonpublished";
+							// no need to add class to
+							// else  if (e.Item.ItemType == ListItemType.SelectedItem)
+							// 	e.Item.CssClass = grdDocuments.SelectedItemStyle.CssClass + " _nonpublished";
+						}
 
 						if (DocumentsSettings.ShowTitleLink)
 						{
@@ -391,7 +403,7 @@ namespace R7.Documents
 			{
 				//	mobjDocumentList = (ArrayList) DocumentsController.GetObjects<DocumentInfo>(ModuleId); // PortalId!!!
 
-				mobjDocumentList = DocumentsController.GetDocuments (ModuleId, PortalId).ToList();
+				mobjDocumentList = DocumentsController.GetDocuments (ModuleId, PortalId).ToList ();
 
 				// Check security on files
 				int intCount = 0;
@@ -413,9 +425,18 @@ namespace R7.Documents
 							{
 								// remove document from the list
 								mobjDocumentList.Remove (objDocument);
+								continue;
 							}
 						}
 					}
+					
+					// remove unpublished documents from the list
+					if (!objDocument.IsPublished && !IsEditable)
+					{
+						mobjDocumentList.Remove (objDocument);
+						continue;
+					}
+
 					objDocument.OnLocalize += new LocalizeHandler (OnLocalize);
 				}
 

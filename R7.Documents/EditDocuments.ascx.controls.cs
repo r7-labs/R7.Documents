@@ -35,5 +35,7 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.Label lblOwner;
 		protected System.Web.UI.WebControls.LinkButton lnkChange;
 		protected LabelControl lblAudit;
+		protected LabelControl labelIsPublished;
+		protected CheckBox checkIsPublished;
 	}
 }

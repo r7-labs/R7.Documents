@@ -87,6 +87,8 @@ namespace R7.Documents
 
 		public bool ForceDownload { get; set; }
 
+		public bool IsPublished { get; set; }
+
 		#endregion
 
 		#region External properties

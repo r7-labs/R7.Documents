@@ -20,7 +20,8 @@ IF NOT EXISTS (select * from dbo.sysobjects where id = object_id(N'{databaseOwne
 			[ModifiedDate] datetime NULL, 
 			[SortOrderIndex] INT NULL, 
 			[Description] nvarchar (255) NULL,
-			ForceDownload BIT
+			[ForceDownload] BIT,
+			[IsPublished] BIT NOT NULL
 		)
 
 		ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents] ADD CONSTRAINT [PK_{objectQualifier}Documents_Documents] PRIMARY KEY NONCLUSTERED  ([ItemID])
@@ -33,11 +34,11 @@ GO
 
 -- Drop stored procedures 
 
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}Documents_GetDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	DROP PROCEDURE {databaseOwner}{objectQualifier}Documents_GetDocument
 GO
 
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}GetDocuments') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}Documents_GetDocuments') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	DROP PROCEDURE {databaseOwner}{objectQualifier}Documents_GetDocuments
 GO
 
@@ -67,7 +68,8 @@ SELECT D.Itemid,
        D.CreatedDate, 
        D.SortOrderIndex,
        D.Description,
-	   D.ForceDownload
+	   D.ForceDownload,
+	   D.IsPublished
 FROM {databaseOwner}{objectQualifier}Documents_Documents AS D
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on D.CreatedByUserID = CreatedByUser.UserId 
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on D.OwnedByUserID = OwnedByUser.UserId
@@ -101,7 +103,8 @@ SELECT D.ItemId,
        D.CreatedDate, 
        D.SortOrderIndex,
        D.Description,
-	   D.ForceDownload
+	   D.ForceDownload,
+	   D.IsPublished
 FROM {databaseOwner}{objectQualifier}Documents_Documents AS D
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on D.CreatedByUserID = CreatedByUser.UserId 
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on D.OwnedByUserID = OwnedByUser.UserId

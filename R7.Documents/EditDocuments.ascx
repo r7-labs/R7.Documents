@@ -40,6 +40,10 @@
         <asp:CheckBox runat="server" ID="chkForceDownload" />
     </div>
 	<div class="dnnFormItem">
+        <dnn:Label id="labelIsPublished" runat="server" controlname="checkIsPublished" suffix="?" />
+        <asp:CheckBox runat="server" ID="checkIsPublished" />
+    </div>
+	<div class="dnnFormItem">
         <dnn:label id="plAudit" runat="server" controlname="ctlTracking" suffix=":" />
         <div class="dnnLeft" style="padding:1.5em;margin-top:0.5em;background-color:#eee">
             <portal:tracking id="ctlTracking" runat="server" />

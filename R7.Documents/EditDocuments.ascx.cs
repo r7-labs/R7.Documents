@@ -130,6 +130,7 @@ namespace R7.Documents
 							txtName.Text = objDocument.Title;
 							txtDescription.Text = objDocument.Description;
 							chkForceDownload.Checked = objDocument.ForceDownload;
+							checkIsPublished.Checked = objDocument.IsPublished;
 
 							if (objDocument.Url != string.Empty)
 							{
@@ -213,6 +214,9 @@ namespace R7.Documents
 						cmdDelete.Visible = false;
 						ctlAudit.Visible = false;
 						ctlTracking.Visible = false;
+
+						// set document published by default
+						checkIsPublished.Checked = true;
 
 						// Set default folder
 						ctlUrl.Url = DocumentsSettings.DefaultFolder + "a";
@@ -555,20 +559,22 @@ namespace R7.Documents
 						objDocument = new DocumentInfo ();
 						objDocument.ItemId = ItemID;
 						objDocument.ModuleId = ModuleId;
-
+						
 						objDocument.CreatedByUserId = UserInfo.UserID;
 						
 						// Default ownerid value for new documents is current user, may be changed
 						// by the value of the dropdown list (below)
 						objDocument.OwnedByUserId = UserId;
 					}
-					
+				
+					objDocument.IsPublished = checkIsPublished.Checked;
 					objDocument.ModifiedByUserId = UserInfo.UserID;
 
 					objDocument.Title = txtName.Text;
 					objDocument.Url = ctlUrl.Url;
 					objDocument.Description = txtDescription.Text;
 					objDocument.ForceDownload = chkForceDownload.Checked;
+					
 
 					if (lstOwner.Visible)
 					{
