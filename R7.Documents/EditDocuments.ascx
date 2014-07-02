@@ -4,7 +4,6 @@
 <%@ Register TagPrefix="Portal" TagName="Tracking" Src="~/controls/URLTrackingControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <div class="dnnForm dnnEditDocs dnnClear" id="dnnEditDocs">
-    <div class="dnnFormItem dnnFormHelp dnnClear"><p class="dnnFormRequired"><span><%=LocalizeString("RequiredFields")%></span></p></div>
     <div class="dnnFormItem">
         <dnn:label id="plName" runat="server" controlname="txtName" suffix=":" CssClass="dnnFormRequired" />
         <asp:textbox id="txtName" runat="server" maxlength="150" CssClass="dnnFormRequired" />
