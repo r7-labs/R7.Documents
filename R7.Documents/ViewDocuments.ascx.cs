@@ -339,7 +339,7 @@ namespace R7.Documents
 
 							break;
 						case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
-							AddDownloadLink ("", "ctlDownloadLink");
+							AddDownloadLink ("DownloadLink", "ctlDownloadLink");
 
 							break;
 						case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
@@ -528,18 +528,16 @@ namespace R7.Documents
 		private void AddDownloadLink (string Title, string Name)
 		{
 			System.Web.UI.WebControls.TemplateColumn objTemplateColumn = default(System.Web.UI.WebControls.TemplateColumn);
-			string strCellPrefix = null;
-
+			
 			objTemplateColumn = new System.Web.UI.WebControls.TemplateColumn ();
 			objTemplateColumn.ItemTemplate = new DownloadColumnTemplate (Name, Localization.GetString ("DownloadLink.Text", LocalResourceFile), ListItemType.Item);
-			objTemplateColumn.HeaderText = Title;
-
-			strCellPrefix = "Title";
-			if (strCellPrefix == string.Empty && Name == "ctlDownloadLink")
-			{
-				strCellPrefix = "Download";
-			}
-
+			
+			var strCellPrefix = Title;
+			if (Name == "ctlDownloadLink")
+				objTemplateColumn.HeaderText = "";
+			else
+				objTemplateColumn.HeaderText = Title;
+			
 			objTemplateColumn.HeaderStyle.CssClass = strCellPrefix + "Header";
 			//"NormalBold"
 			objTemplateColumn.ItemStyle.CssClass = strCellPrefix + "Cell";
