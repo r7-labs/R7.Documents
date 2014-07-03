@@ -21,6 +21,7 @@
 using System;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Modules;
@@ -93,7 +94,7 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		public override void LoadSettings ()
 		{
-			ArrayList objColumnSettings = new ArrayList ();
+			//ArrayList objColumnSettings = new ArrayList ();
 			DocumentsDisplayColumnInfo objColumnInfo = null;
 			string strColumnName = null;
 
@@ -127,7 +128,7 @@ namespace R7.Documents
 					}
 
 					// read "saved" column sort orders in first
-					objColumnSettings = DocumentsSettings.DisplayColumnList;
+					var objColumnSettings = DocumentsSettings.DisplayColumnList;
 					foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings)
 					{
 						objColumnInfo = objColumnInfo_loopVariable;
@@ -378,7 +379,7 @@ namespace R7.Documents
 			grdSortColumns.DataBind ();
 		}
 
-		private void BindColumnSettings (ArrayList objColumnSettings)
+		private void BindColumnSettings (List<DocumentsDisplayColumnInfo> objColumnSettings)
 		{
 			objColumnSettings.Sort ();
 			SaveDisplayColumnSettings (objColumnSettings);
@@ -412,7 +413,6 @@ namespace R7.Documents
 		private void FillSettings ()
 		{
 			string strDisplayColumns = "";
-			ArrayList objColumnSettings = default(ArrayList);
 			DocumentsDisplayColumnInfo objColumnInfo = null;
 			int intIndex = 0;
 			ArrayList objSortColumns = default(ArrayList);
@@ -437,7 +437,7 @@ namespace R7.Documents
 			DocumentsSettings.DefaultFolder = cboDefaultFolder.SelectedValue;
 			DocumentsSettings.AllowUserSort = chkAllowUserSort.Checked;
 
-			objColumnSettings = RetrieveDisplayColumnSettings ();
+			var objColumnSettings = RetrieveDisplayColumnSettings ();
 			intIndex = 0;
 			foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings)
 			{
@@ -471,12 +471,11 @@ namespace R7.Documents
 
 		private void SwapColumn (string ColumnName, System.ComponentModel.ListSortDirection Direction)
 		{
-			ArrayList objColumnSettings = default(ArrayList);
 			int intIndex = 0;
 			int intDisplayOrderTemp = 0;
 
 			// First, find the column we want
-			objColumnSettings = RetrieveDisplayColumnSettings ();
+			var objColumnSettings = RetrieveDisplayColumnSettings ();
 			intIndex = DocumentsSettings.FindColumn (ColumnName, objColumnSettings, false);
 
 			// Swap display orders
@@ -555,7 +554,7 @@ namespace R7.Documents
 			return objSortColumnSettings;
 		}
 
-		private void SaveDisplayColumnSettings (ArrayList objSettings)
+		private void SaveDisplayColumnSettings (List<DocumentsDisplayColumnInfo> objSettings)
 		{
 			// Custom viewstate implementation to avoid reflection
 			DocumentsDisplayColumnInfo objDisplayColumnInfo = null;
@@ -573,18 +572,18 @@ namespace R7.Documents
 			ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS] = strValues;
 		}
 
-		private ArrayList RetrieveDisplayColumnSettings ()
+		private List<DocumentsDisplayColumnInfo> RetrieveDisplayColumnSettings ()
 		{
 			// Custom viewstate implementation to avoid reflection
-			ArrayList objDisplayColumnSettings = new ArrayList ();
+			var objDisplayColumnSettings = new List<DocumentsDisplayColumnInfo> ();
 			DocumentsDisplayColumnInfo objDisplayColumnInfo = null;
 
 			string strValues = null;
 
 			strValues = Convert.ToString (ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
-			if ((strValues != null) && strValues != string.Empty)
+			if (!string.IsNullOrEmpty (strValues))
 			{
-				foreach (string strDisplayColumnSetting in strValues.Split(char.Parse("#")))
+				foreach (string strDisplayColumnSetting in strValues.Split('#'))
 				{
 					objDisplayColumnInfo = new DocumentsDisplayColumnInfo ();
 					objDisplayColumnInfo.ColumnName = strDisplayColumnSetting.Split (char.Parse (",")) [0];

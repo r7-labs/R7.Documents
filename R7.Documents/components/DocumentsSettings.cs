@@ -24,7 +24,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.UI.Modules;
 using DotNetNuke.Services.Localization;
@@ -107,27 +109,31 @@ namespace R7.Documents
 
 		#endregion
 
-		public ArrayList DisplayColumnList
+		public List<DocumentsDisplayColumnInfo> DisplayColumnList
 		{
 			get
 			{
-				string strColumnData;
-				DocumentsDisplayColumnInfo objColumnInfo;
-				var objColumnSettings = new ArrayList ();
-
-				if (!string.IsNullOrEmpty (DisplayColumns))
+				var objColumnSettings = new List<DocumentsDisplayColumnInfo> ();
+			
+				if (!string.IsNullOrWhiteSpace (DisplayColumns))
 				{
 					// read "saved" column sort orders in first
-					foreach (string strColumnData_loopVariable in this.DisplayColumns.Split(char.Parse(",")))
+					foreach (var strColumn in DisplayColumns.Split( new [] {','}, StringSplitOptions.RemoveEmptyEntries))
 					{
-						strColumnData = strColumnData_loopVariable;
-						objColumnInfo = new DocumentsDisplayColumnInfo ();
-						objColumnInfo.ColumnName = strColumnData.Split (char.Parse (";")) [0];
-						objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
-						objColumnInfo.Visible = bool.Parse (strColumnData.Split (char.Parse (";")) [1]);
-						objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", LocalResourceFile);
+						var strColumnData = strColumn.Split(new [] {';'}, StringSplitOptions.RemoveEmptyEntries);
+						var strColumnName = strColumnData[0];
 
-						objColumnSettings.Add (objColumnInfo);
+						if (DocumentsDisplayColumnInfo.AvailableDisplayColumns.Contains(strColumnName))
+						{
+							var objColumnInfo = new DocumentsDisplayColumnInfo () {
+								ColumnName = strColumnName,
+								DisplayOrder = objColumnSettings.Count + 1,
+								Visible = bool.Parse(strColumnData[1]),
+								LocalizedColumnName = Localization.GetString (strColumnName + ".Header", LocalResourceFile)
+							};
+
+							objColumnSettings.Add (objColumnInfo);
+						}
 					}
 				}
 
@@ -171,14 +177,14 @@ namespace R7.Documents
 			return objSortColumns;
 		}
 
-		public static int FindColumn (string ColumnName, ArrayList List, bool VisibleOnly)
+		public static int FindColumn (string ColumnName, List<DocumentsDisplayColumnInfo> List, bool VisibleOnly)
 		{
 			// Find a display column in the list and return it's index 
 			int intIndex = 0;
 
 			for (intIndex = 0; intIndex <= List.Count - 1; intIndex++)
 			{
-				var _with1 = (DocumentsDisplayColumnInfo)List [intIndex];
+				var _with1 = List [intIndex];
 				if (_with1.ColumnName == ColumnName && (!VisibleOnly || _with1.Visible))
 				{
 					return intIndex;
@@ -188,7 +194,7 @@ namespace R7.Documents
 			return -1;
 		}
 
-		public static int FindGridColumn (string ColumnName, ArrayList List, bool VisibleOnly)
+		public static int FindGridColumn (string ColumnName, List<DocumentsDisplayColumnInfo> List, bool VisibleOnly)
 		{
 			// Find a display column in the list and return it's "column" index 
 			// as it will be displayed within the grid.  This function differs from FindColumn
@@ -199,7 +205,7 @@ namespace R7.Documents
 
 			for (intIndex = 0; intIndex <= List.Count - 1; intIndex++)
 			{
-				var _with2 = (DocumentsDisplayColumnInfo)List [intIndex];
+				var _with2 = List [intIndex];
 				if (_with2.ColumnName == ColumnName && (!VisibleOnly || _with2.Visible))
 				{
 					return intResult;
