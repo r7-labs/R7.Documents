@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using DotNetNuke;
@@ -44,7 +45,7 @@ namespace R7.Documents
 		public const string COLUMN_ICON = "Icon";
 		public const string COLUMN_URL = "Url";
 
-		public static string[] AvailableDisplayColumns = new string[] {
+		public static HashSet<string> AvailableDisplayColumns = new HashSet<string>() {
 			COLUMN_TITLE,
 			COLUMN_OWNEDBY,
 			COLUMN_CATEGORY,
@@ -59,7 +60,7 @@ namespace R7.Documents
 			COLUMN_ICON,
 			COLUMN_URL
 		};
-		public static string[] AvailableSortColumns = new string[] {
+		public static List<string> AvailableSortColumns = new List<string>() {
 			COLUMN_SORTORDER,
 			COLUMN_TITLE,
 			COLUMN_OWNEDBY,
