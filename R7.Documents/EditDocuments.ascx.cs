@@ -188,13 +188,17 @@ namespace R7.Documents
 							ctlAudit.LastModifiedByUser = objDocument.ModifiedByUser;
 							ctlAudit.LastModifiedDate = objDocument.ModifiedDate.ToString();
 
-							ctlUrlTracking.URL = objDocument.Url;
-							ctlUrlTracking.ModuleID = ModuleId;
-
-							// security violation attempt to access item not related to this Module
+							if (ctlUrl.UrlType == "N")
+								panelUrlTracking.Visible = false;
+							else
+							{
+								ctlUrlTracking.URL = objDocument.Url;
+								ctlUrlTracking.ModuleID = ModuleId;
+							}
 						}
 						else
 						{
+							// security violation attempt to access item not related to this Module							
 							Response.Redirect (Globals.NavigateURL (), true);
 						}
 					}
@@ -220,13 +224,12 @@ namespace R7.Documents
 
 						// Set default folder
 						ctlUrl.Url = DocumentsSettings.DefaultFolder + "a";
-
 					}
 				}
-				//Module failed to load
 			}
 			catch (Exception exc)
 			{
+				//Module failed to load
 				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 
