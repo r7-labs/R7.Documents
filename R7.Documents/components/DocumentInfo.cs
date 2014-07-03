@@ -88,12 +88,7 @@ namespace R7.Documents
 		public bool ForceDownload { get; set; }
 
 		public bool IsPublished { get; set; }
-
-		public int Clicks
-		{
-			get { return (_clicks < 0) ? 0 : _clicks; }
-			set { _clicks = value; }
-		}
+	
 
 		#endregion
 
@@ -119,6 +114,13 @@ namespace R7.Documents
 
 		[ReadOnlyColumn]
 		public string ModifiedByUser { get; set; }
+
+		[ReadOnlyColumn]
+		public int Clicks
+		{
+			get { return (_clicks < 0) ? 0 : _clicks; }
+			set { _clicks = value; }
+		}
 
 		#endregion
 
