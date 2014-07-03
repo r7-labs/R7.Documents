@@ -230,6 +230,10 @@ namespace R7.Documents
 								// Dynamically set the title link URL
 								var _with1 = (HyperLink)e.Item.Controls [mintTitleColumnIndex + 1].FindControl ("ctlTitle");
 								_with1.Text = objDocument.Title;
+								
+								// set link title to display document description
+								_with1.ToolTip = objDocument.Description;
+
 								// Note: The title link should display inline if possible, so set
 								// ForceDownload=False
 								_with1.NavigateUrl = DotNetNuke.Common.Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
