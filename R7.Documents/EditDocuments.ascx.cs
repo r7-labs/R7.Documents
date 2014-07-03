@@ -188,8 +188,8 @@ namespace R7.Documents
 							ctlAudit.LastModifiedByUser = objDocument.ModifiedByUser;
 							ctlAudit.LastModifiedDate = objDocument.ModifiedDate.ToString();
 
-							ctlTracking.URL = objDocument.Url;
-							ctlTracking.ModuleID = ModuleId;
+							ctlUrlTracking.URL = objDocument.Url;
+							ctlUrlTracking.ModuleID = ModuleId;
 
 							// security violation attempt to access item not related to this Module
 						}
@@ -213,7 +213,7 @@ namespace R7.Documents
 
 						cmdDelete.Visible = false;
 						ctlAudit.Visible = false;
-						ctlTracking.Visible = false;
+						panelUrlTracking.Visible = false;
 
 						// set document published by default
 						checkIsPublished.Checked = true;

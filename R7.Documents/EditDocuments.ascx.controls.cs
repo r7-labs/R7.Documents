@@ -29,13 +29,16 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.LinkButton cmdUpdateOverride;
 		//footer
 		protected DotNetNuke.UI.UserControls.ModuleAuditControl ctlAudit;
-		protected URLTrackingControl ctlTracking;
+		
 		protected System.Web.UI.WebControls.TextBox txtSortIndex;
 		protected System.Web.UI.WebControls.RangeValidator valSortIndex;
 		protected System.Web.UI.WebControls.Label lblOwner;
 		protected System.Web.UI.WebControls.LinkButton lnkChange;
-		protected LabelControl lblAudit;
+		protected Panel panelUrlTracking;
+		protected LabelControl labelUrlTracking;
+		protected URLTrackingControl ctlUrlTracking;
 		protected LabelControl labelIsPublished;
 		protected CheckBox checkIsPublished;
+		
 	}
 }

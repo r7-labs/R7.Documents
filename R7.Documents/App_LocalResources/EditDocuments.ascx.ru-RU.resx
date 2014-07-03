@@ -185,11 +185,11 @@
   <data name="labelIsPublished.Text">
     <value>Опубликован</value>
   </data>
-  <data name="plAudit.Help">
+  <data name="labelUrlTracking.Help">
     <value>Отображает сведения, собранные в результате отслеживания URL документа.</value>
   </data>
-  <data name="plAudit.Text">
-    <value>Аудит</value>
+  <data name="labelUrlTracking.Text">
+    <value>Данные отслеживания</value>
   </data>
   <data name="plUrl.Help">
     <value>Выберите URL, связанный с этим документом</value>

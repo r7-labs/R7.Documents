@@ -43,12 +43,12 @@
         <dnn:Label id="labelIsPublished" runat="server" controlname="checkIsPublished" suffix="?" />
         <asp:CheckBox runat="server" ID="checkIsPublished" />
     </div>
-	<div class="dnnFormItem">
-        <dnn:label id="plAudit" runat="server" controlname="ctlTracking" suffix=":" />
+	<asp:Panel id="panelUrlTracking" runat="server" CssClass="dnnFormItem">
+        <dnn:label id="labelUrlTracking" runat="server" controlname="ctlUrlTracking" suffix=":" />
         <div class="dnnLeft" style="padding:1.5em;margin-top:0.5em;background-color:#eee">
-            <portal:tracking id="ctlTracking" runat="server" />
+            <portal:tracking id="ctlUrlTracking" runat="server" />
         </div>
-    </div>
+    </asp:Panel>
     <ul class="dnnActions dnnClear">
         <li><asp:linkbutton id="cmdUpdate" runat="server" cssclass="dnnPrimaryAction" resourcekey="cmdUpdate" text="Update" /></li>
         <li><asp:LinkButton ID="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdateOverride" Text="Update Anyway" Visible="False" /></li>
