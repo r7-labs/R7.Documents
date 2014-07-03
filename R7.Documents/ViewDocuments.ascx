@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewDocuments.ascx.cs" Inherits="R7.Documents.ViewDocuments" %>
-<div class="DNN_Documents">
+<div class="ViewDocuments">
   <asp:datagrid id="grdDocuments" runat="server" datakeyfield="ItemID" enableviewstate="False" autogeneratecolumns="False" GridLines="None" CssClass="dnnGrid" Width="100%">
     <headerstyle cssclass="dnnGridHeader" verticalalign="Top" />
     <itemstyle cssclass="dnnGridItem" horizontalalign="Left" />

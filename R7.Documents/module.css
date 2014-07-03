@@ -1,29 +1,28 @@
-﻿.DNN_Documents table td
+﻿.ViewDocumens td
 {
   padding: 4px;
   white-space:nowrap
 }
 
-.SizeCell, .ClicksCell
+.ViewDocumens .SizeCell, 
+.ViewDocumens .ClicksCell
 {
 	text-align:right;
 }
 
-.TitleCell, .DescriptionCell
+.ViewDocumens .TitleCell, 
+.ViewDocumens .DescriptionCell
 {
 	width:100%;
 	white-space:wrap
 }
 
-.DNN_Documents ._nonpublished { background-color:#ffc }
+.ViewDocumens ._nonpublished { background-color:#ffc }
 
-.DNN_Documents .dnnGrid 
-{
-	margin-bottom:0
-}
+.ViewDocumens .dnnGrid { margin-bottom:0 }
 
 .dnnEditDocs{width:100%;margin:2em auto;}
-	.dnnEditDocs .dnnFormItem input[type=checkbox], .dnnTabsModule .dnnFormItem input[type=radio]{width:auto;}
-	.dnnEditDocs .dnnRight{display:block;width: 68%;}
-	.dnnEditDocs .urlControl br{display:block;}
-	.dnnEditDocs .urlControl > label{display:block;float: none;text-align:left;}
+.dnnEditDocs .dnnFormItem input[type=checkbox], .dnnTabsModule .dnnFormItem input[type=radio]{width:auto;}
+.dnnEditDocs .dnnRight{display:block;width: 68%;}
+.dnnEditDocs .urlControl br{display:block;}
+.dnnEditDocs .urlControl > label{display:block;float: none;text-align:left;}
