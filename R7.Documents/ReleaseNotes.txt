@@ -1,12 +1,15 @@
-﻿<!-- 
-<h3>Version 01.00.01</h3>
-<p>This is the stabilization release for 01.00.00.</p>
+﻿<h3>Version 01.00.00</h3>
+<p>This is the initial release, based of Mitchel Sellers's <a href="http://dnndocuments.codeplex.com/" target="_blank">DNN Documents</a> module v06.00.01. Changes from original module includes:</p>
 <ul>
-	<li>Added new feature.</li>
-	<li>Fixed bug.</li>
+	<li>Module code base converted from VB to C#.</li>
+	<li>Module now uses DAL 2 data access layer.</li>
+	<li>Module now uses standard DNN module and tabmodule settings instead of DocumentSetting table.</li>
+	<li>Added ability to exclude certain document from view.</li>
+	<li>Added Icon column to display document icon by file extension.</li>
+	<li>Added Url column to display document link (mostly for editors to check if document sources is OK).</li>
+	<li>Module now uses Sigma icons for edit and download links.</li>
+	<li>Many obsolete and deprecated DNN API calls refreshed.</li>
+	<li>Many other small improvements and fixed.</li>
 </ul>
--->
-
-<h3>Version 01.00.00</h3>
-<p>This is the initial release.</p>
-
+<p>Module can be safely installed along with original Documents module.</p>
+<p>Support for {objectQualifier} is incomplete (DAL 2 drawbacks), so please use it only in environments with one DB per DNN install.</p>

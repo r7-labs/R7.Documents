@@ -2,11 +2,11 @@
  <packages>
    <package name="R7.Documents" type="Module" version="01.00.00">
      <friendlyName>R7.Documents</friendlyName>
-     <description>This is a simple module to display some records from database table.</description>
+     <description>This module renders a list of documents, including links to browse or download the document. Documents includes an edit page, which allows authorized users to edit the information about the Documents (for example, a friendly title) stored in the SQL database. Module based on original Mitchel Sellers's DNN Documents module.</description>
      <owner>
        <name>Roman M. Yagodin</name>
        <organization>R7.Solutions</organization>
-       <url>http://www.R7.Solutions.com/Documents</url>
+       <url>https://github.com/roman-yagodin/R7.Documents</url>
        <email>roman.yagodin@gmail.com</email>
      </owner>
 	 <license src="License.txt" />
