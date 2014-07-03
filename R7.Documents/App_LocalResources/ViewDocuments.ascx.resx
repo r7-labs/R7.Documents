@@ -10,7 +10,7 @@
     <value>Created By</value>
   </data>
   <data name="DownloadLink.Text" xml:space="preserve">
-    <value>Download</value>
+    <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Download" title="Download" /&gt;</value>
   </data>
   <data name="CreatedDate.Text" xml:space="preserve">
     <value>Created Date</value>
