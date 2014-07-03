@@ -4,16 +4,35 @@
 
 -- Create tables
 
-IF (SELECT COLUMNPROPERTY( OBJECT_ID('{databaseOwner}{objectQualifier}Documents'),'ForceDownload','AllowsNull')) IS NULL 
-	ALTER TABLE {databaseOwner}{objectQualifier}Documents_Documents 
-		ADD ForceDownload BIT 
+IF NOT EXISTS (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}Documents_Documents]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}Documents_Documents]
+		(
+			[ItemID] [int] NOT NULL IDENTITY(0, 1),
+			[ModuleID] [int] NOT NULL,
+			[CreatedDate] [datetime] NULL,
+			[URL] [nvarchar] (250) NULL,
+			[Title] [nvarchar] (150) NULL,
+			[Category] [nvarchar] (50) NULL,
+			[CreatedByUserID] INT NULL, 
+			[OwnedByUserID] INT NULL, 
+			[ModifiedByUserID] INT NULL, 
+			[ModifiedDate] datetime NULL, 
+			[SortOrderIndex] INT NULL, 
+			[Description] nvarchar (255) NULL,
+			[ForceDownload] BIT,
+			[IsPublished] BIT NOT NULL
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents] ADD CONSTRAINT [PK_{objectQualifier}Documents_Documents] PRIMARY KEY NONCLUSTERED  ([ItemID])
+		CREATE CLUSTERED INDEX [IX_{objectQualifier}Documents_Documents] ON {databaseOwner}[{objectQualifier}Documents_Documents] ([ModuleID])
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents] WITH NOCHECK ADD
+		CONSTRAINT [FK_{objectQualifier}Documents_Documents_{objectQualifier}Modules] FOREIGN KEY ([ModuleID]) REFERENCES {databaseOwner}[{objectQualifier}Modules] ([ModuleID]) ON DELETE CASCADE
+	END
 GO
 
-UPDATE {databaseOwner}{objectQualifier}Documents_Documents 
-SET ForceDownload = 0
-GO
-
--- Drop stored procedures
+-- Drop stored procedures 
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}{objectQualifier}Documents_GetDocument') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	DROP PROCEDURE {databaseOwner}{objectQualifier}Documents_GetDocument
@@ -49,7 +68,8 @@ SELECT D.Itemid,
        D.CreatedDate, 
        D.SortOrderIndex,
        D.Description,
-	   D.ForceDownload
+	   D.ForceDownload,
+	   D.IsPublished
 FROM {databaseOwner}{objectQualifier}Documents_Documents AS D
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on D.CreatedByUserID = CreatedByUser.UserId 
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on D.OwnedByUserID = OwnedByUser.UserId
@@ -83,13 +103,14 @@ SELECT D.ItemId,
        D.CreatedDate, 
        D.SortOrderIndex,
        D.Description,
-	   D.ForceDownload
+	   D.ForceDownload,
+	   D.IsPublished
 FROM {databaseOwner}{objectQualifier}Documents_Documents AS D
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS CreatedByUser on D.CreatedByUserID = CreatedByUser.UserId 
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS OwnedByUser on D.OwnedByUserID = OwnedByUser.UserId
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Users AS ModifiedByUser on D.ModifiedByUserID = ModifiedByUser.UserId
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}Files AS F on D.URL = 'fileid=' + convert(varchar, F.FileID)
 LEFT OUTER JOIN {databaseOwner}{objectQualifier}UrlTracking AS UT on D.URL = UT.Url and UT.ModuleId = @ModuleID
-WHERE  D.ModuleId = @ModuleId
+WHERE D.ModuleId = @ModuleId 
 ORDER by D.Title
 GO
