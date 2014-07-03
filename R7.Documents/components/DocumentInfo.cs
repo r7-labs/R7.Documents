@@ -164,9 +164,9 @@ namespace R7.Documents
 				{
 					_formatIcon = "";
 					
-					if (Url.ToUpperInvariant ().StartsWith ("FILEID="))
+					if (Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase))
 					{
-						var fileId = Utils.ParseToNullableInt (Url.Substring ("FILEID=".Length));
+						var fileId = Utils.ParseToNullableInt (Url.Substring ("fileid=".Length));
 						if (fileId != null)
 						{
 							var fileInfo = FileManager.Instance.GetFile (fileId.Value);
@@ -174,7 +174,7 @@ namespace R7.Documents
 							{
 								// Optimistic way 
 								_formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-									IconController.IconURL ("Ext" + fileInfo.Extension), fileInfo.Extension.ToLowerInvariant ());
+									IconController.IconURL ("Ext" + fileInfo.Extension), fileInfo.Extension.ToUpperInvariant ());
 								
 								/* 
 								// Less optimistic way
@@ -188,6 +188,11 @@ namespace R7.Documents
 								}*/
 							}
 						}
+					}
+					else if (!string.IsNullOrWhiteSpace(Url))
+					{
+						_formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+							IconController.IconURL ("Link", "16X16", "Gray"), "URL");
 					}
 				}
 
@@ -217,7 +222,7 @@ namespace R7.Documents
 			{
 				try
 				{
-					if (!Null.IsNull (Size))
+					if (Size > 0)
 					{
 						if (Size > (1024 * 1024))
 						{
