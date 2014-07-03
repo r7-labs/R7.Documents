@@ -12,7 +12,7 @@
       <asp:TemplateColumn>
         <ItemTemplate>
           <asp:hyperlink id=editLink runat="server" visible="<%# IsEditable %>" navigateurl='<%# EditUrl("ItemID",DataBinder.Eval(Container.DataItem,"ItemID").ToString()) %>'>
-            <asp:image id="editLinkImage" imageurl="~/images/edit.gif" visible="<%# IsEditable %>" alternatetext="Edit" runat="server" resourcekey="Edit" />
+            <asp:image id="editLinkImage" imageurl="/icons/Sigma/Edit_16X16_Standard.png" visible="<%# IsEditable %>" alternatetext="Edit" runat="server" resourcekey="Edit" />
           </asp:hyperlink>
         </ItemTemplate>
       </asp:TemplateColumn>
