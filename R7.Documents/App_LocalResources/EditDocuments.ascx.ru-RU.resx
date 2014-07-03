@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdUpdateOverride.Text">
+    <value>Все равно сохранить</value>
+  </data>
+  <data name="ControlTitle_edit.Text">
+    <value>Редактирование документа</value>
+  </data>
+  <data name="lnkChangeOwner.Text">
+    <value>Сменить владельца</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
+&lt;p&gt;The Documents Module produces a list of documents with links to view or 
+  download the document (depending on the user's browser settings). Documents can 
+  be located within the portal, or can be a link to another website or portal.
+&lt;/p&gt;
+&lt;p&gt;
+  The document title, category, description, document owner, name of the user who 
+  created the document, the user who last updated the document, creation date, 
+  the date that the document was added or last updated, and the file size 
+  (internal documents only) are available for each listing. Link click tracking 
+  and logging are also available.
+&lt;/p&gt;
+&lt;p&gt;
+  In the module settings page, you can configure the columns that are displayed, 
+  the column order&amp;nbsp;and the sort order of the documents listed. The documents 
+  module supports the DotNetNuke core "secure storage" feature, so that documents 
+  stored securely are not available to unauthorized users.
+&lt;/p&gt;
+&lt;h1&gt;Document Module Settings&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;b&gt;Use Documents Categories List:&lt;/b&gt;
+  Sets whether to use a free-text field for the document category field, or use a 
+  list defined in the Host-&amp;gt;Lists page. If you want to use a drop-down list, 
+  create a list in the Lists page called "Document Categories".
+  &lt;li&gt;
+    &lt;b&gt;Show Title Link:&lt;/b&gt;
+  Sets whether or not to show the document title (if included in the display 
+  columns) as a hyperlink to the document.
+  &lt;li&gt;
+    &lt;b&gt;Display Columns: &lt;/b&gt;
+  Sets which columns to display, and allows you to set what order to display the 
+  columns in.
+  &lt;li&gt;
+    &lt;b&gt;Sorting: &lt;/b&gt;Sets the sort order that documents are displayed in. You can 
+    add multiple sort orders to add more than one "key" to sort by.
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;Add a Document&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    Add a &lt;b&gt;Documents&lt;/b&gt; module, or go to an existing &lt;b&gt;Documents&lt;/b&gt;
+  module.
+  &lt;li&gt;
+    Click &lt;b&gt;Add New Document&lt;/b&gt;.
+  &lt;li&gt;
+    At &lt;b&gt;Title&lt;/b&gt;, enter a title for the document.
+  &lt;li&gt;
+    At &lt;b&gt;Link Type&lt;/b&gt;, select &lt;b&gt;URL&lt;/b&gt; or &lt;b&gt;File&lt;/b&gt; and then at &lt;b&gt;Link&lt;/b&gt;
+  select or enter the required URL or file.
+  &lt;li&gt;
+    At &lt;b&gt;Track Number Of Times This Link Is Clicked?&lt;/b&gt;
+  (optional), check the box if required.
+  &lt;li&gt;
+    At &lt;b&gt;Log The User, Date, And Time For Every Link Click&lt;/b&gt;
+  (optional), check the box if required.
+  &lt;li&gt;
+    At &lt;b&gt;Category&lt;/b&gt;
+  (optional), enter a category for the document.
+  &lt;li&gt;
+    Click &lt;b&gt;Update&lt;/b&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;CSS Styling for the Documents Module&lt;/h1&gt;
+&lt;P&gt;The documents module renders an "outside" DIV tag with a CLASS attribute of 
+  "DNN_Documents". Each header cell has a CLASS attribute of [Name]Header, where 
+  [Name] is the column name - for example "TitleHeader", "SizeHeader", 
+  "CategoryHeader". Each data cell has a CLASS attribute of [Name]Item, for 
+  example "TitleItem", "SizeItem", "CategoryItem".&lt;/P&gt;
+&lt;P&gt;This allows skin developers to control the CSS style of individual columns. 
+  For example, use the following CSS to render the size column in red and set the 
+  column width to 50 pixels:&lt;/P&gt;
+&lt;P&gt;&lt;FONT face="Courier New" size="2"&gt;&amp;nbsp; .DNN_Documents .SizeItem {color: red; 
+    width: 50px} &lt;/FONT&gt;
+&lt;/P&gt;
+</value>
+  </data>
+  <data name="msgFileDeleted.Text">
+    <value>Связанный с этим документом файл был удален.</value>
+  </data>
+  <data name="msgFileSecurityWarning.Text">
+    <value>Предупреждение: Настройки безопасности для выбранного файла конфликтуют с настройками безопасности модуля. Модуль виден для роли (ролей) [$ROLELIST], но файл - нет. Для пользователей, не имеющих данной роли, строка документа на будет отображена. Вы можете измегнить настройки безопасности в Управлении файлами меню администратора сайта.</value>
+  </data>
+  <data name="msgFileWarning.Text">
+    <value>Выбранный файл можен не отображаться для некоторых пользователей (см. сообщение ниже). Нажмите 'Сохранить' снова, чтобы игнорировать предупреждения.</value>
+  </data>
+  <data name="msgFileWarningHeading.Text">
+    <value>Предупреждение о выбранном файле</value>
+  </data>
+  <data name="msgNoFileSelected.Text">
+    <value>Предупреждение: не выбран файл</value>
+  </data>
+  <data name="Name.ErrorMessage">
+    <value>&lt;br /&gt;Вы должны указать название документа</value>
+  </data>
+  <data name="plCategory.Help">
+    <value>Укажите категорию для документа</value>
+  </data>
+  <data name="plCategory.Text">
+    <value>Категория</value>
+  </data>
+  <data name="plDescription.Help">
+    <value>Укажите описание документа</value>
+  </data>
+  <data name="plDescription.Text">
+    <value>Описание</value>
+  </data>
+  <data name="plForceDownload.Help">
+    <value>При установке этого флага форсируется скачивание файла при переходе по ссылке. Полезно в тех случаях, когда нужно исключить открытие документов непосредственно в браузере пользователя.</value>
+  </data>
+  <data name="plForceDownload.Text">
+    <value>Скачивать</value>
+  </data>
+  <data name="plName.Help">
+    <value>Введите название документа</value>
+  </data>
+  <data name="plName.Text">
+    <value>Название</value>
+  </data>
+  <data name="plOwner.Help">
+    <value>Укажите владельца документа</value>
+  </data>
+  <data name="plOwner.Text">
+    <value>Владелец</value>
+  </data>
+  <data name="plSortIndex.Help">
+    <value>Укажите индекс сортировки для документа. Это значение можно указать как один из критериев сортировки на странице настроек модуля.</value>
+  </data>
+  <data name="plSortIndex.Text">
+    <value>Индекс сортировки</value>
+  </data>
+  <data name="labelIsPublished.Help">
+    <value>Если этот флаг снят, документ будет показан в списке только редакторам модуля в режиме редактирования.</value>
+  </data>
+  <data name="labelIsPublished.Text">
+    <value>Опубликован</value>
+  </data>
+  <data name="plAudit.Help">
+    <value>Отображает сведения, собранные в результате отслеживания URL документа.</value>
+  </data>
+  <data name="plAudit.Text">
+    <value>Аудит</value>
+  </data>
+  <data name="plUrl.Help">
+    <value>Выберите URL, связанный с этим документом</value>
+  </data>
+  <data name="plUrl.Text">
+    <value>Ссылка</value>
+  </data>
+</root>

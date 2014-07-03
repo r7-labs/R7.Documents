@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Category.Header">
+    <value>Категория</value>
+  </data>
+  <data name="Clicks.Header">
+    <value>Загрузок</value>
+  </data>
+  <data name="cmdAdd.Text">
+    <value>Добавить порядок сортировки</value>
+  </data>
+  <data name="cmdDelete.Text">
+    <value>Удалить порядок сортировки</value>
+  </data>
+  <data name="cmdDown.Text">
+    <value>Ниже</value>
+  </data>
+  <data name="cmdUp.Text">
+    <value>Выше</value>
+  </data>
+  <data name="ControlTitle_settings.Text">
+    <value>Настройки документов</value>
+  </data>
+  <data name="CreatedBy.Header">
+    <value>Создал</value>
+  </data>
+  <data name="CreatedDate.Header">
+    <value>Создано</value>
+  </data>
+  <data name="Description.Header">
+    <value>Описание</value>
+  </data>
+  <data name="DownloadLink.Header">
+    <value>Ссылка загрузки</value>
+  </data>
+  <data name="LastUpdated.Header">
+    <value>Обновлено</value>
+  </data>
+  <data name="lnkEditLists.Text">
+    <value>Редактор списков</value>
+  </data>
+  <data name="ModifiedBy.Header">
+    <value>Изменен</value>
+  </data>
+  <data name="ModifiedDate.Header">
+    <value>Изменено</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
+&lt;p&gt;The Documents Module produces a list of documents with links to view 
+  (depending on user's file associations) or download the document. Documents can 
+  be located within the portal, or can be a link to a document on another website 
+  or portal. 
+&lt;/p&gt; 
+&lt;p&gt;
+  The document title, category, description, name of the user who created the document, 
+  document owner, the user who last updated the document, the date that the document was added or last updated, 
+  and the file size (internal documents only) are automatically available for 
+  each listing. Link click tracking and logging are also available.
+&lt;/p&gt;
+&lt;p&gt;
+  In the module settings page, you can configure the columns that are displayed 
+  and the sort order of the documents listed.  The documents module supports the
+  DotNetNuke core "secure storage" feature, so documents stored securely are not
+  available to unauthorized users.
+&lt;/p&gt;
+  
+&lt;h1&gt;Document Module Settings&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;b&gt;Use Documents Categories List:&lt;/b&gt;  Sets whether to use a free-text field for the
+    document category field, or use a list defined in the Host-&gt;Lists page.  If you
+    want to use a drop-down list, create a list in the Lists page called "Document 
+    Categories".
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;b&gt;Show Title Link:&lt;/b&gt;  Sets whether or not to show the document title (if included in
+    the display columns) as a hyperlink to the document.
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;b&gt;Display Columns: &lt;/b&gt;  Sets which columns to display, and allows you to set what
+    order to display the columns in.  
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;b&gt;Sorting: &lt;/b&gt;  Sets the sort order that documents are displayed in.  You can
+    add multiple sort orders to add more than one "key" to sort by.
+  &lt;/li&gt;
+&lt;/ol&gt;
+  
+&lt;h1&gt;Add a Document&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    Add a &lt;b&gt;Documents&lt;/b&gt; module, or go to an existing &lt;b&gt;Documents&lt;/b&gt;
+  module.
+  &lt;li&gt;
+    Click &lt;b&gt;Add New Document&lt;/b&gt;.
+  &lt;li&gt;
+    At &lt;b&gt;Title&lt;/b&gt;, enter a title for the document.
+  &lt;li&gt;
+    At &lt;b&gt;Link Type&lt;/b&gt;, select &lt;b&gt;URL&lt;/b&gt; or &lt;b&gt;File&lt;/b&gt; and then at &lt;b&gt;Link&lt;/b&gt;
+  select or enter the required URL or file.
+  &lt;li&gt;
+    At &lt;b&gt;Track Number Of Times This Link Is Clicked?&lt;/b&gt;
+  (optional), check the box if required.
+  &lt;li&gt;
+    At &lt;b&gt;Log The User, Date, And Time For Every Link Click&lt;/b&gt;
+  (optional), check the box if required.
+  &lt;li&gt;
+    At &lt;b&gt;Category&lt;/b&gt;
+  (optional), enter a category for the document.
+  &lt;li&gt;
+    Click &lt;b&gt;Update&lt;/b&gt;.
+&lt;/ol&gt;
+</value>
+  </data>
+  <data name="msgNoListsAvailable.Text">
+    <value>Нет доступных для использования списков. Воспользуйтесь редактором списков в меню администратора хостинга.</value>
+  </data>
+  <data name="Name.Header">
+    <value>Имя</value>
+  </data>
+  <data name="NoListAccess.Text">
+    <value>Чтобы создать или отредактировать список, нужно обратиться к администратору хостинга.</value>
+  </data>
+  <data name="Owner.Header">
+    <value>Владелец</value>
+  </data>
+  <data name="plAllowUserSort.Help">
+    <value>Если включена, пользователи смогут самостоятельно отсортировать список документов, нажав на заголовок столбца.</value>
+  </data>
+  <data name="plAllowUserSort.Text">
+    <value>Разрешить пользователям сортировать?</value>
+  </data>
+  <data name="plCategoriesListName.Help">
+    <value>Укажите имя списка, в котором хранятся категории этого модуля</value>
+  </data>
+  <data name="plCategoriesListName.Text">
+    <value>Имя списка категорий</value>
+  </data>
+  <data name="plDefaultFolder.Help">
+    <value>Укажите папку, которая будет использована по умолчанию для новых файлов</value>
+  </data>
+  <data name="plDefaultFolder.Text">
+    <value>Папка по умолчанию</value>
+  </data>
+  <data name="plDisplayColumns.Help">
+    <value>Используйте флаги для выбора отображаемых колонок. Порядок следования колонок можно изменить, используя стрелки.</value>
+  </data>
+  <data name="plDisplayColumns.Text">
+    <value>Отображаемые колонки</value>
+  </data>
+  <data name="plShowTitleLink.Help">
+    <value>Отображать название документа как обычный текст или как ссылку.</value>
+  </data>
+  <data name="plShowTitleLink.Text">
+    <value>Название как ссылка</value>
+  </data>
+  <data name="plSorting.Help">
+    <value>Добавить / удалить колонки, по которым производится сортировка.</value>
+  </data>
+  <data name="plSorting.Text">
+    <value>Сортировка</value>
+  </data>
+  <data name="plUseCategoriesList.Help">
+    <value>Использовать поле ввода для ввода категории, или использовать список 'Document Categories', заданный администратором хостинга.</value>
+  </data>
+  <data name="plUseCategoriesList.Text">
+    <value>Использовать список категорий</value>
+  </data>
+  <data name="Root.Text">
+    <value>Корень</value>
+  </data>
+  <data name="Size.Header">
+    <value>Размер</value>
+  </data>
+  <data name="SortIndex.Header">
+    <value>Индекс сортировки</value>
+  </data>
+  <data name="SortOrderAscending.Text">
+    <value>По возрастанию</value>
+  </data>
+  <data name="SortOrderDescending.Text">
+    <value>По убыванию</value>
+  </data>
+  <data name="Title.Header">
+    <value>Название</value>
+  </data>
+  <data name="UnableToFindLists.Text">
+    <value>Управление списками доступно в меню Хост &gt; Списки</value>
+  </data>
+  <data name="Visible.Header">
+    <value>Видимый</value>
+  </data>
+  <data name="Icon.Header">
+    <value>Значок</value>
+  </data>
+  <data name="Url.Header">
+    <value>Ссылка</value>
+  </data>
+</root>

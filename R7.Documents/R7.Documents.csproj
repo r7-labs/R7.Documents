@@ -75,6 +75,9 @@
     <None Include="SqlDataProvider\01.00.00.SqlDataProvider" />
     <None Include="SqlDataProvider\Uninstall.SqlDataProvider" />
     <None Include="SqlDataProvider\Install.01.00.00.SqlDataProvider" />
+    <None Include="App_LocalResources\EditDocuments.ascx.ru-RU.resx" />
+    <None Include="App_LocalResources\SettingsDocuments.ascx.ru-RU.resx" />
+    <None Include="App_LocalResources\ViewDocuments.ascx.ru-RU.resx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
