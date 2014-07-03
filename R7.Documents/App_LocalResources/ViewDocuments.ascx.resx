@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <data name="AddContent.Action" xml:space="preserve">
-    <value>Add New Document</value>
+    <value>New Document</value>
   </data>
   <data name="Title.Text" xml:space="preserve">
     <value>Title</value>
