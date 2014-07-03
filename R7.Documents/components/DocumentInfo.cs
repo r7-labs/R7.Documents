@@ -89,6 +89,12 @@ namespace R7.Documents
 
 		public bool IsPublished { get; set; }
 
+		public int Clicks
+		{
+			get { return (_clicks < 0) ? 0 : _clicks; }
+			set { _clicks = value; }
+		}
+
 		#endregion
 
 		#region External properties
@@ -243,17 +249,6 @@ namespace R7.Documents
 					return Localize ("Unknown.Text");
 				}
 			}
-		}
-
-		/// <summary>
-		/// Gets or sets the clicks.
-		/// </summary>
-		/// <value>The clicks.</value>
-		[IgnoreColumn]
-		public int Clicks
-		{
-			get { return (_clicks < 0) ? 0 : _clicks; }
-			set { _clicks = value; }
 		}
 
 		#endregion
