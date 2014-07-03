@@ -324,7 +324,7 @@ namespace R7.Documents
 
 				// Update Tracking options
 				string urlType = "U";
-				if (objDocument.Url.StartsWith ("FileID"))
+				if (objDocument.Url.StartsWith ("FileID=", StringComparison.InvariantCultureIgnoreCase))
 				{
 					urlType = "F";
 				}
