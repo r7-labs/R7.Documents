@@ -1,25 +1,25 @@
-﻿.ViewDocumens td
+﻿.ViewDocuments td
 {
   padding: 4px;
   white-space:nowrap
 }
 
-.ViewDocumens .SizeCell, 
-.ViewDocumens .ClicksCell
+.ViewDocuments .SizeCell, 
+.ViewDocuments .ClicksCell
 {
 	text-align:right;
 }
 
-.ViewDocumens .TitleCell, 
-.ViewDocumens .DescriptionCell
+.ViewDocuments .TitleCell, 
+.ViewDocuments .DescriptionCell
 {
 	width:100%;
 	white-space:wrap
 }
 
-.ViewDocumens ._nonpublished { background-color:#ffc }
+.ViewDocuments ._nonpublished { background-color:#ffc }
 
-.ViewDocumens .dnnGrid { margin-bottom:0 }
+.ViewDocuments .dnnGrid { margin-bottom:0 }
 
 .dnnEditDocs{width:100%;margin:2em auto;}
 .dnnEditDocs .dnnFormItem input[type=checkbox], .dnnTabsModule .dnnFormItem input[type=radio]{width:auto;}
