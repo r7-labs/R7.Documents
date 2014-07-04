@@ -6,7 +6,7 @@ Redesigned version of Mitchel Sellers's [DNN Documents](dnndocuments.codeplex.co
 
 - [x] Convert module from VB to C#
 - [x] Add document icon display
-- [ ] Allow edit document dates
+- [x] Allow edit document dates
 - [x] Allow exclude certain documents from view
 - [x] Use DAL 2 instead of DAL
 - [x] Get rid of DocumentSettings table
