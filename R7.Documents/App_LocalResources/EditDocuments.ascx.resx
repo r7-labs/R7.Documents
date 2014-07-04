@@ -158,4 +158,16 @@
   <data name="labelIsPublished.Text" xml:space="preserve">
     <value>Is Published</value>
   </data>
+  <data name="labelCreatedDate.Help" xml:space="preserve">
+    <value>Enter date and time of document creation or leave empty to select current date and time.</value>
+  </data>
+  <data name="labelCreatedDate.Text" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="labelLastModifiedDate.Help" xml:space="preserve">
+    <value>Enter date and time of last modification of the document ot leave empty (or just leave as is) to select current date and time.</value>
+  </data>
+  <data name="labelLastModifiedDate.Text" xml:space="preserve">
+    <value>Last Modified Date</value>
+  </data>
 </root>

@@ -132,6 +132,9 @@ namespace R7.Documents
 							chkForceDownload.Checked = objDocument.ForceDownload;
 							checkIsPublished.Checked = objDocument.IsPublished;
 
+							pickerCreatedDate.SelectedDate = objDocument.CreatedDate;
+							pickerLastModifiedDate.SelectedDate = objDocument.ModifiedDate;
+							
 							if (objDocument.Url != string.Empty)
 							{
 								ctlUrl.Url = objDocument.Url;
@@ -577,7 +580,6 @@ namespace R7.Documents
 					objDocument.Url = ctlUrl.Url;
 					objDocument.Description = txtDescription.Text;
 					objDocument.ForceDownload = chkForceDownload.Checked;
-					
 
 					if (lstOwner.Visible)
 					{
@@ -620,16 +622,43 @@ namespace R7.Documents
 						objDocument.SortOrderIndex = Convert.ToInt32 (txtSortIndex.Text);
 					}
 
+					#region Update date & time
+
+					var now = DateTime.Now;
+					
+					if (pickerCreatedDate.SelectedDate != null)
+					{
+						if (Null.IsNull (ItemID) || objDocument.CreatedDate != pickerCreatedDate.SelectedDate.Value)
+							objDocument.CreatedDate = pickerCreatedDate.SelectedDate.Value;
+						// else leave CreatedDate as is
+					}
+					else
+					{
+						objDocument.CreatedDate = now;
+					}
+
+					if (pickerLastModifiedDate.SelectedDate != null)
+					{
+						if (Null.IsNull (ItemID) || objDocument.ModifiedDate != pickerLastModifiedDate.SelectedDate.Value)
+							objDocument.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
+						else 
+							// update ModifiedDate
+							objDocument.ModifiedDate = now;
+					}
+					else
+					{
+						objDocument.ModifiedDate = now;
+					}
+
+					#endregion
+
 					// Create an instance of the Document DB component
 					if (Null.IsNull (ItemID))
 					{
-						objDocument.CreatedDate = DateTime.Now;
-						objDocument.ModifiedDate = objDocument.CreatedDate;
 						DocumentsController.Add<DocumentInfo> (objDocument);
 					}
 					else
 					{
-						objDocument.ModifiedDate = DateTime.Now;
 						DocumentsController.Update<DocumentInfo> (objDocument);
 					}
 

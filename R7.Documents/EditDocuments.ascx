@@ -3,6 +3,8 @@
 <%@ Register TagPrefix="Portal" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="Portal" TagName="Tracking" Src="~/controls/URLTrackingControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
+<%@ Register TagPrefix="dnnweb" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
+
 <div class="dnnForm dnnEditDocs dnnClear" id="dnnEditDocs">
     <div class="dnnFormItem">
         <dnn:label id="plName" runat="server" controlname="txtName" suffix=":" CssClass="dnnFormRequired" />
@@ -29,7 +31,15 @@
         <asp:textbox id="txtSortIndex" runat="server" maxlength="3" CssClass="dnnFormRequired" />
         <asp:rangevalidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError" ErrorMessage="Please enter a value from 0-999." Display="Dynamic" ControlToValidate="txtSortIndex" Type="Integer" MaximumValue="999" MinimumValue="0" />
     </div>
-    <div class="dnnFormItem">
+	<div class="dnnFormItem">
+        <dnn:label id="labelCreatedDate" runat="server" controlname="textCreatedDate" suffix=":" />
+		<dnnweb:DnnDateTimePicker id="pickerCreatedDate" runat="server" />
+    </div>
+ 	<div class="dnnFormItem">
+        <dnn:label id="labelLastModifiedDate" runat="server" controlname="textLastModifiedDate" suffix=":" />
+		<dnnweb:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
+    </div>
+	<div class="dnnFormItem">
         <dnn:label id="plUrl" runat="server" controlname="ctlURL" suffix=":" />
        	<div class="dnnLeft" style="width:440px">
             <portal:url id="ctlUrl" runat="server" showtabs="False" shownone="True" urltype="F" shownewwindow="True" ShowSecure="True" ShowDatabase="True" />
