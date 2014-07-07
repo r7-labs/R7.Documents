@@ -11,4 +11,4 @@ Redesigned version of Mitchel Sellers's [DNN Documents](dnndocuments.codeplex.co
 - [x] Use DAL 2 instead of DAL
 - [x] Get rid of DocumentSettings table
 - [x] Refresh obsolete DNN API calls
-- [ ] Integrate with new search
+- [x] Integrate with new search
