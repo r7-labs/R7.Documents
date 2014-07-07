@@ -143,9 +143,7 @@ namespace R7.Documents
 							var fileInfo = FileManager.Instance.GetFile (fileId.Value);
 							if (fileInfo != null)
 							{
-								// REVIEW: Must use Request.Url.Scheme
-								_formatUrl =  "http://" + PortalSettings.Current.PortalAlias.HTTPAlias + 
-									"/portals/" +  PortalSettings.Current.PortalId + "/" + fileInfo.RelativePath;
+								_formatUrl = fileInfo.RelativePath;
 							}
 						}
 					}
