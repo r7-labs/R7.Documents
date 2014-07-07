@@ -40,7 +40,7 @@ using DotNetNuke.Services.Search.Entities;
 
 namespace R7.Documents
 {
-	public partial class DocumentsController : ControllerBase, ISearchable, IPortable
+	public partial class DocumentsController : ControllerBase, IPortable
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Documents.DocumentsController"/> class.
@@ -78,16 +78,29 @@ namespace R7.Documents
 
 		#region ModuleSearchBase implementaion
 
-		public override IList<SearchDocument> GetModifiedSearchDocuments (ModuleInfo modInfo, DateTime beginDate)
+		public override IList<SearchDocument> GetModifiedSearchDocuments (ModuleInfo moduleInfo, DateTime beginDate)
 		{
-			var searchDocs = new List<SearchDocument> ();
-
-			// TODO: Realize GetModifiedSearchDocuments()
-
-			/* var sd = new SearchDocument();
-			searchDocs.Add(searchDoc);
-			*/
-
+			var searchDocs = new List<SearchDocument>();
+			
+			foreach (var document in GetDocuments(moduleInfo.ModuleID, moduleInfo.PortalID))
+			{
+				if (document != null && document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ())
+				{
+					var sd = new SearchDocument () {
+						PortalId = moduleInfo.PortalID,
+						AuthorUserId = document.OwnedByUserId,
+						Title = document.Title,
+						Description = HtmlUtils.Shorten (document.Description, 255, "..."),
+						Body = document.Title + " " + document.Description,
+						ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
+						UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
+						IsActive = document.IsPublished,
+						Url = document.Url
+					};
+			
+					searchDocs.Add (sd);
+				}
+			}
 			return searchDocs;
 		}
 
@@ -132,54 +145,7 @@ namespace R7.Documents
 
 		#endregion
 
-		#region "Optional Interfaces"
-
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// GetSearchItems implements the ISearchable Interface
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <param name="ModInfo">The ModuleInfo for the module to be Indexed</param>
-		/// <history>
-		///		[cnurse]	    17 Nov 2004	documented
-		///   [aglenwright] 18 Feb 2006 Altered to accomodate change to CreatedByUser
-		///                             field (changed from string to integer)
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		public DotNetNuke.Services.Search.SearchItemInfoCollection GetSearchItems (ModuleInfo ModInfo)
-		{
-			SearchItemInfoCollection SearchItemCollection = new SearchItemInfoCollection ();
-			// ArrayList Documents = GetDocuments(ModInfo.ModuleID, ModInfo.PortalID);
-			var documents = GetObjects<DocumentInfo> (ModInfo.ModuleID); // PortalID!
-
-			// TODO: Add new fields
-
-			object objDocument = null;
-			foreach (object objDocument_loopVariable in documents)
-			{
-				objDocument = objDocument_loopVariable;
-				SearchItemInfo SearchItem = default(SearchItemInfo);
-				var _with1 = (DocumentInfo)objDocument;
-				int UserId = Null.NullInteger;
-				//If IsNumeric(.CreatedByUser) Then
-				//    UserId = Integer.Parse(.CreatedByUser)
-				//End If
-				UserId = _with1.CreatedByUserId;
-				SearchItem = new SearchItemInfo (
-					ModInfo.ModuleTitle + " - " + _with1.Title, 
-					_with1.Title, 
-					UserId, 
-					_with1.CreatedDate, 
-					ModInfo.ModuleID, 
-					_with1.ItemId.ToString (), 
-					_with1.Title + " " + _with1.Category + " " + _with1.Description, 
-					"ItemId=" + _with1.ItemId);
-				SearchItemCollection.Add (SearchItem);
-			}
-
-			return SearchItemCollection;
-		}
+		#region IPortable implementation
 
 		/// -----------------------------------------------------------------------------
 		/// <summary>
