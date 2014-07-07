@@ -86,18 +86,21 @@ namespace R7.Documents
 			{
 				if (document != null && document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ())
 				{
+					var documentText = document.Title + 
+						(!string.IsNullOrWhiteSpace(document.Description)? " " + document.Description : "");
+
 					var sd = new SearchDocument () {
 						PortalId = moduleInfo.PortalID,
 						AuthorUserId = document.OwnedByUserId,
 						Title = document.Title,
-						Description = HtmlUtils.Shorten (document.Description, 255, "..."),
-						Body = document.Title + " " + document.Description,
+						Description = HtmlUtils.Shorten (documentText, 255, "..."),
+						Body = documentText,
 						ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
 						UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
 						IsActive = document.IsPublished,
-						Url = document.Url
+						Url = Globals.LinkClick (document.Url, moduleInfo.TabID, moduleInfo.ModuleID, document.TrackClicks, document.ForceDownload)
 					};
-			
+					
 					searchDocs.Add (sd);
 				}
 			}
