@@ -21,6 +21,7 @@ using System;
 using System.Linq;
 using DotNetNuke;
 using DotNetNuke.Common;
+using DotNetNuke.Entities.Icons;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using System.Collections;
@@ -555,6 +556,11 @@ namespace R7.Documents
 				objTemplateColumn.SortExpression = Title;
 			}
 			this.grdDocuments.Columns.Add (objTemplateColumn);
+		}
+
+		protected string EditImageUrl
+		{
+			get { return IconController.IconURL ("Edit"); } 
 		}
 
 		/*

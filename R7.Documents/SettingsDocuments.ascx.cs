@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Icons;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
@@ -281,11 +282,11 @@ namespace R7.Documents
 					// imgUp
 					objUpImage = (System.Web.UI.WebControls.ImageButton)e.Item.Cells [2].FindControl ("imgUp");
 					objUpImage.Visible = (e.Item.ItemIndex != 0);
-					objUpImage.ImageUrl = ResolveUrl ("~/images/up.gif");
-
+					objUpImage.ImageUrl = IconController.IconURL("Up", "16X16");
+				
 					// imgDown
 					objDownImage = (System.Web.UI.WebControls.ImageButton)e.Item.Cells [2].FindControl ("imgDown");
-					objDownImage.ImageUrl = ResolveUrl ("~/images/dn.gif");
+					objDownImage.ImageUrl = IconController.IconURL("Dn", "16X16");
 					if (objUpImage.Visible == false)
 					{
 						objDownImage.Style.Add ("margin-left", "19px");

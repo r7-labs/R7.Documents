@@ -13,7 +13,7 @@
         <ItemTemplate>
           <asp:HyperLink id="linkEdit" runat="server" Visible="<%# IsEditable %>" 
 				NavigateUrl='<%# EditUrl("ItemID",DataBinder.Eval(Container.DataItem,"ItemID").ToString()) %>' >
-            <asp:Image id="imageEdit" runat="server" ImageUrl="/icons/Sigma/Edit_16X16_Standard.png" 
+            <asp:Image id="imageEdit" runat="server" ImageUrl="<%# EditImageUrl %>" 
 				ToolTip='<%# DataBinder.Eval(Container.DataItem,"Info").ToString() %>' />
           </asp:HyperLink>
       	</ItemTemplate>
