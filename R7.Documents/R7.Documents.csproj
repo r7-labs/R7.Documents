@@ -103,12 +103,12 @@
     <Compile Include="EditDocuments.ascx.controls.cs">
       <DependentUpon>EditDocuments.ascx</DependentUpon>
     </Compile>
-    <Compile Include="DocumentComparer.cs" />
     <Compile Include="components\DocumentInfo.cs" />
-    <Compile Include="DocumentDisplayColumnInfo.cs" />
-    <Compile Include="DocumentSortColumnInfo.cs" />
-    <Compile Include="DownloadColumnTemplate.cs" />
     <Compile Include="components\DocumentModuleBase.cs" />
+    <Compile Include="components\DocumentComparer.cs" />
+    <Compile Include="components\DocumentDisplayColumnInfo.cs" />
+    <Compile Include="components\DocumentSortColumnInfo.cs" />
+    <Compile Include="components\DownloadColumnTemplate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
