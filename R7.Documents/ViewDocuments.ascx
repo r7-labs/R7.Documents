@@ -11,10 +11,12 @@
     <Columns>
       <asp:TemplateColumn>
         <ItemTemplate>
-          <asp:hyperlink id=editLink runat="server" visible="<%# IsEditable %>" navigateurl='<%# EditUrl("ItemID",DataBinder.Eval(Container.DataItem,"ItemID").ToString()) %>'>
-            <asp:image id="editLinkImage" imageurl="/icons/Sigma/Edit_16X16_Standard.png" visible="<%# IsEditable %>" alternatetext="Edit" runat="server" resourcekey="Edit" />
-          </asp:hyperlink>
-        </ItemTemplate>
+          <asp:HyperLink id="linkEdit" runat="server" Visible="<%# IsEditable %>" 
+				NavigateUrl='<%# EditUrl("ItemID",DataBinder.Eval(Container.DataItem,"ItemID").ToString()) %>' >
+            <asp:Image id="imageEdit" runat="server" ImageUrl="/icons/Sigma/Edit_16X16_Standard.png" 
+				ToolTip='<%# DataBinder.Eval(Container.DataItem,"Info").ToString() %>' />
+          </asp:HyperLink>
+      	</ItemTemplate>
       </asp:TemplateColumn>
     </Columns>
   </asp:datagrid>

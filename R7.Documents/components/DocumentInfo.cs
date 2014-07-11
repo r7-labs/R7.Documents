@@ -206,6 +206,11 @@ namespace R7.Documents
 			} 
 		}
 
+		[IgnoreColumn]
+		public string Info
+		{
+			get { return FormatUrl; }
+		}
 		
 		public event LocalizeHandler OnLocalize;
 
