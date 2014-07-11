@@ -1,6 +1,6 @@
 ﻿.ViewDocuments td
 {
-  padding: 4px;
+  padding:4px;
   white-space:nowrap
 }
 
@@ -10,11 +10,12 @@
 	text-align:right;
 }
 
-.ViewDocuments .TitleCell, 
+.ViewDocuments .TitleCell { width:33%; }
+
 .ViewDocuments .DescriptionCell
 {
-	width:100%;
-	white-space:wrap
+	width:66%;
+	white-space:normal
 }
 
 .ViewDocuments ._nonpublished { background-color:#ffc }
