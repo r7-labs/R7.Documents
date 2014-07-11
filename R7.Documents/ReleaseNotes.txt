@@ -1,4 +1,15 @@
-﻿<h3>Version 01.00.00</h3>
+﻿<h3>Version 01.00.01</h3>
+<p>This is stabilization release of 01.00.00 series. Changes include:</p>
+<ul>
+	<li>Document description now displayed in the title tooltip.</li>
+	<li>Filename / URL now displayed in the edit link tooltip. Url column removed as a result of previous change.</li>
+	<li>Empty module with no [published] documents now hide itself for regular users.</li>
+	<li>Reuse more Sigma icons through IconController.</li>
+	<li>Columns in the default settings and settings window was reodered and behave more predictable.</li>
+	<li>Module integrated with new DNN search API (preview, need more testing).</li>
+	<li>Many other small improvements and fixes.</li>
+</ul>
+<h3>Version 01.00.00</h3>
 <p>This is the initial release, based of Mitchel Sellers's <a href="http://dnndocuments.codeplex.com/" target="_blank">DNN Documents</a> module v06.00.01. Changes from original module includes:</p>
 <ul>
 	<li>Module code base converted from VB to C#.</li>
@@ -9,7 +20,7 @@
 	<li>Added Url column to display document link (mostly for editors to check if document sources is OK).</li>
 	<li>Module now uses Sigma icons for edit and download links.</li>
 	<li>Many obsolete and deprecated DNN API calls refreshed.</li>
-	<li>Many other small improvements and fixed.</li>
+	<li>Many other small improvements and fixes.</li>
 </ul>
 <p>Module can be safely installed along with original Documents module.</p>
 <p>Support for {objectQualifier} is incomplete (DAL 2 drawbacks), so please use it only in environments with one DB per DNN install.</p>
