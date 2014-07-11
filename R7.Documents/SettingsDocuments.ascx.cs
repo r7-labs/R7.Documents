@@ -96,8 +96,7 @@ namespace R7.Documents
 		{
 			//ArrayList objColumnSettings = new ArrayList ();
 			DocumentsDisplayColumnInfo objColumnInfo = null;
-			string strColumnName = null;
-
+			
 			try
 			{
 				if ((Page.IsPostBack == false))
@@ -127,33 +126,26 @@ namespace R7.Documents
 						// suppress exception.  Can be caused if the selected list has been deleted
 					}
 
-					// read "saved" column sort orders in first
+					// read "saved" columns
 					var objColumnSettings = DocumentsSettings.DisplayColumnList;
-					foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings)
+					var objColumns = new List<DocumentsDisplayColumnInfo>(DocumentsDisplayColumnInfo.AvailableDisplayColumns.Count);
+
+					// Add columns to the list
+					foreach (var columnName in DocumentsDisplayColumnInfo.AvailableDisplayColumns)
 					{
-						objColumnInfo = objColumnInfo_loopVariable;
-						// Set localized column names
+						objColumnInfo = new DocumentsDisplayColumnInfo ();
+						objColumnInfo.ColumnName = columnName;
 						objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
-					}
+						objColumnInfo.DisplayOrder = objColumns.Count + 1;
 
-					// Add any missing columns to the end
-					foreach (string strColumnName_loopVariable in DocumentsDisplayColumnInfo.AvailableDisplayColumns)
-					{
-						strColumnName = strColumnName_loopVariable;
-						if (DocumentsSettings.FindColumn (strColumnName, objColumnSettings, false) < 0)
-						{
-							objColumnInfo = new DocumentsDisplayColumnInfo ();
-							objColumnInfo.ColumnName = strColumnName;
-							objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
-							objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
-							objColumnInfo.Visible = false;
+						var column = objColumnSettings.Find(c => c.ColumnName == columnName);
+						objColumnInfo.Visible = (column != null && column.Visible);
 
-							objColumnSettings.Add (objColumnInfo);
-						}
+						objColumns.Add (objColumnInfo);
 					}
 
 					// Sort by DisplayOrder
-					BindColumnSettings (objColumnSettings);
+					BindColumnSettings (objColumns);
 
 					// Load sort columns 
 					string strSortColumn = null;

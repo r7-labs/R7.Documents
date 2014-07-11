@@ -66,13 +66,29 @@ namespace R7.Documents
 		{
 			get
 			{ 
+/*
+COLUMN_ICON,
+			COLUMN_TITLE,
+			COLUMN_DESCRIPTION,
+			COLUMN_CATEGORY,
+			COLUMN_OWNEDBY,
+			COLUMN_CREATEDDATE,
+			COLUMN_CREATEDBY,
+			COLUMN_MODIFIEDDATE,
+			COLUMN_MODIFIEDBY,
+			COLUMN_SIZE,
+			COLUMN_CLICKS,
+			COLUMN_DOWNLOADLINK,*/
+
 				return ReadSetting<string> ("Documents_DisplayColumns", 
 					DocumentsDisplayColumnInfo.COLUMN_ICON + ";true," +
 					DocumentsDisplayColumnInfo.COLUMN_TITLE + ";true," +
-					DocumentsDisplayColumnInfo.COLUMN_OWNEDBY + ";true," +
+				    
 					DocumentsDisplayColumnInfo.COLUMN_CATEGORY + ";true," +
+					DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY + ";true," +
 					DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE + ";true," +
 					DocumentsDisplayColumnInfo.COLUMN_SIZE + ";true," +
+					DocumentsDisplayColumnInfo.COLUMN_CLICKS + ";true," +
 					DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK + ";true", 
 					true); 
 			}
