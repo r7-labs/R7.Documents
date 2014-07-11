@@ -43,7 +43,7 @@ namespace R7.Documents
 		public const string COLUMN_DOWNLOADLINK = "DownloadLink";
 		public const string COLUMN_CLICKS = "Clicks";
 		public const string COLUMN_ICON = "Icon";
-		public const string COLUMN_URL = "Url";
+		// public const string COLUMN_URL = "Url";
 
 		public static HashSet<string> AvailableDisplayColumns = new HashSet<string>() {
 			COLUMN_TITLE,
@@ -57,8 +57,8 @@ namespace R7.Documents
 			COLUMN_MODIFIEDBY,
 			COLUMN_DESCRIPTION,
 			COLUMN_CLICKS,
-			COLUMN_ICON,
-			COLUMN_URL
+			COLUMN_ICON
+			// ,COLUMN_URL
 		};
 		public static List<string> AvailableSortColumns = new List<string>() {
 			COLUMN_SORTORDER,
@@ -71,8 +71,8 @@ namespace R7.Documents
 			COLUMN_CREATEDDATE,
 			COLUMN_MODIFIEDBY,
 			COLUMN_DESCRIPTION,
-			COLUMN_CLICKS,
-			COLUMN_URL
+			COLUMN_CLICKS
+			// ,COLUMN_URL
 		};
 
 		#region "Private Members"
