@@ -170,4 +170,7 @@
   <data name="Url.Text">
     <value>Ссылка</value>
   </data>
+  <data name="NothingToDisplay.Text" xml:space="preserve">
+    <value>Нечего отображать. Добавьте документы.</value>
+  </data>
 </root>

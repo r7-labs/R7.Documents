@@ -74,17 +74,27 @@ namespace R7.Documents
 		{
 			try
 			{
-				//  mobjSettings = LoadSettings();
 				grdDocuments.AllowSorting = DocumentsSettings.AllowUserSort;
-				LoadColumns ();
 				LoadData ();
-				grdDocuments.DataSource = mobjDocumentList;
-				grdDocuments.DataBind ();
-
-				//Module failed to load
+			
+				if (IsEditable && mobjDocumentList.Count == 0)
+				{
+					Utils.Message(this, MessageSeverity.Info, "NothingToDisplay.Text",  true);
+				}	
+				else if (!IsEditable && mobjDocumentList.Count(d => d.IsPublished) == 0)
+				{
+					ContainerControl.Visible = false;
+				}
+				else
+				{
+					LoadColumns ();
+					grdDocuments.DataSource = mobjDocumentList;
+					grdDocuments.DataBind ();
+				}
 			}
 			catch (Exception exc)
 			{
+				// Module failed to load
 				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}

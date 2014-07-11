@@ -131,4 +131,7 @@
 	<data name="Unknown.Text" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="NothingToDisplay.Text" xml:space="preserve">
+    <value>Nothing to display. Please add some documents.</value>
+  </data>
 </root>
