@@ -127,26 +127,34 @@ namespace R7.Documents
 						// suppress exception.  Can be caused if the selected list has been deleted
 					}
 
-					// read "saved" columns
+					// read "saved" column sort orders in first
 					var objColumnSettings = DocumentsSettings.DisplayColumnList;
-					var objColumns = new List<DocumentsDisplayColumnInfo>(DocumentsDisplayColumnInfo.AvailableDisplayColumns.Count);
 
-					// Add columns to the list
-					foreach (var columnName in DocumentsDisplayColumnInfo.AvailableDisplayColumns)
+					foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings)
 					{
-						objColumnInfo = new DocumentsDisplayColumnInfo ();
-						objColumnInfo.ColumnName = columnName;
+						objColumnInfo = objColumnInfo_loopVariable;
+						// Set localized column names
 						objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
-						objColumnInfo.DisplayOrder = objColumns.Count + 1;
-
-						var column = objColumnSettings.Find(c => c.ColumnName == columnName);
-						objColumnInfo.Visible = (column != null && column.Visible);
-
-						objColumns.Add (objColumnInfo);
+					}
+					
+					// Add any missing columns to the end
+					foreach (string strColumnName_loopVariable in DocumentsDisplayColumnInfo.AvailableDisplayColumns)
+					{
+						var strColumnName = strColumnName_loopVariable;
+						if (DocumentsSettings.FindColumn (strColumnName, objColumnSettings, false) < 0)
+						{
+						objColumnInfo = new DocumentsDisplayColumnInfo ();
+						objColumnInfo.ColumnName = strColumnName;
+						objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
+						objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
+						objColumnInfo.Visible = false;
+						
+						objColumnSettings.Add (objColumnInfo);
+						}
 					}
 
 					// Sort by DisplayOrder
-					BindColumnSettings (objColumns);
+					BindColumnSettings (objColumnSettings);
 
 					// Load sort columns 
 					string strSortColumn = null;
