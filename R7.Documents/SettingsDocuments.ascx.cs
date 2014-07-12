@@ -143,13 +143,13 @@ namespace R7.Documents
 						var strColumnName = strColumnName_loopVariable;
 						if (DocumentsSettings.FindColumn (strColumnName, objColumnSettings, false) < 0)
 						{
-						objColumnInfo = new DocumentsDisplayColumnInfo ();
-						objColumnInfo.ColumnName = strColumnName;
-						objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
-						objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
-						objColumnInfo.Visible = false;
-						
-						objColumnSettings.Add (objColumnInfo);
+							objColumnInfo = new DocumentsDisplayColumnInfo ();
+							objColumnInfo.ColumnName = strColumnName;
+							objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
+							objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
+							objColumnInfo.Visible = false;
+							
+							objColumnSettings.Add (objColumnInfo);
 						}
 					}
 
