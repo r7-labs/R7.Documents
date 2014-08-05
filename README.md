@@ -1,6 +1,6 @@
 # About R7.Documents
 
-Redesigned version of Mitchel Sellers's [DNN Documents](dnndocuments.codeplex.com) module
+Redesigned version of Mitchel Sellers's [DNN Documents](http://dnndocuments.codeplex.com) module
 
 # TODO
 
