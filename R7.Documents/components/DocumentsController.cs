@@ -188,15 +188,10 @@ namespace R7.Documents
 						strXML.AppendFormat ("<title>{0}</title>", XmlUtils.XMLEncode (objDocument.Title));
 						strXML.AppendFormat ("<url>{0}</url>", XmlUtils.XMLEncode (objDocument.Url));
 						strXML.AppendFormat ("<category>{0}</category>", XmlUtils.XMLEncode (objDocument.Category));
-
-						strXML.AppendFormat ("<createddate>{0}</createddate>", XmlUtils.XMLEncode (objDocument.CreatedDate.ToString ("dd-MMM-yyyy hh:mm:ss tt")));
 						strXML.AppendFormat ("<description>{0}</description>", XmlUtils.XMLEncode (objDocument.Description));
-						strXML.AppendFormat ("<createdbyuserid>{0}</createdbyuserid>", XmlUtils.XMLEncode (objDocument.CreatedByUserId.ToString ()));
 						strXML.AppendFormat ("<forcedownload>{0}</forcedownload>", XmlUtils.XMLEncode ((objDocument.ForceDownload.ToString ())));
 						strXML.AppendFormat ("<ispublished>{0}</ispublished>", XmlUtils.XMLEncode ((objDocument.IsPublished.ToString ())));
 						strXML.AppendFormat ("<ownedbyuserid>{0}</ownedbyuserid>", XmlUtils.XMLEncode (objDocument.OwnedByUserId.ToString ()));
-						strXML.AppendFormat ("<modifiedbyuserid>{0}</modifiedbyuserid>", XmlUtils.XMLEncode (objDocument.ModifiedByUserId.ToString ()));
-						strXML.AppendFormat ("<modifieddate>{0}</modifieddate>", XmlUtils.XMLEncode (objDocument.ModifiedDate.ToString ("dd-MMM-yyyy hh:mm:ss tt")));
 						strXML.AppendFormat ("<sortorderindex>{0}</sortorderindex>", XmlUtils.XMLEncode (objDocument.SortOrderIndex.ToString ()));
 
 						// Export Url Tracking options too
@@ -279,15 +274,18 @@ namespace R7.Documents
 				}
 
 				objDocument.Category = xmlDocument ["category"].InnerText;
-				objDocument.CreatedDate = XmlUtils.GetNodeValueDate (xmlDocument, "createddate", DateTime.Now);
 				objDocument.Description = XmlUtils.GetNodeValue (xmlDocument, "description");
-				objDocument.CreatedByUserId = UserId;
 				objDocument.OwnedByUserId = XmlUtils.GetNodeValueInt (xmlDocument, "ownedbyuserid");
-				objDocument.ModifiedByUserId = XmlUtils.GetNodeValueInt (xmlDocument, "modifiedbyuserid");
-				objDocument.ModifiedDate = XmlUtils.GetNodeValueDate (xmlDocument, "modifieddate", DateTime.Now);
 				objDocument.SortOrderIndex = XmlUtils.GetNodeValueInt (xmlDocument, "sortorderindex");
 				objDocument.ForceDownload = XmlUtils.GetNodeValueBoolean (xmlDocument, "forcedownload");
 				objDocument.IsPublished = XmlUtils.GetNodeValueBoolean (xmlDocument, "ispublished");
+
+				objDocument.CreatedByUserId = UserId;
+				objDocument.ModifiedByUserId = UserId;
+				
+				var now = DateTime.Now;
+				objDocument.CreatedDate = now;
+				objDocument.ModifiedDate = now;
 
 				Add<DocumentInfo> (objDocument);
 
