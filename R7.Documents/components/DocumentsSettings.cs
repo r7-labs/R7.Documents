@@ -58,7 +58,7 @@ namespace R7.Documents
 
 		public string SortOrder
 		{
-			get { return ReadSetting<string> ("Documents_SortOrder", "", true); }
+			get { return ReadSetting<string> ("Documents_SortOrder", DocumentsDisplayColumnInfo.COLUMN_SORTORDER, true); }
 			set { WriteSetting<string> ("Documents_SortOrder", value, true); }
 		}
 
