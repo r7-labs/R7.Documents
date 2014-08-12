@@ -613,14 +613,9 @@ namespace R7.Documents
 						}
 					}
 
-					if (txtSortIndex.Text == string.Empty)
-					{
-						objDocument.SortOrderIndex = 0;
-					}
-					else
-					{
-						objDocument.SortOrderIndex = Convert.ToInt32 (txtSortIndex.Text);
-					}
+					// getting sort index
+					int sortIndex;
+					objDocument.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 0;
 
 					#region Update date & time
 

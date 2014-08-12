@@ -28,8 +28,8 @@
     </div>
     <div class="dnnFormItem">
         <dnn:label id="plSortIndex" runat="server" controlname="txtSortIndex" suffix=":" />
-        <asp:textbox id="txtSortIndex" runat="server" maxlength="3" CssClass="dnnFormRequired" />
-        <asp:rangevalidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError" ErrorMessage="Please enter a value from 0-999." Display="Dynamic" ControlToValidate="txtSortIndex" Type="Integer" MaximumValue="999" MinimumValue="0" />
+        <asp:textbox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
+        <asp:rangevalidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError" ErrorMessage="Please enter a valid integer value." Display="Dynamic" ControlToValidate="txtSortIndex" Type="Integer" MaximumValue="2147483647" MinimumValue="-2147483648" />
     </div>
 	<div class="dnnFormItem">
         <dnn:label id="labelCreatedDate" runat="server" controlname="textCreatedDate" suffix=":" />
