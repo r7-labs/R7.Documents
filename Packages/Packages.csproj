@@ -31,7 +31,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Readme.txt" />
     <None Include="Install.targets" />
     <None Include="Source.targets" />
     <None Include="Packages.csproj" />

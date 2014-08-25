@@ -68,7 +68,6 @@
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
     <None Include="App_LocalResources\EditDocuments.ascx.resx" />
     <None Include="App_LocalResources\SettingsDocuments.ascx.resx" />
-    <None Include="Readme.txt" />
     <None Include="License.txt" />
     <None Include="ReleaseNotes.txt" />
     <None Include="R7.Documents.dnn" />
