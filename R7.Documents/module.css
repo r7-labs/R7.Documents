@@ -11,9 +11,8 @@
 	text-align:right;
 }
 
-.ViewDocuments .TitleCell { width:33% }
-
-.ViewDocuments .DescriptionCell { white-space:normal }
+.ViewDocuments .DescriptionCell,
+.ViewDocuments .TitleCell { white-space:normal }
 
 .ViewDocuments ._nonpublished { background-color:#ffc }
 
