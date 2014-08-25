@@ -18,7 +18,7 @@
 - Module code converted from VB.NET to C#
 - New DAL 2 used instead of DAL
 - Module settings now stored in standard DNN tables
-- All obsolete DNN API calls refreshed
+- All obsolete / deprecated DNN API calls were refreshed
 
 # Install 
 
