@@ -290,11 +290,11 @@ namespace R7.Documents
 					// imgUp
 					objUpImage = (System.Web.UI.WebControls.ImageButton)e.Item.Cells [2].FindControl ("imgUp");
 					objUpImage.Visible = (e.Item.ItemIndex != 0);
-					objUpImage.ImageUrl = IconController.IconURL("Up", "16X16");
+					objUpImage.ImageUrl = IconController.IconURL ("Up", "16X16");
 				
 					// imgDown
 					objDownImage = (System.Web.UI.WebControls.ImageButton)e.Item.Cells [2].FindControl ("imgDown");
-					objDownImage.ImageUrl = IconController.IconURL("Dn", "16X16");
+					objDownImage.ImageUrl = IconController.IconURL ("Dn", "16X16");
 					if (objUpImage.Visible == false)
 					{
 						objDownImage.Style.Add ("margin-left", "19px");

@@ -88,7 +88,7 @@ namespace R7.Documents
 		public bool ForceDownload { get; set; }
 
 		public bool IsPublished { get; set; }
-	
+
 
 		#endregion
 
@@ -195,7 +195,7 @@ namespace R7.Documents
 							}
 						}
 					}
-					else if (!string.IsNullOrWhiteSpace(Url))
+					else if (!string.IsNullOrWhiteSpace (Url))
 					{
 						_formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
 							IconController.IconURL ("Link", "16X16", "Gray"), "URL");
@@ -211,7 +211,7 @@ namespace R7.Documents
 		{
 			get { return FormatUrl; }
 		}
-		
+
 		public event LocalizeHandler OnLocalize;
 
 		private string Localize (string text)
@@ -237,11 +237,11 @@ namespace R7.Documents
 					{
 						if (Size > (1024 * 1024))
 						{
-							return string.Format ("{0:#,##0.00} {1}", Size / 1024f / 1024f,  Localize ("Megabytes.Text"));
+							return string.Format ("{0:#,##0.00} {1}", Size / 1024f / 1024f, Localize ("Megabytes.Text"));
 						}
 						else
 						{
-							return string.Format ("{0:#,##0.00} {1}", Size / 1024f,  Localize ("Kilobytes.Text"));
+							return string.Format ("{0:#,##0.00} {1}", Size / 1024f, Localize ("Kilobytes.Text"));
 						}
 					}
 					else

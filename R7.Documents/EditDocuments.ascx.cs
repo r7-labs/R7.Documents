@@ -189,7 +189,7 @@ namespace R7.Documents
 							ctlAudit.CreatedByUser = objDocument.CreatedByUser;
 							ctlAudit.CreatedDate = objDocument.CreatedDate.ToString ();
 							ctlAudit.LastModifiedByUser = objDocument.ModifiedByUser;
-							ctlAudit.LastModifiedDate = objDocument.ModifiedDate.ToString();
+							ctlAudit.LastModifiedDate = objDocument.ModifiedDate.ToString ();
 
 							if (ctlUrl.UrlType == "N")
 								panelUrlTracking.Visible = false;

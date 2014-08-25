@@ -80,14 +80,14 @@ namespace R7.Documents
 
 		public override IList<SearchDocument> GetModifiedSearchDocuments (ModuleInfo moduleInfo, DateTime beginDate)
 		{
-			var searchDocs = new List<SearchDocument>();
+			var searchDocs = new List<SearchDocument> ();
 			
 			foreach (var document in GetDocuments(moduleInfo.ModuleID, moduleInfo.PortalID))
 			{
 				if (document != null && document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ())
 				{
-					var documentText = document.Title + 
-						(!string.IsNullOrWhiteSpace(document.Description)? " " + document.Description : "");
+					var documentText = document.Title +
+					                   (!string.IsNullOrWhiteSpace (document.Description) ? " " + document.Description : "");
 
 					var sd = new SearchDocument () {
 						PortalId = moduleInfo.PortalID,

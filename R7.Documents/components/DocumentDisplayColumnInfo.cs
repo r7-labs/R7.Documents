@@ -45,7 +45,7 @@ namespace R7.Documents
 		public const string COLUMN_ICON = "Icon";
 		// public const string COLUMN_URL = "Url";
 
-		public static HashSet<string> AvailableDisplayColumns = new HashSet<string>() {
+		public static HashSet<string> AvailableDisplayColumns = new HashSet<string> () {
 			COLUMN_ICON,
 			COLUMN_TITLE,
 			COLUMN_DESCRIPTION,
@@ -60,7 +60,7 @@ namespace R7.Documents
 			COLUMN_DOWNLOADLINK,
 			// ,COLUMN_URL
 		};
-		public static List<string> AvailableSortColumns = new List<string>() {
+		public static List<string> AvailableSortColumns = new List<string> () {
 			COLUMN_SORTORDER,
 			COLUMN_TITLE,
 			COLUMN_DESCRIPTION,

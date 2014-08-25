@@ -79,9 +79,9 @@ namespace R7.Documents
 			
 				if (IsEditable && mobjDocumentList.Count == 0)
 				{
-					Utils.Message(this, MessageSeverity.Info, "NothingToDisplay.Text",  true);
-				}	
-				else if (!IsEditable && mobjDocumentList.Count(d => d.IsPublished) == 0)
+					Utils.Message (this, MessageSeverity.Info, "NothingToDisplay.Text", true);
+				}
+				else if (!IsEditable && mobjDocumentList.Count (d => d.IsPublished) == 0)
 				{
 					ContainerControl.Visible = false;
 				}
@@ -381,9 +381,9 @@ namespace R7.Documents
 							AddDocumentColumn (Localization.GetString ("Icon", LocalResourceFile), "Icon", "FormatIcon");
 
 							break;
-						// case DocumentsDisplayColumnInfo.COLUMN_URL:
-						// AddDocumentColumn (Localization.GetString ("Url", LocalResourceFile), "Url", "FormatUrl");
-						// break;
+					// case DocumentsDisplayColumnInfo.COLUMN_URL:
+					// AddDocumentColumn (Localization.GetString ("Url", LocalResourceFile), "Url", "FormatUrl");
+					// break;
 
 						case DocumentsDisplayColumnInfo.COLUMN_TITLE:
 							if (DocumentsSettings.ShowTitleLink)

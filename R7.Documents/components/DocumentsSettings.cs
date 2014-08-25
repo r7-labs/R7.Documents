@@ -136,15 +136,15 @@ COLUMN_ICON,
 					// read "saved" column sort orders in first
 					foreach (var strColumn in DisplayColumns.Split( new [] {','}, StringSplitOptions.RemoveEmptyEntries))
 					{
-						var strColumnData = strColumn.Split(new [] {';'}, StringSplitOptions.RemoveEmptyEntries);
-						var strColumnName = strColumnData[0];
+						var strColumnData = strColumn.Split (new [] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+						var strColumnName = strColumnData [0];
 
-						if (DocumentsDisplayColumnInfo.AvailableDisplayColumns.Contains(strColumnName))
+						if (DocumentsDisplayColumnInfo.AvailableDisplayColumns.Contains (strColumnName))
 						{
 							var objColumnInfo = new DocumentsDisplayColumnInfo () {
 								ColumnName = strColumnName,
 								DisplayOrder = objColumnSettings.Count + 1,
-								Visible = bool.Parse(strColumnData[1]),
+								Visible = bool.Parse (strColumnData [1]),
 								LocalizedColumnName = Localization.GetString (strColumnName + ".Header", LocalResourceFile)
 							};
 

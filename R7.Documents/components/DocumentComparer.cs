@@ -32,13 +32,13 @@ namespace R7.Documents
 		{
 			mobjSortColumns = SortColumns;
 		}
-		
-        /// <summary>
-        /// Compares two documents and returns a value indicating whether one is less than, 
+
+		/// <summary>
+		/// Compares two documents and returns a value indicating whether one is less than, 
 		/// equal to, or greater than the other. This method is of Comparison<T> delegate type
-        /// </summary>
-        /// <param name="x">First document.</param>
-        /// <param name="y">Second document.</param>
+		/// </summary>
+		/// <param name="x">First document.</param>
+		/// <param name="y">Second document.</param>
 		public int Compare (DocumentInfo x, DocumentInfo y)
 		{
 			if (mobjSortColumns.Count == 0)
