@@ -11,6 +11,7 @@
 - Added ability to exclude certain documents from regular view (publish / unpublish)
 - Document edit control displayed as popup
 - If no published documents available, module hides from reqular view
+- Module display settings (column set / order, sorting, etc) now tab-specific
 - Module integrates with new DNN search (preview)
 
 ## Developer changes
