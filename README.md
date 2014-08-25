@@ -2,13 +2,13 @@
 
 Redesigned version of Mitchel Sellers's [DNN Documents](http://dnndocuments.codeplex.com) module
 
-# TODO
+## Changes from the original module:
 
-- [x] Convert module from VB to C#
-- [x] Add document icon display
-- [x] Allow edit document dates
-- [x] Allow exclude certain documents from view
-- [x] Use DAL 2 instead of DAL
-- [x] Get rid of DocumentSettings table
-- [x] Refresh obsolete DNN API calls
-- [x] Integrate with new search
+- Module code converted from VB to C#
+- Document type icon added
+- Ability to edit document dates
+- Ability to exclude certain documents from view
+- New DAL 2 used instead of DAL
+- Module settings now stored in standard DNN tables
+- All obsolete DNN API calls refreshed
+- Module integrates with new DNN search (preview)
