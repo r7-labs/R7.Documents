@@ -1,109 +1,104 @@
 ﻿<dotnetnuke type="Package" version="5.0">
- <packages>
-   <package name="R7.Documents" type="Module" version="01.00.02">
-     <friendlyName>R7.Documents</friendlyName>
-     <description>This module renders a list of documents, including links to browse or download the document. Documents includes an edit page, which allows authorized users to edit the information about the Documents (for example, a friendly title) stored in the SQL database. Module based on original Mitchel Sellers's DNN Documents module.</description>
-     <owner>
-       <name>Roman M. Yagodin</name>
-       <organization>R7.Solutions</organization>
-       <url>https://github.com/roman-yagodin/R7.Documents</url>
-       <email>roman.yagodin@gmail.com</email>
-     </owner>
-	 <license src="License.txt" />
-     <releaseNotes src="ReleaseNotes.txt" />
- 		<components>
-        <component type="Module">
-         <desktopModule>
-           <moduleName>R7.Documents</moduleName>
-           <foldername>R7.Documents</foldername>
-           <businessControllerClass>R7.Documents.DocumentsController</businessControllerClass>
-           <supportedFeatures>
-             <supportedFeature type="Portable" />
-             <supportedFeature type="Searchable" />
-           </supportedFeatures>
-           <moduleDefinitions>
-             <moduleDefinition>
-               <friendlyName>R7.Documents</friendlyName>
-               <definitionName>R7.Documents</definitionName>
-               <defaultCacheTime>0</defaultCacheTime>
-               <moduleControls>
-                 <moduleControl>
-                   <controlKey />
-                   <controlSrc>DesktopModules/R7.Documents/R7.Documents/ViewDocuments.ascx</controlSrc>
-                   <controlTitle />
-                   <controlType>View</controlType>
-                   <iconFile />
-                   <helpUrl />
-                   <supportsPartialRendering>False</supportsPartialRendering>
-                   <supportsPopUps>False</supportsPopUps>
-                   <viewOrder>0</viewOrder>
-                 </moduleControl>
-                 <moduleControl>
-                   <controlKey>Edit</controlKey>
-                   <controlSrc>DesktopModules/R7.Documents/R7.Documents/EditDocuments.ascx</controlSrc>
-                   <supportsPartialRendering>False</supportsPartialRendering>
-                   <supportsPopUps>True</supportsPopUps>
-                   <controlTitle>Edit</controlTitle>
-                   <controlType>Edit</controlType>
-                   <iconFile />
-                   <helpUrl />
-                   <supportsPartialRendering>False</supportsPartialRendering>
-                   <supportsPopUps>True</supportsPopUps>
-                   <viewOrder>0</viewOrder>
-                 </moduleControl>
-                 <moduleControl>
-                   <controlKey>Settings</controlKey>
-                   <controlSrc>DesktopModules/R7.Documents/R7.Documents/SettingsDocuments.ascx</controlSrc>
-                   <supportsPartialRendering>False</supportsPartialRendering>
-                   <controlTitle>Settings</controlTitle>
-                   <controlType>Edit</controlType>
-                   <iconFile />
-                   <helpUrl />
-                   <supportsPartialRendering>False</supportsPartialRendering>
-                   <supportsPopUps>False</supportsPopUps>
-                   <viewOrder>0</viewOrder>
-                 </moduleControl>
-               </moduleControls>
-             </moduleDefinition>
-           </moduleDefinitions>
-         </desktopModule>
-       </component>
-
-       <component type="Script">
-         <scripts>
-           <basePath>DesktopModules\R7.Documents\R7.Documents</basePath>
-           <script type="Install">
-             <name>SqlDataProvider\01.00.00.SqlDataProvider</name>
-             <version>01.00.00</version>
-           </script>
-		   <script type="UnInstall">
-             <name>SqlDataProvider\Uninstall.SqlDataProvider</name>
-             <version>01.00.02</version>
-           </script>
-         </scripts>
-       </component>
-
-       <component type="ResourceFile">
-         <resourceFiles>
-           <basePath>DesktopModules\R7.Documents</basePath>
-           <resourceFile>
-             <name>Resources.zip</name>
-           </resourceFile>
-         </resourceFiles>
-       </component>
-
-       <component type="Assembly">
-         <assemblies>
-           <basePath>bin</basePath>
-           <assembly>
-             <path>bin</path>
-             <name>R7.Documents.dll</name>
-           </assembly>
-         </assemblies>
-       </component>
-    
-     </components>
-   </package>
- </packages>
+	<packages>
+		<package name="R7.Documents" type="Module" version="01.00.02">
+			<friendlyName>R7.Documents</friendlyName>
+			<description>This module renders a list of documents, including links to browse or download the document. Documents includes an edit page, which allows authorized users to edit the information about the Documents (for example, a friendly title) stored in the SQL database. Module based on original Mitchel Sellers's DNN Documents module.</description>
+			<owner>
+				<name>Roman M. Yagodin</name>
+				<organization>R7.Solutions</organization>
+				<url>https://github.com/roman-yagodin/R7.Documents</url>
+				<email>roman.yagodin@gmail.com</email>
+			</owner>
+			<license src="License.txt" />
+			<releaseNotes src="ReleaseNotes.txt" />
+            <components>
+				<component type="Module">
+					<desktopModule>
+						<moduleName>R7.Documents</moduleName>
+						<foldername>R7.Documents</foldername>
+						<businessControllerClass>R7.Documents.DocumentsController</businessControllerClass>
+						<supportedFeatures>
+							<supportedFeature type="Portable" />
+							<supportedFeature type="Searchable" />
+						</supportedFeatures>
+						<moduleDefinitions>
+							<moduleDefinition>
+								<friendlyName>R7.Documents</friendlyName>
+								<definitionName>R7.Documents</definitionName>
+								<defaultCacheTime>0</defaultCacheTime>
+								<moduleControls>
+									<moduleControl>
+										<controlKey />
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents/ViewDocuments.ascx</controlSrc>
+										<controlTitle />
+										<controlType>View</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPopUps>False</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+									<moduleControl>
+										<controlKey>Edit</controlKey>
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents/EditDocuments.ascx</controlSrc>
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPopUps>True</supportsPopUps>
+										<controlTitle>Edit</controlTitle>
+										<controlType>Edit</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPopUps>True</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+									<moduleControl>
+										<controlKey>Settings</controlKey>
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents/SettingsDocuments.ascx</controlSrc>
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<controlTitle>Settings</controlTitle>
+										<controlType>Edit</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPopUps>False</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+								</moduleControls>
+							</moduleDefinition>
+						</moduleDefinitions>
+					</desktopModule>
+				</component>
+				<component type="Script">
+					<scripts>
+						<basePath>DesktopModules\R7.Documents\R7.Documents</basePath>
+						<script type="Install">
+							<name>SqlDataProvider\01.00.00.SqlDataProvider</name>
+							<version>01.00.00</version>
+						</script>
+						<script type="UnInstall">
+							<name>SqlDataProvider\Uninstall.SqlDataProvider</name>
+							<version>01.00.02</version>
+						</script>
+					</scripts>
+				</component>
+				<component type="ResourceFile">
+					<resourceFiles>
+						<basePath>DesktopModules\R7.Documents</basePath>
+						<resourceFile>
+							<name>Resources.zip</name>
+						</resourceFile>
+					</resourceFiles>
+				</component>
+				<component type="Assembly">
+					<assemblies>
+						<basePath>bin</basePath>
+						<assembly>
+							<path>bin</path>
+							<name>R7.Documents.dll</name>
+						</assembly>
+					</assemblies>
+				</component>
+			</components>
+		</package>
+	</packages>
 </dotnetnuke>
-
