@@ -11,6 +11,9 @@
 			</owner>
 			<license src="License.txt" />
 			<releaseNotes src="ReleaseNotes.txt" />
+			 <dependencies>
+                <dependency type="CoreVersion">07.01.02</dependency>
+            </dependencies>
             <components>
 				<component type="Module">
 					<desktopModule>
