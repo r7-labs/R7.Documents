@@ -354,7 +354,7 @@ namespace R7.Documents
 
 							break;
 						case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
-							AddDownloadLink ("DownloadLink", "ctlDownloadLink");
+							AddDownloadLink ("DownloadLink", "DownloadLink", "DownloadLink", "ctlDownloadLink");
 
 							break;
 						case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
@@ -388,7 +388,7 @@ namespace R7.Documents
 						case DocumentsDisplayColumnInfo.COLUMN_TITLE:
 							if (DocumentsSettings.ShowTitleLink)
 							{
-								AddDownloadLink (Localization.GetString ("Title", LocalResourceFile), "ctlTitle");
+								AddDownloadLink (Localization.GetString ("Title", LocalResourceFile), "Title", "Title", "ctlTitle");
 							}
 							else
 							{
@@ -540,22 +540,21 @@ namespace R7.Documents
 		/// <param name="Title">The name of the property to read data from</param>
 		/// <param name="Name">The name of the property to read data from</param>
 		/// -----------------------------------------------------------------------------
-		private void AddDownloadLink (string Title, string Name)
+		private void AddDownloadLink (string Title, string CssClass, string DataField, string Name)
 		{
 			System.Web.UI.WebControls.TemplateColumn objTemplateColumn = default(System.Web.UI.WebControls.TemplateColumn);
 			
 			objTemplateColumn = new System.Web.UI.WebControls.TemplateColumn ();
 			objTemplateColumn.ItemTemplate = new DownloadColumnTemplate (Name, Localization.GetString ("DownloadLink.Text", LocalResourceFile), ListItemType.Item);
 			
-			var strCellPrefix = Title;
 			if (Name == "ctlDownloadLink")
 				objTemplateColumn.HeaderText = "";
 			else
 				objTemplateColumn.HeaderText = Title;
 			
-			objTemplateColumn.HeaderStyle.CssClass = strCellPrefix + "Header";
+			objTemplateColumn.HeaderStyle.CssClass = CssClass + "Header";
 			//"NormalBold"
-			objTemplateColumn.ItemStyle.CssClass = strCellPrefix + "Cell";
+			objTemplateColumn.ItemStyle.CssClass = CssClass + "Cell";
 			//"Normal"
 
 			//Added 5/17/2007
@@ -563,7 +562,7 @@ namespace R7.Documents
 			// Add the sort expression, however ensure that it is NOT added for download
 			if (DocumentsSettings.AllowUserSort && !Name.Equals ("ctlDownloadLink"))
 			{
-				objTemplateColumn.SortExpression = Title;
+				objTemplateColumn.SortExpression = DataField;
 			}
 			this.grdDocuments.Columns.Add (objTemplateColumn);
 		}
