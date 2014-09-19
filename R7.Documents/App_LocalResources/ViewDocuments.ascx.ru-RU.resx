@@ -42,6 +42,9 @@
   <data name="AddContent.Action">
     <value>Новый документ</value>
   </data>
+  <data name="ChangeFolder.Action" xml:space="preserve">
+    <value>Сменить папку</value>
+  </data>
   <data name="Category.Text">
     <value>Категория</value>
   </data>

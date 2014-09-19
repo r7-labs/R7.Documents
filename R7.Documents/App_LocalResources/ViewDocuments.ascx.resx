@@ -3,6 +3,9 @@
   <data name="AddContent.Action" xml:space="preserve">
     <value>New Document</value>
   </data>
+  <data name="ChangeFolder.Action" xml:space="preserve">
+    <value>Change Folder</value>
+  </data>
   <data name="Title.Text" xml:space="preserve">
     <value>Title</value>
   </data>

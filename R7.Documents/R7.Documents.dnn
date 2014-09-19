@@ -55,6 +55,19 @@
 										<viewOrder>0</viewOrder>
 									</moduleControl>
 									<moduleControl>
+										<controlKey>ChangeFolder</controlKey>
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents/ChangeFolder.ascx</controlSrc>
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPopUps>True</supportsPopUps>
+										<controlTitle>Change Folder</controlTitle>
+										<controlType>Edit</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPopUps>True</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+									<moduleControl>
 										<controlKey>Settings</controlKey>
 										<controlSrc>DesktopModules/R7.Documents/R7.Documents/SettingsDocuments.ascx</controlSrc>
 										<supportsPartialRendering>False</supportsPartialRendering>

@@ -292,9 +292,15 @@ namespace R7.Documents
 			get
 			{
 				ModuleActionCollection Actions = new ModuleActionCollection ();
+				
 				Actions.Add (GetNextActionID (), 
 					Localization.GetString (ModuleActionType.AddContent, LocalResourceFile), 
 					ModuleActionType.AddContent, "", "", EditUrl (), false, SecurityAccessLevel.Edit, true, false);
+
+				Actions.Add (GetNextActionID (), 
+					Localization.GetString ("ChangeFolder.Action", LocalResourceFile),
+					"ChangeFolder.Action", "", "", EditUrl ("ChangeFolder"), false, SecurityAccessLevel.Edit, true, false);
+
 				return Actions;
 			}
 		}
