@@ -1,4 +1,10 @@
-﻿<h3>Version 01.00.02</h3>
+﻿<h3>Version 01.00.03</h3>
+<p>This is stabilization release of 01.00.00 series. Changes include:</p>
+<ul>
+	<li>New ChangeFolder action and control.</li>
+	<li>Don't localize names of CSS classes for cells.</li>
+</ul>
+<h3>Version 01.00.02</h3>
 <p>This is stabilization release of 01.00.00 series. Changes include:</p>
 <ul>
 	<li>New modules have sorting by index, asc by default.</li>

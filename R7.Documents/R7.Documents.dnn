@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
 	<packages>
-		<package name="R7.Documents" type="Module" version="01.00.02">
+		<package name="R7.Documents" type="Module" version="01.00.03">
 			<friendlyName>R7.Documents</friendlyName>
 			<description>This module renders a list of documents, including links to browse or download the document. Documents includes an edit page, which allows authorized users to edit the information about the Documents (for example, a friendly title) stored in the SQL database. Module based on original Mitchel Sellers's DNN Documents module.</description>
 			<owner>
@@ -93,7 +93,7 @@
 						</script>
 						<script type="UnInstall">
 							<name>SqlDataProvider\Uninstall.SqlDataProvider</name>
-							<version>01.00.02</version>
+							<version>01.00.03</version>
 						</script>
 					</scripts>
 				</component>
