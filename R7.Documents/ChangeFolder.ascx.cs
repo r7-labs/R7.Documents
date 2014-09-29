@@ -110,13 +110,14 @@ namespace R7.Documents
 							if (docFile != null)
 							{
 								var replaced = false; 
-								
+								string oldDocumentUrl = null;
+
 								foreach (var file in files)
 								{
 									// case-insensitive comparison
 									if (0 == string.Compare (file.FileName, docFile.FileName, StringComparison.InvariantCultureIgnoreCase))
 									{
-										var oldDocumentUrl = document.Url;
+										oldDocumentUrl = document.Url;
 										document.Url = "FileID=" + file.FileId;
 
 										document.CreatedDate = DateTime.Now;
@@ -124,22 +125,25 @@ namespace R7.Documents
 										document.CreatedByUserId = UserId;
 										document.ModifiedByUserId = UserId;
 
-										// update URL tracking
-										var urlController = new UrlController ();
-										var url = urlController.GetUrlTracking (PortalId, oldDocumentUrl, ModuleId);
-										urlController.UpdateUrl (PortalId, document.Url, url.UrlType, url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
-
 										replaced = true;
 										break;
 									}
 								} // foreach 
 								
-								// unpublish documents with no replacement
 								if (!replaced)
+								{
+									// unpublish documents with no replacement
 									document.IsPublished = false;
+								}
 
-								// update document in the DB
+								// update document
 								DocumentsController.Update (document);
+
+								if (replaced)
+								{
+									// update document URL
+									DocumentsController.UpdateDocumentUrl (document, oldDocumentUrl, PortalId, ModuleId);
+								}
 							}
 						}
 					} // foreach

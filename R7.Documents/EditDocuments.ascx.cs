@@ -484,10 +484,14 @@ namespace R7.Documents
 		{
 			try
 			{
-
 				if (!Null.IsNull (ItemID))
 				{
-					DocumentsController.Delete<DocumentInfo> (ItemID); // ModuleID!
+					var document = DocumentsController.GetDocument (ItemID, ModuleId);
+					if (document != null)
+					{
+						DocumentsController.Delete (document);
+						DocumentsController.DeleteDocumentUrl (document.Url, PortalId, ModuleId);
+					}
 				}
 
 				Utils.SynchronizeModule (this);
@@ -577,10 +581,12 @@ namespace R7.Documents
 					objDocument.ModifiedByUserId = UserInfo.UserID;
 
 					objDocument.Title = txtName.Text;
-					objDocument.Url = ctlUrl.Url;
 					objDocument.Description = txtDescription.Text;
 					objDocument.ForceDownload = chkForceDownload.Checked;
 
+					var oldUrl = objDocument.Url;
+					objDocument.Url = ctlUrl.Url;
+					
 					if (lstOwner.Visible)
 					{
 						if (lstOwner.SelectedValue != string.Empty)
@@ -647,19 +653,23 @@ namespace R7.Documents
 
 					#endregion
 
-					// Create an instance of the Document DB component
 					if (Null.IsNull (ItemID))
 					{
-						DocumentsController.Add<DocumentInfo> (objDocument);
+						DocumentsController.Add (objDocument);
 					}
 					else
 					{
-						DocumentsController.Update<DocumentInfo> (objDocument);
+						DocumentsController.Update (objDocument);
+						if (objDocument.Url != oldUrl)
+						{
+							// delete old URL tracking data
+							DocumentsController.DeleteDocumentUrl (oldUrl, PortalId, ModuleId);
+						}
 					}
 
-					// url tracking
-					UrlController objUrls = new UrlController ();
-					objUrls.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
+					// add or update URL tracking
+					var ctrlUrl = new UrlController ();
+					ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
 					Utils.SynchronizeModule (this);
 					DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");

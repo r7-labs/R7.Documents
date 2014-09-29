@@ -76,6 +76,32 @@ namespace R7.Documents
 			return documents;
 		}
 
+		public void DeleteDocumentUrl (string oldUrl, int PortalId, int ModuleId)
+		{
+			// NOTE: we shouldn't delete URL itself as is can be used in other modules
+			// DataProvider.Instance().DeleteUrl (PortalId, document.Url);
+			
+			// delete URL tracking data
+			DataProvider.Instance ().DeleteUrlTracking (PortalId, oldUrl, ModuleId);
+		}
+
+		public void UpdateDocumentUrl (DocumentInfo document, string oldUrl, int PortalId, int ModuleId)
+		{
+			if (document.Url != oldUrl)
+			{
+				var ctrlUrl = new UrlController ();
+	
+				// get tracking data for the old URL
+				var url = ctrlUrl.GetUrlTracking (PortalId, oldUrl, ModuleId);
+				
+				// delete old URL tracking data
+				DataProvider.Instance ().DeleteUrlTracking (PortalId, oldUrl, ModuleId);
+				
+				// create new URL tracking data
+				ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
+			}
+		}
+
 		#region ModuleSearchBase implementaion
 
 		public override IList<SearchDocument> GetModifiedSearchDocuments (ModuleInfo moduleInfo, DateTime beginDate)
