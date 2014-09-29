@@ -46,25 +46,15 @@ namespace R7.Documents
 	/// -----------------------------------------------------------------------------
 	public partial class SettingsDocuments : DocumentsModuleSettingsBase
 	{
-
 		private const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
 
 		private const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
 
-		#region " Web Form Designer Generated Code "
+		#region Event Handlers
 
-		//This call is required by the Web Form Designer.
-		[System.Diagnostics.DebuggerStepThrough ()]
-
-		private void InitializeComponent ()
+		private void OnInit (EventArgs e)
 		{
-		}
-
-		private void Page_Init (System.Object sender, System.EventArgs e)
-		{
-			//CODEGEN: This method call is required by the Web Form Designer
-			//Do not modify it using the code editor.
-			InitializeComponent ();
+			base.OnInit (e);
 
 			grdSortColumns.ItemCreated += grdSortColumns_ItemCreated;
 			grdSortColumns.DeleteCommand += grdSortColumns_DeleteCommand;
@@ -72,17 +62,6 @@ namespace R7.Documents
 			grdDisplayColumns.ItemCommand += grdDisplayColumns_ItemCommand;
 			lnkAddSortColumn.Click += lnkAddSortColumn_Click;
 		}
-
-		#endregion
-
-		#region "Controls"
-
-		
-		//footer
-
-		#endregion
-
-		#region "Event Handlers"
 
 		/// -----------------------------------------------------------------------------
 		/// <summary>
@@ -367,7 +346,7 @@ namespace R7.Documents
 
 		#endregion
 
-		#region "Control Handling/Utility Functions"
+		#region Control Handling/Utility Functions
 
 		private void BindSortSettings (ArrayList objSortColumns)
 		{
@@ -599,9 +578,10 @@ namespace R7.Documents
 			return objDisplayColumnSettings;
 		}
 
-
-		private void Page_Load (object sender, System.EventArgs e)
+		protected override void OnLoad (EventArgs e)
 		{
+			base.OnLoad (e);
+
 			if (UserInfo.IsSuperUser)
 			{
 				lnkEditLists.Text = Localization.GetString ("lnkEditLists", base.LocalResourceFile);
@@ -635,13 +615,5 @@ namespace R7.Documents
 				cboSortOrderDirection.Items.Add (new ListItem (Localization.GetString ("SortOrderDescending.Text", base.LocalResourceFile), "DESC"));
 			}
 		}
-
-		public SettingsDocuments ()
-		{
-			Load += Page_Load;
-			Init += Page_Init;
-		}
-
 	}
-
 }
