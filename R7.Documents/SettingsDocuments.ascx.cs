@@ -52,7 +52,7 @@ namespace R7.Documents
 
 		#region Event Handlers
 
-		private void OnInit (EventArgs e)
+		protected override void OnInit (EventArgs e)
 		{
 			base.OnInit (e);
 
