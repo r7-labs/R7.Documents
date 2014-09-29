@@ -52,28 +52,34 @@ namespace R7.Documents
 	/// -----------------------------------------------------------------------------
 	public partial class EditDocuments : DocumentsPortalModuleBase
 	{
-		#region "Private Members"
-
+		#region Private Members
 
 		private int mintItemId;
 
 		#endregion
 
-		#region "Event Handlers"
+		#region Event Handlers
+
+		protected override void OnInit (EventArgs e)
+		{
+			base.OnInit (e);
+			
+			cmdUpdate.Click += cmdUpdate_Click;
+			cmdCancel.Click += cmdCancel_Click;
+			cmdDelete.Click += cmdDelete_Click;
+			cmdUpdateOverride.Click += cmdUpdateOverride_Click;
+			lnkChange.Click += lnkChange_Click;
+		}
 
 		/// -----------------------------------------------------------------------------
 		/// <summary>
-		/// Page_Load runs when the control is loaded
+		/// OnLoad runs when the control is loaded
 		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <history>
-		/// 	[cnurse]	9/22/2004	Updated to reflect design changes for Help, 508 support
-		///                       and localisation
-		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void Page_Load (System.Object sender, System.EventArgs e)
+		protected override void OnLoad (EventArgs e)
 		{
+			base.OnLoad (e);
+
 			try
 			{
 				// Determine ItemId of Document to Update
@@ -688,36 +694,12 @@ namespace R7.Documents
 
 		#endregion
 
-		#region "Private methods"
+		#region Private methods
 
 		private int ItemID
 		{
 			get { return mintItemId; }
 			set { mintItemId = value; }
-		}
-
-		#endregion
-
-		#region " Web Form Designer Generated Code "
-
-		//This call is required by the Web Form Designer.
-		[System.Diagnostics.DebuggerStepThrough ()]
-
-		private void InitializeComponent ()
-		{
-		}
-
-		private void Page_Init (System.Object sender, System.EventArgs e)
-		{
-			//CODEGEN: This method call is required by the Web Form Designer
-			//Do not modify it using the code editor.
-			InitializeComponent ();
-			
-			cmdUpdate.Click += cmdUpdate_Click;
-			cmdCancel.Click += cmdCancel_Click;
-			cmdDelete.Click += cmdDelete_Click;
-			cmdUpdateOverride.Click += cmdUpdateOverride_Click;
-			lnkChange.Click += lnkChange_Click;
 		}
 
 		#endregion
@@ -779,13 +761,5 @@ namespace R7.Documents
 			lstOwner.Items.Insert (0, new System.Web.UI.WebControls.ListItem (Localization.GetString ("None_Specified"), "-1"));
 			//' End With
 		}
-
-		public EditDocuments ()
-		{
-			Init += Page_Init;
-			Load += Page_Load;
-		}
-
 	}
-
 }
