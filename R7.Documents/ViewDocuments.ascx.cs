@@ -58,20 +58,24 @@ namespace R7.Documents
 
 		private bool mblnReadComplete = false;
 
-		#region "    Event Handlers    "
+		#region Event Handlers
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Page_Load runs when the control is loaded
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <history>
-		/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		private void Page_Load (System.Object sender, System.EventArgs e)
+		protected override void OnInit (EventArgs e)
 		{
+			base.OnInit (e);
+
+			grdDocuments.SortCommand += grdDocuments_SortCommand;
+			grdDocuments.ItemCreated += grdDocuments_ItemCreated;
+		}
+
+		/// <summary>
+		/// OnLoad runs when the control is loaded
+		/// </summary>
+		/// <param name="e"></param>
+		protected override void OnLoad (EventArgs e)
+		{
+			base.OnLoad (e);
+
 			try
 			{
 				grdDocuments.AllowSorting = DocumentsSettings.AllowUserSort;
@@ -150,16 +154,12 @@ namespace R7.Documents
 		/// If the datagrid was not sorted and bound via the "_Sort" method it will be bound at this time using
 		/// default values
 		/// </summary>
-		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		/// <remarks></remarks>
-		/// <history>
-		///   Mitchel Sellers 6/4/2007  Added method
-		/// </history>
-		private void Page_PreRender (System.Object sender, System.EventArgs e)
+		protected override void OnPreRender (EventArgs e)
 		{
+			base.OnPreRender (e);
+			
 			// Only bind if not a user selected sort
-
 			if (!IsReadComplete)
 			{
 				LoadData ();
@@ -282,10 +282,9 @@ namespace R7.Documents
 			}
 		}
 
-
 		#endregion
 
-		#region "    Optional Interfaces    "
+		#region IActionable implementation
 
 		public ModuleActionCollection ModuleActions
 		{
@@ -307,28 +306,7 @@ namespace R7.Documents
 
 		#endregion
 
-		#region "    Web Form Designer Generated Code    "
-
-		//This call is required by the Web Form Designer.
-		[System.Diagnostics.DebuggerStepThrough ()]
-
-		private void InitializeComponent ()
-		{
-		}
-
-		private void Page_Init (System.Object sender, System.EventArgs e)
-		{
-			//CODEGEN: This method call is required by the Web Form Designer
-			//Do not modify it using the code editor.
-			InitializeComponent ();
-
-			grdDocuments.SortCommand += grdDocuments_SortCommand;
-			grdDocuments.ItemCreated += grdDocuments_ItemCreated;
-		}
-
-		#endregion
-
-		#region "    Private Methods    "
+		#region Private Methods
 
 		private void LoadColumns ()
 		{
@@ -486,7 +464,6 @@ namespace R7.Documents
 			set { mblnReadComplete = value; }
 		}
 
-
 		/// -----------------------------------------------------------------------------
 		/// <summary>
 		/// Dynamically adds a column to the datagrid
@@ -601,13 +578,6 @@ namespace R7.Documents
 			return objDocumentsSettings;
 		}
 */
-		public ViewDocuments ()
-		{
-			Init += Page_Init;
-			PreRender += Page_PreRender;
-			Load += Page_Load;
-		}
-
 		#endregion
 	}
 }
