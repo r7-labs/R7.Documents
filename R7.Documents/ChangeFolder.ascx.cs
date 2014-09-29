@@ -130,7 +130,7 @@ namespace R7.Documents
 									}
 								} // foreach 
 								
-								if (!replaced)
+								if (!replaced && checkUnpublishSkipped.Checked)
 								{
 									// unpublish documents with no replacement
 									document.IsPublished = false;

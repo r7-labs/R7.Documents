@@ -1,12 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<data name="labelInfo.Text" xml:space="preserve">
-        <value>При нажатии на кнопку "Обновить", для каждого файла, связанного с документом в модуле, будет предпринята попытка найти файл с таким же именем в указанной ниже папке. Если такой файл не будет найден, соответствующий документ будет снят с публикации.</value>
+        <value>При нажатии на кнопку "Обновить", для каждого файла, связанного с документом в модуле, будет предпринята попытка найти файл с таким же именем в указанной ниже папке. Если такой файл не будет найден, соответствующий документ может быть снят с публикации.</value>
     </data>
 	<data name="labelFolder.Text" xml:space="preserve">
         <value>Папка</value>
     </data>
 	<data name="labelFolder.Help" xml:space="preserve">
         <value>Выберите папку для поиска файлов в ней.</value>
+    </data>
+    <data name="labelUnpublishSkipped.Text" xml:space="preserve">
+        <value>Скрыть пропущенные</value>
+    </data>
+    <data name="labelUnpublishSkipped.Help" xml:space="preserve">
+        <value>Отметьте чтобы снять с публикации документы, для которых не были найдены соответствующие файлы в целевой папке.</value>
     </data>
 </root>

@@ -1,12 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<data name="labelInfo.Text" xml:space="preserve">
-        <value>Then you click "Update" button, for each document's file in the module a file with the same name will be searched in the folder, choosen below. If there are no such file, a document will be unpublished.</value>
+        <value>Then you click "Update" button, for each document's file in the module a file with the same name will be searched in the folder, choosen below. If there are no such file, a document could be unpublished.</value>
     </data>
 	<data name="labelFolder.Text" xml:space="preserve">
         <value>Folder</value>
     </data>
 	<data name="labelFolder.Help" xml:space="preserve">
         <value>Please select a folder to search files in.</value>
+    </data>
+    <data name="labelUnpublishSkipped.Text" xml:space="preserve">
+        <value>Unpublish Skipped</value>
+    </data>
+    <data name="labelUnpublishSkipped.Help" xml:space="preserve">
+        <value>Check to unpublish skipped documents, for which no corresponding file found in the target folder.</value>
     </data>
 </root>

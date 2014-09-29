@@ -14,6 +14,8 @@ namespace R7.Documents
 		protected Label labelInfo;
 		protected LabelControl labelFolder;
 		protected DnnFolderDropDownList ddlFolder;
+		protected LabelControl labelUnpublishSkipped;
+		protected CheckBox checkUnpublishSkipped;
 		protected LinkButton cmdUpdate;
 		protected LinkButton cmdCancel;
 	}
