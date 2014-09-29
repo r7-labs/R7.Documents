@@ -46,12 +46,6 @@
     <Reference Include="Telerik.Web.UI">
       <HintPath>..\..\..\bin\Telerik.Web.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationBlocks.Data">
-      <HintPath>..\..\..\bin\Microsoft.ApplicationBlocks.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetNuke.Modules.Documents">
-      <HintPath>lib\DotNetNuke.Modules.Documents.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="js\" />
