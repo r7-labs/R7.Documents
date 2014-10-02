@@ -65,10 +65,10 @@ namespace R7.Documents
 			base.OnInit (e);
 			
 			cmdUpdate.Click += cmdUpdate_Click;
-			cmdCancel.Click += cmdCancel_Click;
 			cmdDelete.Click += cmdDelete_Click;
 			cmdUpdateOverride.Click += cmdUpdateOverride_Click;
 			lnkChange.Click += lnkChange_Click;
+			linkCancel.NavigateUrl = Globals.NavigateURL ();
 		}
 
 		/// -----------------------------------------------------------------------------
@@ -446,33 +446,6 @@ namespace R7.Documents
 				}
 			}
 			return true;
-		}
-
-
-
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// cmdCancel_Click runs when the cancel button is clicked
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <history>
-		/// 	[cnurse]	9/22/2004	Updated to reflect design changes for Help, 508 support
-		///                       and localisation
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		private void cmdCancel_Click (object sender, EventArgs e)
-		{
-			try
-			{
-				// Redirect back to the portal home page
-				Response.Redirect (Globals.NavigateURL (), true);
-				//Module failed to load
-			}
-			catch (Exception exc)
-			{
-				Exceptions.ProcessModuleLoadException (this, exc);
-			}
 		}
 
 		/// -----------------------------------------------------------------------------

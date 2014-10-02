@@ -12,6 +12,6 @@ namespace R7.Documents
 	public partial class ImportDocuments
 	{
 		protected LinkButton cmdUpdate;
-		protected LinkButton cmdCancel;
+		protected HyperLink linkCancel;
 	}
 }

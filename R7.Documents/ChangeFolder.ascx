@@ -15,7 +15,7 @@
 		<asp:CheckBox id="checkUnpublishSkipped" runat="server" Checked="true" />
     </div>
     <ul class="dnnActions dnnClear">
-        <li><asp:linkbutton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" Text="Update" /></li>
-        <li><asp:linkbutton id="cmdCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" CausesValidation="False" Text="Cancel" /></li>
+        <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" Text="Update" /></li>
+        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
     </ul>
 </div>

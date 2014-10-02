@@ -17,6 +17,6 @@ namespace R7.Documents
 		protected LabelControl labelUnpublishSkipped;
 		protected CheckBox checkUnpublishSkipped;
 		protected LinkButton cmdUpdate;
-		protected LinkButton cmdCancel;
+		protected HyperLink linkCancel;
 	}
 }

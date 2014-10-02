@@ -24,7 +24,7 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.DropDownList lstOwner;
 		//tasks
 		protected System.Web.UI.WebControls.LinkButton cmdUpdate;
-		protected System.Web.UI.WebControls.LinkButton cmdCancel;
+		protected System.Web.UI.WebControls.HyperLink linkCancel;
 		protected System.Web.UI.WebControls.LinkButton cmdDelete;
 		protected System.Web.UI.WebControls.LinkButton cmdUpdateOverride;
 		//footer

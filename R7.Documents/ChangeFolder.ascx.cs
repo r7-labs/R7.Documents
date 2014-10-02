@@ -51,7 +51,7 @@ namespace R7.Documents
 			base.OnInit (e);
 
 			cmdUpdate.Click += cmdUpdate_Click;
-			cmdCancel.Click += cmdCancel_Click;
+			linkCancel.NavigateUrl = Globals.NavigateURL ();
 		}
 
 		protected override void OnLoad (EventArgs e)
@@ -71,20 +71,6 @@ namespace R7.Documents
 			{
 				// module failed to load
 				Exceptions.ProcessModuleLoadException (this, ex);
-			}
-		}
-
-		private void cmdCancel_Click (object sender, EventArgs e)
-		{
-			try
-			{
-				// redirect back to the portal home page
-				Response.Redirect (Globals.NavigateURL (), true);
-			}
-			catch (Exception exc)
-			{
-				// module failed to load
-				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}
 
