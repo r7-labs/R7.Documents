@@ -69,6 +69,9 @@ namespace R7.Documents
 			cmdUpdateOverride.Click += cmdUpdateOverride_Click;
 			lnkChange.Click += lnkChange_Click;
 			linkCancel.NavigateUrl = Globals.NavigateURL ();
+
+			// Add the "are you sure" message to the delete button click event
+			cmdDelete.Attributes.Add ("onClick", "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
 		}
 
 		/// -----------------------------------------------------------------------------
@@ -117,9 +120,6 @@ namespace R7.Documents
 						lstCategory.Visible = false;
 						txtCategory.Visible = true;
 					}
-
-					// Add the "are you sure" message to the delete button click event
-					cmdDelete.Attributes.Add ("onClick", "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
 
 					// If the page is being requested the first time, determine if an
 					// document itemId value is specified, and if so populate page
