@@ -1,6 +1,6 @@
 # About R7.Documents
 
-*R7.Documents* is a redesigned version of Mitchel Sellers's [DNN Documents](http://dnndocuments.codeplex.com) module
+*R7.Documents* is a redesigned version of the classic [DNN Documents](http://dnndocuments.codeplex.com) module.
 
 # Changes from the original module
 
