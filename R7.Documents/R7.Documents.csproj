@@ -58,6 +58,7 @@
     <Content Include="EditDocuments.ascx" />
     <Content Include="ModuleHelp.htm" />
     <Content Include="ChangeFolder.ascx" />
+    <Content Include="ImportDocuments.ascx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
@@ -110,6 +111,12 @@
     </Compile>
     <Compile Include="ChangeFolder.ascx.controls.cs">
       <DependentUpon>ChangeFolder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ImportDocuments.ascx.cs">
+      <DependentUpon>ImportDocuments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ImportDocuments.controls.cs">
+      <DependentUpon>ImportDocuments.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
