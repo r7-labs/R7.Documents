@@ -6,6 +6,9 @@
   <data name="ChangeFolder.Action" xml:space="preserve">
     <value>Change Folder</value>
   </data>
+  <data name="ImportDocuments.Action" xml:space="preserve">
+    <value>Import Documents</value>
+  </data>
   <data name="Title.Text" xml:space="preserve">
     <value>Title</value>
   </data>

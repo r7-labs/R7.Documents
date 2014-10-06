@@ -300,6 +300,10 @@ namespace R7.Documents
 					Localization.GetString ("ChangeFolder.Action", LocalResourceFile),
 					"ChangeFolder.Action", "", "", EditUrl ("ChangeFolder"), false, SecurityAccessLevel.Edit, true, false);
 
+				Actions.Add (GetNextActionID (), 
+					Localization.GetString ("ImportDocuments.Action", LocalResourceFile),
+					"ImportDocuments.Action", "", "", EditUrl ("ImportDocuments"), false, SecurityAccessLevel.Edit, true, false);
+			
 				return Actions;
 			}
 		}

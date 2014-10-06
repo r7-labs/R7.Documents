@@ -45,6 +45,9 @@
   <data name="ChangeFolder.Action" xml:space="preserve">
     <value>Сменить папку</value>
   </data>
+  <data name="ImportDocuments.Action" xml:space="preserve">
+    <value>Импорт документов</value>
+  </data>
   <data name="Category.Text">
     <value>Категория</value>
   </data>
