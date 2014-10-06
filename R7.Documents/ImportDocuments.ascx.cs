@@ -110,7 +110,9 @@ namespace R7.Documents
 
 						if (mdef == "r7.documents")
 							document = DocumentsController.GetDocument (int.Parse (item.Value), module.ModuleID);
-		
+						else if (mdef == "documents")
+							document = DocumentsController.GetDNNDocument (int.Parse (item.Value), module.ModuleID);
+
 						if (document != null)
 						{
 							document.ModuleId = ModuleId;
