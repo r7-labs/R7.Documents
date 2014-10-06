@@ -54,6 +54,7 @@ namespace R7.Documents
 			linkCancel.NavigateUrl = Globals.NavigateURL ();
 		}
 
+		/*
 		protected override void OnLoad (EventArgs e)
 		{
 			base.OnLoad (e);
@@ -72,7 +73,7 @@ namespace R7.Documents
 				// module failed to load
 				Exceptions.ProcessModuleLoadException (this, ex);
 			}
-		}
+		}*/
 
 		private void cmdUpdate_Click (object sender, EventArgs e)
 		{
