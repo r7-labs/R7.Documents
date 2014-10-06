@@ -95,6 +95,19 @@ namespace R7.Documents
 			return documents;
 		}
 
+		public DocumentInfo GetDNNDocument (int ItemId, int ModuleId)
+		{
+			DocumentInfo document;
+
+			using (var ctx = DataContext.Instance ())
+			{
+				document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
+					System.Data.CommandType.StoredProcedure, "GetDocument", ItemId, ModuleId);
+			}
+
+			return document;
+		}
+
 		public void DeleteDocumentUrl (string oldUrl, int PortalId, int ModuleId)
 		{
 			// NOTE: we shouldn't delete URL itself as is can be used in other modules
