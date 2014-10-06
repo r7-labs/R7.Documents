@@ -115,8 +115,10 @@ namespace R7.Documents
 
 						if (document != null)
 						{
-							document.ModuleId = ModuleId;
 							document.ItemId = Null.NullInteger;
+							document.ModuleId = ModuleId;
+							document.IsPublished = true;
+
 							DocumentsController.Add (document);
 						}
 					}
