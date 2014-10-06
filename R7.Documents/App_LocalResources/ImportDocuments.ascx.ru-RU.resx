@@ -15,4 +15,7 @@
     <data name="NotSelected.Text" xml:space="preserve">
         <value>-- Не выбрано --</value>
     </data>
+    <data name="buttonImport.Text" xml:space="preserve">
+        <value>Импорт</value>
+    </data>
 </root>
