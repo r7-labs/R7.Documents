@@ -98,6 +98,28 @@ namespace R7.Documents
 		{
 			try
 			{
+				var mctrl = new ModuleController ();
+				var module = mctrl.GetModule (int.Parse (comboModule.SelectedValue), TabId);
+				var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
+
+				foreach (ListItem item in listDocuments.Items)
+				{
+					if (item.Selected)
+					{
+						DocumentInfo document = null;
+
+						if (mdef == "r7.documents")
+							document = DocumentsController.GetDocument (int.Parse (item.Value), module.ModuleID);
+		
+						if (document != null)
+						{
+							document.ModuleId = ModuleId;
+							document.ItemId = Null.NullInteger;
+							DocumentsController.Add (document);
+						}
+					}
+				}
+
 				Utils.SynchronizeModule (this);
 				DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
 
