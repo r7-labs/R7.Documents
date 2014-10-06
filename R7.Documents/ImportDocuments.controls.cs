@@ -11,6 +11,8 @@ namespace R7.Documents
 {
 	public partial class ImportDocuments
 	{
+		protected LabelControl labelModule;
+		protected DnnComboBox comboModule;
 		protected LinkButton cmdUpdate;
 		protected HyperLink linkCancel;
 	}

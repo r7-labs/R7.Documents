@@ -35,6 +35,7 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using System.Collections.Generic;
 
 namespace R7.Documents
 {
@@ -52,6 +53,23 @@ namespace R7.Documents
 
 			cmdUpdate.Click += cmdUpdate_Click;
 			linkCancel.NavigateUrl = Globals.NavigateURL ();
+
+			var mctrl = new ModuleController ();
+			var docModules = new List<ModuleInfo>();
+
+			// get all document modules (R7.Documents and DNN Documents)
+			foreach (var module in mctrl.GetTabModules (TabId).Values)
+			{
+				var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant();
+				if (module.ModuleID != ModuleId && (mdef == "r7.documents" || mdef == "documents"))
+					docModules.Add (module);
+			}
+
+			// fill modules combo
+			// docModules.ForEach (dm => comboModules.AddItem (dm.ModuleTitle, dm.ModuleID.ToString()));
+
+			foreach (var docModule in docModules)
+				comboModule.AddItem (docModule.ModuleTitle, docModule.ModuleID.ToString());
 		}
 
 		protected override void OnLoad (EventArgs e)
@@ -62,6 +80,7 @@ namespace R7.Documents
 			{
 				if (!IsPostBack)
 				{
+
 				}
 				else
 				{

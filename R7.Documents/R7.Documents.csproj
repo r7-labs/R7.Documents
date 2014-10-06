@@ -74,6 +74,8 @@
     <None Include="R7.Documents.dnn" />
     <None Include="App_LocalResources\ChangeFolder.ascx.resx" />
     <None Include="App_LocalResources\ChangeFolder.ascx.ru-RU.resx" />
+    <None Include="App_LocalResources\ImportDocuments.ascx.resx" />
+    <None Include="App_LocalResources\ImportDocuments.ascx.ru-RU.resx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
