@@ -136,8 +136,7 @@ namespace R7.Documents
 					} // foreach
 				}
 
-				Utils.SynchronizeModule (this);
-				DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
+				Synchronize ();
 				
 				// redirect back to the portal home page
 				Response.Redirect (Globals.NavigateURL (), true);

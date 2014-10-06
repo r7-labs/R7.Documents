@@ -219,9 +219,8 @@ namespace R7.Documents
 				{
 					
 					FillSettings ();
-				
-					Utils.SynchronizeModule (this);
-					DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
+
+					Synchronize ();
 				}
 				//Module failed to load
 			}

@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using System;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 namespace R7.Documents
@@ -56,6 +57,12 @@ namespace R7.Documents
 				System.Threading.Thread.CurrentThread.CurrentCulture;
 			}
 		}
+
+		protected void Synchronize ()
+		{
+			Utils.SynchronizeModule (this);
+			DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
+		}
 	}
 
 	/// <summary>
@@ -84,6 +91,12 @@ namespace R7.Documents
 				return "TabModule:" + TabModuleId + ":" +
 				System.Threading.Thread.CurrentThread.CurrentCulture;
 			}
+		}
+
+		protected void Synchronize ()
+		{
+			Utils.SynchronizeModule (this);
+			DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
 		}
 	}
 }
