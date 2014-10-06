@@ -6,8 +6,12 @@
 	<fieldset>
 		<div class="dnnFormItem">
 			<dnn:Label id="labelModule" runat="server" ControlName="comboModule" Suffix=":" />
-			<dnn:DnnComboBox id="comboModule" runat="server" /> 
+			<dnn:DnnComboBox id="comboModule" runat="server" AutoPostBack="true" /> 
 		</div>
+		<asp:Panel id="panelDocuments" runat="server" CssClass="dnnFormItem" Visible="false">
+			<dnn:Label id="labelDocuments" runat="server" ControlName="listDocuments" Suffix=":" />
+			<asp:CheckBoxList id="listDocuments" runat="server" DataTextField="Title" DataValueField="ItemID" />
+		</asp:Panel>	
 		<ul class="dnnActions dnnClear">
 	        <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" Text="Update" /></li>
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>

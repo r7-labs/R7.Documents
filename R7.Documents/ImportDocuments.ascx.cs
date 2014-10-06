@@ -21,6 +21,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Collections;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -51,9 +52,6 @@ namespace R7.Documents
 		{
 			base.OnInit (e);
 
-			cmdUpdate.Click += cmdUpdate_Click;
-			linkCancel.NavigateUrl = Globals.NavigateURL ();
-
 			var mctrl = new ModuleController ();
 			var docModules = new List<ModuleInfo>();
 
@@ -61,15 +59,18 @@ namespace R7.Documents
 			foreach (var module in mctrl.GetTabModules (TabId).Values)
 			{
 				var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant();
-				if (module.ModuleID != ModuleId && (mdef == "r7.documents" || mdef == "documents"))
+				if (module.ModuleID != ModuleId && !module.IsDeleted && (mdef == "r7.documents" || mdef == "documents"))
 					docModules.Add (module);
 			}
 
 			// fill modules combo
-			// docModules.ForEach (dm => comboModules.AddItem (dm.ModuleTitle, dm.ModuleID.ToString()));
-
+			comboModule.AddItem (LocalizeString ("NotSelected.Text"), Null.NullInteger.ToString ());
 			foreach (var docModule in docModules)
 				comboModule.AddItem (docModule.ModuleTitle, docModule.ModuleID.ToString());
+
+			comboModule.SelectedIndexChanged += comboModules_SelectedIndexChanged;
+			cmdUpdate.Click += cmdUpdate_Click;
+			linkCancel.NavigateUrl = Globals.NavigateURL ();
 		}
 
 		protected override void OnLoad (EventArgs e)
@@ -102,6 +103,43 @@ namespace R7.Documents
 
 				// redirect back to the portal home page
 				Response.Redirect (Globals.NavigateURL (), true);
+			}
+			catch (Exception ex)
+			{
+				// module failed to load
+				Exceptions.ProcessModuleLoadException (this, ex);
+			}
+		}
+
+		private void comboModules_SelectedIndexChanged (object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+		{
+			try
+			{
+				var mctrl = new ModuleController ();
+				var module = mctrl.GetModule (int.Parse (e.Value), TabId);
+
+				if (module != null && module.ModuleDefinition.DefinitionName.ToLowerInvariant () == "r7.documents")
+				{
+					var documents = DocumentsController.GetDocuments (module.ModuleID, PortalId);
+					if (documents.Any ())
+					{
+						panelDocuments.Visible = true;
+						listDocuments.DataSource = documents;
+						listDocuments.DataBind ();
+
+						foreach (ListItem item in listDocuments.Items)
+							item.Selected = true;
+					}
+					else
+					{
+						panelDocuments.Visible = false;
+						listDocuments.Items.Clear ();
+					}
+				}
+				else if (module.ModuleDefinition.DefinitionName.ToLowerInvariant () == "documents")
+				{
+
+				}
 			}
 			catch (Exception ex)
 			{

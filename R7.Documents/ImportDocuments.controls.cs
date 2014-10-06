@@ -13,6 +13,9 @@ namespace R7.Documents
 	{
 		protected LabelControl labelModule;
 		protected DnnComboBox comboModule;
+		protected Panel panelDocuments;
+		protected LabelControl labelDocuments;
+		protected CheckBoxList listDocuments;
 		protected LinkButton cmdUpdate;
 		protected HyperLink linkCancel;
 	}

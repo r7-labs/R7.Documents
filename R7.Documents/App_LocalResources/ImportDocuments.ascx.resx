@@ -6,4 +6,13 @@
     <data name="labelModule.Help" xml:space="preserve">
         <value>Select document module from which you want to import documents.</value>
     </data>
+    <data name="labelDocuments.Text" xml:space="preserve">
+        <value>Documents</value>
+    </data>
+    <data name="labelDocuments.Help" xml:space="preserve">
+        <value>Check all documents you want to import.</value>
+    </data>
+    <data name="NotSelected.Text" xml:space="preserve">
+        <value>-- Not Selected --</value>
+    </data>
 </root>
