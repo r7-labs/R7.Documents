@@ -69,7 +69,7 @@ namespace R7.Documents
 				comboModule.AddItem (docModule.ModuleTitle, docModule.ModuleID.ToString());
 
 			comboModule.SelectedIndexChanged += comboModules_SelectedIndexChanged;
-			cmdUpdate.Click += cmdUpdate_Click;
+			buttonImport.Click += buttonImport_Click;
 			linkCancel.NavigateUrl = Globals.NavigateURL ();
 		}
 
@@ -94,7 +94,7 @@ namespace R7.Documents
 			}
 		}
 
-		private void cmdUpdate_Click (object sender, EventArgs e)
+		private void buttonImport_Click (object sender, EventArgs e)
 		{
 			try
 			{

@@ -16,7 +16,7 @@ namespace R7.Documents
 		protected Panel panelDocuments;
 		protected LabelControl labelDocuments;
 		protected CheckBoxList listDocuments;
-		protected LinkButton cmdUpdate;
+		protected LinkButton buttonImport;
 		protected HyperLink linkCancel;
 	}
 }
