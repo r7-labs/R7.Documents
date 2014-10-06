@@ -37,6 +37,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace R7.Documents
 {
@@ -115,11 +116,23 @@ namespace R7.Documents
 
 						if (document != null)
 						{
+							var ctrlUrl = new UrlController ();
+
+							// get original document tracking data
+							var url = ctrlUrl.GetUrlTracking (PortalId, document.Url, document.ModuleId);
+
 							document.ItemId = Null.NullInteger;
 							document.ModuleId = ModuleId;
 							document.IsPublished = true;
 
+							// add new document
 							DocumentsController.Add (document);
+
+							// add new url tracking data
+							ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, 
+								url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
+
+							// NOTE: using url.Clicks, url.LastClick, url.CreatedDate not working
 						}
 					}
 				}
