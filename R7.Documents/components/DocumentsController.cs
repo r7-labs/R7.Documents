@@ -76,6 +76,25 @@ namespace R7.Documents
 			return documents;
 		}
 
+		/// <summary>
+		/// Gets documents from DNN Documents module
+		/// </summary>
+		/// <returns>The DNN documents.</returns>
+		/// <param name="ModuleId">Module identifier.</param>
+		/// <param name="PortalId">Portal identifier.</param>
+		public IEnumerable<DocumentInfo> GetDNNDocuments (int ModuleId, int PortalId)
+		{
+			IEnumerable<DocumentInfo> documents;
+
+			using (var ctx = DataContext.Instance ())
+			{
+				documents = ctx.ExecuteQuery<DocumentInfo> (
+					System.Data.CommandType.StoredProcedure, "GetDocuments", ModuleId, PortalId);
+			}
+
+			return documents;
+		}
+
 		public void DeleteDocumentUrl (string oldUrl, int PortalId, int ModuleId)
 		{
 			// NOTE: we shouldn't delete URL itself as is can be used in other modules

@@ -118,10 +118,18 @@ namespace R7.Documents
 				var mctrl = new ModuleController ();
 				var module = mctrl.GetModule (int.Parse (e.Value), TabId);
 
-				if (module != null && module.ModuleDefinition.DefinitionName.ToLowerInvariant () == "r7.documents")
+				if (module != null)
 				{
-					var documents = DocumentsController.GetDocuments (module.ModuleID, PortalId);
-					if (documents.Any ())
+					IEnumerable<DocumentInfo> documents = null;
+
+					var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
+
+					if (mdef == "r7.documents")
+						documents = DocumentsController.GetDocuments (module.ModuleID, module.PortalID);
+					else if (mdef == "documents")
+						documents = DocumentsController.GetDNNDocuments (module.ModuleID, module.PortalID);
+				
+					if (documents != null && documents.Any ())
 					{
 						panelDocuments.Visible = true;
 						listDocuments.DataSource = documents;
@@ -135,10 +143,6 @@ namespace R7.Documents
 						panelDocuments.Visible = false;
 						listDocuments.Items.Clear ();
 					}
-				}
-				else if (module.ModuleDefinition.DefinitionName.ToLowerInvariant () == "documents")
-				{
-
 				}
 			}
 			catch (Exception ex)
