@@ -132,6 +132,8 @@ namespace R7.Documents
 					if (documents != null && documents.Any ())
 					{
 						panelDocuments.Visible = true;
+						buttonImport.Visible = true;
+
 						listDocuments.DataSource = documents;
 						listDocuments.DataBind ();
 
@@ -141,6 +143,8 @@ namespace R7.Documents
 					else
 					{
 						panelDocuments.Visible = false;
+						buttonImport.Visible = false;
+
 						listDocuments.Items.Clear ();
 					}
 				}

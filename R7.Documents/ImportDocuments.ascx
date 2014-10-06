@@ -13,7 +13,7 @@
 			<asp:CheckBoxList id="listDocuments" runat="server" DataTextField="Title" DataValueField="ItemID" />
 		</asp:Panel>	
 		<ul class="dnnActions dnnClear">
-	        <li><asp:LinkButton id="buttonImport" runat="server" CssClass="dnnPrimaryAction" resourcekey="buttonImport.Text" Text="Import" /></li>
+	        <li><asp:LinkButton id="buttonImport" runat="server" CssClass="dnnPrimaryAction" resourcekey="buttonImport.Text" Visible="false" Text="Import" /></li>
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
 	    </ul>
 	</fieldset>
