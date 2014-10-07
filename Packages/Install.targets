@@ -3,7 +3,7 @@
 	<Target Name="MakeInstallPackage" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<!-- Read package version from the manifest -->
 		<XmlRead Prefix="n" Namespace="http://schemas.microsoft.com/developer/msbuild/2003"
-			 XPath="/dotnetnuke/packages/package[1]/@version" XmlFileName="..\R7.Documents\R7.Documents.dnn">
+			 XPath="/dotnetnuke/packages/package[1]/@version" XmlFileName="R7.Documents.dnn">
 			<Output TaskParameter="Value" PropertyName="Version" />
 		</XmlRead>
 		<ItemGroup>
@@ -36,7 +36,7 @@
 			<InstallInclude Include="..\**\images\*.*" />
 		</ItemGroup>
 		<!-- Declare manifest files -->
-		<CreateItem Include="..\R7.Documents\R7.Documents.dnn;..\R7.Documents\License.txt;..\R7.Documents\ReleaseNotes.txt">
+		<CreateItem Include="R7.Documents.dnn;License.txt;ReleaseNotes.txt">
 			<Output TaskParameter="Include" ItemName="PackageManifestFiles" />
 		</CreateItem>
 		<!-- Declare binaries -->

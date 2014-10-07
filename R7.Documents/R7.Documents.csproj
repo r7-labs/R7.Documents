@@ -64,14 +64,11 @@
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
     <None Include="App_LocalResources\EditDocuments.ascx.resx" />
     <None Include="App_LocalResources\SettingsDocuments.ascx.resx" />
-    <None Include="License.txt" />
-    <None Include="ReleaseNotes.txt" />
     <None Include="SqlDataProvider\Uninstall.SqlDataProvider" />
     <None Include="App_LocalResources\EditDocuments.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\SettingsDocuments.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\ViewDocuments.ascx.ru-RU.resx" />
     <None Include="SqlDataProvider\01.00.00.SqlDataProvider" />
-    <None Include="R7.Documents.dnn" />
     <None Include="App_LocalResources\ChangeFolder.ascx.resx" />
     <None Include="App_LocalResources\ChangeFolder.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.resx" />

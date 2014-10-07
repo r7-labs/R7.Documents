@@ -34,6 +34,9 @@
     <None Include="Install.targets" />
     <None Include="Source.targets" />
     <None Include="Packages.csproj" />
+    <None Include="ReleaseNotes.txt" />
+    <None Include="License.txt" />
+    <None Include="R7.Documents.dnn" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- Begin snippet -->
