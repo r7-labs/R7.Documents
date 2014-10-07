@@ -1,4 +1,12 @@
-﻿<h3>Version 01.00.03</h3>
+﻿<h3>Version 01.00.04</h3>
+<p>This is stabilization release of 01.00.00 series. Changes include:</p>
+<ul>
+	<li>Ability to import documents from another R7.Documents or DNN Documents module.</li>
+	<li>Control unpublishing of skipped documents when changing folder.</li>
+	<li>Update or delete URL tracking data with document.</li>
+	<li>Other small improvements and fixes.</li>
+</ul>
+<h3>Version 01.00.03</h3>
 <p>This is stabilization release of 01.00.00 series. Changes include:</p>
 <ul>
 	<li>New ChangeFolder action and control.</li>
