@@ -12,7 +12,7 @@ namespace R7.Documents
 	{
 		protected System.Web.UI.WebControls.CheckBox chkShowTitleLink;
 		protected System.Web.UI.WebControls.CheckBox chkUseCategoriesList;
-		protected System.Web.UI.WebControls.DropDownList lstSortFields;
+		protected DnnComboBox comboSortFields;
 		protected System.Web.UI.WebControls.DataGrid grdSortColumns;
 		protected System.Web.UI.WebControls.LinkButton lnkAddSortColumn;
 		protected System.Web.UI.WebControls.DataGrid grdDisplayColumns;
@@ -20,7 +20,7 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.DropDownList cboDefaultFolder;
 		protected System.Web.UI.WebControls.HyperLink lnkEditLists;
 		protected System.Web.UI.WebControls.Label lstNoListsAvailable;
-		protected System.Web.UI.WebControls.DropDownList cboSortOrderDirection;
+		protected DnnComboBox comboSortOrderDirection;
 		protected System.Web.UI.WebControls.CheckBox chkAllowUserSort;
 		protected System.Web.UI.WebControls.Label lblCannotEditLists;
 	}

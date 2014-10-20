@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SettingsDocuments.ascx.cs" Inherits="R7.Documents.SettingsDocuments" %>
-<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 
 <dnn:DnnCssInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents/admin.css" Priority="200" />
 <div class="dnnForm dnnDocSettings" id="dnnDocSettings">
@@ -55,13 +55,14 @@
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plSorting" runat="server" controlname="" suffix=":" />
-	        <asp:DropDownList id="lstSortFields" runat="server" Style="width:250px" />
+	        <dnn:DnnComboBox id="comboSortFields" runat="server" CssClass="comboSortFields" />
 		</div>
 	    <div class="dnnFormItem">
 	        <label class="dnnLabel"></label>
-	        <asp:DropDownList ID="cboSortOrderDirection" runat="server" Style="width:250px" />
+	        <dnn:DnnComboBox id="comboSortOrderDirection" runat="server" CssClass="comboSortOrderDirection" />
 	        <asp:LinkButton id="lnkAddSortColumn" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdAdd" />
 	    </div>
+
 	    <div class="dnnFormItem">
 	        <label class="dnnLabel"></label>
 	        <asp:DataGrid id="grdSortColumns" runat="server" GridLines="None" AutoGenerateColumns="False" ShowHeader="False" Width="400px" CssClass="dnnGrid">

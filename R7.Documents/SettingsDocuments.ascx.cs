@@ -56,6 +56,10 @@ namespace R7.Documents
 		{
 			base.OnInit (e);
 
+			// fill sort order direction combobox
+			comboSortOrderDirection.AddItem (LocalizeString ("SortOrderAscending.Text"), "ASC");
+			comboSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
+
 			grdSortColumns.ItemCreated += grdSortColumns_ItemCreated;
 			grdSortColumns.DeleteCommand += grdSortColumns_DeleteCommand;
 			grdDisplayColumns.ItemCreated += grdDisplayColumns_ItemCreated;
@@ -141,7 +145,7 @@ namespace R7.Documents
 					foreach (string strSortColumn_loopVariable in DocumentsDisplayColumnInfo.AvailableSortColumns)
 					{
 						strSortColumn = strSortColumn_loopVariable;
-						lstSortFields.Items.Add (new ListItem (Localization.GetString (strSortColumn + ".Header", base.LocalResourceFile), strSortColumn));
+						comboSortFields.AddItem (LocalizeString (strSortColumn + ".Header"), strSortColumn);
 					}
 
 					BindSortSettings (DocumentsSettings.GetSortColumnList (this.LocalResourceFile));
@@ -309,9 +313,9 @@ namespace R7.Documents
 			DocumentsSortColumnInfo objNewSortColumn = new DocumentsSortColumnInfo ();
 
 			objSortColumns = RetrieveSortColumnSettings ();
-			objNewSortColumn.ColumnName = lstSortFields.SelectedValue.ToString ();
-			objNewSortColumn.LocalizedColumnName = Localization.GetString (objNewSortColumn.ColumnName + ".Header", base.LocalResourceFile);
-			if (cboSortOrderDirection.SelectedValue == "ASC")
+			objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
+			objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Header");
+			if (comboSortOrderDirection.SelectedValue == "ASC")
 			{
 				objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
 			}
@@ -607,12 +611,6 @@ namespace R7.Documents
 				lblCannotEditLists.Text = Localization.GetString ("NoListAccess", base.LocalResourceFile);
 				lblCannotEditLists.Visible = true;
 				lnkEditLists.Visible = false;
-			}
-
-			if (!IsPostBack)
-			{
-				cboSortOrderDirection.Items.Add (new ListItem (Localization.GetString ("SortOrderAscending.Text", base.LocalResourceFile), "ASC"));
-				cboSortOrderDirection.Items.Add (new ListItem (Localization.GetString ("SortOrderDescending.Text", base.LocalResourceFile), "DESC"));
 			}
 		}
 	}

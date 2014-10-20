@@ -29,3 +29,10 @@
 	float:none;
 	text-align:left
 }
+
+.dnnDocSettings .comboSortFields, 
+.dnnDocSettings .comboSortOrderDirection { width:290px }
+
+.dnnDocSettings .comboSortFields { margin-bottom:1em }
+
+.dnnDocSettings .comboSortOrderDirection { float:left;margin-right:1em }
