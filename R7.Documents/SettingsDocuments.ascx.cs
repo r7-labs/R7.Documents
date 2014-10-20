@@ -242,11 +242,12 @@ namespace R7.Documents
 				case System.Web.UI.WebControls.ListItemType.AlternatingItem:
 				case System.Web.UI.WebControls.ListItemType.Item:
 				case System.Web.UI.WebControls.ListItemType.SelectedItem:
-					e.Item.CssClass = "Normal";
 
-					// Localize the delete linkbutton/set css class
-					((LinkButton)e.Item.Cells [2].Controls [0]).Text = Localization.GetString ("cmdDelete.Text", base.LocalResourceFile);
-					e.Item.Cells [2].CssClass = "CommandButton";
+					// Localize the delete button and set image
+					var deleteButton = (ImageButton)e.Item.FindControl ("buttonDeleteSortOrder");
+					deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("buttonDeleteSortOrder.Text");
+					deleteButton.ImageUrl = IconController.IconURL ("Delete");
+
 					break;
 			}
 		}

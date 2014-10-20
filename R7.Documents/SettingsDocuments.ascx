@@ -75,7 +75,11 @@
 	            <Columns>
 	                <asp:BoundColumn DataField="LocalizedColumnName" HeaderText="Name" />
 	                <asp:BoundColumn DataField="Direction" HeaderText="DirectionString" />
-	                <asp:ButtonColumn Text="Delete" CommandName="Delete" />
+	            	<asp:TemplateColumn>
+						<ItemTemplate>
+							<asp:ImageButton id="buttonDeleteSortOrder" runat="server" CommandName="Delete" />
+						</ItemTemplate>
+	                </asp:TemplateColumn>
 	            </Columns>
 	      </asp:DataGrid>
 	    </div>

@@ -48,7 +48,7 @@
   <data name="cmdAdd.Text">
     <value>Добавить порядок сортировки</value>
   </data>
-  <data name="cmdDelete.Text">
+  <data name="buttonDeleteSortOrder.Text">
     <value>Удалить порядок сортировки</value>
   </data>
   <data name="cmdDown.Text">

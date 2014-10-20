@@ -152,7 +152,7 @@
   <data name="cmdAdd.Text" xml:space="preserve">
     <value>Add Sort Order</value>
   </data>
-  <data name="cmdDelete.Text" xml:space="preserve">
+  <data name="buttonDeleteSortOrder.Text" xml:space="preserve">
     <value>Delete Sort Order</value>
   </data>
   <data name="cmdUp.Text" xml:space="preserve">
