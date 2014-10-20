@@ -59,6 +59,7 @@
     <Content Include="ModuleHelp.htm" />
     <Content Include="ChangeFolder.ascx" />
     <Content Include="ImportDocuments.ascx" />
+    <Content Include="admin.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
