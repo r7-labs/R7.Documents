@@ -272,7 +272,7 @@ namespace R7.Documents
 				strXML.AppendFormat ("<showtitlelink>{0}</showtitlelink>", XmlUtils.XMLEncode (settings.ShowTitleLink.ToString ()));
 				strXML.AppendFormat ("<usecategorieslist>{0}</usecategorieslist>", XmlUtils.XMLEncode (settings.UseCategoriesList.ToString ()));
 				strXML.AppendFormat ("<categorieslistname>{0}</categorieslistname>", XmlUtils.XMLEncode (settings.CategoriesListName));
-				strXML.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder));
+				strXML.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder.ToString()));
 				strXML.AppendFormat ("<displaycolumns>{0}</displaycolumns>", XmlUtils.XMLEncode (settings.DisplayColumns));
 				strXML.AppendFormat ("<sortorder>{0}</sortorder>", XmlUtils.XMLEncode (settings.SortOrder));
 				strXML.Append ("</settings>");
@@ -367,7 +367,7 @@ namespace R7.Documents
 				settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlDocumentsSettings, "showtitlelink");
 				settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlDocumentsSettings, "usecategorieslist");
 				settings.CategoriesListName = XmlUtils.GetNodeValue (xmlDocumentsSettings, "categorieslistname");
-				settings.DefaultFolder = XmlUtils.GetNodeValue (xmlDocumentsSettings, "defaultfolder");
+				settings.DefaultFolder = Utils.ParseToNullableInt (XmlUtils.GetNodeValue (xmlDocumentsSettings, "defaultfolder"));
 				settings.DisplayColumns = XmlUtils.GetNodeValue (xmlDocumentsSettings, "displaycolumns");
 				settings.SortOrder = XmlUtils.GetNodeValue (xmlDocumentsSettings, "sortorder");
 

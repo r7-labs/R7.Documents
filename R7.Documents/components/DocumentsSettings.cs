@@ -117,10 +117,10 @@ COLUMN_ICON,
 			set { WriteSetting<string> ("Documents_CategoriesListName", value, false); }
 		}
 
-		public string DefaultFolder
+		public int? DefaultFolder
 		{
-			get { return ReadSetting<string> ("Documents_DefaultFolder", "", false); }
-			set { WriteSetting<string> ("Documents_DefaultFolder", value, false); }
+			get { return ReadSetting<int?> ("Documents_DefaultFolder", null, false); }
+			set { WriteSetting<int?> ("Documents_DefaultFolder", value, false); }
 		}
 
 		#endregion

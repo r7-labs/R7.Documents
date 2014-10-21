@@ -17,7 +17,7 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.LinkButton lnkAddSortColumn;
 		protected System.Web.UI.WebControls.DataGrid grdDisplayColumns;
 		protected System.Web.UI.WebControls.DropDownList cboCategoriesList;
-		protected System.Web.UI.WebControls.DropDownList cboDefaultFolder;
+		protected DnnFolderDropDownList folderDefaultFolder;
 		protected System.Web.UI.WebControls.HyperLink lnkEditLists;
 		protected System.Web.UI.WebControls.Label lstNoListsAvailable;
 		protected DnnComboBox comboSortOrderDirection;

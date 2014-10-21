@@ -85,7 +85,6 @@ namespace R7.Documents
 			{
 				if ((Page.IsPostBack == false))
 				{
-					LoadFolders ();
 					LoadLists ();
 
 					chkShowTitleLink.Checked = DocumentsSettings.ShowTitleLink;
@@ -94,7 +93,11 @@ namespace R7.Documents
 
 					try
 					{
-						cboDefaultFolder.SelectedValue = DocumentsSettings.DefaultFolder;
+						if (DocumentsSettings.DefaultFolder != null)
+						{
+							folderDefaultFolder.SelectedFolder = 
+								FolderManager.Instance.GetFolder (DocumentsSettings.DefaultFolder.Value);
+						}
 					}
 					catch
 					{
@@ -155,31 +158,6 @@ namespace R7.Documents
 			catch (Exception exc)
 			{
 				Exceptions.ProcessModuleLoadException (this, exc);
-			}
-		}
-
-		public void LoadFolders ()
-		{
-			cboDefaultFolder.Items.Clear ();
-
-			//foreach (DotNetNuke.Services.FileSystem.FolderInfo objFolder in FileSystemUtils.GetFoldersByUser(PortalId, true, true, "READ, WRITE")) {
-			foreach (FolderInfo objFolder in FolderManager.Instance.GetFolders(UserInfo, "READ, WRITE"))
-			{				
-				ListItem FolderItem = new ListItem ();
-
-				if (objFolder.FolderPath == Null.NullString)
-				{
-					FolderItem.Text = Localization.GetString ("Root.Text", this.LocalResourceFile);
-					FolderItem.Value = "";
-				}
-				else
-				{
-					FolderItem.Text = objFolder.FolderPath;
-					FolderItem.Value = objFolder.FolderPath;
-				}
-				FolderItem.Value = objFolder.FolderPath;
-
-				cboDefaultFolder.Items.Add (FolderItem);
 			}
 		}
 
@@ -418,7 +396,7 @@ namespace R7.Documents
 			}
 
 			DocumentsSettings.ShowTitleLink = chkShowTitleLink.Checked;
-			DocumentsSettings.DefaultFolder = cboDefaultFolder.SelectedValue;
+			DocumentsSettings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
 			DocumentsSettings.AllowUserSort = chkAllowUserSort.Checked;
 
 			var objColumnSettings = RetrieveDisplayColumnSettings ();

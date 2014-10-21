@@ -231,8 +231,10 @@ namespace R7.Documents
 						// set document published by default
 						checkIsPublished.Checked = true;
 
-						// Set default folder
-						ctlUrl.Url = DocumentsSettings.DefaultFolder + "a";
+						// set default folder
+						// HACK: Add "a" to the folder path to force UrlControl to select non-existant file 
+						if (DocumentsSettings.DefaultFolder != null)
+							ctlUrl.Url = FolderManager.Instance.GetFolder (DocumentsSettings.DefaultFolder.Value).FolderPath + "a";
 					}
 				}
 			}

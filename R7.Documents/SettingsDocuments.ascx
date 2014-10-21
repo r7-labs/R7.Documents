@@ -19,7 +19,7 @@
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plDefaultFolder" runat="server" controlname="cboDefaultFolder" suffix="" />
-	        <asp:DropDownList ID="cboDefaultFolder" runat="server" />
+	        <dnn:DnnFolderDropDownList id="folderDefaultFolder" runat="server" />
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" suffix="" />
