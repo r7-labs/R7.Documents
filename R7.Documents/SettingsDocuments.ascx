@@ -12,10 +12,12 @@
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="plCategoriesListName" runat="server" Controlname="cboCategoriesList" Suffix=":" />
-	         <asp:DropDownList ID="cboCategoriesList" runat="server" />
-	         <asp:Label ID="lstNoListsAvailable" runat="server" Visible="False" />
-	         <asp:Hyperlink ID="lnkEditLists" runat="server" CssClass="dnnSecondaryAction" />
-	         <asp:Label ID="lblCannotEditLists" runat="server" Visible="false" CssClass="NormalRed" />
+	        <div style="float:left">
+	        	<asp:DropDownList ID="cboCategoriesList" runat="server" Style="width:340px;margin-right:0.5em" />
+	       		<asp:Hyperlink ID="lnkEditLists" runat="server" CssClass="dnnSecondaryAction" />
+	        	<asp:Label ID="lstNoListsAvailable" runat="server" CssClass="dnnFormMessage dnnFormInfo" Style="max-width:400px" Visible="false" />
+	        	<asp:Label ID="lblCannotEditLists" runat="server" CssClass="dnnFormMessage dnnFormError" Style="max-width:400px" Visible="false" />
+	    	</div>
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="plDefaultFolder" runat="server" ControlName="folderDefaultFolder" Suffix=":" />
