@@ -197,6 +197,10 @@ namespace R7.Documents
 
 			try
 			{
+				// hide edit column if not in edit mode
+				if (!IsEditable)
+					e.Item.Cells [0].Visible = false; 
+
 				switch (e.Item.ItemType)
 				{
 					case ListItemType.Header:
