@@ -15,4 +15,10 @@
     <data name="labelUnpublishSkipped.Help" xml:space="preserve">
         <value>Check to unpublish skipped documents, for which no corresponding file found in the target folder.</value>
     </data>
+    <data name="labelUpdateDefaultFolder.Text" xml:space="preserve">
+        <value>Update Default Folder</value>
+    </data>
+    <data name="labelUpdateDefaultFolder.Help" xml:space="preserve">
+        <value>Check to update default folder value in the module settings.</value>
+    </data>
 </root>

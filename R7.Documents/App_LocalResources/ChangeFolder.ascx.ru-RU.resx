@@ -15,4 +15,10 @@
     <data name="labelUnpublishSkipped.Help" xml:space="preserve">
         <value>Отметьте чтобы снять с публикации документы, для которых не были найдены соответствующие файлы в целевой папке.</value>
     </data>
+    <data name="labelUpdateDefaultFolder.Text" xml:space="preserve">
+        <value>Обновить папку по умолчанию</value>
+    </data>
+    <data name="labelUpdateDefaultFolder.Help" xml:space="preserve">
+        <value>Отметьте, чтобы обновить папку по умолчанию в настройках модуля.</value>
+    </data>
 </root>
