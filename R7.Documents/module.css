@@ -14,6 +14,21 @@
 .ViewDocuments .DescriptionCell,
 .ViewDocuments .TitleCell { white-space:normal }
 
+.ViewDocuments .IconCell,
+.ViewDocuments .EditCell { text-align:center }
+
+.ViewDocuments .ClicksHeader, 
+.ViewDocuments .SizeHeader,  
+.ViewDocuments .DownloadLinkHeader,
+.ViewDocuments .ModifiedDateHeader,
+.ViewDocuments .ModifiedByHeader,
+.ViewDocuments .CreatedDateHeader,
+.ViewDocuments .CreatedByHeader,
+.ViewDocuments .OwnerHeader,
+.ViewDocuments .CategoryHeader,
+.ViewDocuments .EditHeader,
+.ViewDocuments .IconHeader { width:0 }
+
 .ViewDocuments ._nonpublished { background-color:#ffc }
 
 .ViewDocuments .dnnGrid { margin-bottom:0 }

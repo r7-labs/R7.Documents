@@ -199,20 +199,22 @@ namespace R7.Documents
 			{
 				// hide edit column if not in edit mode
 				if (!IsEditable)
-					e.Item.Cells [0].Visible = false; 
+					e.Item.Cells [0].Visible = false;  
 
 				switch (e.Item.ItemType)
 				{
 					case ListItemType.Header:
+						// set CSS class for edit column header
+						e.Item.Cells [0].CssClass = "EditHeader";
+
 						// Setting "scope" to "col" indicates to for text-to-speech
 						// or braille readers that this row containes headings
 						for (intCount = 1; intCount <= e.Item.Cells.Count - 1; intCount++)
 						{
 							e.Item.Cells [intCount].Attributes.Add ("scope", "col");
 						}
-
-
 						break;
+
 					case ListItemType.AlternatingItem:
 					case ListItemType.Item:
 					case ListItemType.SelectedItem:
@@ -220,7 +222,10 @@ namespace R7.Documents
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
 						objDocument = (DocumentInfo)mobjDocumentList [e.Item.ItemIndex];
-						
+
+						// set CSS class for edit column cells
+						e.Item.Cells [0].CssClass = "EditCell";
+
 						// decorate unpublished items
 						if (!objDocument.IsPublished)
 						{
