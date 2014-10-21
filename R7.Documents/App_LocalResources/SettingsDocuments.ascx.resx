@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<data name="plUseCategoriesList.Text" xml:space="preserve">
-    <value>Use Categories List?</value>
+    <value>Use Categories List</value>
   </data>
   <data name="plUseCategoriesList.Help" xml:space="preserve">
     <value>Controls whether to allow free-text entry of the document category, or to use the 'Document Categories' list defined in the host lists page.</value>
   </data>
   <data name="plShowTitleLink.Text" xml:space="preserve">
-    <value>Show Title Link?</value>
+    <value>Show Title Link</value>
   </data>
   <data name="plShowTitleLink.Help" xml:space="preserve">
     <value>Controls whether to display the title as a download link, or as plain text.</value>
@@ -19,7 +19,7 @@
     <value>Use the visible checkboxes to switch display of columns on and off.  You can set the display order of columns using the up and down arrows.</value>
   </data>
   <data name="plAllowUserSort.Text" xml:space="preserve">
-    <value>Allow users to sort?</value>
+    <value>Allow users to sort</value>
   </data>
   <data name="plAllowUserSort.Help" xml:space="preserve">
     <value>Controls whether to allow users to sort by clicking column headers.</value>
