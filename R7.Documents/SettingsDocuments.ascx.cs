@@ -396,8 +396,12 @@ namespace R7.Documents
 			}
 
 			DocumentsSettings.ShowTitleLink = chkShowTitleLink.Checked;
-			DocumentsSettings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
 			DocumentsSettings.AllowUserSort = chkAllowUserSort.Checked;
+
+			if (folderDefaultFolder.SelectedFolder != null)
+				DocumentsSettings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
+			else
+				DocumentsSettings.DefaultFolder = null;
 
 			var objColumnSettings = RetrieveDisplayColumnSettings ();
 			intIndex = 0;
