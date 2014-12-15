@@ -279,6 +279,10 @@ namespace R7.Documents
 							{
 								_with2.Target = "_blank";
 							}
+
+                            // display clicks in the tooltip
+                            if (objDocument.Clicks >= 0)
+                                _with2.ToolTip = string.Format (LocalizeString ("Clicks.Format"), objDocument.Clicks);
 						}
 						break;
 				}

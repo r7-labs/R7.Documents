@@ -16,7 +16,7 @@
     <value>Created By</value>
   </data>
   <data name="DownloadLink.Text" xml:space="preserve">
-    <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Download" title="Download" /&gt;</value>
+    <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Download" /&gt;</value>
   </data>
   <data name="CreatedDate.Text" xml:space="preserve">
     <value>Created Date</value>
@@ -127,6 +127,9 @@
   </data>
   <data name="Clicks.Text" xml:space="preserve">
     <value>Clicks</value>
+  </data>
+  <data name="Clicks.Format" xml:space="preserve">
+    <value>Downloaded {0} times</value>
   </data>
 	<data name="Megabytes.Text" xml:space="preserve">
     <value>Mb</value>

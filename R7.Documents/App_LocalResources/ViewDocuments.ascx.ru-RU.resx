@@ -54,6 +54,9 @@
   <data name="Clicks.Text">
     <value>Загрузок</value>
   </data>
+  <data name="Clicks.Format" xml:space="preserve">
+    <value>Загружено {0} раз(а)</value>
+  </data>
   <data name="CreatedBy.Text">
     <value>Создал</value>
   </data>
@@ -64,7 +67,7 @@
     <value>Описание</value>
   </data>
   <data name="DownloadLink.Text">
-    <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Загрузить" title="Загрузить" /&gt;</value>
+    <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Загрузить" /&gt;</value>
   </data>
   <data name="LastUpdated.Text">
     <value>Обновлено</value>
