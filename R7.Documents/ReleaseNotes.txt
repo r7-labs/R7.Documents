@@ -1,5 +1,9 @@
-﻿<h3>Version 1.0.5</h3>
-<p>This is stabilization release of 1.0 series. Changes include:</p>
+﻿<h3>Version 1.0.6</h3>
+<ul>
+    <li>Display clicks count in the download link tooltip.</li>
+</ul>
+
+<h3>Version 1.0.5</h3>
 <ul>
 	<li>Edit column now hidden if not in edit mode.</li>
 	<li>More space for title and description by collapsing all other columns to minimum width.</li>
@@ -9,30 +13,30 @@
 	<li>Module settings UI modernized.</li>
 	<li>Other small improvements and fixes.</li>
 </ul>
+
 <h3>Version 1.0.4</h3>
-<p>This is stabilization release of 1.0 series. Changes include:</p>
 <ul>
 	<li>Ability to import documents from another R7.Documents or DNN Documents module.</li>
 	<li>Control unpublishing of skipped documents when changing folder.</li>
 	<li>Update or delete URL tracking data with document.</li>
 	<li>Other small improvements and fixes.</li>
 </ul>
+
 <h3>Version 1.0.3</h3>
-<p>This is stabilization release of 1.0 series. Changes include:</p>
 <ul>
 	<li>New ChangeFolder action and control.</li>
 	<li>Don't localize names of CSS classes for cells.</li>
 </ul>
+
 <h3>Version 1.0.2</h3>
-<p>This is stabilization release of 1.0 series. Changes include:</p>
 <ul>
 	<li>New modules have sorting by index, asc by default.</li>
 	<li>Document's dates now set to the current date during template import.</li>
 	<li>The document's SortIndex could be any signed Int32 value.</li>
 	<li>Other small improvements and fixes.</li>
 </ul>
+
 <h3>Version 1.0.1</h3>
-<p>This is stabilization release of 1.0 series. Changes include:</p>
 <ul>
 	<li>Document description now displayed in the title tooltip.</li>
 	<li>Filename / URL now displayed in the edit link tooltip. Url column removed as a result of previous change.</li>
@@ -42,6 +46,7 @@
 	<li>Module integrated with new DNN search API (preview, need more testing).</li>
 	<li>Many other small improvements and fixes.</li>
 </ul>
+
 <h3>Version 1.0.0</h3>
 <p>This is the initial release, based of Mitchel Sellers's <a href="http://dnndocuments.codeplex.com/" target="_blank">DNN Documents</a> module v6.0.1. Changes from original module includes:</p>
 <ul>
