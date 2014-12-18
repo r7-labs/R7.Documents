@@ -140,23 +140,25 @@ namespace R7.Documents
 		{
 			var searchDocs = new List<SearchDocument> ();
 			
-			foreach (var document in GetDocuments(moduleInfo.ModuleID, moduleInfo.PortalID))
+			foreach (var document in GetDocuments (moduleInfo.ModuleID, moduleInfo.PortalID))
 			{
-				if (document != null && document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ())
+				if (document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ())
 				{
-					var documentText = document.Title +
-					                   (!string.IsNullOrWhiteSpace (document.Description) ? " " + document.Description : "");
+                    var documentText = Utils.FormatList (" ", document.Title, document.Description);
 
 					var sd = new SearchDocument () {
 						PortalId = moduleInfo.PortalID,
-						AuthorUserId = document.OwnedByUserId,
+                        AuthorUserId = document.ModifiedByUserId,
 						Title = document.Title,
 						Description = HtmlUtils.Shorten (documentText, 255, "..."),
 						Body = documentText,
 						ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
 						UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
 						IsActive = document.IsPublished,
-						Url = Globals.LinkClick (document.Url, moduleInfo.TabID, moduleInfo.ModuleID, document.TrackClicks, document.ForceDownload)
+                        Url = string.Format ("/Default.aspx?tabid={0}#{1}", moduleInfo.TabID, moduleInfo.ModuleID)
+
+                        // FIXME: This one produce null reference exception
+                        // Url = Globals.LinkClick (document.Url, moduleInfo.TabID, moduleInfo.ModuleID, document.TrackClicks, document.ForceDownload)
 					};
 					
 					searchDocs.Add (sd);
