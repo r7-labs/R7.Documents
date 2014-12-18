@@ -140,7 +140,9 @@ namespace R7.Documents
 		{
 			var searchDocs = new List<SearchDocument> ();
 			
-			foreach (var document in GetDocuments (moduleInfo.ModuleID, moduleInfo.PortalID))
+            var documents = GetDocuments (moduleInfo.ModuleID, moduleInfo.PortalID);
+
+            foreach (var document in documents ?? Enumerable.Empty<DocumentInfo> ())
 			{
 				if (document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ())
 				{
