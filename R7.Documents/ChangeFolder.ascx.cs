@@ -36,9 +36,15 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using System.ComponentModel;
+using System.Security.Cryptography;
 
 namespace R7.Documents
 {
+    public enum SkippedDocumentsAction  { DoNothing, Unpublish, Delete, DeleteWithResources }
+
+    public enum OldFilesAction { Keep, Delete }
+
 	public partial class ChangeFolder : DocumentsPortalModuleBase
 	{
 		#region Fields
@@ -96,22 +102,20 @@ namespace R7.Documents
 						// only for files
 						if (Globals.GetURLType (document.Url) == TabType.File)
 						{
-							var docFileId = int.Parse (document.Url.ToLowerInvariant ().Replace ("fileid=", ""));
+                            var docFileId = Utils.GetResourceId (document.Url);
 							var docFile = FileManager.Instance.GetFile (docFileId);
 							
 							if (docFile != null)
 							{
 								var updated = false; 
-								string oldDocumentUrl = null;
+								var oldDocument = document.Clone ();
 
 								foreach (var file in files)
 								{
 									// case-insensitive comparison
 									if (0 == string.Compare (file.FileName, docFile.FileName, StringComparison.InvariantCultureIgnoreCase))
 									{
-										oldDocumentUrl = document.Url;
-										document.Url = "FileID=" + file.FileId;
-
+                                        document.Url = "FileID=" + file.FileId;
 										document.CreatedDate = DateTime.Now;
 										document.ModifiedDate = document.CreatedDate;
 										document.CreatedByUserId = UserId;
@@ -122,26 +126,49 @@ namespace R7.Documents
 									}
 								} // foreach 
 
-								if (!updated && checkUnpublishSkipped.Checked)
-								{
-									// unpublish not updated documents
-									document.IsPublished = false;
-								}
-
-                                if (updated && checkPublishUpdated.Checked)
+                                if (updated)
                                 {
                                     // publish updated documents
-                                    document.IsPublished = true;
+                                    document.IsPublished |= checkPublishUpdated.Checked;
+
+                                    // safe remove old files, if needed.
+                                    // need to do this before update!
+                                    if (radioOldFilesAction.SelectedIndex == (int) OldFilesAction.Delete)
+                                    {
+                                        if (oldDocument.Url != document.Url)
+                                        {
+                                            DocumentsController.DeleteDocumentResource (oldDocument, PortalId);
+                                        }
+                                    }
+
+                                    // update document & URL tracking data
+                                    DocumentsController.Update (document);
+                                    DocumentsController.UpdateDocumentUrl (document, oldDocument.Url, PortalId, ModuleId);
                                 }
+                                else
+                                {
+                                    switch ((SkippedDocumentsAction)radioSkippedAction.SelectedIndex) 
+                                    {
+                                        case SkippedDocumentsAction.Unpublish:
+                                            // unpublish not updated documents & update them
+                                            document.IsPublished = false;
+                                            DocumentsController.Update (document);
+                                            break;
 
-								// update document
-								DocumentsController.Update (document);
+                                        case SkippedDocumentsAction.Delete: 
+                                            // delete not updated documents & URL tracking data
+                                            DocumentsController.Delete (document);
+                                            DocumentsController.DeleteDocumentUrl (oldDocument.Url, PortalId, ModuleId);
+                                            break;
 
-								if (updated)
-								{
-									// update document URL
-									DocumentsController.UpdateDocumentUrl (document, oldDocumentUrl, PortalId, ModuleId);
-								}
+                                        case SkippedDocumentsAction.DeleteWithResources:
+                                            // delete not updated documents, URL tracking data and resources
+                                            DocumentsController.Delete (document);
+                                            DocumentsController.DeleteDocumentUrl (oldDocument.Url, PortalId, ModuleId);
+                                            DocumentsController.DeleteDocumentResource (document, PortalId);
+                                            break;
+                                    }
+                                } // if (updated)
 							}
 						}
 					} // foreach
@@ -149,12 +176,13 @@ namespace R7.Documents
 					// update module's default folder setting
 					if (checkUpdateDefaultFolder.Checked)
 						DocumentsSettings.DefaultFolder = ddlFolder.SelectedFolder.FolderID;
+
+                    Synchronize ();
 				}
 
-				Synchronize ();
-				
 				// redirect back to the portal home page
 				Response.Redirect (Globals.NavigateURL (), true);
+
 			}
 			catch (Exception ex)
 			{

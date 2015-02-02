@@ -13,8 +13,9 @@ namespace R7.Documents
 		protected Label labelInfo;
 		protected LabelControl labelFolder;
 		protected DnnFolderDropDownList ddlFolder;
-		protected LabelControl labelUnpublishSkipped;
-		protected CheckBox checkUnpublishSkipped;
+		protected LabelControl labelSkippedAction;
+        protected RadioButtonList radioSkippedAction;
+        protected RadioButtonList radioOldFilesAction;
         protected LabelControl labelPublishUpdated;
         protected CheckBox checkPublishUpdated;
 		protected LabelControl labelUpdateDefaultFolder;

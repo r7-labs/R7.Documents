@@ -111,11 +111,10 @@ namespace R7.Documents
         /// </summary>
         /// <param name="document">Document.</param>
         /// <param name="portalId">Portal identifier.</param>
-        public void DeleteDocumentResource (DocumentInfo document, int portalId)
+        public int DeleteDocumentResource (DocumentInfo document, int portalId)
         {
             // count resource references
-            var count = GetObjects<DocumentInfo> (System.Data.CommandType.Text, 
-                "WHERE [Url]=@0", document.Url).Count ();
+            var count = GetObjects<DocumentInfo> ("WHERE [Url]=@0", document.Url).Count ();
 
             // delete if it's the only reference
             if (count == 1)
@@ -135,6 +134,8 @@ namespace R7.Documents
                         break;
                 }
             }
+
+            return count;
         }
 
 		public void DeleteDocumentUrl (string oldUrl, int PortalId, int ModuleId)

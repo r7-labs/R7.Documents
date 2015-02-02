@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<data name="labelInfo.Text" xml:space="preserve">
-        <value>При нажатии на кнопку "Обновить", для каждого файла, связанного с документом в модуле, будет предпринята попытка найти файл с таким же именем в указанной ниже папке. Если такой файл не будет найден, соответствующий документ может быть снят с публикации.</value>
+        <value>При нажатии на кнопку "Обновить", для каждого файла, связанного с документом в модуле, будет предпринята попытка найти файл с таким же именем в указанной ниже папке. Если такой файл не будет найден, соответствующий документ может быть снят с публикации, удален, или удален вместе со связанными ресурсами.</value>
     </data>
 	<data name="labelFolder.Text" xml:space="preserve">
         <value>Папка</value>
@@ -9,14 +9,44 @@
 	<data name="labelFolder.Help" xml:space="preserve">
         <value>Выберите папку для поиска файлов в ней.</value>
     </data>
-    <data name="labelUnpublishSkipped.Text" xml:space="preserve">
-        <value>Скрыть пропущенные</value>
+    <data name="labelOldFilesAction.Text" xml:space="preserve">
+        <value>Старые файлы обновленных</value>
+    </data>
+    <data name="labelOldFilesAction.Help" xml:space="preserve">
+        <value>Выберите действие, которое нужно применить к файлам документов, для которых были найдены соответствующие файлы в целевой папке.
+        Доступные варианты: оставить или удалить. В последнем случае, файл будет удален только тогда, когда на него не ссылаются другие документы.</value>
+    </data>
+    <data name="OldFilesActionKeep.Text" xml:space="preserve">
+        <value>Оставить</value>
+    </data>
+    <data name="OldFilesActionDelete.Text" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="labelSkippedAction.Text" xml:space="preserve">
+        <value>Пропущенные документы</value>
+    </data>
+    <data name="labelSkippedAction.Help" xml:space="preserve">
+        <value>Выберите действие, которое нужно применить к документам, для которых не были найдены соответствующие файлы в целевой папке.
+        Доступные варианты: снять с публикации, удалить и удалить, включая связанные ресурсы (файлы, ссылки). 
+        В последнем случае, связанный ресурс будет удален только тогда, когда на него не ссылаются другие документы.</value>
+    </data>
+    <data name="SkippedActionDoNothing.Text" xml:space="preserve">
+        <value>Ничего не делать</value>
+    </data>
+    <data name="SkippedActionUnpublish.Text" xml:space="preserve">
+        <value>Снять с публикации</value>
+    </data>
+    <data name="SkippedActionDelete.Text" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="SkippedActionDeleteWithResources.Text" xml:space="preserve">
+        <value>Удалить с ресурсами</value>
     </data>
     <data name="labelUnpublishSkipped.Help" xml:space="preserve">
         <value>Отметьте чтобы снять с публикации документы, для которых не были найдены соответствующие файлы в целевой папке.</value>
     </data>
     <data name="labelPublishUpdated.Text" xml:space="preserve">
-        <value>Показать обновленные</value>
+        <value>Публиковать обновленные</value>
     </data>
     <data name="labelPublishUpdated.Help" xml:space="preserve">
         <value>Отметьте чтобы опубликовать документы, для которых были найдены соответствующие файлы в целевой папке.</value>

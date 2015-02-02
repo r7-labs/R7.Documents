@@ -259,5 +259,14 @@ namespace R7.Documents
 		}
 
 		#endregion
+
+        #region Methods
+
+        public DocumentInfo Clone ()
+        {
+            return (DocumentInfo) MemberwiseClone ();
+        }
+
+        #endregion
 	}
 }
