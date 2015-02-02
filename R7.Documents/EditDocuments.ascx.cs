@@ -472,11 +472,11 @@ namespace R7.Documents
 					var document = DocumentsController.GetDocument (ItemID, ModuleId);
 					if (document != null)
 					{
-                        if (checkDeleteWithResource.Checked)
-                            DocumentsController.DeleteDocumentResource (document, PortalId);
-
                         DocumentsController.Delete (document);
 						DocumentsController.DeleteDocumentUrl (document.Url, PortalId, ModuleId);
+
+                        if (checkDeleteWithResource.Checked)
+                            DocumentsController.DeleteDocumentResource (document, PortalId);
 					}
 				}
 
