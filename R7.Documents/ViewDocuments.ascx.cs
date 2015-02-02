@@ -422,10 +422,9 @@ namespace R7.Documents
 				mobjDocumentList = DocumentsController.GetDocuments (ModuleId, PortalId).ToList ();
 
 				// Check security on files
-				int intCount = 0;
 				DocumentInfo objDocument = null;
 
-				for (intCount = mobjDocumentList.Count - 1; intCount >= 0; intCount += -1)
+                for (var intCount = mobjDocumentList.Count - 1; intCount >= 0; intCount--)
 				{
 					objDocument = mobjDocumentList [intCount];
                     if (objDocument.Url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0)
