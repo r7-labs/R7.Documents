@@ -480,9 +480,8 @@ namespace R7.Documents
 					}
 				}
 
-				Utils.SynchronizeModule (this);
-				DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
-
+				Synchronize ();
+				
 				// Redirect back to the portal home page
 				Response.Redirect (Globals.NavigateURL (), true);
 				//Module failed to load
