@@ -140,7 +140,7 @@ namespace R7.Documents
 				// infos = repo.Find ("WHERE ModuleID = @0", moduleId);
 			}
 
-			return infos;
+            return infos ?? Enumerable.Empty<T> ();
 		}
 
 		/// <summary>
@@ -157,7 +157,7 @@ namespace R7.Documents
 				infos = repo.Get ();
 			}
 
-			return infos;
+            return infos ?? Enumerable.Empty<T> ();
 		}
 
 		/// <summary>
@@ -177,7 +177,7 @@ namespace R7.Documents
 				infos = repo.Find (sqlConditon, args);
 			}
 
-			return infos;
+            return infos ?? Enumerable.Empty<T> ();
 		}
 
 		/// <summary>
@@ -197,7 +197,7 @@ namespace R7.Documents
 				infos = ctx.ExecuteQuery<T>	(cmdType, sql, args);
 			}
 
-			return infos;
+            return infos ?? Enumerable.Empty<T> ();
 		}
 
 		/// <summary>
