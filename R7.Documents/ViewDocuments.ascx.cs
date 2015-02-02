@@ -428,7 +428,7 @@ namespace R7.Documents
 				for (intCount = mobjDocumentList.Count - 1; intCount >= 0; intCount += -1)
 				{
 					objDocument = (DocumentInfo)mobjDocumentList [intCount];
-					if (objDocument.Url.ToLower ().IndexOf ("fileid=") >= 0)
+                    if (objDocument.Url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0)
 					{
 						// document is a file, check security
 						var objFile = FileManager.Instance.GetFile (int.Parse (objDocument.Url.Split ('=') [1]));
