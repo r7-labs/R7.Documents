@@ -250,7 +250,21 @@ namespace R7.Documents
 			moduleController.ClearCache (module.ModuleContext.TabId);
 
 		}
-	}
+
+        public static int GetResourceId (string url)
+        {
+            var urlParts = url.Split ( new [] {'='}, 2, StringSplitOptions.RemoveEmptyEntries);
+            if (urlParts.Length == 2)
+            {
+                int resourceId;
+                if (int.TryParse (urlParts [1], out resourceId))
+                    return resourceId;
+            }
+
+            return Null.NullInteger;
+        }
+
+    }
 	// class
 }
 // namespace
