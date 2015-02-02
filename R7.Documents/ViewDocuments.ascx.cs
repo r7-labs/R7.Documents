@@ -256,7 +256,7 @@ namespace R7.Documents
 
 								// Note: The title link should display inline if possible, so set
 								// ForceDownload=False
-								_with1.NavigateUrl = DotNetNuke.Common.Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
+								_with1.NavigateUrl = Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
 								if (objDocument.NewWindow)
 								{
 									_with1.Target = "_blank";
@@ -274,7 +274,7 @@ namespace R7.Documents
 							var _with2 = (HyperLink)e.Item.Controls [mintDownloadLinkColumnIndex].FindControl ("ctlDownloadLink");
 							// Note: The title link should display open/save dialog if possible, 
 							// so set ForceDownload=True
-							_with2.NavigateUrl = DotNetNuke.Common.Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
+							_with2.NavigateUrl = Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
 							if (objDocument.NewWindow)
 							{
 								_with2.Target = "_blank";
