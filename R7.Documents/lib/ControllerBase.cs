@@ -42,7 +42,6 @@ namespace R7.Documents
 		/// </summary>
 		protected ControllerBase ()
 		{ 
-
 		}
 
 		/// <summary>
@@ -249,7 +248,6 @@ namespace R7.Documents
 			{
 				var repo = ctx.GetRepository<T> ();
 				repo.Delete (info);
-
 			}
 		}
 
