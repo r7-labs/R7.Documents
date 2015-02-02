@@ -29,9 +29,11 @@ using DotNetNuke.Collections;
 using DotNetNuke.Data;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Search;
 using DotNetNuke.Services.Search.Entities;
+using DotNetNuke.Services.FileSystem;
 
 
 namespace R7.Documents
@@ -103,6 +105,37 @@ namespace R7.Documents
 
 			return document;
 		}
+
+        /// <summary>
+        /// Deletes the resource, accociated with the document (only files and URLs are supported).
+        /// </summary>
+        /// <param name="document">Document.</param>
+        /// <param name="portalId">Portal identifier.</param>
+        public void DeleteDocumentResource (DocumentInfo document, int portalId)
+        {
+            // count resource references
+            var count = GetObjects<DocumentInfo> (System.Data.CommandType.Text, 
+                "WHERE [Url]=@0", document.Url).Count ();
+
+            // delete if it's the only reference
+            if (count == 1)
+            {
+                switch (Globals.GetURLType (document.Url))
+                {
+                    // delete file
+                    case TabType.File:
+                        var file = FileManager.Instance.GetFile (Utils.GetResourceId (document.Url));
+                        if (file != null)
+                            FileManager.Instance.DeleteFile (file);
+                        break;
+
+                    // delete URL
+                    case TabType.Url:
+                        new UrlController ().DeleteUrl (portalId, document.Url);
+                        break;
+                }
+            }
+        }
 
 		public void DeleteDocumentUrl (string oldUrl, int PortalId, int ModuleId)
 		{

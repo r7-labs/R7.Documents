@@ -170,4 +170,10 @@
   <data name="labelLastModifiedDate.Text" xml:space="preserve">
     <value>Last Modified Date</value>
   </data>
+  <data name="labelDeleteWithResource.Text" xml:space="preserve">
+    <value>Delete with Resource</value>
+  </data>
+  <data name="labelDeleteWithResource.Help" xml:space="preserve">
+    <value>If checked, document will be deleted with accociated resource (file or URL) - but only if that resource doesn't referenced by another document.</value>
+  </data>
 </root>

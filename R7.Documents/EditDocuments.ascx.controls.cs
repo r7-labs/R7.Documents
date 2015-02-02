@@ -38,6 +38,7 @@ namespace R7.Documents
 		protected URLTrackingControl ctlUrlTracking;
 		protected LabelControl labelIsPublished;
 		protected CheckBox checkIsPublished;
+        protected CheckBox checkDeleteWithResource;
 		protected LabelControl labelCreatedDate;
 		protected DnnDateTimePicker pickerCreatedDate;
 		protected LabelControl labelLastModifiedDate;
