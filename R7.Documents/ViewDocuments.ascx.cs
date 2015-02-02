@@ -437,10 +437,10 @@ namespace R7.Documents
 						if (objFile != null)
 						{
 							var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
-							if (!FolderPermissionController.CanViewFolder ((FolderInfo)folder))
+                            if (folder != null && !FolderPermissionController.CanViewFolder ((FolderInfo)folder))
 							{
 								// remove document from the list
-								mobjDocumentList.Remove (objDocument);
+                                mobjDocumentList.Remove (objDocument);
 								continue;
 							}
 						}
