@@ -101,7 +101,7 @@ namespace R7.Documents
 							
 							if (docFile != null)
 							{
-								var replaced = false; 
+								var updated = false; 
 								string oldDocumentUrl = null;
 
 								foreach (var file in files)
@@ -117,21 +117,27 @@ namespace R7.Documents
 										document.CreatedByUserId = UserId;
 										document.ModifiedByUserId = UserId;
 
-										replaced = true;
+										updated = true;
 										break;
 									}
 								} // foreach 
-								
-								if (!replaced && checkUnpublishSkipped.Checked)
+
+								if (!updated && checkUnpublishSkipped.Checked)
 								{
-									// unpublish documents with no replacement
+									// unpublish not updated documents
 									document.IsPublished = false;
 								}
+
+                                if (updated && checkPublishUpdated.Checked)
+                                {
+                                    // publish updated documents
+                                    document.IsPublished = true;
+                                }
 
 								// update document
 								DocumentsController.Update (document);
 
-								if (replaced)
+								if (updated)
 								{
 									// update document URL
 									DocumentsController.UpdateDocumentUrl (document, oldDocumentUrl, PortalId, ModuleId);

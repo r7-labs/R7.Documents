@@ -17,10 +17,14 @@
 	        <dnn:Label id="labelUpdateDefaultFolder" runat="server" ControlName="checkUpdateDefaultFolder" Suffix="?" />
 			<asp:CheckBox id="checkUpdateDefaultFolder" runat="server" Checked="true" />
 	    </div>
-	    <div class="dnnFormItem">
+        <div class="dnnFormItem">
 	        <dnn:Label id="labelUnpublishSkipped" runat="server" ControlName="checkUnpublishSkipped" Suffix="?" />
-			<asp:CheckBox id="checkUnpublishSkipped" runat="server" Checked="true" />
-	    </div>
+            <asp:CheckBox id="checkUnpublishSkipped" runat="server" Checked="true" />
+        </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="labelPublishUpdated" runat="server" ControlName="checkPublishUpdated" Suffix="?" />
+            <asp:CheckBox id="checkPublishUpdated" runat="server" Checked="true" />
+        </div>
 		<ul class="dnnActions dnnClear">
 	        <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" Text="Update" /></li>
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>

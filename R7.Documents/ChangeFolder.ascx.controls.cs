@@ -15,6 +15,8 @@ namespace R7.Documents
 		protected DnnFolderDropDownList ddlFolder;
 		protected LabelControl labelUnpublishSkipped;
 		protected CheckBox checkUnpublishSkipped;
+        protected LabelControl labelPublishUpdated;
+        protected CheckBox checkPublishUpdated;
 		protected LabelControl labelUpdateDefaultFolder;
 		protected CheckBox checkUpdateDefaultFolder;
 		protected LinkButton cmdUpdate;

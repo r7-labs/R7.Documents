@@ -15,6 +15,12 @@
     <data name="labelUnpublishSkipped.Help" xml:space="preserve">
         <value>Отметьте чтобы снять с публикации документы, для которых не были найдены соответствующие файлы в целевой папке.</value>
     </data>
+    <data name="labelPublishUpdated.Text" xml:space="preserve">
+        <value>Показать обновленные</value>
+    </data>
+    <data name="labelPublishUpdated.Help" xml:space="preserve">
+        <value>Отметьте чтобы опубликовать документы, для которых были найдены соответствующие файлы в целевой папке.</value>
+    </data>
     <data name="labelUpdateDefaultFolder.Text" xml:space="preserve">
         <value>Обновить папку по умолчанию</value>
     </data>
