@@ -227,6 +227,7 @@ namespace R7.Documents
 						}
 
 						cmdDelete.Visible = false;
+                        panelDelete.Visible = false;
 						ctlAudit.Visible = false;
 						panelUrlTracking.Visible = false;
 

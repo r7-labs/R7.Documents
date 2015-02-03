@@ -43,5 +43,6 @@ namespace R7.Documents
 		protected DnnDateTimePicker pickerCreatedDate;
 		protected LabelControl labelLastModifiedDate;
 		protected DnnDateTimePicker pickerLastModifiedDate;
+        protected Panel panelDelete;
 	}
 }
