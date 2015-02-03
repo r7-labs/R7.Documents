@@ -318,7 +318,7 @@ namespace R7.Documents
 
 				Actions.Add (GetNextActionID (), 
 					Localization.GetString ("ImportDocuments.Action", LocalResourceFile),
-					"ImportDocuments.Action", "", "/images/action_import.gif", EditUrl ("ImportDocuments"), false, SecurityAccessLevel.Edit, true, false);
+					"ImportDocuments.Action", "", "", EditUrl ("ImportDocuments"), false, SecurityAccessLevel.Edit, true, false);
 			
 				return Actions;
 			}
