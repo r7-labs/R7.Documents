@@ -27,7 +27,7 @@
 	        <dnn:label id="plOwner" runat="server" controlname="lstOwner" suffix=":" />
 	        <asp:dropdownlist id="lstOwner" runat="server" Visible="False" />
 	        <asp:label id="lblOwner" runat="server" />
-	        <asp:linkbutton id="lnkChange" runat="server" cssclass="dnnSecondaryAction" resourcekey="lnkChangeOwner" causesvalidation="False" text="Change Owner" />
+	        <asp:linkbutton id="lnkChange" runat="server" cssclass="dnnSecondaryAction" resourcekey="lnkChangeOwner" causesvalidation="False" text="Change Owner" OnClick="lnkChange_Click" />
 	    </div>
 		<div class="dnnFormItem">
 	        <dnn:label id="labelCreatedDate" runat="server" controlname="textCreatedDate" suffix=":" />
@@ -63,10 +63,10 @@
 	        </div>
 	    </asp:Panel>
         <ul class="dnnActions dnnClear">
-	        <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" Text="Update" /></li>
-	        <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdateOverride" Text="Update Anyway" Visible="False" /></li>
+	        <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" Text="Update" OnClick="cmdUpdate_Click" /></li>
+	        <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdateOverride" Text="Update Anyway" Visible="False" OnClick="cmdUpdateOverride_Click" /></li>
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
-	        <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" Text="Delete" /></li>
+	        <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" Text="Delete" OnClick="cmdDelete_Click" /></li>
 	    </ul>
         <asp:Panel id="panelDelete" runat="server" CssClass="dnnFormItem">
             <dnn:Label id="labelDeleteWithResource" runat="server" controlname="checkDeleteWithResource" suffix="?" />

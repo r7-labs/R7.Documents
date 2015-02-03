@@ -66,11 +66,8 @@ namespace R7.Documents
 		{
 			base.OnInit (e);
 			
-			cmdUpdate.Click += cmdUpdate_Click;
-			cmdDelete.Click += cmdDelete_Click;
-			cmdUpdateOverride.Click += cmdUpdateOverride_Click;
-			lnkChange.Click += lnkChange_Click;
-			linkCancel.NavigateUrl = Globals.NavigateURL ();
+            // set URL for cancel button
+            linkCancel.NavigateUrl = Globals.NavigateURL ();
 
 			// Add the "are you sure" message to the delete button click event
 			cmdDelete.Attributes.Add ("onClick", "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
@@ -464,7 +461,7 @@ namespace R7.Documents
 		///                       and localisation
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void cmdDelete_Click (object sender, EventArgs e)
+		protected void cmdDelete_Click (object sender, EventArgs e)
 		{
 			try
 			{
@@ -504,7 +501,7 @@ namespace R7.Documents
 		///                       and localisation
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void cmdUpdate_Click (object sender, EventArgs e)
+		protected void cmdUpdate_Click (object sender, EventArgs e)
 		{
 			Update (false);
 		}
@@ -519,7 +516,7 @@ namespace R7.Documents
 		/// 	[ag]	11 March 2007	Created
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void cmdUpdateOverride_Click (object sender, System.EventArgs e)
+		protected void cmdUpdateOverride_Click (object sender, System.EventArgs e)
 		{
 			Update (true);
 		}
@@ -683,7 +680,7 @@ namespace R7.Documents
 
 		#endregion
 
-		private void lnkChange_Click (System.Object sender, System.EventArgs e)
+		protected void lnkChange_Click (System.Object sender, System.EventArgs e)
 		{
 			lblOwner.Visible = false;
 			lnkChange.Visible = false;
