@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<data name="labelInfo.Text" xml:space="preserve">
-        <value>Then you click "Update" button, for each document's file in the module a file with the same name will be searched in the folder, choosen below. 
-        If there are no such file, a document could be unpublished, deleted, or delete with associated resources.</value>
+        <value>Then you click "Apply" button, for each document's file in the module a file with the same name will be searched in the folder, choosen below. 
+        If there are no such file, a document could be unpublished, deleted, or delete with associated resources. 
+        You also can choose to publish updated documents and delete (or not) old files.</value>
     </data>
 	<data name="labelFolder.Text" xml:space="preserve">
         <value>Folder</value>
@@ -54,5 +55,8 @@
     </data>
     <data name="labelUpdateDefaultFolder.Help" xml:space="preserve">
         <value>Check to update default folder value in the module settings.</value>
+    </data>
+    <data name="buttonApply.Text" xml:space="preserve">
+        <value>Apply</value>
     </data>
 </root>

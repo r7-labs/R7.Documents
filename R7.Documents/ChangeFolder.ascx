@@ -38,7 +38,7 @@
             </asp:RadioButtonList>
         </div>
 		<ul class="dnnActions dnnClear">
-	        <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" Text="Update" /></li>
+	        <li><asp:LinkButton id="buttonApply" runat="server" CssClass="dnnPrimaryAction" resourcekey="buttonApply" Text="Update" OnClick="buttonApply_Click" /></li>
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
 	    </ul>
 	</fieldset>

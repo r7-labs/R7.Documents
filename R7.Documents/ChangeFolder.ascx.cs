@@ -60,8 +60,7 @@ namespace R7.Documents
 			// set folder to module's default folder
 			if (DocumentsSettings.DefaultFolder != null)
 				ddlFolder.SelectedFolder = FolderManager.Instance.GetFolder (DocumentsSettings.DefaultFolder.Value);
-
-			cmdUpdate.Click += cmdUpdate_Click;
+			
 			linkCancel.NavigateUrl = Globals.NavigateURL ();
 		}
 
@@ -86,7 +85,7 @@ namespace R7.Documents
 			}
 		}*/
 
-		private void cmdUpdate_Click (object sender, EventArgs e)
+		protected void buttonApply_Click (object sender, EventArgs e)
 		{
 			try
 			{

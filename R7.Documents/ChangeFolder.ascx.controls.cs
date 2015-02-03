@@ -11,16 +11,11 @@ namespace R7.Documents
 	public partial class ChangeFolder
 	{
 		protected Label labelInfo;
-		protected LabelControl labelFolder;
 		protected DnnFolderDropDownList ddlFolder;
-		protected LabelControl labelSkippedAction;
-        protected RadioButtonList radioSkippedAction;
+	    protected RadioButtonList radioSkippedAction;
         protected RadioButtonList radioOldFilesAction;
-        protected LabelControl labelPublishUpdated;
         protected CheckBox checkPublishUpdated;
-		protected LabelControl labelUpdateDefaultFolder;
 		protected CheckBox checkUpdateDefaultFolder;
-		protected LinkButton cmdUpdate;
 		protected HyperLink linkCancel;
 	}
 }
