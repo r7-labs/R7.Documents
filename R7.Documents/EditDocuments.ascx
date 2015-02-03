@@ -29,11 +29,6 @@
 	        <asp:label id="lblOwner" runat="server" />
 	        <asp:linkbutton id="lnkChange" runat="server" cssclass="dnnSecondaryAction" resourcekey="lnkChangeOwner" causesvalidation="False" text="Change Owner" />
 	    </div>
-	    <div class="dnnFormItem">
-	        <dnn:label id="plSortIndex" runat="server" controlname="txtSortIndex" suffix=":" />
-	        <asp:textbox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
-	        <asp:rangevalidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError" ErrorMessage="Please enter a valid integer value." Display="Dynamic" ControlToValidate="txtSortIndex" Type="Integer" MaximumValue="2147483647" MinimumValue="-2147483648" />
-	    </div>
 		<div class="dnnFormItem">
 	        <dnn:label id="labelCreatedDate" runat="server" controlname="textCreatedDate" suffix=":" />
 			<dnnweb:DnnDateTimePicker id="pickerCreatedDate" runat="server" />
@@ -42,6 +37,11 @@
 	        <dnn:label id="labelLastModifiedDate" runat="server" controlname="textLastModifiedDate" suffix=":" />
 			<dnnweb:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
 	    </div>
+        <div class="dnnFormItem">
+            <dnn:label id="plSortIndex" runat="server" controlname="txtSortIndex" suffix=":" />
+            <asp:textbox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
+            <asp:rangevalidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError" ErrorMessage="Please enter a valid integer value." Display="Dynamic" ControlToValidate="txtSortIndex" Type="Integer" MaximumValue="2147483647" MinimumValue="-2147483648" />
+        </div>
 		<div class="dnnFormItem">
 	        <dnn:label id="plUrl" runat="server" controlname="ctlURL" suffix=":" />
 	       	<div class="dnnLeft" style="width:440px">
