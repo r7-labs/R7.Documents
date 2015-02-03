@@ -13,7 +13,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="AddContent.Action" xml:space="preserve">
-        <value>New Document</value>
+        <value>Add Document</value>
     </data>
     <data name="ChangeFolder.Action" xml:space="preserve">
         <value>Change Folder</value>
