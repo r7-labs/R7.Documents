@@ -7,7 +7,7 @@
 <div class="dnnForm dnnClear">
 	<fieldset>
 	    <div class="dnnFormItem">
-			<asp:label id="labelInfo" runat="server" resourcekey="labelInfo.Text" CssClass="dnnFormMessage dnnFormInfo" />
+			<asp:label id="labelInfo" runat="server" resourcekey="labelInfo.Text" CssClass="dnnFormMessage dnnFormWarning" />
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="labelFolder" runat="server" ControlName="ddlFolder" Suffix=":" />
