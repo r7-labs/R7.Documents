@@ -63,14 +63,6 @@ namespace R7.Documents
 
 		#region Event Handlers
 
-		protected override void OnInit (EventArgs e)
-		{
-			base.OnInit (e);
-
-			grdDocuments.SortCommand += grdDocuments_SortCommand;
-			grdDocuments.ItemCreated += grdDocuments_ItemCreated;
-		}
-
 		/// <summary>
 		/// OnLoad runs when the control is loaded
 		/// </summary>
@@ -115,7 +107,7 @@ namespace R7.Documents
 		/// <history>
 		/// 	[msellers]	5/17/2007	 Added
 		/// </history>
-		public void grdDocuments_SortCommand (object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+		protected void grdDocuments_SortCommand (object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
 		{
 			ArrayList objCustomSortList = new ArrayList ();
 			DocumentsSortColumnInfo objCustomSortColumn = new DocumentsSortColumnInfo ();
@@ -193,7 +185,7 @@ namespace R7.Documents
 		/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private void grdDocuments_ItemCreated (object sender, DataGridItemEventArgs e)
+		protected void grdDocuments_ItemCreated (object sender, DataGridItemEventArgs e)
 		{
 			int intCount = 0;
 			DocumentInfo objDocument = null;
