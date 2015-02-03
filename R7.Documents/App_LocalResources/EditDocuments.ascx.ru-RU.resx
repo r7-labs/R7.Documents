@@ -12,17 +12,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name="cmdUpdateOverride.Text">
-    <value>Все равно сохранить</value>
-  </data>
-  <data name="ControlTitle_edit.Text">
-    <value>Редактирование документа</value>
-  </data>
-  <data name="lnkChangeOwner.Text">
-    <value>Сменить владельца</value>
-  </data>
-  <data name="ModuleHelp.Text">
-    <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
+    <data name="cmdUpdateOverride.Text">
+        <value>Все равно сохранить</value>
+    </data>
+    <data name="ControlTitle_edit.Text">
+        <value>Редактирование документа</value>
+    </data>
+    <data name="lnkChangeOwner.Text">
+        <value>Сменить владельца</value>
+    </data>
+    <data name="ModuleHelp.Text">
+        <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
 &lt;p&gt;The Documents Module produces a list of documents with links to view or 
   download the document (depending on the user's browser settings). Documents can 
   be located within the portal, or can be a link to another website or portal.
@@ -97,89 +97,89 @@
     width: 50px} &lt;/FONT&gt;
 &lt;/P&gt;
 </value>
-  </data>
-  <data name="msgFileDeleted.Text">
-    <value>Связанный с этим документом файл был удален.</value>
-  </data>
-  <data name="msgFileSecurityWarning.Text">
-    <value>Предупреждение: Настройки безопасности для выбранного файла конфликтуют с настройками безопасности модуля. Модуль виден для роли (ролей) [$ROLELIST], но файл - нет. Для пользователей, не имеющих данной роли, строка документа на будет отображена. Вы можете измегнить настройки безопасности в Управлении файлами меню администратора сайта.</value>
-  </data>
-  <data name="msgFileWarning.Text">
-    <value>Выбранный файл можен не отображаться для некоторых пользователей (см. сообщение ниже). Нажмите 'Сохранить' снова, чтобы игнорировать предупреждения.</value>
-  </data>
-  <data name="msgFileWarningHeading.Text">
-    <value>Предупреждение о выбранном файле</value>
-  </data>
-  <data name="msgNoFileSelected.Text">
-    <value>Предупреждение: не выбран файл</value>
-  </data>
-  <data name="Name.ErrorMessage">
-    <value>&lt;br /&gt;Вы должны указать название документа</value>
-  </data>
-  <data name="plCategory.Help">
-    <value>Укажите категорию для документа</value>
-  </data>
-  <data name="plCategory.Text">
-    <value>Категория</value>
-  </data>
-  <data name="plDescription.Help">
-    <value>Укажите описание документа</value>
-  </data>
-  <data name="plDescription.Text">
-    <value>Описание</value>
-  </data>
-  <data name="plForceDownload.Help">
-    <value>При установке этого флага форсируется скачивание файла при переходе по ссылке. Полезно в тех случаях, когда нужно исключить открытие документов непосредственно в браузере пользователя.</value>
-  </data>
-  <data name="plForceDownload.Text">
-    <value>Скачивать</value>
-  </data>
-  <data name="plName.Help">
-    <value>Введите название документа</value>
-  </data>
-  <data name="plName.Text">
-    <value>Название</value>
-  </data>
-  <data name="plOwner.Help">
-    <value>Укажите владельца документа</value>
-  </data>
-  <data name="plOwner.Text">
-    <value>Владелец</value>
-  </data>
-  <data name="plSortIndex.Help">
-    <value>Укажите индекс сортировки для документа. Это значение можно указать как один из критериев сортировки на странице настроек модуля.</value>
-  </data>
-  <data name="plSortIndex.Text">
-    <value>Индекс сортировки</value>
-  </data>
-  <data name="labelIsPublished.Help">
-    <value>Если этот флаг снят, документ будет показан в списке только редакторам модуля в режиме редактирования.</value>
-  </data>
-  <data name="labelIsPublished.Text">
-    <value>Опубликован</value>
-  </data>
-  <data name="labelUrlTracking.Help">
-    <value>Отображает сведения, собранные в результате отслеживания URL документа.</value>
-  </data>
-  <data name="labelUrlTracking.Text">
-    <value>Данные отслеживания</value>
-  </data>
-  <data name="plUrl.Help">
-    <value>Выберите URL, связанный с этим документом</value>
-  </data>
-  <data name="plUrl.Text">
-    <value>Ссылка</value>
-  </data>    
-  <data name="labelCreatedDate.Help" xml:space="preserve">
-    <value>Введите дату и время создания документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
-  </data>
-  <data name="labelCreatedDate.Text" xml:space="preserve">
-    <value>Создан</value>
-  </data>
-  <data name="labelLastModifiedDate.Help" xml:space="preserve">
-    <value>Введите дату и время последних изменений в документе. Оставьте поле пустым (или просто не изменяйте его значения), чтобы выбрать текущие дату и время.</value>
-  </data>
-  <data name="labelLastModifiedDate.Text" xml:space="preserve">
-    <value>Изменен</value>
+    </data>
+    <data name="msgFileDeleted.Text">
+        <value>Связанный с этим документом файл был удален.</value>
+    </data>
+    <data name="msgFileSecurityWarning.Text">
+        <value>Предупреждение: Настройки безопасности для выбранного файла конфликтуют с настройками безопасности модуля. Модуль виден для роли (ролей) [$ROLELIST], но файл - нет. Для пользователей, не имеющих данной роли, строка документа на будет отображена. Вы можете измегнить настройки безопасности в Управлении файлами меню администратора сайта.</value>
+    </data>
+    <data name="msgFileWarning.Text">
+        <value>Выбранный файл можен не отображаться для некоторых пользователей (см. сообщение ниже). Нажмите 'Сохранить' снова, чтобы игнорировать предупреждения.</value>
+    </data>
+    <data name="msgFileWarningHeading.Text">
+        <value>Предупреждение о выбранном файле</value>
+    </data>
+    <data name="msgNoFileSelected.Text">
+        <value>Предупреждение: не выбран файл</value>
+    </data>
+    <data name="Name.ErrorMessage">
+        <value>&lt;br /&gt;Вы должны указать название документа</value>
+    </data>
+    <data name="plCategory.Help">
+        <value>Укажите категорию для документа</value>
+    </data>
+    <data name="plCategory.Text">
+        <value>Категория</value>
+    </data>
+    <data name="plDescription.Help">
+        <value>Укажите описание документа</value>
+    </data>
+    <data name="plDescription.Text">
+        <value>Описание</value>
+    </data>
+    <data name="plForceDownload.Help">
+        <value>При установке этого флага форсируется скачивание файла при переходе по ссылке. Полезно в тех случаях, когда нужно исключить открытие документов непосредственно в браузере пользователя.</value>
+    </data>
+    <data name="plForceDownload.Text">
+        <value>Скачивать</value>
+    </data>
+    <data name="plName.Help">
+        <value>Введите название документа</value>
+    </data>
+    <data name="plName.Text">
+        <value>Название</value>
+    </data>
+    <data name="plOwner.Help">
+        <value>Укажите владельца документа</value>
+    </data>
+    <data name="plOwner.Text">
+        <value>Владелец</value>
+    </data>
+    <data name="plSortIndex.Help">
+        <value>Укажите индекс сортировки для документа. Это значение можно указать как один из критериев сортировки на странице настроек модуля.</value>
+    </data>
+    <data name="plSortIndex.Text">
+        <value>Индекс сортировки</value>
+    </data>
+    <data name="labelIsPublished.Help">
+        <value>Если этот флаг снят, документ будет показан в списке только редакторам модуля в режиме редактирования.</value>
+    </data>
+    <data name="labelIsPublished.Text">
+        <value>Опубликован</value>
+    </data>
+    <data name="labelUrlTracking.Help">
+        <value>Отображает сведения, собранные в результате отслеживания URL документа.</value>
+    </data>
+    <data name="labelUrlTracking.Text">
+        <value>Данные отслеживания</value>
+    </data>
+    <data name="plUrl.Help">
+        <value>Выберите URL, связанный с этим документом</value>
+    </data>
+    <data name="plUrl.Text">
+        <value>Ссылка</value>
+    </data>
+    <data name="labelCreatedDate.Help" xml:space="preserve">
+        <value>Введите дату и время создания документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
+    </data>
+    <data name="labelCreatedDate.Text" xml:space="preserve">
+        <value>Создан</value>
+    </data>
+    <data name="labelLastModifiedDate.Help" xml:space="preserve">
+        <value>Введите дату и время последних изменений в документе. Оставьте поле пустым (или просто не изменяйте его значения), чтобы выбрать текущие дату и время.</value>
+    </data>
+    <data name="labelLastModifiedDate.Text" xml:space="preserve">
+        <value>Изменен</value>
   </data>
 </root>

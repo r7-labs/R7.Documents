@@ -12,47 +12,47 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name="AddContent.Action">
-    <value>Новый документ</value>
-  </data>
-  <data name="ChangeFolder.Action" xml:space="preserve">
-    <value>Сменить папку</value>
-  </data>
-  <data name="ImportDocuments.Action" xml:space="preserve">
-    <value>Импорт документов</value>
-  </data>
-  <data name="Category.Text">
-    <value>Категория</value>
-  </data>
-  <data name="Clicks.Text">
-    <value>Загрузок</value>
-  </data>
-  <data name="Clicks.Format" xml:space="preserve">
-    <value>Загружено {0} раз(а)</value>
-  </data>
-  <data name="CreatedBy.Text">
-    <value>Создал</value>
-  </data>
-  <data name="CreatedDate.Text">
-    <value>Создано</value>
-  </data>
-  <data name="Description.Text">
-    <value>Описание</value>
-  </data>
-  <data name="DownloadLink.Text">
-    <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Загрузить" /&gt;</value>
-  </data>
-  <data name="LastUpdated.Text">
-    <value>Обновлено</value>
-  </data>
-  <data name="ModifiedBy.Text">
-    <value>Изменил</value>
-  </data>
-  <data name="ModifiedDate.Text">
-    <value>Изменено</value>
-  </data>
-  <data name="ModuleHelp.Text">
-    <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
+    <data name="AddContent.Action">
+        <value>Новый документ</value>
+    </data>
+    <data name="ChangeFolder.Action" xml:space="preserve">
+        <value>Сменить папку</value>
+    </data>
+    <data name="ImportDocuments.Action" xml:space="preserve">
+        <value>Импорт документов</value>
+    </data>
+    <data name="Category.Text">
+        <value>Категория</value>
+    </data>
+    <data name="Clicks.Text">
+        <value>Загрузок</value>
+    </data>
+    <data name="Clicks.Format" xml:space="preserve">
+        <value>Загружено {0} раз(а)</value>
+    </data>
+    <data name="CreatedBy.Text">
+        <value>Создал</value>
+    </data>
+    <data name="CreatedDate.Text">
+        <value>Создано</value>
+    </data>
+    <data name="Description.Text">
+        <value>Описание</value>
+    </data>
+    <data name="DownloadLink.Text">
+        <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Загрузить" /&gt;</value>
+    </data>
+    <data name="LastUpdated.Text">
+        <value>Обновлено</value>
+    </data>
+    <data name="ModifiedBy.Text">
+        <value>Изменил</value>
+    </data>
+    <data name="ModifiedDate.Text">
+        <value>Изменено</value>
+    </data>
+    <data name="ModuleHelp.Text">
+        <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
 &lt;p&gt;The Documents Module produces a list of documents with links to view or 
   download the document (depending on the user's browser settings). Documents can 
   be located within the portal, or can be a link to another website or portal.
@@ -125,34 +125,33 @@
   column width to 50 pixels:&lt;/P&gt;
 &lt;P&gt;&lt;FONT face="Courier New" size="2"&gt;&amp;nbsp; .DNN_Documents .SizeItem {color: red; 
     width: 50px} &lt;/FONT&gt;
-&lt;/P&gt;
-</value>
-  </data>
-  <data name="Owner.Text">
-    <value>Владелец</value>
-  </data>
-  <data name="Size.Text">
-    <value>Размер</value>
-  </data>
-  <data name="SortIndex.Text">
-    <value>Индекс сортировки</value>
-  </data>
-  <data name="Title.Text">
-    <value>Название</value>
-  </data>
-  <data name="Kilobytes.Text">
-    <value>Кб</value>
-  </data>
-  <data name="Megabytes.Text">
-    <value>Мб</value>
-  </data>
-  <data name="Unknown.Text">
-    <value>Неизвестно</value>
-  </data>
-  <data name="Url.Text">
-    <value>Ссылка</value>
-  </data>
-  <data name="NothingToDisplay.Text" xml:space="preserve">
-    <value>Нечего отображать. Добавьте документы.</value>
-  </data>
+&lt;/P&gt;</value>
+    </data>
+    <data name="Owner.Text">
+        <value>Владелец</value>
+    </data>
+    <data name="Size.Text">
+        <value>Размер</value>
+    </data>
+    <data name="SortIndex.Text">
+        <value>Индекс сортировки</value>
+    </data>
+    <data name="Title.Text">
+        <value>Название</value>
+    </data>
+    <data name="Kilobytes.Text">
+        <value>Кб</value>
+    </data>
+    <data name="Megabytes.Text">
+        <value>Мб</value>
+    </data>
+    <data name="Unknown.Text">
+        <value>Неизвестно</value>
+    </data>
+    <data name="Url.Text">
+        <value>Ссылка</value>
+    </data>
+    <data name="NothingToDisplay.Text" xml:space="preserve">
+        <value>Нечего отображать. Добавьте документы.</value>
+    </data>
 </root>

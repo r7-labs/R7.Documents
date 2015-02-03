@@ -13,7 +13,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="ModuleHelp.Text" xml:space="preserve">
-        <value>&lt;p&gt;О модуле &quot;Импорт документов&quot;&lt;/p&gt;</value>
+        <value>&lt;p&gt;О модуле "Импорт документов"&lt;/p&gt;</value>
     </data>
     <data name="ControlTitle_importdocuments.Text" xml:space="preserve">
         <value>Импорт документов</value>

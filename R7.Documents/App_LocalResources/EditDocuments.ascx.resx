@@ -12,47 +12,47 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name="plName.Text" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="plName.Help" xml:space="preserve">
-    <value>Enter a name for the Document</value>
-  </data>
-  <data name="Name.ErrorMessage" xml:space="preserve">
-    <value>&lt;br&gt;You Must Enter A Title For The Document</value>
-  </data>
-  <data name="plUrl.Text" xml:space="preserve">
-    <value>Link</value>
-  </data>
-  <data name="plUrl.Help" xml:space="preserve">
-    <value>Select the Url for the Document</value>
-  </data>
-  <data name="plDescription.Text" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="plDescription.Help" xml:space="preserve">
-    <value>Enter a description for the Document</value>
-  </data>
-  <data name="plCategory.Text" xml:space="preserve">
-    <value>Category</value>
-  </data>
-  <data name="plCategory.Help" xml:space="preserve">
-    <value>Enter a category for the Document</value>
-  </data>
-  <data name="plOwner.Text" xml:space="preserve">
-    <value>Owner</value>
-  </data>
-  <data name="plOwner.Help" xml:space="preserve">
-    <value>Select the owner of the Document</value>
-  </data>
-  <data name="plSortIndex.Text" xml:space="preserve">
-    <value>Sort Index</value>
-  </data>
-  <data name="plSortIndex.Help" xml:space="preserve">
-    <value>Enter a sort index for the document.  You can use sort index as a sort criteria in the module settings page.</value>
-  </data>
-  <data name="ModuleHelp.Text" xml:space="preserve">
-    <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
+    <data name="plName.Text" xml:space="preserve">
+        <value>Title</value>
+    </data>
+    <data name="plName.Help" xml:space="preserve">
+        <value>Enter a name for the Document</value>
+    </data>
+    <data name="Name.ErrorMessage" xml:space="preserve">
+        <value>&lt;br&gt;You Must Enter A Title For The Document</value>
+    </data>
+    <data name="plUrl.Text" xml:space="preserve">
+        <value>Link</value>
+    </data>
+    <data name="plUrl.Help" xml:space="preserve">
+        <value>Select the Url for the Document</value>
+    </data>
+    <data name="plDescription.Text" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="plDescription.Help" xml:space="preserve">
+        <value>Enter a description for the Document</value>
+    </data>
+    <data name="plCategory.Text" xml:space="preserve">
+        <value>Category</value>
+    </data>
+    <data name="plCategory.Help" xml:space="preserve">
+        <value>Enter a category for the Document</value>
+    </data>
+    <data name="plOwner.Text" xml:space="preserve">
+        <value>Owner</value>
+    </data>
+    <data name="plOwner.Help" xml:space="preserve">
+        <value>Select the owner of the Document</value>
+    </data>
+    <data name="plSortIndex.Text" xml:space="preserve">
+        <value>Sort Index</value>
+    </data>
+    <data name="plSortIndex.Help" xml:space="preserve">
+        <value>Enter a sort index for the document.  You can use sort index as a sort criteria in the module settings page.</value>
+    </data>
+    <data name="ModuleHelp.Text" xml:space="preserve">
+        <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
 &lt;p&gt;The Documents Module produces a list of documents with links to view or 
   download the document (depending on the user's browser settings). Documents can 
   be located within the portal, or can be a link to another website or portal.
@@ -125,67 +125,66 @@
   column width to 50 pixels:&lt;/P&gt;
 &lt;P&gt;&lt;FONT face="Courier New" size="2"&gt;&amp;nbsp; .DNN_Documents .SizeItem {color: red; 
     width: 50px} &lt;/FONT&gt;
-&lt;/P&gt;
-</value>
-  </data>
-  <data name="ControlTitle_edit.Text" xml:space="preserve">
-    <value>Edit Document</value>
-  </data>
-  <data name="lnkChangeOwner.Text" xml:space="preserve">
-    <value>Change Owner</value>
-  </data>
-  <data name="msgFileDeleted.Text" xml:space="preserve">
-    <value>The file that was selected for this document has been deleted.</value>
-  </data>
-  <data name="msgFileSecurityWarning.Text" xml:space="preserve">
-    <value>Warning: The security permissions for the selected file do not match this module's configured view roles. The module is configured to allow viewing by role(s) &quot;[$ROLELIST]&quot;, but the file does not.  For users who are not members of a role that can view the file, this document row will not be displayed.  You can adjust security settings using the File Manager in the admin menu.</value>
-  </data>
-  <data name="msgFileWarning.Text" xml:space="preserve">
-    <value>Your file selection may not work for all users (see message below).  Click 'Update' again to ignore the warning messages.</value>
-  </data>
-  <data name="msgFileWarningHeading.Text" xml:space="preserve">
-    <value>File Selection Warning</value>
-  </data>
-  <data name="msgNoFileSelected.Text" xml:space="preserve">
-    <value>Warning: No file has been selected.</value>
-  </data>
-  <data name="cmdUpdateOverride.Text" xml:space="preserve">
-    <value>Update Anyway</value>
-  </data>
-  <data name="plForceDownload.Help" xml:space="preserve">
-    <value>If selected this will force the file to be downloaded by the client.  Helpful to prevent documents from opening in the users' browser.</value>
-  </data>
-  <data name="plForceDownload.Text" xml:space="preserve">
-    <value>Force Download</value>
-  </data>
-  <data name="labelUrlTracking.Help" xml:space="preserve">
-    <value>Displays URL tracking (audit) data for this document.</value>
-  </data>
-  <data name="labelUrlTracking.Text" xml:space="preserve">
-    <value>URL Tracking</value>
-  </data>
-  <data name="labelIsPublished.Help" xml:space="preserve">
-    <value>If not checked, document will be shown only to module editors in edit mode.</value>
-  </data>
-  <data name="labelIsPublished.Text" xml:space="preserve">
-    <value>Is Published</value>
-  </data>
-  <data name="labelCreatedDate.Help" xml:space="preserve">
-    <value>Enter date and time of document creation or leave empty to select current date and time.</value>
-  </data>
-  <data name="labelCreatedDate.Text" xml:space="preserve">
-    <value>Created Date</value>
-  </data>
-  <data name="labelLastModifiedDate.Help" xml:space="preserve">
-    <value>Enter date and time of last modification of the document ot leave empty (or just leave as is) to select current date and time.</value>
-  </data>
-  <data name="labelLastModifiedDate.Text" xml:space="preserve">
-    <value>Last Modified Date</value>
-  </data>
-  <data name="labelDeleteWithResource.Text" xml:space="preserve">
-    <value>Delete with Resource</value>
-  </data>
-  <data name="labelDeleteWithResource.Help" xml:space="preserve">
-    <value>If checked, document will be deleted with accociated resource (file or URL) - but only if that resource doesn't referenced by another document.</value>
+&lt;/P&gt;</value>
+    </data>
+    <data name="ControlTitle_edit.Text" xml:space="preserve">
+        <value>Edit Document</value>
+    </data>
+    <data name="lnkChangeOwner.Text" xml:space="preserve">
+        <value>Change Owner</value>
+    </data>
+    <data name="msgFileDeleted.Text" xml:space="preserve">
+        <value>The file that was selected for this document has been deleted.</value>
+    </data>
+    <data name="msgFileSecurityWarning.Text" xml:space="preserve">
+        <value>Warning: The security permissions for the selected file do not match this module's configured view roles. The module is configured to allow viewing by role(s) "[$ROLELIST]", but the file does not.  For users who are not members of a role that can view the file, this document row will not be displayed.  You can adjust security settings using the File Manager in the admin menu.</value>
+    </data>
+    <data name="msgFileWarning.Text" xml:space="preserve">
+        <value>Your file selection may not work for all users (see message below).  Click 'Update' again to ignore the warning messages.</value>
+    </data>
+    <data name="msgFileWarningHeading.Text" xml:space="preserve">
+        <value>File Selection Warning</value>
+    </data>
+    <data name="msgNoFileSelected.Text" xml:space="preserve">
+        <value>Warning: No file has been selected.</value>
+    </data>
+    <data name="cmdUpdateOverride.Text" xml:space="preserve">
+        <value>Update Anyway</value>
+    </data>
+    <data name="plForceDownload.Help" xml:space="preserve">
+        <value>If selected this will force the file to be downloaded by the client.  Helpful to prevent documents from opening in the users' browser.</value>
+    </data>
+    <data name="plForceDownload.Text" xml:space="preserve">
+        <value>Force Download</value>
+    </data>
+    <data name="labelUrlTracking.Help" xml:space="preserve">
+        <value>Displays URL tracking (audit) data for this document.</value>
+    </data>
+    <data name="labelUrlTracking.Text" xml:space="preserve">
+        <value>URL Tracking</value>
+    </data>
+    <data name="labelIsPublished.Help" xml:space="preserve">
+        <value>If not checked, document will be shown only to module editors in edit mode.</value>
+    </data>
+    <data name="labelIsPublished.Text" xml:space="preserve">
+        <value>Is Published</value>
+    </data>
+    <data name="labelCreatedDate.Help" xml:space="preserve">
+        <value>Enter date and time of document creation or leave empty to select current date and time.</value>
+    </data>
+    <data name="labelCreatedDate.Text" xml:space="preserve">
+        <value>Created Date</value>
+    </data>
+    <data name="labelLastModifiedDate.Help" xml:space="preserve">
+        <value>Enter date and time of last modification of the document ot leave empty (or just leave as is) to select current date and time.</value>
+    </data>
+    <data name="labelLastModifiedDate.Text" xml:space="preserve">
+        <value>Last Modified Date</value>
+    </data>
+    <data name="labelDeleteWithResource.Text" xml:space="preserve">
+        <value>Delete with Resource</value>
+    </data>
+    <data name="labelDeleteWithResource.Help" xml:space="preserve">
+        <value>If checked, document will be deleted with accociated resource (file or URL) - but only if that resource doesn't referenced by another document.</value>
   </data>
 </root>

@@ -12,56 +12,56 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name="AddContent.Action" xml:space="preserve">
-    <value>New Document</value>
-  </data>
-  <data name="ChangeFolder.Action" xml:space="preserve">
-    <value>Change Folder</value>
-  </data>
-  <data name="ImportDocuments.Action" xml:space="preserve">
-    <value>Import Documents</value>
-  </data>
-  <data name="Title.Text" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="CreatedBy.Text" xml:space="preserve">
-    <value>Created By</value>
-  </data>
-  <data name="DownloadLink.Text" xml:space="preserve">
-    <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Download" /&gt;</value>
-  </data>
-  <data name="CreatedDate.Text" xml:space="preserve">
-    <value>Created Date</value>
-  </data>
-  <data name="Description.Text" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="SortIndex.Text" xml:space="preserve">
-    <value>Sort Index</value>
-  </data>
-  <data name="ModifiedBy.Text" xml:space="preserve">
-    <value>Modified By</value>
-  </data>
-  <data name="ModifiedDate.Text" xml:space="preserve">
-    <value>Modified Date</value>
-  </data>
-  <data name="Owner.Text" xml:space="preserve">
-    <value>Owner</value>
-  </data>
-  <data name="Category.Text" xml:space="preserve">
-    <value>Category</value>
-  </data>
-  <data name="LastUpdated.Text" xml:space="preserve">
-    <value>Last Updated</value>
-  </data>
-  <data name="Size.Text" xml:space="preserve">
-    <value>Size</value>
-  </data>
-	<data name="Url.Text" xml:space="preserve">
-    <value>Url</value>
-  </data>
-  <data name="ModuleHelp.Text" xml:space="preserve">
-    <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
+    <data name="AddContent.Action" xml:space="preserve">
+        <value>New Document</value>
+    </data>
+    <data name="ChangeFolder.Action" xml:space="preserve">
+        <value>Change Folder</value>
+    </data>
+    <data name="ImportDocuments.Action" xml:space="preserve">
+        <value>Import Documents</value>
+    </data>
+    <data name="Title.Text" xml:space="preserve">
+        <value>Title</value>
+    </data>
+    <data name="CreatedBy.Text" xml:space="preserve">
+        <value>Created By</value>
+    </data>
+    <data name="DownloadLink.Text" xml:space="preserve">
+        <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Download" /&gt;</value>
+    </data>
+    <data name="CreatedDate.Text" xml:space="preserve">
+        <value>Created Date</value>
+    </data>
+    <data name="Description.Text" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="SortIndex.Text" xml:space="preserve">
+        <value>Sort Index</value>
+    </data>
+    <data name="ModifiedBy.Text" xml:space="preserve">
+        <value>Modified By</value>
+    </data>
+    <data name="ModifiedDate.Text" xml:space="preserve">
+        <value>Modified Date</value>
+    </data>
+    <data name="Owner.Text" xml:space="preserve">
+        <value>Owner</value>
+    </data>
+    <data name="Category.Text" xml:space="preserve">
+        <value>Category</value>
+    </data>
+    <data name="LastUpdated.Text" xml:space="preserve">
+        <value>Last Updated</value>
+    </data>
+    <data name="Size.Text" xml:space="preserve">
+        <value>Size</value>
+    </data>
+    <data name="Url.Text" xml:space="preserve">
+        <value>Url</value>
+    </data>
+    <data name="ModuleHelp.Text" xml:space="preserve">
+        <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
 &lt;p&gt;The Documents Module produces a list of documents with links to view or 
   download the document (depending on the user's browser settings). Documents can 
   be located within the portal, or can be a link to another website or portal.
@@ -134,25 +134,24 @@
   column width to 50 pixels:&lt;/P&gt;
 &lt;P&gt;&lt;FONT face="Courier New" size="2"&gt;&amp;nbsp; .DNN_Documents .SizeItem {color: red; 
     width: 50px} &lt;/FONT&gt;
-&lt;/P&gt;
-</value>
-  </data>
-  <data name="Clicks.Text" xml:space="preserve">
-    <value>Clicks</value>
-  </data>
-  <data name="Clicks.Format" xml:space="preserve">
-    <value>Downloaded {0} times</value>
-  </data>
-	<data name="Megabytes.Text" xml:space="preserve">
-    <value>Mb</value>
-  </data>
-	<data name="Kilobytes.Text" xml:space="preserve">
-    <value>Kb</value>
-  </data>
-	<data name="Unknown.Text" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
-  <data name="NothingToDisplay.Text" xml:space="preserve">
-    <value>Nothing to display. Please add some documents.</value>
-  </data>
+&lt;/P&gt;</value>
+    </data>
+    <data name="Clicks.Text" xml:space="preserve">
+        <value>Clicks</value>
+    </data>
+    <data name="Clicks.Format" xml:space="preserve">
+        <value>Downloaded {0} times</value>
+    </data>
+    <data name="Megabytes.Text" xml:space="preserve">
+        <value>Mb</value>
+    </data>
+    <data name="Kilobytes.Text" xml:space="preserve">
+        <value>Kb</value>
+    </data>
+    <data name="Unknown.Text" xml:space="preserve">
+        <value>Unknown</value>
+    </data>
+    <data name="NothingToDisplay.Text" xml:space="preserve">
+        <value>Nothing to display. Please add some documents.</value>
+    </data>
 </root>
