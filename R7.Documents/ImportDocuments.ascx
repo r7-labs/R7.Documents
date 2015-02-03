@@ -8,14 +8,14 @@
 	<fieldset>
 		<div class="dnnFormItem">
 			<dnn:Label id="labelModule" runat="server" ControlName="comboModule" Suffix=":" />
-			<dnn:DnnComboBox id="comboModule" runat="server" AutoPostBack="true" /> 
+			<dnn:DnnComboBox id="comboModule" runat="server" AutoPostBack="true" OnSelectedIndexChanged="comboModules_SelectedIndexChanged" /> 
 		</div>
 		<asp:Panel id="panelDocuments" runat="server" CssClass="dnnFormItem" Visible="false">
 			<dnn:Label id="labelDocuments" runat="server" ControlName="listDocuments" Suffix=":" />
 			<asp:CheckBoxList id="listDocuments" runat="server" DataTextField="Title" DataValueField="ItemID" />
 		</asp:Panel>	
 		<ul class="dnnActions dnnClear">
-	        <li><asp:LinkButton id="buttonImport" runat="server" CssClass="dnnPrimaryAction" resourcekey="buttonImport.Text" Visible="false" Text="Import" /></li>
+	        <li><asp:LinkButton id="buttonImport" runat="server" CssClass="dnnPrimaryAction" resourcekey="buttonImport.Text" Visible="false" Text="Import" OnClick="buttonImport_Click" /></li>
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
 	    </ul>
 	</fieldset>

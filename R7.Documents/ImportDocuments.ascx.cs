@@ -70,8 +70,7 @@ namespace R7.Documents
 			foreach (var docModule in docModules)
 				comboModule.AddItem (docModule.ModuleTitle, docModule.ModuleID.ToString());
 
-			comboModule.SelectedIndexChanged += comboModules_SelectedIndexChanged;
-			buttonImport.Click += buttonImport_Click;
+			// set Cancel button link
 			linkCancel.NavigateUrl = Globals.NavigateURL ();
 		}
 
@@ -97,7 +96,7 @@ namespace R7.Documents
 			}
 		}*/
 
-		private void buttonImport_Click (object sender, EventArgs e)
+		protected void buttonImport_Click (object sender, EventArgs e)
 		{
 			try
 			{
@@ -151,7 +150,7 @@ namespace R7.Documents
 			}
 		}
 
-		private void comboModules_SelectedIndexChanged (object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+		protected void comboModules_SelectedIndexChanged (object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
 		{
 			try
 			{
