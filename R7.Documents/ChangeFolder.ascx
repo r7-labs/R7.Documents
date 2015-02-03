@@ -34,7 +34,7 @@
                 <asp:ListItem resourcekey="SkippedActionDoNothing.Text" Value="0" />    
                 <asp:ListItem resourcekey="SkippedActionUnpublish.Text" Value="1" Selected="true" />
                 <asp:ListItem resourcekey="SkippedActionDelete.Text" Value="2" />
-                <asp:ListItem resourcekey="SkippedActionDeleteWithResources.Text" Value="32" />
+                <asp:ListItem resourcekey="SkippedActionDeleteWithResources.Text" Value="3" />
             </asp:RadioButtonList>
         </div>
 		<ul class="dnnActions dnnClear">
