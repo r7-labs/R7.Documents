@@ -68,8 +68,12 @@
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
 	        <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" Text="Delete" OnClick="cmdDelete_Click" /></li>
 	    </ul>
+        <asp:Panel id="panelUpdate" runat="server" CssClass="dnnFormItem">
+            <dnn:Label id="labelDontUpdateLastModifiedDate" runat="server" ControlName="checkDontUpdateLastModifiedDate" Suffix=":" />
+            <asp:CheckBox id="checkDontUpdateLastModifiedDate" runat="server"  />
+        </asp:Panel>
         <asp:Panel id="panelDelete" runat="server" CssClass="dnnFormItem">
-            <dnn:Label id="labelDeleteWithResource" runat="server" controlname="checkDeleteWithResource" suffix="?" />
+            <dnn:Label id="labelDeleteWithResource" runat="server" ControlName="checkDeleteWithResource" Suffix="?" />
             <asp:CheckBox id="checkDeleteWithResource" runat="server"  />
         </asp:Panel>
 		<hr />

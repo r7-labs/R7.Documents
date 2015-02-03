@@ -225,6 +225,7 @@ namespace R7.Documents
 
 						cmdDelete.Visible = false;
                         panelDelete.Visible = false;
+                        panelUpdate.Visible = false;
 						ctlAudit.Visible = false;
 						panelUrlTracking.Visible = false;
 
@@ -623,11 +624,14 @@ namespace R7.Documents
 
 					if (pickerLastModifiedDate.SelectedDate != null)
 					{
-						if (Null.IsNull (ItemID) || objDocument.ModifiedDate != pickerLastModifiedDate.SelectedDate.Value)
-							objDocument.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
-						else 
-							// update ModifiedDate
-							objDocument.ModifiedDate = now;
+                        if (!checkDontUpdateLastModifiedDate.Checked)
+                        {
+                            if (Null.IsNull (ItemID) || objDocument.ModifiedDate != pickerLastModifiedDate.SelectedDate.Value)
+    							objDocument.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
+                            else 
+    							// update ModifiedDate
+    							objDocument.ModifiedDate = now;
+                        }
 					}
 					else
 					{

@@ -44,5 +44,7 @@ namespace R7.Documents
 		protected LabelControl labelLastModifiedDate;
 		protected DnnDateTimePicker pickerLastModifiedDate;
         protected Panel panelDelete;
+        protected Panel panelUpdate;
+        protected CheckBox checkDontUpdateLastModifiedDate;
 	}
 }

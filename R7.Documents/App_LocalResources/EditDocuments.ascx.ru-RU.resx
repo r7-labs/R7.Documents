@@ -181,5 +181,11 @@
     </data>
     <data name="labelLastModifiedDate.Text" xml:space="preserve">
         <value>Изменен</value>
-  </data>
+    </data>
+    <data name="labelDontUpdateLastModifiedDate.Text" xml:space="preserve">
+        <value>Не обновлять дату изменения</value>
+    </data>
+    <data name="labelDontUpdateLastModifiedDate.Help" xml:space="preserve">
+        <value>Если отмечено, дата и время последнего изменения документа не будут обновлены при его сохранении.</value>
+    </data>
 </root>
