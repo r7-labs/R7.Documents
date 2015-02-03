@@ -117,7 +117,7 @@
 </value>
   </data>
   <data name="ControlTitle_edit.Text" xml:space="preserve">
-    <value>Edit Documents</value>
+    <value>Edit Document</value>
   </data>
   <data name="lnkChangeOwner.Text" xml:space="preserve">
     <value>Change Owner</value>

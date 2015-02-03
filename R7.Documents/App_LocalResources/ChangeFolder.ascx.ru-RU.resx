@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+    <data name="ModuleHelp.Text" xml:space="preserve">
+        <value>&lt;p&gt;О модуле &quot;Сменить папку&quot;&lt;/p&gt;</value>
+    </data>
+    <data name="ControlTitle_changefolder.Text" xml:space="preserve">
+        <value>Сменить папку</value>
+    </data>
 	<data name="labelInfo.Text" xml:space="preserve">
         <value>При нажатии на кнопку "Применить", для каждого файла, связанного с документом в модуле, будет предпринята попытка найти файл с таким же именем в указанной ниже папке. 
         Если такой файл не будет найден, соответствующий документ может быть снят с публикации, удален, или удален вместе со связанными ресурсами.

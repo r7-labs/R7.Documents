@@ -147,7 +147,7 @@
 </value>
   </data>
   <data name="ControlTitle_settings.Text" xml:space="preserve">
-    <value>Documents Module Settings</value>
+    <value>Documents Settings</value>
   </data>
   <data name="cmdAdd.Text" xml:space="preserve">
     <value>Add Sort Order</value>

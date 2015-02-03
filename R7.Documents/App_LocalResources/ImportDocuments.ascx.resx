@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+    <data name="ModuleHelp.Text" xml:space="preserve">
+        <value>&lt;p&gt;About Import Documents module&lt;/p&gt;</value>
+    </data>
+    <data name="ControlTitle_importdocuments.Text" xml:space="preserve">
+        <value>Import Documents</value>
+    </data>
     <data name="labelModule.Text" xml:space="preserve">
         <value>Documents Module</value>
     </data>
