@@ -58,7 +58,7 @@
 	    </div>
 		<asp:Panel id="panelUrlTracking" runat="server" CssClass="dnnFormItem">
 	        <dnn:label id="labelUrlTracking" runat="server" controlname="ctlUrlTracking" suffix=":" />
-	        <div class="dnnLeft" style="padding:1.5em;margin-top:0.5em;background-color:#eee">
+	        <div class="dnnLeft" style="padding:1.5em;margin-top:0.5em;background-color:#eee;width:43%">
 	            <portal:tracking id="ctlUrlTracking" runat="server" />
 	        </div>
 	    </asp:Panel>
