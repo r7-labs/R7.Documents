@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<data name="labelInfo.Text" xml:space="preserve">
-        <value>Then you click "Update" button, for each document's file in the module a file with the same name will be searched in the folder, choosen below. If there are no such file, a document could be unpublished, deleted, or delete with associated resources.</value>
+        <value>Then you click "Update" button, for each document's file in the module a file with the same name will be searched in the folder, choosen below. 
+        If there are no such file, a document could be unpublished, deleted, or delete with associated resources.</value>
     </data>
 	<data name="labelFolder.Text" xml:space="preserve">
         <value>Folder</value>
@@ -10,7 +11,7 @@
         <value>Please select a folder to search files in.</value>
     </data>
     <data name="labelOldFilesAction.Text" xml:space="preserve">
-        <value>Updated Old Files</value>
+        <value>What to do with Old Files</value>
     </data>
     <data name="labelOldFilesAction.Help" xml:space="preserve">
         <value>Specify an action to apply to the old files, for which corresponding file was found in the target folder.
@@ -23,7 +24,7 @@
         <value>Delete</value>
     </data>
     <data name="labelSkippedAction.Text" xml:space="preserve">
-        <value>Skipped Documents</value>
+        <value>What to do with Skipped Documents</value>
     </data>
     <data name="labelSkippedAction.Help" xml:space="preserve">
         <value>Specify an action to apply to the documents, for which no corresponding file found in the target folder.
@@ -43,7 +44,7 @@
         <value>Delete with Resources</value>
     </data>
     <data name="labelPublishUpdated.Text" xml:space="preserve">
-        <value>Publish Updated</value>
+        <value>Publish Updated Documents</value>
     </data>
     <data name="labelPublishUpdated.Help" xml:space="preserve">
         <value>Check to publish all documents, for which corresponding file was found in the target folder.</value>
