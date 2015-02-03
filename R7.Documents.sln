@@ -30,7 +30,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = R7.Documents\R7.Documents.csproj
 		Policies = $0
 		$0.NameConventionPolicy = $1
 		$1.Rules = $2
@@ -156,6 +155,6 @@ Global
 		$22.NamingStyle = PascalCase
 		$22.IncludeInstanceMembers = True
 		$22.IncludeStaticEntities = True
-		version = 1.0.5
+		version = 1.0.6
 	EndGlobalSection
 EndGlobal

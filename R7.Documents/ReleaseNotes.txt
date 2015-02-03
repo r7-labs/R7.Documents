@@ -1,6 +1,13 @@
 ﻿<h3>Version 1.0.6</h3>
 <ul>
+    <li>Implemented #16: ChangeFolder: Allow choosing actions to take about documents and files.</li>
+    <li>Implemented #17: Allow to suppress updating of Last Modified Date.</li>
+    <li>Allow delete documents with associated resources (files or URLs).</li>
     <li>Display clicks count in the download link tooltip.</li>
+    <li>Fixed #13: Search is not working.</li>
+    <li>Fixed #14: Hidden documents after folder deletion.</li>
+    <li>Edit document form adjustments.</li>
+    <li>Minor performance and stability improvements, code cleanup.</li>
 </ul>
 
 <h3>Version 1.0.5</h3>
