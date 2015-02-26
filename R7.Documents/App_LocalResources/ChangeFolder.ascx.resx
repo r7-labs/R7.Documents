@@ -19,9 +19,8 @@
         <value>Change Folder</value>
     </data>
     <data name="labelInfo.Text" xml:space="preserve">
-        <value>Then you click "Apply" button, for each document's file in the module a file with the same name will be searched in the folder, choosen below. 
-        If there are no such file, a document could be unpublished, deleted, or delete with associated resources. 
-        You also can choose to publish updated documents and delete (or not) old files.</value>
+        <value>Then you click "Apply" button, for each document's file in the module, a file with the same name will be searched in the selected folder. 
+        If there is such a file, the document could be published automatically. You also can choose to unpublish skipped documents and delete (or not) old files.</value>
     </data>
     <data name="labelFolder.Text" xml:space="preserve">
         <value>Folder</value>
@@ -29,44 +28,24 @@
     <data name="labelFolder.Help" xml:space="preserve">
         <value>Please select a folder to search files in.</value>
     </data>
-    <data name="labelOldFilesAction.Text" xml:space="preserve">
-        <value>What to do with Old Files</value>
+    <data name="labelDeleteOldFiles.Text" xml:space="preserve">
+        <value>Delete Old Files</value>
     </data>
-    <data name="labelOldFilesAction.Help" xml:space="preserve">
-        <value>Specify an action to apply to the old files, for which corresponding file was found in the target folder.
-        You can choose to keep them or delete. In the last case, file will be deleted only then it isn't referenced by other documents.</value>
+    <data name="labelDeleteOldFiles.Help" xml:space="preserve">
+        <value>Check to delete the files of documents, for which corresponding file will be found in the target folder.
+        Note what file will be deleted only then it isn't referenced by other documents.</value>
     </data>
-    <data name="OldFilesActionKeep.Text" xml:space="preserve">
-        <value>Keep</value>
+    <data name="labelUnpublishSkipped.Text" xml:space="preserve">
+        <value>Unpublish Skipped Documents</value>
     </data>
-    <data name="OldFilesActionDelete.Text" xml:space="preserve">
-        <value>Delete</value>
-    </data>
-    <data name="labelSkippedAction.Text" xml:space="preserve">
-        <value>What to do with Skipped Documents</value>
-    </data>
-    <data name="labelSkippedAction.Help" xml:space="preserve">
-        <value>Specify an action to apply to the documents, for which no corresponding file found in the target folder.
-        You can choose to unpublish them, delete just document entry or delete document entry with accociated resources (files, URLs).
-        In the last case, associated resource will be deleted only then it isn't referenced by other documents.</value>
-    </data>
-    <data name="SkippedActionDoNothing.Text" xml:space="preserve">
-        <value>Do Nothing</value>
-    </data>
-    <data name="SkippedActionUnpublish.Text" xml:space="preserve">
-        <value>Unpublish</value>
-    </data>
-    <data name="SkippedActionDelete.Text" xml:space="preserve">
-        <value>Delete</value>
-    </data>
-    <data name="SkippedActionDeleteWithResources.Text" xml:space="preserve">
-        <value>Delete with Resources</value>
+    <data name="labelUnpublishSkipped.Help" xml:space="preserve">
+        <value>Check to unpublish all documents, for which no corresponding file will be found in the target folder.</value>
     </data>
     <data name="labelPublishUpdated.Text" xml:space="preserve">
         <value>Publish Updated Documents</value>
     </data>
     <data name="labelPublishUpdated.Help" xml:space="preserve">
-        <value>Check to publish all documents, for which corresponding file was found in the target folder.</value>
+        <value>Check to publish all documents, for which corresponding file will be found in the target folder.</value>
     </data>
     <data name="labelUpdateDefaultFolder.Text" xml:space="preserve">
         <value>Update Default Folder</value>

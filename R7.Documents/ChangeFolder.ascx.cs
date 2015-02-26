@@ -36,15 +36,9 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
-using System.ComponentModel;
-using System.Security.Cryptography;
 
 namespace R7.Documents
 {
-    public enum SkippedDocumentsAction  { DoNothing, Unpublish, Delete, DeleteWithResources }
-
-    public enum OldFilesAction { Keep, Delete }
-
 	public partial class ChangeFolder : DocumentsPortalModuleBase
 	{
 		#region Fields
@@ -132,7 +126,7 @@ namespace R7.Documents
 
                                     // safe remove old files, if needed.
                                     // need to do this before update!
-                                    if (radioOldFilesAction.SelectedIndex == (int) OldFilesAction.Delete)
+                                    if (checkDeleteOldFiles.Checked)
                                     {
                                         if (oldDocument.Url != document.Url)
                                         {
@@ -146,26 +140,11 @@ namespace R7.Documents
                                 }
                                 else
                                 {
-                                    switch ((SkippedDocumentsAction)radioSkippedAction.SelectedIndex) 
+                                    if (checkUnpublishSkipped.Checked)
                                     {
-                                        case SkippedDocumentsAction.Unpublish:
-                                            // unpublish not updated documents & update them
-                                            document.IsPublished = false;
-                                            DocumentsController.Update (document);
-                                            break;
-
-                                        case SkippedDocumentsAction.Delete: 
-                                            // delete not updated documents & URL tracking data
-                                            DocumentsController.Delete (document);
-                                            DocumentsController.DeleteDocumentUrl (oldDocument.Url, PortalId, ModuleId);
-                                            break;
-
-                                        case SkippedDocumentsAction.DeleteWithResources:
-                                            // delete not updated documents, URL tracking data and resources
-                                            DocumentsController.Delete (document);
-                                            DocumentsController.DeleteDocumentUrl (oldDocument.Url, PortalId, ModuleId);
-                                            DocumentsController.DeleteDocumentResource (document, PortalId);
-                                            break;
+                                        // unpublish not updated documents & update them
+                                        document.IsPublished = false;
+                                        DocumentsController.Update (document);
                                     }
                                 } // if (updated)
 							}

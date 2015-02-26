@@ -22,20 +22,12 @@
             <asp:CheckBox id="checkPublishUpdated" runat="server" Checked="true" />
         </div>
         <div class="dnnFormItem">
-            <dnn:Label id="labelOldFilesAction" runat="server" ControlName="radioOldFilesAction" Suffix="?" />
-            <asp:RadioButtonList id="radioOldFilesAction" runat="server" RepeatDirection="Horizontal">
-                <asp:ListItem resourcekey="OldFilesActionKeep.Text" Value="0" Selected="true" />    
-                <asp:ListItem resourcekey="OldFilesActionDelete.Text" Value="1" />
-            </asp:RadioButtonList>
+            <dnn:Label id="labelUnpublishSkipped" runat="server" ControlName="checkUnpublishSkipped" Suffix="?" />
+            <asp:CheckBox id="checkUnpublishSkipped" runat="server" Checked="true" />
         </div>
         <div class="dnnFormItem">
-	        <dnn:Label id="labelSkippedAction" runat="server" ControlName="radioSkippedAction" Suffix="?" />
-            <asp:RadioButtonList id="radioSkippedAction" runat="server" RepeatDirection="Horizontal">
-                <asp:ListItem resourcekey="SkippedActionDoNothing.Text" Value="0" />    
-                <asp:ListItem resourcekey="SkippedActionUnpublish.Text" Value="1" Selected="true" />
-                <asp:ListItem resourcekey="SkippedActionDelete.Text" Value="2" />
-                <asp:ListItem resourcekey="SkippedActionDeleteWithResources.Text" Value="3" />
-            </asp:RadioButtonList>
+            <dnn:Label id="labelDeleteOldFiles" runat="server" ControlName="checkDeleteOldFiles" Suffix="?" />
+            <asp:CheckBox id="checkDeleteOldFiles" runat="server" Checked="false" />
         </div>
 		<ul class="dnnActions dnnClear">
 	        <li><asp:LinkButton id="buttonApply" runat="server" CssClass="dnnPrimaryAction" resourcekey="buttonApply" Text="Update" OnClick="buttonApply_Click" /></li>
