@@ -10,18 +10,18 @@ namespace R7.Documents
 {
 	public partial class SettingsDocuments
 	{
-		protected System.Web.UI.WebControls.CheckBox chkShowTitleLink;
-		protected System.Web.UI.WebControls.CheckBox chkUseCategoriesList;
+		protected CheckBox chkShowTitleLink;
+		protected CheckBox chkUseCategoriesList;
 		protected DnnComboBox comboSortFields;
-		protected System.Web.UI.WebControls.DataGrid grdSortColumns;
-		protected System.Web.UI.WebControls.LinkButton lnkAddSortColumn;
-		protected System.Web.UI.WebControls.DataGrid grdDisplayColumns;
-		protected System.Web.UI.WebControls.DropDownList cboCategoriesList;
+		protected DataGrid grdSortColumns;
+		protected LinkButton lnkAddSortColumn;
+		protected DataGrid grdDisplayColumns;
+		protected DropDownList cboCategoriesList;
 		protected DnnFolderDropDownList folderDefaultFolder;
-		protected System.Web.UI.WebControls.HyperLink lnkEditLists;
-		protected System.Web.UI.WebControls.Label lstNoListsAvailable;
+		protected HyperLink lnkEditLists;
+		protected Label lstNoListsAvailable;
 		protected DnnComboBox comboSortOrderDirection;
-		protected System.Web.UI.WebControls.CheckBox chkAllowUserSort;
-		protected System.Web.UI.WebControls.Label lblCannotEditLists;
+		protected CheckBox chkAllowUserSort;
+		protected Label lblCannotEditLists;
 	}
 }
