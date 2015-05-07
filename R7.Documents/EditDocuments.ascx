@@ -52,6 +52,10 @@
 	        <dnn:Label id="plForceDownload" runat="server" controlname="chkForceDownload" suffix="?" />
 	        <asp:CheckBox runat="server" ID="chkForceDownload" />
 	    </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="labelLinkAttributes" runat="server" controlname="textLinkAttributes" />
+            <asp:TextBox runat="server" id="textLinkAttributes" MaxLength="255" />
+        </div>
 		<div class="dnnFormItem">
 	        <dnn:Label id="labelIsPublished" runat="server" controlname="checkIsPublished" suffix="?" />
 	        <asp:CheckBox runat="server" ID="checkIsPublished" />

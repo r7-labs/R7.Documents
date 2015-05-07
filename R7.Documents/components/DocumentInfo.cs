@@ -91,6 +91,7 @@ namespace R7.Documents
 
 		public bool IsPublished { get; set; }
 
+        public string LinkAttributes { get; set; }
 
 		#endregion
 

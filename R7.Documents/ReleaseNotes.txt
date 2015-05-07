@@ -1,4 +1,9 @@
-﻿<h3>Version 1.0.6</h3>
+﻿<h3>Version 1.0.7</h3>
+<ul>
+    <li>Support for custom document link HTML attributes.</li>
+</ul>
+
+<h3>Version 1.0.6</h3>
 <ul>
     <li>Implemented #16: ChangeFolder: Allow choosing actions to take about documents and files.</li>
     <li>Implemented #17: Allow to suppress updating of Last Modified Date.</li>

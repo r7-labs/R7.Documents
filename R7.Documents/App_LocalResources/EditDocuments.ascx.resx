@@ -157,6 +157,12 @@
     <data name="plForceDownload.Text" xml:space="preserve">
         <value>Force Download</value>
     </data>
+    <data name="labelLinkAttributes.Text" xml:space="preserve">
+        <value>Link Attributes:</value>
+    </data>
+    <data name="labelLinkAttributes.Help" xml:space="preserve">
+        <value>Use this to define custom HTML attributes (e.g. microdata) for document link in the attr1;attr2=&quot;value&quot; format.</value>
+    </data>
     <data name="labelUrlTracking.Help" xml:space="preserve">
         <value>Displays URL tracking (audit) data for this document.</value>
     </data>

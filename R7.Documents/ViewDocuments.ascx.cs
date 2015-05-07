@@ -256,6 +256,11 @@ namespace R7.Documents
 								{
 									_with1.Target = "_blank";
 								}
+
+                                // set HTML attributes for the link
+                                var docFormatter = new DocumentInfoFormatter (objDocument);
+                                foreach (var htmlAttr in docFormatter.LinkAttributesCollection)
+                                    _with1.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
 							}
 						}
 

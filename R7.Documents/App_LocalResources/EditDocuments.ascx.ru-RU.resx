@@ -134,6 +134,12 @@
     <data name="plForceDownload.Text">
         <value>Скачивать</value>
     </data>
+    <data name="labelLinkAttributes.Text" xml:space="preserve">
+        <value>Атрибуты ссылки:</value>
+    </data>
+    <data name="labelLinkAttributes.Help" xml:space="preserve">
+        <value>Используйте это поле для задания HTML атрибутов (например, микроданных) для ссылки на документ в формате attr1;attr2=&quot;value&quot;.</value>
+    </data>
     <data name="plName.Help">
         <value>Введите название документа</value>
     </data>

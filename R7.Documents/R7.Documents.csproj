@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>R7.Documents</RootNamespace>
     <AssemblyName>R7.Documents</AssemblyName>
-    <ReleaseVersion>1.0.6</ReleaseVersion>
+    <ReleaseVersion>1.0.7</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -77,6 +77,7 @@
     <None Include="License.txt" />
     <None Include="ReleaseNotes.txt" />
     <None Include="R7.Documents.dnn" />
+    <None Include="SqlDataProvider\01.00.07.SqlDataProvider" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="ImportDocuments.controls.cs">
       <DependentUpon>ImportDocuments.ascx</DependentUpon>
     </Compile>
+    <Compile Include="components\DocumentInfoFormatter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

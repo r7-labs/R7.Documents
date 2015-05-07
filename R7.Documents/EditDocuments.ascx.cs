@@ -136,6 +136,7 @@ namespace R7.Documents
 							txtDescription.Text = objDocument.Description;
 							chkForceDownload.Checked = objDocument.ForceDownload;
 							checkIsPublished.Checked = objDocument.IsPublished;
+                            textLinkAttributes.Text = objDocument.LinkAttributes;
 
 							pickerCreatedDate.SelectedDate = objDocument.CreatedDate;
 							pickerLastModifiedDate.SelectedDate = objDocument.ModifiedDate;
@@ -570,6 +571,7 @@ namespace R7.Documents
 
 					var oldUrl = objDocument.Url;
 					objDocument.Url = ctlUrl.Url;
+                    objDocument.LinkAttributes = textLinkAttributes.Text;
 					
 					if (lstOwner.Visible)
 					{

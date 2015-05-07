@@ -19,6 +19,7 @@ namespace R7.Documents
 		protected System.Web.UI.WebControls.TextBox txtCategory;
 		protected System.Web.UI.WebControls.TextBox txtDescription;
 		protected System.Web.UI.WebControls.CheckBox chkForceDownload;
+        protected TextBox textLinkAttributes;
 		protected System.Web.UI.WebControls.DropDownList lstCategory;
 		protected System.Web.UI.WebControls.DropDownList lstOwner;
 		//tasks
