@@ -24,6 +24,12 @@
     <data name="plShowTitleLink.Help" xml:space="preserve">
         <value>Controls whether to display the title as a download link, or as plain text.</value>
     </data>
+    <data name="labelGridStyle.Text" xml:space="preserve">
+        <value>Grid Style</value>
+    </data>
+    <data name="labelGrid Style.Help" xml:space="preserve">
+        <value>Select one of the available styles for the documents grid.</value>
+    </data>
     <data name="plDisplayColumns.Text" xml:space="preserve">
         <value>Display Columns</value>
     </data>

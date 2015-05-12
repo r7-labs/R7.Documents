@@ -62,6 +62,10 @@ namespace R7.Documents
 			comboSortOrderDirection.AddItem (LocalizeString ("SortOrderAscending.Text"), "ASC");
 			comboSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
 
+            // bind grid styles
+            comboGridStyle.DataSource = GridStyle.Styles.Values;
+            comboGridStyle.DataBind ();
+
 			grdSortColumns.ItemCreated += grdSortColumns_ItemCreated;
 			grdSortColumns.DeleteCommand += grdSortColumns_DeleteCommand;
 			grdDisplayColumns.ItemCreated += grdDisplayColumns_ItemCreated;
@@ -80,18 +84,18 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		public override void LoadSettings ()
 		{
-			//ArrayList objColumnSettings = new ArrayList ();
 			DocumentsDisplayColumnInfo objColumnInfo = null;
 			
 			try
 			{
-				if ((Page.IsPostBack == false))
+				if (!IsPostBack)
 				{
 					LoadLists ();
 
 					chkShowTitleLink.Checked = DocumentsSettings.ShowTitleLink;
 					chkUseCategoriesList.Checked = DocumentsSettings.UseCategoriesList;
 					chkAllowUserSort.Checked = DocumentsSettings.AllowUserSort;
+                    Utils.SelectByValue (comboGridStyle, DocumentsSettings.GridStyle);
 
 					try
 					{
@@ -154,6 +158,9 @@ namespace R7.Documents
 					}
 
 					BindSortSettings (DocumentsSettings.GetSortColumnList (this.LocalResourceFile));
+
+                    // load grid style
+                    Utils.SelectByValue (comboGridStyle, DocumentsSettings.GridStyle);
 				}
 				//Module failed to load
 			}
@@ -165,7 +172,7 @@ namespace R7.Documents
 
 		public void LoadLists ()
 		{
-			var _with2 = new DotNetNuke.Common.Lists.ListController ();
+            var _with2 = new DotNetNuke.Common.Lists.ListController ();
 			foreach (DotNetNuke.Common.Lists.ListInfo objList in _with2.GetListInfoCollection())
 			{
 				if (!objList.SystemList)
@@ -399,6 +406,7 @@ namespace R7.Documents
 
 			DocumentsSettings.ShowTitleLink = chkShowTitleLink.Checked;
 			DocumentsSettings.AllowUserSort = chkAllowUserSort.Checked;
+            DocumentsSettings.GridStyle = comboGridStyle.SelectedItem.Value;
 
 			if (folderDefaultFolder.SelectedFolder != null)
 				DocumentsSettings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
@@ -435,6 +443,7 @@ namespace R7.Documents
 				strSortColumnList = strSortColumnList + (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Descending ? "-" : "").ToString () + objSortColumn.ColumnName;
 			}
 			DocumentsSettings.SortOrder = strSortColumnList;
+            DocumentsSettings.GridStyle = comboGridStyle.SelectedValue;
 		}
 
 		private void SwapColumn (string ColumnName, System.ComponentModel.ListSortDirection Direction)

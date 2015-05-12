@@ -11,6 +11,7 @@ namespace R7.Documents
 	public partial class SettingsDocuments
 	{
 		protected CheckBox chkShowTitleLink;
+        protected DropDownList comboGridStyle;
 		protected CheckBox chkUseCategoriesList;
 		protected DnnComboBox comboSortFields;
 		protected DataGrid grdSortColumns;
