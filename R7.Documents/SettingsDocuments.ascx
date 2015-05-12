@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SettingsDocuments.ascx.cs" Inherits="R7.Documents.SettingsDocuments" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="SettingsDocuments.ascx.cs" Inherits="R7.Documents.SettingsDocuments" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
@@ -33,7 +33,8 @@
         </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="plDisplayColumns" runat="server" controlname="grdColumns" Suffix=":" />
-	        <asp:DataGrid id="grdDisplayColumns" runat="server" AutoGenerateColumns="False" GridLines="None" Width="350px" CssClass="dnnGrid">
+	        <asp:DataGrid id="grdDisplayColumns" runat="server" AutoGenerateColumns="False" GridLines="None" Width="350px" CssClass="dnnGrid"
+                OnItemCreated="grdDisplayColumns_ItemCreated" OnItemCommand="grdDisplayColumns_ItemCommand">
 	            <HeaderStyle CssClass="dnnGridHeader" VerticalAlign="Top" />
 	            <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" />
 	            <AlternatingItemStyle CssClass="dnnGridAltItem" />
@@ -66,11 +67,13 @@
 	    <div class="dnnFormItem">
 	        <label class="dnnLabel"></label>
 	        <dnn:DnnComboBox id="comboSortOrderDirection" runat="server" CssClass="comboSortOrderDirection" />
-	        <asp:LinkButton id="lnkAddSortColumn" runat="server" resourcekey="cmdAdd" CssClass="dnnSecondaryAction"  />
+	        <asp:LinkButton id="lnkAddSortColumn" runat="server" resourcekey="cmdAdd" CssClass="dnnSecondaryAction" 
+                OnClick="lnkAddSortColumn_Click" />
 	    </div>
 	    <div class="dnnFormItem">
 	        <label class="dnnLabel"></label>
-	        <asp:DataGrid id="grdSortColumns" runat="server" GridLines="None" AutoGenerateColumns="False" ShowHeader="False" Width="400px" CssClass="dnnGrid">
+	        <asp:DataGrid id="grdSortColumns" runat="server" GridLines="None" AutoGenerateColumns="False" ShowHeader="False" Width="400px" CssClass="dnnGrid"
+                OnItemCreated="grdSortColumns_ItemCreated" OnDeleteCommand="grdSortColumns_DeleteCommand">
 	            <HeaderStyle CssClass="dnnGridHeader" VerticalAlign="Top" />
 	            <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" />
 	            <AlternatingItemStyle CssClass="dnnGridAltItem" />

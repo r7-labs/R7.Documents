@@ -65,12 +65,6 @@ namespace R7.Documents
             // bind grid styles
             comboGridStyle.DataSource = GridStyle.Styles.Values;
             comboGridStyle.DataBind ();
-
-			grdSortColumns.ItemCreated += grdSortColumns_ItemCreated;
-			grdSortColumns.DeleteCommand += grdSortColumns_DeleteCommand;
-			grdDisplayColumns.ItemCreated += grdDisplayColumns_ItemCreated;
-			grdDisplayColumns.ItemCommand += grdDisplayColumns_ItemCommand;
-			lnkAddSortColumn.Click += lnkAddSortColumn_Click;
 		}
 
 		/// -----------------------------------------------------------------------------
@@ -226,7 +220,7 @@ namespace R7.Documents
 			return Localization.GetString (Key, base.LocalResourceFile);
 		}
 
-		private void grdSortColumns_ItemCreated (object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+		protected void grdSortColumns_ItemCreated (object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
 		{
 			switch (e.Item.ItemType)
 			{
@@ -243,7 +237,7 @@ namespace R7.Documents
 			}
 		}
 
-		private void grdDisplayColumns_ItemCreated (System.Object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+		protected void grdDisplayColumns_ItemCreated (System.Object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
 		{
 			System.Web.UI.WebControls.ImageButton objUpImage = default(System.Web.UI.WebControls.ImageButton);
 			System.Web.UI.WebControls.ImageButton objDownImage = default(System.Web.UI.WebControls.ImageButton);
@@ -279,7 +273,7 @@ namespace R7.Documents
 			}
 		}
 
-		private void grdDisplayColumns_ItemCommand (System.Object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+		protected void grdDisplayColumns_ItemCommand (System.Object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
 		{
 			switch (e.CommandName)
 			{
@@ -294,7 +288,7 @@ namespace R7.Documents
 			}
 		}
 
-		private void lnkAddSortColumn_Click (System.Object sender, System.EventArgs e)
+		protected void lnkAddSortColumn_Click (System.Object sender, System.EventArgs e)
 		{
 			ArrayList objSortColumns = default(ArrayList);
 			DocumentsSortColumnInfo objNewSortColumn = new DocumentsSortColumnInfo ();
@@ -315,7 +309,7 @@ namespace R7.Documents
 			BindSortSettings (objSortColumns);
 		}
 
-		private void grdSortColumns_DeleteCommand (object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+		protected void grdSortColumns_DeleteCommand (object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
 		{
 			ArrayList objSortColumns = default(ArrayList);
 			DocumentsSortColumnInfo objSortColumnToDelete = new DocumentsSortColumnInfo ();
