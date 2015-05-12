@@ -97,6 +97,12 @@ COLUMN_ICON,
 			set { WriteSetting<bool> ("Documents_AllowUserSort", value, true); }
 		}
 
+        public string GridStyle
+        {
+            get { return ReadSetting<string> ("Documents_GridStyle", "bootstrap", true); }
+            set { WriteSetting<string> ("Documents_GridStyle", value, true); }
+        }
+
 		#endregion
 
 		#region Module settings
@@ -118,7 +124,7 @@ COLUMN_ICON,
 			get { return ReadSetting<int?> ("Documents_DefaultFolder", null, false); }
 			set { WriteSetting<int?> ("Documents_DefaultFolder", value, false); }
 		}
-
+            
 		#endregion
 
 		public List<DocumentsDisplayColumnInfo> DisplayColumnList

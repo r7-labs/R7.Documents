@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<GridStyle Name="dnn">
+    <GridCssClass>dnnGrid</GridCssClass>
+    <HeaderCssClass>dnnGridHeader</HeaderCssClass>
+    <FooterCssClass>dnnGridFooter</FooterCssClass>
+    <ItemCssClass>dnnGridItem</ItemCssClass>
+    <AlternatingItemCssClass>dnnGridAltItem</AlternatingItemCssClass>
+</GridStyle>

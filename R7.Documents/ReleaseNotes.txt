@@ -1,6 +1,8 @@
 ﻿<h3>Version 1.0.7</h3>
 <ul>
     <li>Support for custom document link HTML attributes.</li>
+    <li>Use GridView instead of DataGrid for documents table.</li>
+    <li>Implemented #19: Custom CSS style sets for documents grid (styles defined in XML and loaded from GridStyles folder).</li>
 </ul>
 
 <h3>Version 1.0.6</h3>

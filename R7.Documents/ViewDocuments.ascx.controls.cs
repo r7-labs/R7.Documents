@@ -11,6 +11,6 @@ namespace R7.Documents
 {
 	public partial class ViewDocuments
 	{
-		protected DataGrid grdDocuments;
+        protected GridView grdDocuments;
 	}
 }

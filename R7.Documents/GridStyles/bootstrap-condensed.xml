@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<GridStyle Name="bootstrap-condensed">
+    <GridCssClass>table table-bordered table-stripped table-hover table-condensed</GridCssClass>
+    <HeaderCssClass></HeaderCssClass>
+    <FooterCssClass></FooterCssClass>
+    <ItemCssClass></ItemCssClass>
+    <AlternatingItemCssClass></AlternatingItemCssClass>
+</GridStyle>

@@ -27,6 +27,10 @@
 	        <dnn:label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" Suffix="?" />
 	        <asp:CheckBox id="chkShowTitleLink" runat="server" />
 	    </div>
+        <div class="dnnFormItem">
+            <dnn:label id="labelGridStyle" runat="server" controlname="comboGridStyle" />
+            <asp:DropDownList id="comboGridStyle" runat="server" DataTextField="Name" DataValueField="Name" />
+        </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="plDisplayColumns" runat="server" controlname="grdColumns" Suffix=":" />
 	        <asp:DataGrid id="grdDisplayColumns" runat="server" AutoGenerateColumns="False" GridLines="None" Width="350px" CssClass="dnnGrid">

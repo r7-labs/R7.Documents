@@ -50,6 +50,7 @@
   <ItemGroup>
     <Folder Include="js\" />
     <Folder Include="SqlDataProvider\" />
+    <Folder Include="GridStyles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="module.css" />
@@ -78,6 +79,9 @@
     <None Include="ReleaseNotes.txt" />
     <None Include="R7.Documents.dnn" />
     <None Include="SqlDataProvider\01.00.07.SqlDataProvider" />
+    <None Include="GridStyles\bootstrap.xml" />
+    <None Include="GridStyles\dnn.xml" />
+    <None Include="GridStyles\bootstrap-condensed.xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
@@ -123,6 +127,7 @@
       <DependentUpon>ImportDocuments.ascx</DependentUpon>
     </Compile>
     <Compile Include="components\DocumentInfoFormatter.cs" />
+    <Compile Include="components\GridStyle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -1,16 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ViewDocuments.ascx.cs" Inherits="R7.Documents.ViewDocuments" %>
 <div class="ViewDocuments">
-  <asp:datagrid id="grdDocuments" runat="server" datakeyfield="ItemID" enableviewstate="False" autogeneratecolumns="False" GridLines="None" CssClass="dnnGrid" Width="100%"
-        OnSortCommand="grdDocuments_SortCommand" OnItemCreated="grdDocuments_ItemCreated">
-    <headerstyle cssclass="dnnGridHeader" verticalalign="Top" />
-    <itemstyle cssclass="dnnGridItem" horizontalalign="Left" />
-    <alternatingitemstyle cssclass="dnnGridAltItem" />
-    <edititemstyle cssclass="dnnFormInput" />
-    <selecteditemstyle cssclass="dnnFormError" />
-    <footerstyle cssclass="dnnGridFooter" />
-    <pagerstyle cssclass="dnnGridPager" />
+  <asp:GridView id="grdDocuments" runat="server" DataKeyField="ItemID" EnableViewState="false" AutoGenerateColumns="false" GridLines="None" Width="100%"
+        OnSorting="grdDocuments_Sorting" OnRowCreated="grdDocuments_RowCreated">
     <Columns>
-      <asp:TemplateColumn>
+      <asp:TemplateField>
         <ItemTemplate>
           <asp:HyperLink id="linkEdit" runat="server" Visible="<%# IsEditable %>" 
 				NavigateUrl='<%# EditUrl("ItemID",DataBinder.Eval(Container.DataItem,"ItemID").ToString()) %>' >
@@ -18,7 +11,7 @@
 				ToolTip='<%# DataBinder.Eval(Container.DataItem,"Info").ToString() %>' />
           </asp:HyperLink>
       	</ItemTemplate>
-      </asp:TemplateColumn>
+      </asp:TemplateField>
     </Columns>
-  </asp:datagrid>
+  </asp:GridView>
 </div>

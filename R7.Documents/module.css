@@ -32,3 +32,15 @@
 .ViewDocuments ._nonpublished { background-color:#ffc }
 
 .ViewDocuments .dnnGrid { margin-bottom:0 }
+    
+/* dnnGridHeader fix */
+.ViewDocuments .dnnGridHeader th {
+    padding: 6px 0 6px 12px;
+    border-bottom: 1px solid #c9c9c9;
+    border-right: 1px solid #c9c9c9;
+    background: #f0f2f1;
+    background: -moz-linear-gradient(top, #fff 0%, #f0f2f1 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#f0f2f1)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #fff 0%,#f0f2f1 100%); /* Chrome10+,Safari5.1+ */
+    background: linear-gradient(top, #fff 0%,#f0f2f1 100%); /* W3C */
+}

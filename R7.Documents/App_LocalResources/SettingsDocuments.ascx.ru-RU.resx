@@ -166,6 +166,12 @@
     <data name="plShowTitleLink.Text">
         <value>Название как ссылка</value>
     </data>
+    <data name="labelGridStyle.Text" xml:space="preserve">
+        <value>Стиль таблицы</value>
+    </data>
+    <data name="labelGridStyle.Help" xml:space="preserve">
+        <value>Выберите один из доступных стилей оформления таблицы документов.</value>
+    </data>
     <data name="plSorting.Help">
         <value>Добавить / удалить колонки, по которым производится сортировка.</value>
     </data>

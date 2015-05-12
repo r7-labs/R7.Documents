@@ -63,6 +63,17 @@ namespace R7.Documents
 
 		#region Event Handlers
 
+        protected override void OnInit (EventArgs e)
+        {
+            base.OnInit (e);
+
+            grdDocuments.AllowSorting = DocumentsSettings.AllowUserSort;
+
+            // get grid style and apply to grid
+            var style = GridStyle.Styles [DocumentsSettings.GridStyle];
+            style.ApplyToGrid (grdDocuments);
+        }
+
 		/// <summary>
 		/// OnLoad runs when the control is loaded
 		/// </summary>
@@ -73,7 +84,6 @@ namespace R7.Documents
 
 			try
 			{
-				grdDocuments.AllowSorting = DocumentsSettings.AllowUserSort;
 				LoadData ();
 			
 				if (IsEditable && mobjDocumentList.Count == 0)
@@ -107,13 +117,12 @@ namespace R7.Documents
 		/// <history>
 		/// 	[msellers]	5/17/2007	 Added
 		/// </history>
-		protected void grdDocuments_SortCommand (object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+        protected void grdDocuments_Sorting (object sender, GridViewSortEventArgs e)
 		{
 			ArrayList objCustomSortList = new ArrayList ();
 			DocumentsSortColumnInfo objCustomSortColumn = new DocumentsSortColumnInfo ();
 			DocumentsSortColumnInfo.SortDirection objCustomSortDirecton = DocumentsSortColumnInfo.SortDirection.Ascending;
 			string strSortDirectionString = "ASC";
-
 
 			// Set the sort column name
 			objCustomSortColumn.ColumnName = e.SortExpression;
@@ -170,7 +179,7 @@ namespace R7.Documents
 
 			// Localize the Data Grid
 			// REVIEW: Original: Localization.LocalizeDataGrid(ref grdDocuments, this.LocalResourceFile);
-			Localization.LocalizeDataGrid (ref grdDocuments, this.LocalResourceFile);
+            Localization.LocalizeGridView (ref grdDocuments, this.LocalResourceFile);
 		}
 
 		/// -----------------------------------------------------------------------------
@@ -185,7 +194,7 @@ namespace R7.Documents
 		/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		protected void grdDocuments_ItemCreated (object sender, DataGridItemEventArgs e)
+		protected void grdDocuments_RowCreated (object sender, GridViewRowEventArgs e)
 		{
 			int intCount = 0;
 			DocumentInfo objDocument = null;
@@ -194,43 +203,36 @@ namespace R7.Documents
 			{
 				// hide edit column if not in edit mode
 				if (!IsEditable)
-					e.Item.Cells [0].Visible = false;  
+					e.Row.Cells [0].Visible = false;  
 
-				switch (e.Item.ItemType)
+				switch (e.Row.RowType)
 				{
-					case ListItemType.Header:
+                    case DataControlRowType.Header:
 						// set CSS class for edit column header
-						e.Item.Cells [0].CssClass = "EditHeader";
+						e.Row.Cells [0].CssClass = "EditHeader";
 
 						// Setting "scope" to "col" indicates to for text-to-speech
 						// or braille readers that this row containes headings
-						for (intCount = 1; intCount <= e.Item.Cells.Count - 1; intCount++)
+						for (intCount = 1; intCount <= e.Row.Cells.Count - 1; intCount++)
 						{
-							e.Item.Cells [intCount].Attributes.Add ("scope", "col");
+							e.Row.Cells [intCount].Attributes.Add ("scope", "col");
 						}
 						break;
 
-					case ListItemType.AlternatingItem:
-					case ListItemType.Item:
-					case ListItemType.SelectedItem:
-						// If ShowTitleLink is true, the title column is generated dynamically
+                    case DataControlRowType.DataRow:
+                    	// If ShowTitleLink is true, the title column is generated dynamically
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
-						objDocument = (DocumentInfo)mobjDocumentList [e.Item.ItemIndex];
+                        objDocument = (DocumentInfo)mobjDocumentList [e.Row.RowIndex];
 
 						// set CSS class for edit column cells
-						e.Item.Cells [0].CssClass = "EditCell";
+						e.Row.Cells [0].CssClass = "EditCell";
 
 						// decorate unpublished items
 						if (!objDocument.IsPublished)
 						{
-							if (e.Item.ItemType == ListItemType.Item)
-								e.Item.CssClass = grdDocuments.ItemStyle.CssClass + " _nonpublished";
-							else if (e.Item.ItemType == ListItemType.AlternatingItem)
-								e.Item.CssClass = grdDocuments.AlternatingItemStyle.CssClass + " _nonpublished";
-							// no need to add class to
-							// else  if (e.Item.ItemType == ListItemType.SelectedItem)
-							// 	e.Item.CssClass = grdDocuments.SelectedItemStyle.CssClass + " _nonpublished";
+                            e.Row.CssClass = ((e.Row.RowIndex % 2 == 0)? grdDocuments.RowStyle.CssClass
+                                : grdDocuments.AlternatingRowStyle.CssClass) + " _nonpublished";
 						}
 
 						if (DocumentsSettings.ShowTitleLink)
@@ -243,7 +245,7 @@ namespace R7.Documents
 							if (mintTitleColumnIndex >= 0)
 							{
 								// Dynamically set the title link URL
-								var _with1 = (HyperLink)e.Item.Controls [mintTitleColumnIndex + 1].FindControl ("ctlTitle");
+								var _with1 = (HyperLink)e.Row.Controls [mintTitleColumnIndex + 1].FindControl ("ctlTitle");
 								_with1.Text = objDocument.Title;
 								
 								// set link title to display document description
@@ -271,7 +273,7 @@ namespace R7.Documents
 						}
 						if (mintDownloadLinkColumnIndex >= 0)
 						{
-							var _with2 = (HyperLink)e.Item.Controls [mintDownloadLinkColumnIndex].FindControl ("ctlDownloadLink");
+							var _with2 = (HyperLink)e.Row.Controls [mintDownloadLinkColumnIndex].FindControl ("ctlDownloadLink");
 							// Note: The title link should display open/save dialog if possible, 
 							// so set ForceDownload=True
 							_with2.NavigateUrl = Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
@@ -506,9 +508,11 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		private void AddDocumentColumn (string Title, string CssClass, string DataField, string Format)
 		{
-			System.Web.UI.WebControls.BoundColumn objBoundColumn = default(System.Web.UI.WebControls.BoundColumn);
+            var objBoundColumn = new BoundField ();
 
-			objBoundColumn = new System.Web.UI.WebControls.BoundColumn ();
+            // don't HTML encode icons markup
+            if (DataField == "FormatIcon")
+                objBoundColumn.HtmlEncode = false;
 
 			objBoundColumn.DataField = DataField;
 			objBoundColumn.DataFormatString = Format;
@@ -525,7 +529,7 @@ namespace R7.Documents
 			objBoundColumn.ItemStyle.CssClass = CssClass + "Cell";
 			//"Normal"
 
-			this.grdDocuments.Columns.Add (objBoundColumn);
+            this.grdDocuments.Columns.Add (objBoundColumn);
 
 		}
 
@@ -541,9 +545,7 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		private void AddDownloadLink (string Title, string CssClass, string DataField, string Name)
 		{
-			System.Web.UI.WebControls.TemplateColumn objTemplateColumn = default(System.Web.UI.WebControls.TemplateColumn);
-			
-			objTemplateColumn = new System.Web.UI.WebControls.TemplateColumn ();
+			var objTemplateColumn = new TemplateField ();
 			objTemplateColumn.ItemTemplate = new DownloadColumnTemplate (Name, Localization.GetString ("DownloadLink.Text", LocalResourceFile), ListItemType.Item);
 			
 			if (Name == "ctlDownloadLink")
