@@ -5,4 +5,6 @@
     <FooterCssClass></FooterCssClass>
     <ItemCssClass></ItemCssClass>
     <AlternatingItemCssClass></AlternatingItemCssClass>
+    <GridLines>Both</GridLines>
+    <Width>100%</Width>
 </GridStyle>

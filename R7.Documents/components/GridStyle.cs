@@ -47,6 +47,8 @@ namespace R7.Documents
         public string FooterCssClass { get; set; }
         public string ItemCssClass { get; set; }
         public string AlternatingItemCssClass { get; set; }
+        public string GridLines { get; set; }
+        public string Width { get; set; }
 
         // not used:
         // public string EditItemCssClass;
@@ -107,6 +109,8 @@ namespace R7.Documents
             grid.FooterStyle.CssClass = FooterCssClass;
             grid.RowStyle.CssClass = ItemCssClass;
             grid.AlternatingRowStyle.CssClass = AlternatingItemCssClass;
+            grid.GridLines = (GridLines) Enum.Parse (typeof (GridLines), GridLines);
+            grid.Width = Unit.Parse (Width);
         }
 
         public void ApplyToGrid (DataGrid grid)
@@ -116,6 +120,8 @@ namespace R7.Documents
             grid.FooterStyle.CssClass = FooterCssClass;
             grid.ItemStyle.CssClass = ItemCssClass;
             grid.AlternatingItemStyle.CssClass = AlternatingItemCssClass;
+            grid.GridLines = (GridLines) Enum.Parse (typeof (GridLines), GridLines);
+            grid.Width = Unit.Parse (Width);
         }
     }
 }

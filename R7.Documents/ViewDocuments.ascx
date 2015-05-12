@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ViewDocuments.ascx.cs" Inherits="R7.Documents.ViewDocuments" %>
 <div class="ViewDocuments">
-  <asp:GridView id="grdDocuments" runat="server" DataKeyField="ItemID" EnableViewState="false" AutoGenerateColumns="false" GridLines="None" Width="100%"
+  <asp:GridView id="grdDocuments" runat="server" DataKeyField="ItemID" EnableViewState="false" AutoGenerateColumns="false"
         OnSorting="grdDocuments_Sorting" OnRowCreated="grdDocuments_RowCreated">
     <Columns>
       <asp:TemplateField>
