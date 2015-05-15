@@ -259,70 +259,68 @@ namespace R7.Documents
 		///   [togrean]     13 Jul 2007 Added support for exporting documents Url tracking options  
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		public string ExportModule (int ModuleID)
+		public string ExportModule (int moduleId)
 		{
-
-			ModuleController objModules = new ModuleController ();
-			ModuleInfo objModule = objModules.GetModule (ModuleID, Null.NullInteger);
+            var mCtrl = new ModuleController ();
+            var module = mCtrl.GetModule (moduleId, Null.NullInteger);
 		
-			StringBuilder strXML = new StringBuilder ("<documents>");
+            var strXml = new StringBuilder ("<documents>");
 		
 			try
 			{
-				var arrDocuments = GetDocuments (ModuleID, objModule.PortalID);
+                var documents = GetDocuments (moduleId, module.PortalID);
 				
-				if (arrDocuments.Any ())
+				if (documents.Any ())
 				{
-					foreach (DocumentInfo objDocument_loopVariable in arrDocuments)
+                    foreach (var document in documents)
 					{
-						var objDocument = objDocument_loopVariable;
-						strXML.Append ("<document>");
-						strXML.AppendFormat ("<title>{0}</title>", XmlUtils.XMLEncode (objDocument.Title));
-						strXML.AppendFormat ("<url>{0}</url>", XmlUtils.XMLEncode (objDocument.Url));
-						strXML.AppendFormat ("<category>{0}</category>", XmlUtils.XMLEncode (objDocument.Category));
-						strXML.AppendFormat ("<description>{0}</description>", XmlUtils.XMLEncode (objDocument.Description));
-						strXML.AppendFormat ("<forcedownload>{0}</forcedownload>", XmlUtils.XMLEncode ((objDocument.ForceDownload.ToString ())));
-						strXML.AppendFormat ("<ispublished>{0}</ispublished>", XmlUtils.XMLEncode ((objDocument.IsPublished.ToString ())));
-						strXML.AppendFormat ("<ownedbyuserid>{0}</ownedbyuserid>", XmlUtils.XMLEncode (objDocument.OwnedByUserId.ToString ()));
-						strXML.AppendFormat ("<sortorderindex>{0}</sortorderindex>", XmlUtils.XMLEncode (objDocument.SortOrderIndex.ToString ()));
-                        strXML.AppendFormat ("<linkattributes>{0}</linkattributes>", XmlUtils.XMLEncode (objDocument.LinkAttributes));
+						strXml.Append ("<document>");
+						strXml.AppendFormat ("<title>{0}</title>", XmlUtils.XMLEncode (document.Title));
+                        strXml.AppendFormat ("<url>{0}</url>", XmlUtils.XMLEncode (document.Url));
+                        strXml.AppendFormat ("<category>{0}</category>", XmlUtils.XMLEncode (document.Category));
+                        strXml.AppendFormat ("<description>{0}</description>", XmlUtils.XMLEncode (document.Description));
+                        strXml.AppendFormat ("<forcedownload>{0}</forcedownload>", XmlUtils.XMLEncode (document.ForceDownload.ToString ()));
+						strXml.AppendFormat ("<ispublished>{0}</ispublished>", XmlUtils.XMLEncode (document.IsPublished.ToString ()));
+						strXml.AppendFormat ("<ownedbyuserid>{0}</ownedbyuserid>", XmlUtils.XMLEncode (document.OwnedByUserId.ToString ()));
+						strXml.AppendFormat ("<sortorderindex>{0}</sortorderindex>", XmlUtils.XMLEncode (document.SortOrderIndex.ToString ()));
+                        strXml.AppendFormat ("<linkattributes>{0}</linkattributes>", XmlUtils.XMLEncode (document.LinkAttributes));
 
 						// Export Url Tracking options too
-						UrlController objUrlController = new UrlController ();
-						UrlTrackingInfo objUrlTrackingInfo = objUrlController.GetUrlTracking (objModule.PortalID, objDocument.Url, ModuleID);
+						var urlCtrl = new UrlController ();
+                        var urlTrackingInfo = urlCtrl.GetUrlTracking (module.PortalID, document.Url, moduleId);
 
-						if ((objUrlTrackingInfo != null))
+						if ((urlTrackingInfo != null))
 						{
-							strXML.AppendFormat ("<logactivity>{0}</logactivity>", XmlUtils.XMLEncode (objUrlTrackingInfo.LogActivity.ToString ()));
-							strXML.AppendFormat ("<trackclicks>{0}</trackclicks>", XmlUtils.XMLEncode (objUrlTrackingInfo.TrackClicks.ToString ()));
-							strXML.AppendFormat ("<newwindow>{0}</newwindow>", XmlUtils.XMLEncode (objUrlTrackingInfo.NewWindow.ToString ()));
+							strXml.AppendFormat ("<logactivity>{0}</logactivity>", XmlUtils.XMLEncode (urlTrackingInfo.LogActivity.ToString ()));
+							strXml.AppendFormat ("<trackclicks>{0}</trackclicks>", XmlUtils.XMLEncode (urlTrackingInfo.TrackClicks.ToString ()));
+							strXml.AppendFormat ("<newwindow>{0}</newwindow>", XmlUtils.XMLEncode (urlTrackingInfo.NewWindow.ToString ()));
 						}
-						strXML.Append ("</document>");
+						strXml.Append ("</document>");
 					}
 				}
 
-				var settings = new DocumentsSettings (objModule);
-				strXML.Append ("<settings>");
-				strXML.AppendFormat ("<allowusersort>{0}</allowusersort>", XmlUtils.XMLEncode (settings.AllowUserSort.ToString ()));
-				strXML.AppendFormat ("<showtitlelink>{0}</showtitlelink>", XmlUtils.XMLEncode (settings.ShowTitleLink.ToString ()));
-				strXML.AppendFormat ("<usecategorieslist>{0}</usecategorieslist>", XmlUtils.XMLEncode (settings.UseCategoriesList.ToString ()));
-				strXML.AppendFormat ("<categorieslistname>{0}</categorieslistname>", XmlUtils.XMLEncode (settings.CategoriesListName));
-				strXML.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder.ToString()));
-				strXML.AppendFormat ("<displaycolumns>{0}</displaycolumns>", XmlUtils.XMLEncode (settings.DisplayColumns));
-				strXML.AppendFormat ("<sortorder>{0}</sortorder>", XmlUtils.XMLEncode (settings.SortOrder));
-				strXML.Append ("</settings>");
+				var settings = new DocumentsSettings (module);
+				strXml.Append ("<settings>");
+				strXml.AppendFormat ("<allowusersort>{0}</allowusersort>", XmlUtils.XMLEncode (settings.AllowUserSort.ToString ()));
+				strXml.AppendFormat ("<showtitlelink>{0}</showtitlelink>", XmlUtils.XMLEncode (settings.ShowTitleLink.ToString ()));
+				strXml.AppendFormat ("<usecategorieslist>{0}</usecategorieslist>", XmlUtils.XMLEncode (settings.UseCategoriesList.ToString ()));
+				strXml.AppendFormat ("<categorieslistname>{0}</categorieslistname>", XmlUtils.XMLEncode (settings.CategoriesListName));
+				strXml.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder.ToString()));
+				strXml.AppendFormat ("<displaycolumns>{0}</displaycolumns>", XmlUtils.XMLEncode (settings.DisplayColumns));
+				strXml.AppendFormat ("<sortorder>{0}</sortorder>", XmlUtils.XMLEncode (settings.SortOrder));
+				strXml.Append ("</settings>");
 			}
 			catch
 			{
-				// Catch errors but make sure XML is valid
+				// catch errors
 			}
 			finally
 			{
-				strXML.Append ("</documents>");
+                // make sure XML is valid
+				strXml.Append ("</documents>");
 			}
 
-			return strXML.ToString ();
-
+			return strXml.ToString ();
 		}
 
 		/// -----------------------------------------------------------------------------
@@ -342,66 +340,64 @@ namespace R7.Documents
 		///   [togrean]     13 Jul 2007 Added support for importing documents Url tracking options     
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		public void ImportModule (int ModuleID, string Content, string Version, int UserId)
+		public void ImportModule (int moduleId, string content, string version, int userId)
 		{
-			ModuleController objModules = new ModuleController ();
-			ModuleInfo objModule = objModules.GetModule (ModuleID, Null.NullInteger);
+            var mCtrl = new ModuleController ();
+            var module = mCtrl.GetModule (moduleId, Null.NullInteger);
 			
-			// XmlNode xmlDocument = default(XmlNode);
-			string strUrl = string.Empty;
-			XmlNode xmlDocuments = Globals.GetContent (Content, "documents");
-			XmlNodeList documentNodes = xmlDocuments.SelectNodes ("document");
-			foreach (XmlNode xmlDocument in documentNodes)
+			var xmlDocuments = Globals.GetContent (content, "documents");
+			var documentNodes = xmlDocuments.SelectNodes ("document");
+
+            foreach (XmlNode documentNode in documentNodes)
 			{
-				DocumentInfo objDocument = new DocumentInfo ();
-				objDocument.ModuleId = ModuleID;
-				objDocument.Title = xmlDocument ["title"].InnerText;
-				strUrl = xmlDocument ["url"].InnerText;
+                var document = new DocumentInfo ();
+				document.ModuleId = moduleId;
+				document.Title = documentNode ["title"].InnerText;
+				
+                var strUrl = documentNode ["url"].InnerText;
+                document.Url = strUrl.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase) ?
+                    strUrl : Globals.ImportUrl (moduleId, strUrl);
 
-                objDocument.Url = strUrl.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase) ?
-                    strUrl : Globals.ImportUrl (ModuleID, strUrl);
+				document.Category = documentNode ["category"].InnerText;
+				document.Description = XmlUtils.GetNodeValue (documentNode, "description");
+				document.OwnedByUserId = XmlUtils.GetNodeValueInt (documentNode, "ownedbyuserid");
+				document.SortOrderIndex = XmlUtils.GetNodeValueInt (documentNode, "sortorderindex");
+                document.LinkAttributes = XmlUtils.GetNodeValue (documentNode, "linkattributes");
+                document.ForceDownload = XmlUtils.GetNodeValueBoolean (documentNode, "forcedownload");
+                document.IsPublished = XmlUtils.GetNodeValueBoolean (documentNode, "ispublished");
 
-				objDocument.Category = xmlDocument ["category"].InnerText;
-				objDocument.Description = XmlUtils.GetNodeValue (xmlDocument, "description");
-				objDocument.OwnedByUserId = XmlUtils.GetNodeValueInt (xmlDocument, "ownedbyuserid");
-				objDocument.SortOrderIndex = XmlUtils.GetNodeValueInt (xmlDocument, "sortorderindex");
-                objDocument.LinkAttributes = XmlUtils.GetNodeValue (xmlDocument, "linkattributes");
-                objDocument.ForceDownload = XmlUtils.GetNodeValueBoolean (xmlDocument, "forcedownload");
-                objDocument.IsPublished = XmlUtils.GetNodeValueBoolean (xmlDocument, "ispublished");
-
-				objDocument.CreatedByUserId = UserId;
-				objDocument.ModifiedByUserId = UserId;
+				document.CreatedByUserId = userId;
+				document.ModifiedByUserId = userId;
 				
 				var now = DateTime.Now;
-				objDocument.CreatedDate = now;
-				objDocument.ModifiedDate = now;
+				document.CreatedDate = now;
+				document.ModifiedDate = now;
 
-				Add<DocumentInfo> (objDocument);
+				Add<DocumentInfo> (document);
 
 				// Update Tracking options
-                var urlType = objDocument.Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)? "F" : "U";
+                var urlType = document.Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)? "F" : "U";
 
-				UrlController urlController = new UrlController ();
+                var urlCtrl = new UrlController ();
 				// If nodes not found, all values will be false
-				urlController.UpdateUrl (objModule.PortalID, objDocument.Url, urlType, XmlUtils.GetNodeValueBoolean (xmlDocument, "logactivity"), XmlUtils.GetNodeValueBoolean (xmlDocument, "trackclicks", true), ModuleID, XmlUtils.GetNodeValueBoolean (xmlDocument, "newwindow"));
+				urlCtrl.UpdateUrl (module.PortalID, document.Url, urlType, XmlUtils.GetNodeValueBoolean (documentNode, "logactivity"), XmlUtils.GetNodeValueBoolean (documentNode, "trackclicks", true), moduleId, XmlUtils.GetNodeValueBoolean (documentNode, "newwindow"));
 			}
 
-			XmlNode xmlDocumentsSettings = Globals.GetContent (Content, "documents/settings");
-			if (xmlDocumentsSettings != null)
+            var xmlSettings = Globals.GetContent (content, "documents/settings");
+			if (xmlSettings != null)
 			{
-				var settings = new DocumentsSettings (objModule);
+				var settings = new DocumentsSettings (module);
 			
-				settings.AllowUserSort = XmlUtils.GetNodeValueBoolean (xmlDocumentsSettings, "allowusersort");
-				settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlDocumentsSettings, "showtitlelink");
-				settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlDocumentsSettings, "usecategorieslist");
-				settings.CategoriesListName = XmlUtils.GetNodeValue (xmlDocumentsSettings, "categorieslistname");
-				settings.DefaultFolder = Utils.ParseToNullableInt (XmlUtils.GetNodeValue (xmlDocumentsSettings, "defaultfolder"));
-				settings.DisplayColumns = XmlUtils.GetNodeValue (xmlDocumentsSettings, "displaycolumns");
-				settings.SortOrder = XmlUtils.GetNodeValue (xmlDocumentsSettings, "sortorder");
+				settings.AllowUserSort = XmlUtils.GetNodeValueBoolean (xmlSettings, "allowusersort");
+				settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlSettings, "showtitlelink");
+				settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlSettings, "usecategorieslist");
+				settings.CategoriesListName = XmlUtils.GetNodeValue (xmlSettings, "categorieslistname");
+				settings.DefaultFolder = Utils.ParseToNullableInt (XmlUtils.GetNodeValue (xmlSettings, "defaultfolder"));
+				settings.DisplayColumns = XmlUtils.GetNodeValue (xmlSettings, "displaycolumns");
+				settings.SortOrder = XmlUtils.GetNodeValue (xmlSettings, "sortorder");
 
 				// Need Utils.SynchronizeModule() call
 			}
-
 		}
 
 		#endregion
