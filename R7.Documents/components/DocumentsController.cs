@@ -357,14 +357,9 @@ namespace R7.Documents
 				objDocument.ModuleId = ModuleID;
 				objDocument.Title = xmlDocument ["title"].InnerText;
 				strUrl = xmlDocument ["url"].InnerText;
-				if ((strUrl.ToLower ().StartsWith ("fileid=")))
-				{
-					objDocument.Url = strUrl;
-				}
-				else
-				{
-					objDocument.Url = Globals.ImportUrl (ModuleID, strUrl);
-				}
+
+                objDocument.Url = strUrl.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase) ?
+                    strUrl : Globals.ImportUrl (ModuleID, strUrl);
 
 				objDocument.Category = xmlDocument ["category"].InnerText;
 				objDocument.Description = XmlUtils.GetNodeValue (xmlDocument, "description");
@@ -384,11 +379,8 @@ namespace R7.Documents
 				Add<DocumentInfo> (objDocument);
 
 				// Update Tracking options
-				string urlType = "U";
-				if (objDocument.Url.StartsWith ("FileID=", StringComparison.InvariantCultureIgnoreCase))
-				{
-					urlType = "F";
-				}
+                var urlType = objDocument.Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)? "F" : "U";
+
 				UrlController urlController = new UrlController ();
 				// If nodes not found, all values will be false
 				urlController.UpdateUrl (objModule.PortalID, objDocument.Url, urlType, XmlUtils.GetNodeValueBoolean (xmlDocument, "logactivity"), XmlUtils.GetNodeValueBoolean (xmlDocument, "trackclicks", true), ModuleID, XmlUtils.GetNodeValueBoolean (xmlDocument, "newwindow"));

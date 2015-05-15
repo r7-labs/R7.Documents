@@ -266,7 +266,7 @@ namespace R7.Documents
 			switch (Globals.GetURLType (Url))
 			{
 				case TabType.File:
-					if (Url.ToLower ().StartsWith ("fileid=") == false)
+                    if (!Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase))
 					{
 						// to handle legacy scenarios before the introduction of the FileServerHandler
 						Url = "FileID=" + FileManager.Instance.GetFile (PortalId, Url).FileId;
@@ -403,7 +403,7 @@ namespace R7.Documents
 				switch (Globals.GetURLType (Url))
 				{
 					case TabType.File:
-						if (Url.ToLower ().StartsWith ("fileid=") == false)
+                        if (!Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase))
 						{
 							// to handle legacy scenarios before the introduction of the FileServerHandler
 							Url = "FileID=" + FileManager.Instance.GetFile (PortalId, Url).FileId;
