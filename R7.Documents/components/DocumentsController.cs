@@ -285,6 +285,7 @@ namespace R7.Documents
 						strXML.AppendFormat ("<ispublished>{0}</ispublished>", XmlUtils.XMLEncode ((objDocument.IsPublished.ToString ())));
 						strXML.AppendFormat ("<ownedbyuserid>{0}</ownedbyuserid>", XmlUtils.XMLEncode (objDocument.OwnedByUserId.ToString ()));
 						strXML.AppendFormat ("<sortorderindex>{0}</sortorderindex>", XmlUtils.XMLEncode (objDocument.SortOrderIndex.ToString ()));
+                        strXML.AppendFormat ("<linkattributes>{0}</linkattributes>", XmlUtils.XMLEncode (objDocument.LinkAttributes));
 
 						// Export Url Tracking options too
 						UrlController objUrlController = new UrlController ();
@@ -369,8 +370,9 @@ namespace R7.Documents
 				objDocument.Description = XmlUtils.GetNodeValue (xmlDocument, "description");
 				objDocument.OwnedByUserId = XmlUtils.GetNodeValueInt (xmlDocument, "ownedbyuserid");
 				objDocument.SortOrderIndex = XmlUtils.GetNodeValueInt (xmlDocument, "sortorderindex");
-				objDocument.ForceDownload = XmlUtils.GetNodeValueBoolean (xmlDocument, "forcedownload");
-				objDocument.IsPublished = XmlUtils.GetNodeValueBoolean (xmlDocument, "ispublished");
+                objDocument.LinkAttributes = XmlUtils.GetNodeValue (xmlDocument, "linkattributes");
+                objDocument.ForceDownload = XmlUtils.GetNodeValueBoolean (xmlDocument, "forcedownload");
+                objDocument.IsPublished = XmlUtils.GetNodeValueBoolean (xmlDocument, "ispublished");
 
 				objDocument.CreatedByUserId = UserId;
 				objDocument.ModifiedByUserId = UserId;
