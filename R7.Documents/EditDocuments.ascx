@@ -56,10 +56,6 @@
             <dnn:Label id="labelLinkAttributes" runat="server" controlname="textLinkAttributes" />
             <asp:TextBox runat="server" id="textLinkAttributes" MaxLength="255" />
         </div>
-		<div class="dnnFormItem">
-	        <dnn:Label id="labelIsPublished" runat="server" controlname="checkIsPublished" suffix="?" />
-	        <asp:CheckBox runat="server" ID="checkIsPublished" />
-	    </div>
 		<asp:Panel id="panelUrlTracking" runat="server" CssClass="dnnFormItem">
 	        <dnn:label id="labelUrlTracking" runat="server" controlname="ctlUrlTracking" suffix=":" />
 	        <div class="dnnLeft" style="padding:1.5em;margin-top:0.5em;background-color:#eee;width:43%">
@@ -72,6 +68,10 @@
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
 	        <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" Text="Delete" OnClick="cmdDelete_Click" /></li>
 	    </ul>
+        <div class="dnnFormItem">
+            <dnn:Label id="labelIsPublished" runat="server" controlname="checkIsPublished" suffix="?" />
+            <asp:CheckBox runat="server" ID="checkIsPublished" />
+        </div>
         <asp:Panel id="panelUpdate" runat="server" CssClass="dnnFormItem">
             <dnn:Label id="labelDontUpdateLastModifiedDate" runat="server" ControlName="checkDontUpdateLastModifiedDate" Suffix=":" />
             <asp:CheckBox id="checkDontUpdateLastModifiedDate" runat="server"  />
