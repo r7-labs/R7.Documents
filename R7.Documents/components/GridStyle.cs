@@ -55,6 +55,11 @@ namespace R7.Documents
         // public string SelectedItemCssClass;
         // public string PagerCssClass;
 
+        /// <summary>
+        /// The grid styles dictionary.
+        /// </summary>
+        /// <remarks>it's sufficent to use Dictionary here (not ConcurrentDictionary),
+        /// as we write to collection just once, and all read operations if thread-safe.</remarks>
         [XmlIgnore]
         public static Dictionary<string, GridStyle> Styles;
 
