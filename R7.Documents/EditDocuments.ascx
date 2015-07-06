@@ -11,12 +11,12 @@
 	<fieldset>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plName" runat="server" controlname="txtName" suffix=":" CssClass="dnnFormRequired" />
-	        <asp:textbox id="txtName" runat="server" maxlength="150" CssClass="dnnFormRequired" />
+	        <asp:textbox id="txtName" runat="server" MaxLength="255" CssClass="dnnFormRequired" />
 	        <asp:requiredfieldvalidator id="valName" runat="server" cssclass="dnnFormMessage dnnFormError" resourcekey="Name.ErrorMessage" display="Dynamic" errormessage="You Must Enter A Title For The Document" controltovalidate="txtName" />
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plDescription" runat="server" controlname="txtDescription" suffix=":" />
-	        <asp:textbox id="txtDescription" runat="server" maxlength="255" TextMode="MultiLine" Rows="3" />
+	        <asp:textbox id="txtDescription" runat="server" TextMode="MultiLine" Rows="3" />
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plCategory" runat="server" controlname="txtCategory" suffix=":" />

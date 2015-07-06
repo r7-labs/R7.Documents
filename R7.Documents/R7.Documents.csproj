@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>R7.Documents</RootNamespace>
     <AssemblyName>R7.Documents</AssemblyName>
-    <ReleaseVersion>1.0.7</ReleaseVersion>
+    <ReleaseVersion>1.0.8</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,6 +82,7 @@
     <None Include="GridStyles\bootstrap.xml" />
     <None Include="GridStyles\dnn.xml" />
     <None Include="GridStyles\bootstrap-condensed.xml" />
+    <None Include="SqlDataProvider\01.00.08.SqlDataProvider" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
