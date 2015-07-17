@@ -1,6 +1,8 @@
 ﻿<h3>Version 1.0.8</h3>
 <ul>
     <li>Fixed #23: Long description causes crash when adding document.</li>
+    <li>Fixed #24: Default folder not set for new documents.</li>
+    <li>Fixed #25: Deleting with resource leave files in place.</li>
 </ul>
 
 <h3>Version 1.0.7</h3>
