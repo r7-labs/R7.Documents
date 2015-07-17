@@ -200,4 +200,7 @@
     <data name="labelDontUpdateLastModifiedDate.Help" xml:space="preserve">
         <value>Если отмечено, дата и время последнего изменения документа не будут обновлены при его сохранении.</value>
     </data>
+    <data name="CurrentFolder.Warning" xml:space="preserve">
+        <value>Не удалось установить ссылку на файл папку по-умолчанию, так как в ней нет файлов.</value>
+    </data>
 </root>

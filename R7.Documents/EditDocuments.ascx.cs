@@ -37,6 +37,7 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using System.Linq;
 
 namespace R7.Documents
 {
@@ -234,9 +235,22 @@ namespace R7.Documents
 						checkIsPublished.Checked = true;
 
 						// set default folder
-						// HACK: Add "a" to the folder path to force UrlControl to select non-existant file 
 						if (DocumentsSettings.DefaultFolder != null)
-							ctlUrl.Url = FolderManager.Instance.GetFolder (DocumentsSettings.DefaultFolder.Value).FolderPath + "a";
+                        {
+                            var folder = FolderManager.Instance.GetFolder (DocumentsSettings.DefaultFolder.Value);
+                            if (folder != null)
+                            {
+                                var file = FolderManager.Instance.GetFiles (folder).FirstOrDefault ();
+                                if (file != null)
+                                {
+                                    ctlUrl.Url = "FileId=" + file.FileId;
+                                }
+                                else
+                                {
+                                    Utils.Message (this, MessageSeverity.Warning, "CurrentFolder.Warning", true);
+                                }
+                            }
+                        }
 					}
 				}
 			}

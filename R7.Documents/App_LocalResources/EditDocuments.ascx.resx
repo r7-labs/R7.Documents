@@ -199,4 +199,7 @@
     <data name="labelDontUpdateLastModifiedDate.Help" xml:space="preserve">
         <value>If checked, document's last modified date will not be updated on its save.</value>
     </data>
+    <data name="CurrentFolder.Warning" xml:space="preserve">
+        <value>Cannot set link to a file in the current folder, as there are no files in it.</value>
+    </data>
 </root>
