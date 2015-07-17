@@ -248,6 +248,12 @@ namespace R7.Documents
                                 else
                                 {
                                     Utils.Message (this, MessageSeverity.Warning, "CurrentFolder.Warning", true);
+
+                                    // BUG: select folder => postback => root folder is always selected.
+                                    // Setting link type to none provide a way to mask this behavior
+                                    // as user can select folder only after manually changing link type (i.e. after postback).
+
+                                    ctlUrl.UrlType = "N";
                                 }
                             }
                         }
