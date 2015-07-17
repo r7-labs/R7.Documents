@@ -72,6 +72,29 @@ namespace R7.Documents
 
 			// Add the "are you sure" message to the delete button click event
 			cmdDelete.Attributes.Add ("onClick", "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
+
+            // Configure categories entry as a list or textbox, based on user settings
+            if (DocumentsSettings.UseCategoriesList)
+            {
+                // Configure category entry as a list
+                lstCategory.Visible = true;
+                txtCategory.Visible = false;
+
+                // Populate categories list
+                var _with1 = new DotNetNuke.Common.Lists.ListController ();
+                lstCategory.DataSource = _with1.GetListEntryInfoItems (DocumentsSettings.CategoriesListName);
+                lstCategory.DataTextField = "Text";
+                lstCategory.DataValueField = "Value";
+
+                lstCategory.DataBind ();
+                lstCategory.Items.Insert (0, new System.Web.UI.WebControls.ListItem (Localization.GetString ("None_Specified"), "-1"));
+            }
+            else
+            {
+                // Configure category entry as a free-text entry
+                lstCategory.Visible = false;
+                txtCategory.Visible = true;
+            }
 		}
 
 		/// -----------------------------------------------------------------------------
@@ -98,29 +121,6 @@ namespace R7.Documents
 				// Load module instance settings
 				if (!IsPostBack)
 				{
-					// Configure categories entry as a list or textbox, based on user settings
-					if (DocumentsSettings.UseCategoriesList)
-					{
-						// Configure category entry as a list
-						lstCategory.Visible = true;
-						txtCategory.Visible = false;
-
-						// Populate categories list
-						var _with1 = new DotNetNuke.Common.Lists.ListController ();
-						lstCategory.DataSource = _with1.GetListEntryInfoItems (DocumentsSettings.CategoriesListName);
-						lstCategory.DataTextField = "Text";
-						lstCategory.DataValueField = "Value";
-
-						lstCategory.DataBind ();
-						lstCategory.Items.Insert (0, new System.Web.UI.WebControls.ListItem (Localization.GetString ("None_Specified"), "-1"));
-					}
-					else
-					{
-						// Configure category entry as a free-text entry
-						lstCategory.Visible = false;
-						txtCategory.Visible = true;
-					}
-
 					// If the page is being requested the first time, determine if an
 					// document itemId value is specified, and if so populate page
 					// contents with the document details
