@@ -114,10 +114,10 @@ namespace R7.Documents
         public int DeleteDocumentResource (DocumentInfo document, int portalId)
         {
             // count resource references
-            var count = GetObjects<DocumentInfo> ("WHERE [Url]=@0", document.Url).Count ();
+            var count = GetObjects<DocumentInfo> ("WHERE [ItemID] <> @0 AND [Url] = @1", document.ItemId, document.Url).Count ();
 
-            // delete if it's the only reference
-            if (count == 1)
+            // if no other document references it
+            if (count == 0)
             {
                 switch (Globals.GetURLType (document.Url))
                 {
