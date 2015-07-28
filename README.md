@@ -1,5 +1,7 @@
 # About R7.Documents
 
+[![Join the chat at https://gitter.im/roman-yagodin/R7.Documents](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/roman-yagodin/R7.Documents?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 *R7.Documents* is a redesigned version of the classic [DNN Documents](http://dnndocuments.codeplex.com) module.
 
 ![Screenshot](https://raw.githubusercontent.com/roman-yagodin/R7.Documents/master/images/r7_documents.png "Main module view in the edit mode")
