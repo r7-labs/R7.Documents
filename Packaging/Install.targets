@@ -2,22 +2,28 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="MakeInstallPackage">
     <Target Name="MakeInstallPackage" Condition=" '$(Configuration)' == 'Release' ">
         <!-- Read package version from the manifest -->
-        <XmlRead Prefix="n" Namespace="http://schemas.microsoft.com/developer/msbuild/2003" XPath="/dotnetnuke/packages/package[1]/@version" XmlFileName="..\R7.Documents\R7.Documents.dnn">
+        <XmlRead Condition=" '$(OS)' != 'Unix' " Prefix="n" Namespace="http://schemas.microsoft.com/developer/msbuild/2003" XPath="/dotnetnuke/packages/package[1]/@version" XmlFileName="$(MainProjectPath)\R7.Documents.dnn">
             <Output TaskParameter="Value" PropertyName="Version" />
         </XmlRead>
+        <Exec Condition=" '$(OS)' == 'Unix' " Command="xmllint --xpath 'string(/dotnetnuke/packages/package[1]/@version)' $(MainProjectPath)\R7.Documents.dnn &gt; __version" />
+        <ReadLinesFromFile Condition=" '$(OS)' == 'Unix' " File="__version">
+            <Output TaskParameter="Lines" PropertyName="Version" />
+        </ReadLinesFromFile>
+        <Delete Condition=" '$(OS)' == 'Unix' " Files="__version" />
         <!-- Declare binaries -->
         <ItemGroup>
-            <InstallBinaryFiles Include="$(MSBuildDnnBinPath)\R7.Documents*.dll" />
+            <InstallBinaryFiles Include="$(MainProjectOutputPath)\R7.Documents*.dll" />
         </ItemGroup>
         <!-- Declare manifest files -->
         <ItemGroup>
-            <InstallManifestFiles Include="..\R7.Documents\*.dnn" />
-            <InstallManifestFiles Include="..\R7.Documents\License.txt" />
-            <InstallManifestFiles Include="..\R7.Documents\ReleaseNotes.txt" />
+            <InstallManifestFiles Include="$(MainProjectPath)\*.dnn" />
+            <InstallManifestFiles Include="$(MainProjectPath)\*.dnn6" />
+            <InstallManifestFiles Include="$(MainProjectPath)\License.txt" />
+            <InstallManifestFiles Include="$(MainProjectPath)\ReleaseNotes.txt" />
         </ItemGroup>
         <!-- Declare SqlDataProvider files -->
         <ItemGroup>
-            <InstallSqlDataProviderFiles Include="..\R7.Documents\SqlDataProvider\*.sqldataprovider" />
+            <InstallSqlDataProviderFiles Include="$(MainProjectPath)\SqlDataProvider\*.SqlDataProvider" />
         </ItemGroup>
         <!-- Declare resource files -->
         <ItemGroup>
@@ -40,43 +46,49 @@
         </ItemGroup>
         <!-- Declare excluded files -->
         <ItemGroup>
-            <InstallExcludeFiles Include="..\Packages\**" />
-            <InstallExcludeFiles Include="..\**\bin\**" />
-            <InstallExcludeFiles Include="..\**\obj\**" />
-            <InstallExcludeFiles Include="..\**\.git\**" />
-            <InstallExcludeFiles Include="..\**\.svn\**" />
-            <InstallExcludeFiles Include="..\**\_ReSharper*\**" />
+            <InstallExcludeFiles Include="..\packages\**\*" />
+            <InstallExcludeFiles Include="..\Packaging\**\*" />
+            <InstallExcludeFiles Include="..\.git\**\*" />
+            <InstallExcludeFiles Include="..\.svn\**\*" />
+            <InstallExcludeFiles Include="..\*\bin\**\*" />
+            <InstallExcludeFiles Include="..\*\obj\**\*" />
+            <InstallExcludeFiles Include="..\*\_ReSharper*\**\*" />
         </ItemGroup>
         <!-- Apply excluded files filters -->
         <ItemGroup>
             <InstallResourceFilteredFiles Include="@(InstallResourceFiles)" Exclude="@(InstallExcludeFiles)" />
         </ItemGroup>
         <!-- Copy binaries -->
-        <Copy SourceFiles="@(InstallBinaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\tmp_Package\bin" />
+        <Copy SourceFiles="@(InstallBinaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\tmp\Package\bin" />
         <!-- Copy manifest files -->
-        <Copy SourceFiles="@(InstallManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\tmp_Package" />
+        <Copy SourceFiles="@(InstallManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\tmp\Package" />
         <!-- Copy SqlDataProvider files -->
-        <Copy SourceFiles="@(InstallSqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\tmp_Package\SqlDataProvider" />
-        <!-- Copy filtered Resource files to tmp_Resources dir -->
-        <Copy SourceFiles="@(InstallResourceFilteredFiles)" DestinationFolder="$(MSBuildProjectDirectory)\tmp_Resources\%(RecursiveDir)" />
+        <Copy SourceFiles="@(InstallSqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\tmp\Package\SqlDataProvider" />
+        <!-- Copy filtered Resource files to tmp\Resources dir -->
+        <Copy SourceFiles="@(InstallResourceFilteredFiles)" DestinationFolder="$(MSBuildProjectDirectory)\tmp\Resources\%(RecursiveDir)" />
         <!-- Declare files to zip -->
         <ItemGroup>
-            <InstallResourceZipFiles Include="$(MSBuildProjectDirectory)\tmp_Resources\**\*.*" />
+            <InstallResourceZipFiles Include="$(MSBuildProjectDirectory)\tmp\Resources\**\*.*" />
         </ItemGroup>
         <!-- Create Resources.zip -->
-        <Zip Files="@(InstallResourceZipFiles)" WorkingDirectory="$(MSBuildProjectDirectory)\tmp_Resources" ZipFileName="Resources.$(PackageExtension)" />
-        <!-- Move Resources.zip to tmp_Package dir -->
-        <Move SourceFiles="$(MSBuildProjectDirectory)\Resources.$(PackageExtension)" DestinationFolder="$(MSBuildProjectDirectory)\tmp_Package/" />
+        <Zip Condition=" '$(OS)' != 'Unix' " Files="@(InstallResourceZipFiles)" WorkingDirectory="$(MSBuildProjectDirectory)\tmp\Resources" ZipFileName="Resources.$(PackageExtension)" />
+        <Exec Condition=" '$(OS)' == 'Unix' " Command="zip -r -6 -UN=UTF8 &quot;$(MSBuildProjectDirectory)\Resources.$(PackageExtension)&quot; ." WorkingDirectory="$(MSBuildProjectDirectory)/tmp/Resources" />
+        <!-- Move Resources.zip to tmp\Package dir -->
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\Resources.$(PackageExtension)" DestinationFolder="$(MSBuildProjectDirectory)\tmp\Package/" />
+        <Delete Files="$(MSBuildProjectDirectory)\Resources.$(PackageExtension)" />
         <!-- Declare install package files -->
         <ItemGroup>
-            <InstallPackageFiles Include="$(MSBuildProjectDirectory)\tmp_Package\**\*.*" />
+            <InstallPackageFiles Include="$(MSBuildProjectDirectory)\tmp\Package\**\*.*" />
         </ItemGroup>
         <!-- Create the install package -->
-        <Zip Files="@(InstallPackageFiles)" WorkingDirectory="$(MSBuildProjectDirectory)\tmp_Package" ZipFileName="$(PackageName)-$(Version)-Install.$(PackageExtension)" />
+        <Zip Condition=" '$(OS)' != 'Unix' " Files="@(InstallPackageFiles)" WorkingDirectory="$(MSBuildProjectDirectory)\tmp\Package" ZipFileName="$(PackageName)-$(Version)-Install.$(PackageExtension)" />
+        <Exec Condition=" '$(OS)' == 'Unix' " Command="zip -r -6 -UN=UTF8 &quot;$(MSBuildProjectDirectory)\$(PackageName)-$(Version)-Install.$(PackageExtension)&quot; ." WorkingDirectory="$(MSBuildProjectDirectory)/tmp/Package" />
         <!-- Copy the install package to the output directory -->
-        <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(Version)-Install.$(PackageExtension)" DestinationFolder="$(PackageOutputPath)/" />
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(Version)-Install.$(PackageExtension)" DestinationFolder="$(PackageOutputPath)/" />
+        <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-$(Version)-Install.$(PackageExtension)" />
         <!-- Cleanup -->
-        <RemoveDir Directories="$(MSBuildProjectDirectory)\tmp_Resources" />
-        <RemoveDir Directories="$(MSBuildProjectDirectory)\tmp_Package" />
+        <RemoveDir Directories="$(MSBuildProjectDirectory)\tmp\Resources" />
+        <RemoveDir Directories="$(MSBuildProjectDirectory)\tmp\Package" />
+        <RemoveDir Directories="$(MSBuildProjectDirectory)\tmp" />
     </Target>
 </Project>

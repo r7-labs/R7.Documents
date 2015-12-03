@@ -42,10 +42,10 @@
     <PackageExtension>zip</PackageExtension>
     <PackageName>R7.Documents</PackageName>
     <PackageOutputPath>output</PackageOutputPath>
-    <MSBuildDnnBinPath Condition="'$(MSBuildDnnBinPath)' == ''">..\..\..\bin</MSBuildDnnBinPath>
+    <MainProjectPath>..\R7.Documents</MainProjectPath>
+    <MainProjectOutputPath>$(MainProjectPath)\bin\$(Configuration)</MainProjectOutputPath>
   </PropertyGroup>
   <Import Project="Install.targets" />
-  <Import Project="Source.targets" />
   <Target Name="AfterBuild" DependsOnTargets="MakeInstallPackage" />
   <ItemGroup>
     <Compile Include="Dummy.cs" />
