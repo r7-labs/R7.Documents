@@ -34,7 +34,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Search;
 using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.FileSystem;
-
+using DotNetNuke.R7;
 
 namespace R7.Documents
 {

@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.UI.Modules;
 using DotNetNuke.Services.Localization;
+using DotNetNuke.R7;
 
 namespace R7.Documents
 {
@@ -48,14 +49,14 @@ namespace R7.Documents
 
 		public bool ShowTitleLink
 		{
-			get { return ReadSetting<bool> ("Documents_ShowTitleLink", true, true); }
-			set { WriteSetting<bool> ("Documents_ShowTitleLink", value, true); }
+			get { return ReadSetting<bool> ("Documents_ShowTitleLink", true); }
+			set { WriteTabModuleSetting<bool> ("Documents_ShowTitleLink", value); }
 		}
 
 		public string SortOrder
 		{
-			get { return ReadSetting<string> ("Documents_SortOrder", DocumentsDisplayColumnInfo.COLUMN_SORTORDER, true); }
-			set { WriteSetting<string> ("Documents_SortOrder", value, true); }
+			get { return ReadSetting<string> ("Documents_SortOrder", DocumentsDisplayColumnInfo.COLUMN_SORTORDER); }
+			set { WriteTabModuleSetting<string> ("Documents_SortOrder", value); }
 		}
 
 		public string DisplayColumns
@@ -75,7 +76,6 @@ COLUMN_ICON,
 			COLUMN_SIZE,
 			COLUMN_CLICKS,
 			COLUMN_DOWNLOADLINK,*/
-
 				return ReadSetting<string> ("Documents_DisplayColumns", 
 					DocumentsDisplayColumnInfo.COLUMN_ICON + ";true," +
 					DocumentsDisplayColumnInfo.COLUMN_TITLE + ";true," +
@@ -85,22 +85,22 @@ COLUMN_ICON,
 					DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE + ";true," +
 					DocumentsDisplayColumnInfo.COLUMN_SIZE + ";true," +
 					DocumentsDisplayColumnInfo.COLUMN_CLICKS + ";true," +
-					DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK + ";true", 
-					true); 
+					DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK + ";true"
+				); 
 			}
-			set { WriteSetting<string> ("Documents_DisplayColumns", value, true); }
+			set { WriteTabModuleSetting<string> ("Documents_DisplayColumns", value); }
 		}
 
 		public bool AllowUserSort
 		{
-			get { return ReadSetting<bool> ("Documents_AllowUserSort", false, true); }
-			set { WriteSetting<bool> ("Documents_AllowUserSort", value, true); }
+			get { return ReadSetting<bool> ("Documents_AllowUserSort", false); }
+			set { WriteTabModuleSetting<bool> ("Documents_AllowUserSort", value); }
 		}
 
         public string GridStyle
         {
-            get { return ReadSetting<string> ("Documents_GridStyle", "bootstrap", true); }
-            set { WriteSetting<string> ("Documents_GridStyle", value, true); }
+            get { return ReadSetting<string> ("Documents_GridStyle", "bootstrap"); }
+            set { WriteTabModuleSetting<string> ("Documents_GridStyle", value); }
         }
 
 		#endregion
@@ -109,20 +109,20 @@ COLUMN_ICON,
 
 		public bool UseCategoriesList
 		{
-			get { return ReadSetting<bool> ("Documents_UseCategoriesList", false, false); }
-			set { WriteSetting<bool> ("Documents_UseCategoriesList", value, false); }
+			get { return ReadSetting<bool> ("Documents_UseCategoriesList", false); }
+			set { WriteModuleSetting<bool> ("Documents_UseCategoriesList", value); }
 		}
 
 		public string CategoriesListName
 		{
-			get { return ReadSetting<string> ("Documents_CategoriesListName", "Document Categories", false); }
-			set { WriteSetting<string> ("Documents_CategoriesListName", value, false); }
+			get { return ReadSetting<string> ("Documents_CategoriesListName", "Document Categories"); }
+			set { WriteModuleSetting<string> ("Documents_CategoriesListName", value); }
 		}
 
 		public int? DefaultFolder
 		{
-			get { return ReadSetting<int?> ("Documents_DefaultFolder", null, false); }
-			set { WriteSetting<int?> ("Documents_DefaultFolder", value, false); }
+			get { return ReadSetting<int?> ("Documents_DefaultFolder", null); }
+			set { WriteModuleSetting<int?> ("Documents_DefaultFolder", value); }
 		}
             
 		#endregion
