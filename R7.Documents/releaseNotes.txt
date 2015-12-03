@@ -1,18 +1,28 @@
-﻿<h3>Version 1.0.8</h3>
+﻿<h3>Version 1.6.2</h3>
+<p>This is a developer focused maintenance release.</p>
+<ul>
+    <li>Fix version number (apply semantic versioning rules).</li>
+    <li>Allow build project on Mono 4 with xbuild in *nix environments.</li>
+    <li>Add build target for local deploy, so project source files could be stored anywhere.</li>
+    <li>Remove source package build target.</li>
+    <li>Resolve DNN and MSBuild.Community.Tasks dependencies via NuGet.</li>
+</ul>
+
+<h3>Version 1.0.8 (new 1.6.1)</h3>
 <ul>
     <li>Fixed #23: Long description causes crash when adding document.</li>
     <li>Fixed #24: Default folder not set for new documents.</li>
     <li>Fixed #25: Deleting with resource leave files in place.</li>
 </ul>
 
-<h3>Version 1.0.7</h3>
+<h3>Version 1.0.7 (new 1.6.0)</h3>
 <ul>
     <li>Support for custom document link HTML attributes.</li>
     <li>Use GridView instead of DataGrid for documents table.</li>
     <li>Implemented #19: Custom CSS style sets for documents grid (styles defined in XML and loaded from GridStyles folder).</li>
 </ul>
 
-<h3>Version 1.0.6</h3>
+<h3>Version 1.0.6 (new 1.5.0)</h3>
 <ul>
     <li>Implemented #16: ChangeFolder: Allow choosing actions to take about documents and files.</li>
     <li>Implemented #17: Allow to suppress updating of Last Modified Date.</li>
@@ -24,7 +34,7 @@
     <li>Minor performance and stability improvements, code cleanup.</li>
 </ul>
 
-<h3>Version 1.0.5</h3>
+<h3>Version 1.0.5 (new 1.4.1)</h3>
 <ul>
 	<li>Edit column now hidden if not in edit mode.</li>
 	<li>More space for title and description by collapsing all other columns to minimum width.</li>
@@ -35,7 +45,7 @@
 	<li>Other small improvements and fixes.</li>
 </ul>
 
-<h3>Version 1.0.4</h3>
+<h3>Version 1.0.4 (new 1.4.0)</h3>
 <ul>
 	<li>Ability to import documents from another R7.Documents or DNN Documents module.</li>
 	<li>Control unpublishing of skipped documents when changing folder.</li>
@@ -43,13 +53,13 @@
 	<li>Other small improvements and fixes.</li>
 </ul>
 
-<h3>Version 1.0.3</h3>
+<h3>Version 1.0.3 (new 1.3.0)</h3>
 <ul>
 	<li>New ChangeFolder action and control.</li>
 	<li>Don't localize names of CSS classes for cells.</li>
 </ul>
 
-<h3>Version 1.0.2</h3>
+<h3>Version 1.0.2 (new 1.2.1)</h3>
 <ul>
 	<li>New modules have sorting by index, asc by default.</li>
 	<li>Document's dates now set to the current date during template import.</li>
@@ -57,7 +67,7 @@
 	<li>Other small improvements and fixes.</li>
 </ul>
 
-<h3>Version 1.0.1</h3>
+<h3>Version 1.0.1 (new 1.2.0)</h3>
 <ul>
 	<li>Document description now displayed in the title tooltip.</li>
 	<li>Filename / URL now displayed in the edit link tooltip. Url column removed as a result of previous change.</li>

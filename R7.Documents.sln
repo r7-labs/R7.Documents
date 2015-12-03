@@ -161,6 +161,6 @@ Global
 		$22.NamingStyle = PascalCase
 		$22.IncludeInstanceMembers = True
 		$22.IncludeStaticEntities = True
-		version = 1.0.8
+		version = 1.6.2
 	EndGlobalSection
 EndGlobal
