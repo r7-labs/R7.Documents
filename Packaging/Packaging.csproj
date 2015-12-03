@@ -46,4 +46,7 @@
   <Import Project="Install.targets" />
   <Import Project="Source.targets" />
   <Target Name="AfterBuild" DependsOnTargets="MakeInstallPackage" />
+  <ItemGroup>
+    <Compile Include="Dummy.cs" />
+  </ItemGroup>
 </Project>
