@@ -145,7 +145,6 @@ namespace R7.Documents
 
 					// Load sort columns 
 					string strSortColumn = null;
-					ArrayList objSortColumns = new ArrayList ();
 					foreach (string strSortColumn_loopVariable in DocumentsDisplayColumnInfo.AvailableSortColumns)
 					{
 						strSortColumn = strSortColumn_loopVariable;

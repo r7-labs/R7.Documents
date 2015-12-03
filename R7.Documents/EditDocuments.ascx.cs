@@ -217,8 +217,8 @@ namespace R7.Documents
 					{
 						try
 						{
-							lstOwner.SelectedValue = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo ().UserID.ToString ();
-							lblOwner.Text = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo ().DisplayName;
+                            lstOwner.SelectedValue = UserId.ToString ();
+                            lblOwner.Text = UserInfo.DisplayName;
 						}
 						catch
 						{

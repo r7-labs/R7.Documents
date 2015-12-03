@@ -55,8 +55,8 @@ namespace R7.Documents
 
 		protected void Synchronize ()
 		{
-			Utils.SynchronizeModule (this);
-			DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
+            ModuleController.SynchronizeModule (ModuleId);
+			DataCache.RemoveCache (DataCacheKey + ";anon-doclist");
 		}
 	}
 
@@ -88,10 +88,10 @@ namespace R7.Documents
 			}
 		}
 
-		protected void Synchronize ()
-		{
-			Utils.SynchronizeModule (this);
-			DataCache.RemoveCache (this.DataCacheKey + ";anon-doclist");
-		}
+        protected void Synchronize ()
+        {
+            ModuleController.SynchronizeModule (ModuleId);
+            DataCache.RemoveCache (DataCacheKey + ";anon-doclist");
+        }
 	}
 }
