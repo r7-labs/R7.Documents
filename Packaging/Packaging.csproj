@@ -33,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Install.targets" />
-    <None Include="Source.targets" />
     <None Include="Packaging.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -46,5 +45,5 @@
   </PropertyGroup>
   <Import Project="Install.targets" />
   <Import Project="Source.targets" />
-  <Target Name="AfterBuild" DependsOnTargets="MakeInstallPackage;MakeSourcePackage" />
+  <Target Name="AfterBuild" DependsOnTargets="MakeInstallPackage" />
 </Project>
