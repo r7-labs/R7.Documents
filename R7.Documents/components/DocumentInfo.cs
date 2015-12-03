@@ -32,6 +32,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.ComponentModel.DataAnnotations;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.FileSystem;
+using DotNetNuke.R7;
 
 namespace R7.Documents
 {
@@ -140,7 +141,7 @@ namespace R7.Documents
 
 					if (Url.ToUpperInvariant ().StartsWith ("FILEID="))
 					{
-						var fileId = Utils.ParseToNullableInt (Url.Substring ("FILEID=".Length));
+						var fileId = TypeUtils.ParseToNullableInt (Url.Substring ("FILEID=".Length));
 						if (fileId != null)
 						{
 							var fileInfo = FileManager.Instance.GetFile (fileId.Value);
@@ -175,7 +176,7 @@ namespace R7.Documents
 					
 					if (Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase))
 					{
-						var fileId = Utils.ParseToNullableInt (Url.Substring ("fileid=".Length));
+						var fileId = TypeUtils.ParseToNullableInt (Url.Substring ("fileid=".Length));
 						if (fileId != null)
 						{
 							var fileInfo = FileManager.Instance.GetFile (fileId.Value);

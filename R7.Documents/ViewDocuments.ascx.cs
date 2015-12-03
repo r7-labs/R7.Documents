@@ -36,6 +36,7 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.R7;
 
 namespace R7.Documents
 {
@@ -88,7 +89,7 @@ namespace R7.Documents
 			
 				if (IsEditable && mobjDocumentList.Count == 0)
 				{
-					Utils.Message (this, MessageSeverity.Info, "NothingToDisplay.Text", true);
+                    this.Message ("NothingToDisplay.Text", MessageType.Info, true);
 				}
 				else if (!IsEditable && mobjDocumentList.Count (d => d.IsPublished) == 0)
 				{

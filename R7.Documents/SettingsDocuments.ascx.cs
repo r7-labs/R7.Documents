@@ -32,6 +32,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.R7;
 
 namespace R7.Documents
 {
@@ -89,7 +90,7 @@ namespace R7.Documents
 					chkShowTitleLink.Checked = DocumentsSettings.ShowTitleLink;
 					chkUseCategoriesList.Checked = DocumentsSettings.UseCategoriesList;
 					chkAllowUserSort.Checked = DocumentsSettings.AllowUserSort;
-                    Utils.SelectByValue (comboGridStyle, DocumentsSettings.GridStyle);
+                    comboGridStyle.SelectByValue (DocumentsSettings.GridStyle);
 
 					try
 					{
@@ -154,7 +155,7 @@ namespace R7.Documents
 					BindSortSettings (DocumentsSettings.GetSortColumnList (this.LocalResourceFile));
 
                     // load grid style
-                    Utils.SelectByValue (comboGridStyle, DocumentsSettings.GridStyle);
+                    comboGridStyle.SelectByValue (DocumentsSettings.GridStyle);
 				}
 				//Module failed to load
 			}

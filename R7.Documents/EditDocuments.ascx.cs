@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Collections;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -37,7 +38,7 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
-using System.Linq;
+using DotNetNuke.R7;
 
 namespace R7.Documents
 {
@@ -247,7 +248,7 @@ namespace R7.Documents
                                 }
                                 else
                                 {
-                                    Utils.Message (this, MessageSeverity.Warning, "CurrentFolder.Warning", true);
+                                    this.Message ("CurrentFolder.Warning", MessageType.Warning, true);
 
                                     // BUG: select folder => postback => root folder is always selected.
                                     // Setting link type to none provide a way to mask this behavior

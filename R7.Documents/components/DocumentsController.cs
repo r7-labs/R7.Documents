@@ -176,7 +176,7 @@ namespace R7.Documents
 			{
 				if (document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ())
 				{
-                    var documentText = Utils.FormatList (" ", document.Title, document.Description);
+                    var documentText = TextUtils.FormatList (" ", document.Title, document.Description);
 
 					var sd = new SearchDocument () {
 						PortalId = moduleInfo.PortalID,
@@ -392,7 +392,7 @@ namespace R7.Documents
 				settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlSettings, "showtitlelink");
 				settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlSettings, "usecategorieslist");
 				settings.CategoriesListName = XmlUtils.GetNodeValue (xmlSettings, "categorieslistname");
-				settings.DefaultFolder = Utils.ParseToNullableInt (XmlUtils.GetNodeValue (xmlSettings, "defaultfolder"));
+                settings.DefaultFolder = TypeUtils.ParseToNullableInt (XmlUtils.GetNodeValue (xmlSettings, "defaultfolder"));
 				settings.DisplayColumns = XmlUtils.GetNodeValue (xmlSettings, "displaycolumns");
 				settings.SortOrder = XmlUtils.GetNodeValue (xmlSettings, "sortorder");
 
