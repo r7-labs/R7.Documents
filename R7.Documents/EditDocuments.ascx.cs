@@ -29,6 +29,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using DotNetNuke;
 using DotNetNuke.Common;
+using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;
@@ -39,6 +40,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.R7;
+using DotNetNuke.Services.Messaging.Data;
 
 namespace R7.Documents
 {
@@ -58,7 +60,7 @@ namespace R7.Documents
 	{
 		#region Private Members
 
-		private int mintItemId;
+		private int itemId;
 
 		#endregion
 
@@ -72,7 +74,8 @@ namespace R7.Documents
             linkCancel.NavigateUrl = Globals.NavigateURL ();
 
 			// Add the "are you sure" message to the delete button click event
-			cmdDelete.Attributes.Add ("onClick", "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
+			cmdDelete.Attributes.Add ("onClick", 
+                "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
 
             // Configure categories entry as a list or textbox, based on user settings
             if (DocumentsSettings.UseCategoriesList)
@@ -82,13 +85,14 @@ namespace R7.Documents
                 txtCategory.Visible = false;
 
                 // Populate categories list
-                var _with1 = new DotNetNuke.Common.Lists.ListController ();
-                lstCategory.DataSource = _with1.GetListEntryInfoItems (DocumentsSettings.CategoriesListName);
+                var listController = new ListController ();
+                lstCategory.DataSource = listController.GetListEntryInfoItems (DocumentsSettings.CategoriesListName);
                 lstCategory.DataTextField = "Text";
                 lstCategory.DataValueField = "Value";
 
                 lstCategory.DataBind ();
-                lstCategory.Items.Insert (0, new System.Web.UI.WebControls.ListItem (Localization.GetString ("None_Specified"), "-1"));
+                lstCategory.Items.Insert (0, new ListItem (Localization.GetString ("None_Specified"),
+                    Null.NullInteger.ToString ()));
             }
             else
             {
@@ -110,13 +114,13 @@ namespace R7.Documents
 			try
 			{
 				// Determine ItemId of Document to Update
-				if ((Request.QueryString ["ItemId"] != null))
+				if (Request.QueryString ["ItemId"] != null)
 				{
-					ItemID = Int32.Parse (Request.QueryString ["ItemId"]);
+					itemId = int.Parse (Request.QueryString ["ItemId"]);
 				}
 				else
 				{
-					ItemID = Convert.ToInt32 (Null.NullInteger);
+                    itemId = Null.NullInteger;
 				}
 
 				// Load module instance settings
@@ -126,55 +130,55 @@ namespace R7.Documents
 					// document itemId value is specified, and if so populate page
 					// contents with the document details
 
-					if (!Null.IsNull (ItemID))
+					if (!Null.IsNull (itemId))
 					{
 						// Read document information
-						var objDocument = DocumentsController.GetDocument (ItemID, ModuleId);
+                        var document = DocumentsController.GetDocument (itemId, ModuleId);
 
 						// Read values from documentInfo object on to page
-						if ((objDocument != null))
+						if (document != null)
 						{
-							txtName.Text = objDocument.Title;
-							txtDescription.Text = objDocument.Description;
-							chkForceDownload.Checked = objDocument.ForceDownload;
-							checkIsPublished.Checked = objDocument.IsPublished;
-                            textLinkAttributes.Text = objDocument.LinkAttributes;
+							txtName.Text = document.Title;
+							txtDescription.Text = document.Description;
+							chkForceDownload.Checked = document.ForceDownload;
+							checkIsPublished.Checked = document.IsPublished;
+                            textLinkAttributes.Text = document.LinkAttributes;
 
-							pickerCreatedDate.SelectedDate = objDocument.CreatedDate;
-							pickerLastModifiedDate.SelectedDate = objDocument.ModifiedDate;
+							pickerCreatedDate.SelectedDate = document.CreatedDate;
+							pickerLastModifiedDate.SelectedDate = document.ModifiedDate;
 							
-							if (objDocument.Url != string.Empty)
+                            if (!string.IsNullOrEmpty (document.Url))
 							{
-								ctlUrl.Url = objDocument.Url;
+								ctlUrl.Url = document.Url;
 							}
 
 							// Test to see if the document has been removed/deleted
-							if (CheckFileExists (objDocument.Url) == false)
+							if (!CheckFileExists (document.Url))
 							{
 								ctlUrl.UrlType = "N";
 							}
 
-							CheckFileSecurity (objDocument.Url);
+							CheckFileSecurity (document.Url);
 
-							txtSortIndex.Text = objDocument.SortOrderIndex.ToString ();
+							txtSortIndex.Text = document.SortOrderIndex.ToString ();
 
-							if (objDocument.OwnedByUser == string.Empty)
+                            if (string.IsNullOrEmpty (document.OwnedByUser))
 							{
 								lblOwner.Text = Localization.GetString ("None_Specified");
 							}
 							else
 							{
-								lblOwner.Text = objDocument.OwnedByUser;
+								lblOwner.Text = document.OwnedByUser;
 							}
 
 							if (txtCategory.Visible)
 							{
-								txtCategory.Text = objDocument.Category;
+								txtCategory.Text = document.Category;
 							}
 							else
 							{
 								//Look for the category by name
-								ListItem found = lstCategory.Items.FindByText (objDocument.Category);
+								var found = lstCategory.Items.FindByText (document.Category);
 								if (found != null)
 								{
 									lstCategory.SelectedValue = found.Value;
@@ -182,7 +186,7 @@ namespace R7.Documents
 								else
 								{
 									//Legacy support, do a fall-back
-									found = lstCategory.Items.FindByValue (objDocument.Category);
+									found = lstCategory.Items.FindByValue (document.Category);
 									if (found != null)
 									{
 										lstCategory.SelectedValue = found.Value;
@@ -194,16 +198,18 @@ namespace R7.Documents
 							// "CreatedByUser" actually means "last modified user", and the property
 							// called "CreatedDate" actually means "ModifiedDate"
 							
-							ctlAudit.CreatedByUser = objDocument.CreatedByUser;
-							ctlAudit.CreatedDate = objDocument.CreatedDate.ToString ();
-							ctlAudit.LastModifiedByUser = objDocument.ModifiedByUser;
-							ctlAudit.LastModifiedDate = objDocument.ModifiedDate.ToString ();
+							ctlAudit.CreatedByUser = document.CreatedByUser;
+							ctlAudit.CreatedDate = document.CreatedDate.ToString ();
+							ctlAudit.LastModifiedByUser = document.ModifiedByUser;
+							ctlAudit.LastModifiedDate = document.ModifiedDate.ToString ();
 
 							if (ctlUrl.UrlType == "N")
+                            {
 								panelUrlTracking.Visible = false;
+                            }
 							else
 							{
-								ctlUrlTracking.URL = objDocument.Url;
+								ctlUrlTracking.URL = document.Url;
 								ctlUrlTracking.ModuleID = ModuleId;
 							}
 						}
@@ -282,7 +288,7 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		private bool CheckFileSecurity (string Url)
 		{
-			int intFileId = 0;
+            var fileId = 0;
 					
 			switch (Globals.GetURLType (Url))
 			{
@@ -294,10 +300,10 @@ namespace R7.Documents
 						// Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
 					}
 
-					intFileId = int.Parse (UrlUtils.GetParameterValue (Url));
-					var objFile = FileManager.Instance.GetFile (intFileId);
+					fileId = int.Parse (UrlUtils.GetParameterValue (Url));
+                    var file = FileManager.Instance.GetFile (fileId);
 					
-					if (objFile != null)
+					if (file != null)
 					{
 						// module view roles
 						var moduleViewRoles = new StringBuilder ();
@@ -313,7 +319,7 @@ namespace R7.Documents
 						}
 	
 						// folder view roles
-						var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
+						var folder = FolderManager.Instance.GetFolder (file.FolderId);
 						var folderViewRoles = new StringBuilder ();
 						foreach (FolderPermissionInfo folderPerm in folder.FolderPermissions)
 						{
@@ -349,16 +355,16 @@ namespace R7.Documents
 		/// 	[ag]	11 March 2007	Created
 		/// </history>
 		/// -----------------------------------------------------------------------------
-		private bool CheckRolesMatch (string ModuleRoles, string FileRoles)
+		private bool CheckRolesMatch (string moduleRoles, string fileRolesString)
 		{
-			Hashtable objFileRoles = new Hashtable ();
-			bool blnNotMatching = false;
-			string strRolesForMessage = "";
+            var fileRoles = new Hashtable ();
+            var notMatching = false;
+			var strRolesForMessage = "";
 
-			foreach (string strFileRole in FileRoles.Split(';'))
+            foreach (var fileRoleString in fileRolesString.Split (';'))
 			{
-				objFileRoles.Add (strFileRole, strFileRole);
-				if (strFileRole == DotNetNuke.Common.Globals.glbRoleAllUsersName)
+				fileRoles.Add (fileRoleString, fileRoleString);
+				if (fileRoleString == Globals.glbRoleAllUsersName)
 				{
 					// If read access to the file is available for "all users", the file can
 					// always be accessed
@@ -366,32 +372,33 @@ namespace R7.Documents
 				}
 			}
 
-			foreach (string strModuleRole in ModuleRoles.Split(';'))
+            foreach (var moduleRoleString in moduleRoles.Split(';'))
 			{
-				if (!objFileRoles.ContainsKey (strModuleRole))
+				if (!fileRoles.ContainsKey (moduleRoleString))
 				{
 					// A view role exists for the module that is not available for the file
-					blnNotMatching = true;
+					notMatching = true;
 					if (strRolesForMessage != string.Empty)
 					{
 						strRolesForMessage = strRolesForMessage + ", ";
 					}
-					strRolesForMessage = strRolesForMessage + strModuleRole;
+
+					strRolesForMessage = strRolesForMessage + moduleRoleString;
 				}
 			}
 
-			if (blnNotMatching)
+			if (notMatching)
 			{
 				// if no roles selected for message, assume it "All users"
-				if (string.IsNullOrWhiteSpace (strRolesForMessage))
-					strRolesForMessage = Globals.glbRoleAllUsersName;
+                if (string.IsNullOrWhiteSpace (strRolesForMessage))
+                {
+                    strRolesForMessage = Globals.glbRoleAllUsersName;
+                }
 
 				// Warn user that roles do not match
-				DotNetNuke.UI.Skins.Skin.AddModuleMessage (
-					this, 
-					Localization.GetString ("msgFileSecurityWarning.Text", this.LocalResourceFile)
-					.Replace ("[$ROLELIST]", strRolesForMessage), 
-					DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
+                this.Message (LocalizeString ("msgFileSecurityWarning.Text")
+                    .Replace ("[$ROLELIST]", strRolesForMessage), MessageType.Warning);
+                
 				return false;
 			}
 
@@ -410,13 +417,13 @@ namespace R7.Documents
 		/// -----------------------------------------------------------------------------
 		private bool CheckFileExists (string Url)
 		{
-			int intFileId = 0;
-			bool blnAddWarning = false;
+            var fileId = 0;
+			var blnAddWarning = false;
 
 			if (Url == string.Empty)
 			{
-				// File not selected
-				DotNetNuke.UI.Skins.Skin.AddModuleMessage (this, DotNetNuke.Services.Localization.Localization.GetString ("msgNoFileSelected.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
+				// file not selected
+                this.Message ("msgNoFileSelected.Text", MessageType.Warning, true);
 				return false;
 			}
 			else
@@ -431,9 +438,9 @@ namespace R7.Documents
 							// Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
 						}
 
-						intFileId = int.Parse (UrlUtils.GetParameterValue (Url));
+						fileId = int.Parse (UrlUtils.GetParameterValue (Url));
 
-						var objFile = FileManager.Instance.GetFile (intFileId);
+						var objFile = FileManager.Instance.GetFile (fileId);
 
 						blnAddWarning = false;
 						if (objFile == null)
@@ -442,7 +449,7 @@ namespace R7.Documents
 						}
 						else
 						{
-							switch ((FolderController.StorageLocationTypes)objFile.StorageLocation)
+							switch ((FolderController.StorageLocationTypes) objFile.StorageLocation)
 							{
 								case FolderController.StorageLocationTypes.InsecureFileSystem:
 									blnAddWarning = !File.Exists (objFile.PhysicalPath);
@@ -460,7 +467,7 @@ namespace R7.Documents
 						if (blnAddWarning)
 						{
 							// Display a "file not found" warning
-							DotNetNuke.UI.Skins.Skin.AddModuleMessage (this, DotNetNuke.Services.Localization.Localization.GetString ("msgFileDeleted.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
+                            this.Message ("msgFileDeleted.Text", MessageType.Warning, true);
 							return false;
 						}
 
@@ -488,9 +495,9 @@ namespace R7.Documents
 		{
 			try
 			{
-				if (!Null.IsNull (ItemID))
+				if (!Null.IsNull (itemId))
 				{
-					var document = DocumentsController.GetDocument (ItemID, ModuleId);
+					var document = DocumentsController.GetDocument (itemId, ModuleId);
 					if (document != null)
 					{
                         DocumentsController.Delete (document);
@@ -567,13 +574,13 @@ namespace R7.Documents
 					}
 
 					// Get existing document record
-					var objDocument = DocumentsController.GetDocument (ItemID, ModuleId);
+					var objDocument = DocumentsController.GetDocument (itemId, ModuleId);
 
 					if (objDocument == null)
 					{
 						// New record
 						objDocument = new DocumentInfo ();
-						objDocument.ItemId = ItemID;
+						objDocument.ItemId = itemId;
 						objDocument.ModuleId = ModuleId;
 						
 						objDocument.CreatedByUserId = UserInfo.UserID;
@@ -602,7 +609,7 @@ namespace R7.Documents
 						}
 						else
 						{
-							objDocument.OwnedByUserId = -1;
+                            objDocument.OwnedByUserId = Null.NullInteger;
 						}
 					}
 					else
@@ -636,7 +643,7 @@ namespace R7.Documents
 					
 					if (pickerCreatedDate.SelectedDate != null)
 					{
-						if (Null.IsNull (ItemID) || objDocument.CreatedDate != pickerCreatedDate.SelectedDate.Value)
+						if (Null.IsNull (itemId) || objDocument.CreatedDate != pickerCreatedDate.SelectedDate.Value)
 							objDocument.CreatedDate = pickerCreatedDate.SelectedDate.Value;
 						// else leave CreatedDate as is
 					}
@@ -649,11 +656,15 @@ namespace R7.Documents
 					{
                         if (!checkDontUpdateLastModifiedDate.Checked)
                         {
-                            if (Null.IsNull (ItemID) || objDocument.ModifiedDate != pickerLastModifiedDate.SelectedDate.Value)
+                            if (Null.IsNull (itemId) || objDocument.ModifiedDate != pickerLastModifiedDate.SelectedDate.Value)
+                            {
     							objDocument.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
-                            else 
+                            }
+                            else
+                            {
     							// update ModifiedDate
     							objDocument.ModifiedDate = now;
+                            }
                         }
 					}
 					else
@@ -663,7 +674,7 @@ namespace R7.Documents
 
 					#endregion
 
-					if (Null.IsNull (ItemID))
+					if (Null.IsNull (itemId))
 					{
 						DocumentsController.Add (objDocument);
 					}
@@ -697,15 +708,7 @@ namespace R7.Documents
 
 		#endregion
 
-		#region Private methods
-
-		private int ItemID
-		{
-			get { return mintItemId; }
-			set { mintItemId = value; }
-		}
-
-		#endregion
+		
 
 		protected void lnkChange_Click (System.Object sender, System.EventArgs e)
 		{
@@ -718,17 +721,17 @@ namespace R7.Documents
 			try
 			{
 				// Get existing document record
-				var objDocument = DocumentsController.GetDocument (ItemID, ModuleId);
+                var document = DocumentsController.GetDocument (itemId, ModuleId);
 
 				try
 				{
-					if (objDocument == null)
+					if (document == null)
 					{
 						lstOwner.SelectedValue = UserId.ToString ();
 					}
 					else
 					{
-						lstOwner.SelectedValue = objDocument.OwnedByUserId.ToString ();
+						lstOwner.SelectedValue = document.OwnedByUserId.ToString ();
 					}
 				}
 				catch
@@ -746,23 +749,19 @@ namespace R7.Documents
 		private void PopulateOwnerList ()
 		{
 			// populate owner list
-			//'With New DotNetNuke.Entities.Users.UserController
 			lstOwner.DataSource = UserController.GetUsers (PortalId);
-
 			lstOwner.DataTextField = "FullName";
 			lstOwner.DataValueField = "UserId";
-
 			lstOwner.DataBind ();
 
 			// .GetUsers doesn't return super-users, but they can own documents
 			// so add them to the list
-			foreach (UserInfo objsu in DotNetNuke.Entities.Users.UserController.GetUsers(Null.NullInteger))
+            foreach (UserInfo superUsers in UserController.GetUsers(Null.NullInteger))
 			{
-				lstOwner.Items.Insert (0, new System.Web.UI.WebControls.ListItem (objsu.DisplayName, objsu.UserID.ToString ()));
+				lstOwner.Items.Insert (0, new ListItem (superUsers.DisplayName, superUsers.UserID.ToString ()));
 			}
 
-			lstOwner.Items.Insert (0, new System.Web.UI.WebControls.ListItem (Localization.GetString ("None_Specified"), "-1"));
-			//' End With
+            lstOwner.Items.Insert (0, new ListItem (LocalizeString ("None_Specified"), Null.NullInteger.ToString ()));
 		}
 	}
 }
