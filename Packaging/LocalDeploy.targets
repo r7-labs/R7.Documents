@@ -26,6 +26,7 @@
         </ItemGroup>
         <!-- Declare excluded files -->
         <ItemGroup>
+            <LocalDeployExcludeFiles Include="..\images\**\*" />
             <LocalDeployExcludeFiles Include="..\packages\**\*" />
             <LocalDeployExcludeFiles Include="..\Packaging\**\*" />
             <LocalDeployExcludeFiles Include="..\.git\**\*" />

@@ -18,8 +18,8 @@
         <ItemGroup>
             <InstallManifestFiles Include="$(MainProjectPath)\*.dnn" />
             <InstallManifestFiles Include="$(MainProjectPath)\*.dnn6" />
-            <InstallManifestFiles Include="$(MainProjectPath)\License.txt" />
-            <InstallManifestFiles Include="$(MainProjectPath)\ReleaseNotes.txt" />
+            <InstallManifestFiles Include="$(MainProjectPath)\license.txt" />
+            <InstallManifestFiles Include="$(MainProjectPath)\releaseNotes.txt" />
         </ItemGroup>
         <!-- Declare SqlDataProvider files -->
         <ItemGroup>
@@ -46,6 +46,7 @@
         </ItemGroup>
         <!-- Declare excluded files -->
         <ItemGroup>
+            <InstallExcludeFiles Include="..\images\**\*" />
             <InstallExcludeFiles Include="..\packages\**\*" />
             <InstallExcludeFiles Include="..\Packaging\**\*" />
             <InstallExcludeFiles Include="..\.git\**\*" />

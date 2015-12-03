@@ -9,8 +9,8 @@
 				<url>https://github.com/roman-yagodin/R7.Documents</url>
 				<email>roman.yagodin@gmail.com</email>
 			</owner>
-			<license src="License.txt" />
-			<releaseNotes src="ReleaseNotes.txt" />
+			<license src="license.txt" />
+			<releaseNotes src="releaseNotes.txt" />
 			<dependencies>
                 <dependency type="CoreVersion">07.01.02</dependency>
             </dependencies>

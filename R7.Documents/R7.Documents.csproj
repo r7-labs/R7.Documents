@@ -85,14 +85,14 @@
     <None Include="App_LocalResources\ChangeFolder.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.ru-RU.resx" />
-    <None Include="License.txt" />
-    <None Include="ReleaseNotes.txt" />
     <None Include="R7.Documents.dnn" />
     <None Include="SqlDataProvider\01.00.07.SqlDataProvider" />
     <None Include="GridStyles\bootstrap.xml" />
     <None Include="GridStyles\dnn.xml" />
     <None Include="GridStyles\bootstrap-condensed.xml" />
     <None Include="SqlDataProvider\01.00.08.SqlDataProvider" />
+    <None Include="releaseNotes.txt" />
+    <None Include="license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\ControllerBase.cs" />
