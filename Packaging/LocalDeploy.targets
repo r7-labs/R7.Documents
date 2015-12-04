@@ -4,6 +4,7 @@
         <!-- Declare binaries -->
         <ItemGroup>
             <LocalDeployBinaryFiles Include="$(MainProjectOutputPath)\R7.Documents*.dll" />
+            <LocalDeployBinaryFiles Include="$(MainProjectOutputPath)\R7.Documents*.pdb" />
         </ItemGroup>
         <!-- Declare resource files -->
         <ItemGroup>
