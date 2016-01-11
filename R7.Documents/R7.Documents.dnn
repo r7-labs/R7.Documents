@@ -13,6 +13,7 @@
 			<releaseNotes src="releaseNotes.txt" />
 			<dependencies>
                 <dependency type="CoreVersion">07.01.02</dependency>
+                <dependency type="managedPackage" version="0.3.0">DotNetNuke.R7</dependency>
             </dependencies>
             <components>
 				<component type="Module">
