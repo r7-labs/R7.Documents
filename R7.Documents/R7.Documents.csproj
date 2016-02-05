@@ -75,6 +75,8 @@
     <Content Include="ImportDocuments.ascx" />
     <Content Include="admin.css" />
     <Content Include="packages.config" />
+    <Content Include="license.htm" />
+    <Content Include="releaseNotes.htm" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
@@ -95,8 +97,6 @@
     <None Include="GridStyles\dnn.xml" />
     <None Include="GridStyles\bootstrap-condensed.xml" />
     <None Include="SqlDataProvider\01.00.08.SqlDataProvider" />
-    <None Include="releaseNotes.txt" />
-    <None Include="license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="components\DocumentsSettings.cs" />

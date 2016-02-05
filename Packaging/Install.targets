@@ -18,8 +18,8 @@
         <ItemGroup>
             <InstallManifestFiles Include="$(MainProjectPath)\*.dnn" />
             <InstallManifestFiles Include="$(MainProjectPath)\*.dnn6" />
-            <InstallManifestFiles Include="$(MainProjectPath)\license.txt" />
-            <InstallManifestFiles Include="$(MainProjectPath)\releaseNotes.txt" />
+            <InstallManifestFiles Include="$(MainProjectPath)\license.htm" />
+            <InstallManifestFiles Include="$(MainProjectPath)\releaseNotes.htm" />
         </ItemGroup>
         <!-- Declare SqlDataProvider files -->
         <ItemGroup>
@@ -34,7 +34,7 @@
             <InstallResourceFiles Include="..\**\*.resx" />
             <InstallResourceFiles Include="..\**\*.css" />
             <InstallResourceFiles Include="..\**\*.html" />
-            <InstallResourceFiles Include="..\**\*.htm" />
+            <InstallResourceFiles Include="..\**\*.htm" Exclude="$(MainProjectPath)\license.htm;$(MainProjectPath)\releaseNotes.htm" />
             <InstallResourceFiles Include="..\**\*.xml" />
             <InstallResourceFiles Include="..\**\*.xsl" />
             <InstallResourceFiles Include="..\**\*.xslt" />
