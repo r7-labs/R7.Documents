@@ -52,11 +52,11 @@
     <Reference Include="Microsoft.ApplicationBlocks.Data">
       <HintPath>..\packages\DotNetNuke.Core.7.4.2.216\lib\net40\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetNuke.R7">
-      <HintPath>..\packages\DotNetNuke.R7.0.3.0\lib\net45\DotNetNuke.R7.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetNuke.Web">
       <HintPath>..\packages\DotNetNuke.Web.7.4.2.216\lib\net40\DotNetNuke.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.R7">
+      <HintPath>..\packages\DotNetNuke.R7.0.3.1\lib\net45\DotNetNuke.R7.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
