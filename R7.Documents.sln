@@ -3,18 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7.Documents", "R7.Documents\R7.Documents.csproj", "{CE24E9F1-305C-4801-97CF-28C255093F48}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2D54D805-6E32-423D-8DD4-488F9C4EAC38}"
-	ProjectSection(SolutionItems) = preProject
-		R7.Documents.sln = R7.Documents.sln
-		README.md = README.md
-		LICENSE.md = LICENSE.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{73E200C7-7C45-460B-8068-35D2CF866E9A}"
-	ProjectSection(SolutionItems) = preProject
-		images\r7_documents.png = images\r7_documents.png
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packaging", "Packaging\Packaging.csproj", "{3871D1F3-29BD-4B00-AD69-E86C3F8FEB5C}"
 EndProject
 Global
