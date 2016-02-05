@@ -12,7 +12,7 @@ namespace R7.Documents
 	{
 		protected TextBox txtName;
 		protected RequiredFieldValidator valName;
-		protected UrlControl ctlUrl;
+		protected DnnUrlControl ctlUrl;
 		protected TextBox txtCategory;
 		protected TextBox txtDescription;
 		protected CheckBox chkForceDownload;
