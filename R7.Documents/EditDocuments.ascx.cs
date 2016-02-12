@@ -758,20 +758,25 @@ namespace R7.Documents
 
 		private void PopulateOwnerList ()
 		{
-			// populate owner list
-			lstOwner.DataSource = UserController.GetUsers (PortalId);
-			lstOwner.DataTextField = "FullName";
-			lstOwner.DataValueField = "UserId";
+			// populate owner list, sort by display name
+            lstOwner.DataSource = UserController.GetUsers (PortalId)
+                .Cast<UserInfo> ()
+                .OrderBy (u => u.DisplayName);
+            
 			lstOwner.DataBind ();
 
-			// .GetUsers doesn't return super-users, but they can own documents
-			// so add them to the list
-            foreach (UserInfo superUsers in UserController.GetUsers(Null.NullInteger))
-			{
-				lstOwner.Items.Insert (0, new ListItem (superUsers.DisplayName, superUsers.UserID.ToString ()));
-			}
+            // add default item
+            lstOwner.Items.Insert (0, new ListItem (
+                "<" + LocalizeString ("None_Specified") + ">", Null.NullInteger.ToString ())
+            );
 
-            lstOwner.Items.Insert (0, new ListItem (LocalizeString ("None_Specified"), Null.NullInteger.ToString ()));
+            // add superusers *before* default item and with user names in brackets
+            foreach (UserInfo superUsers in UserController.GetUsers (false, true, Null.NullInteger))
+            {
+                lstOwner.Items.Insert (0, new ListItem (
+                    superUsers.DisplayName + " (" + superUsers.Username + ")", superUsers.UserID.ToString ())
+                );
+            }
 		}
 	}
 }

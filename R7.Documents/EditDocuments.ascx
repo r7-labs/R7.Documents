@@ -25,7 +25,10 @@
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plOwner" runat="server" controlname="lstOwner" suffix=":" />
-	        <asp:dropdownlist id="lstOwner" runat="server" Visible="False" />
+	        <asp:dropdownlist id="lstOwner" runat="server" Visible="False" 
+                DataTextField="DisplayName"
+                DataValueField="UserID"
+            />
 	        <asp:label id="lblOwner" runat="server" />
 	        <asp:linkbutton id="lnkChange" runat="server" cssclass="dnnSecondaryAction" resourcekey="lnkChangeOwner" causesvalidation="False" text="Change Owner" OnClick="lnkChange_Click" />
 	    </div>
