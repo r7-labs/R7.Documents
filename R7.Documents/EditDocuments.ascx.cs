@@ -225,6 +225,16 @@ namespace R7.Documents
 						{
                             lstOwner.SelectedValue = UserId.ToString ();
                             lblOwner.Text = UserInfo.DisplayName;
+
+                            // HACK: Calculate sortindex for new documents
+                            var documents = DocumentsController.GetDocuments (ModuleId, PortalId);
+                            if (documents != null && documents.Any ())
+                            {
+                                var maxSortIndex = documents.Max (d => d.SortOrderIndex);
+
+                                // TODO: Move to portal settings
+                                txtSortIndex.Text = (maxSortIndex + 10).ToString ();
+                            }
 						}
 						catch
 						{
