@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2013 by DotNetNuke Corporation
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,8 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.ComponentModel.DataAnnotations;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.FileSystem;
+using DotNetNuke.Common;
+using DotNetNuke.Entities.Tabs;
 using DotNetNuke.R7;
 
 namespace R7.Documents
@@ -139,22 +141,39 @@ namespace R7.Documents
 				{
 					_formatUrl = "";
 
-					if (Url.ToUpperInvariant ().StartsWith ("FILEID="))
-					{
-						var fileId = TypeUtils.ParseToNullableInt (Url.Substring ("FILEID=".Length));
-						if (fileId != null)
-						{
-							var fileInfo = FileManager.Instance.GetFile (fileId.Value);
-							if (fileInfo != null)
-							{
-								_formatUrl = fileInfo.RelativePath;
-							}
-						}
-					}
-					else // Url
-					{
-						_formatUrl = Url;
-					}
+                    switch (Globals.GetURLType (Url))
+                    {
+                        case TabType.File:
+                            
+                            var fileId = TypeUtils.ParseToNullableInt (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+                            if (fileId != null)
+                            {
+                                var fileInfo = FileManager.Instance.GetFile (fileId.Value);
+                                if (fileInfo != null)
+                                {
+                                    _formatUrl = fileInfo.RelativePath;
+                                }
+                            }
+                            break;
+
+                        case TabType.Tab:
+                            
+                            var tabId = TypeUtils.ParseToNullableInt (Url);
+                            if (tabId != null)
+                            {
+                                var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
+                                if (tabInfo != null)
+                                {
+                                    // REVIEW: Show LocalizedTabName instead?
+                                    _formatUrl = tabInfo.TabName;
+                                }
+                            }
+                            break;
+
+                        default:
+                            _formatUrl = Url;
+                            break;
+                    }
 				}
 			
 				return _formatUrl;
@@ -174,19 +193,21 @@ namespace R7.Documents
 				{
 					_formatIcon = "";
 					
-					if (Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase))
-					{
-						var fileId = TypeUtils.ParseToNullableInt (Url.Substring ("fileid=".Length));
-						if (fileId != null)
-						{
-							var fileInfo = FileManager.Instance.GetFile (fileId.Value);
-							if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension))
-							{
-								// Optimistic way 
-								_formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-									IconController.IconURL ("Ext" + fileInfo.Extension), fileInfo.Extension.ToUpperInvariant ());
+                    switch (Globals.GetURLType (Url))
+                    {
+                        case TabType.File:
+
+                            var fileId = TypeUtils.ParseToNullableInt (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+                            if (fileId != null)
+                            {
+                                var fileInfo = FileManager.Instance.GetFile (fileId.Value);
+                                if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension))
+                                {
+                                    // Optimistic way 
+                                    _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+                                        IconController.IconURL ("Ext" + fileInfo.Extension), fileInfo.Extension.ToUpperInvariant ());
 								
-								/* 
+                                    /* 
 								// Less optimistic way
 								var iconFile = IconController.IconURL ("Ext" + file.Extension);
 
@@ -196,13 +217,19 @@ namespace R7.Documents
 									_icon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
 										iconFile, file.Extension.ToLowerInvariant ());
 								}*/
-							}
-						}
-					}
-					else if (!string.IsNullOrWhiteSpace (Url))
-					{
-						_formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-							IconController.IconURL ("Link", "16X16", "Gray"), "URL");
+                                }
+                            }
+                            break;
+                        
+                        case TabType.Tab:
+                            _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+                                IconController.IconURL ("Tabs", "16X16"), Localize ("Page.Text"));
+                            break;
+
+                        default:
+                            _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+                                IconController.IconURL ("Link", "16X16", "Gray"), "URL");
+                            break;
 					}
 				}
 
