@@ -20,9 +20,6 @@ Global
 		{CE24E9F1-305C-4801-97CF-28C255093F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE24E9F1-305C-4801-97CF-28C255093F48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{73E200C7-7C45-460B-8068-35D2CF866E9A} = {2D54D805-6E32-423D-8DD4-488F9C4EAC38}
-	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
 		$0.NameConventionPolicy = $1
@@ -149,6 +146,6 @@ Global
 		$22.NamingStyle = PascalCase
 		$22.IncludeInstanceMembers = True
 		$22.IncludeStaticEntities = True
-		version = 1.6.2
+		version = 1.7.0
 	EndGlobalSection
 EndGlobal
