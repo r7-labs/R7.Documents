@@ -13,6 +13,7 @@
 			<releaseNotes src="releaseNotes.htm" />
 			<dependencies>
                 <dependency type="CoreVersion">07.04.00</dependency>
+                <dependency type="Type">System.Progress</dependency>
                 <dependency type="managedPackage" version="0.3.1">DotNetNuke.R7</dependency>
             </dependencies>
             <components>
