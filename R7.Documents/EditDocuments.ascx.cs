@@ -79,7 +79,7 @@ namespace R7.Documents
                 "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
 
             // Configure categories entry as a list or textbox, based on user settings
-            if (DocumentsSettings.UseCategoriesList)
+            if (Settings.UseCategoriesList)
             {
                 // Configure category entry as a list
                 lstCategory.Visible = true;
@@ -87,7 +87,7 @@ namespace R7.Documents
 
                 // Populate categories list
                 var listController = new ListController ();
-                lstCategory.DataSource = listController.GetListEntryInfoItems (DocumentsSettings.CategoriesListName);
+                lstCategory.DataSource = listController.GetListEntryInfoItems (Settings.CategoriesListName);
                 lstCategory.DataTextField = "Text";
                 lstCategory.DataValueField = "Value";
 
@@ -253,9 +253,9 @@ namespace R7.Documents
 						checkIsPublished.Checked = true;
 
 						// set default folder
-						if (DocumentsSettings.DefaultFolder != null)
+						if (Settings.DefaultFolder != null)
                         {
-                            var folder = FolderManager.Instance.GetFolder (DocumentsSettings.DefaultFolder.Value);
+                            var folder = FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
                             if (folder != null)
                             {
                                 var file = FolderManager.Instance.GetFiles (folder).FirstOrDefault ();

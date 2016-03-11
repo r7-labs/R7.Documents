@@ -87,17 +87,17 @@ namespace R7.Documents
 				{
 					LoadLists ();
 
-					chkShowTitleLink.Checked = DocumentsSettings.ShowTitleLink;
-					chkUseCategoriesList.Checked = DocumentsSettings.UseCategoriesList;
-					chkAllowUserSort.Checked = DocumentsSettings.AllowUserSort;
-                    comboGridStyle.SelectByValue (DocumentsSettings.GridStyle);
+					chkShowTitleLink.Checked = Settings.ShowTitleLink;
+					chkUseCategoriesList.Checked = Settings.UseCategoriesList;
+					chkAllowUserSort.Checked = Settings.AllowUserSort;
+                    comboGridStyle.SelectByValue (Settings.GridStyle);
 
 					try
 					{
-						if (DocumentsSettings.DefaultFolder != null)
+						if (Settings.DefaultFolder != null)
 						{
 							folderDefaultFolder.SelectedFolder = 
-								FolderManager.Instance.GetFolder (DocumentsSettings.DefaultFolder.Value);
+								FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
 						}
 					}
 					catch
@@ -107,7 +107,7 @@ namespace R7.Documents
 
 					try
 					{
-						cboCategoriesList.SelectedValue = DocumentsSettings.CategoriesListName;
+						cboCategoriesList.SelectedValue = Settings.CategoriesListName;
 					}
 					catch
 					{
@@ -115,7 +115,7 @@ namespace R7.Documents
 					}
 
 					// read "saved" column sort orders in first
-					var objColumnSettings = DocumentsSettings.DisplayColumnList;
+					var objColumnSettings = Settings.DisplayColumnList;
 
 					foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings)
 					{
@@ -151,10 +151,10 @@ namespace R7.Documents
 						comboSortFields.AddItem (LocalizeString (strSortColumn + ".Header"), strSortColumn);
 					}
 
-					BindSortSettings (DocumentsSettings.GetSortColumnList (this.LocalResourceFile));
+					BindSortSettings (Settings.GetSortColumnList (this.LocalResourceFile));
 
                     // load grid style
-                    comboGridStyle.SelectByValue (DocumentsSettings.GridStyle);
+                    comboGridStyle.SelectByValue (Settings.GridStyle);
 				}
 				//Module failed to load
 			}
@@ -388,24 +388,24 @@ namespace R7.Documents
 			if ((chkUseCategoriesList.Checked && !lstNoListsAvailable.Visible))
 			{
 				//If so, set normally
-				DocumentsSettings.UseCategoriesList = chkUseCategoriesList.Checked;
-				DocumentsSettings.CategoriesListName = cboCategoriesList.SelectedValue;
+				Settings.UseCategoriesList = chkUseCategoriesList.Checked;
+				Settings.CategoriesListName = cboCategoriesList.SelectedValue;
 			}
 			else
 			{
 				//Otherwise default values
-				DocumentsSettings.UseCategoriesList = false;
-				DocumentsSettings.CategoriesListName = "";
+				Settings.UseCategoriesList = false;
+				Settings.CategoriesListName = "";
 			}
 
-			DocumentsSettings.ShowTitleLink = chkShowTitleLink.Checked;
-			DocumentsSettings.AllowUserSort = chkAllowUserSort.Checked;
-            DocumentsSettings.GridStyle = comboGridStyle.SelectedItem.Value;
+			Settings.ShowTitleLink = chkShowTitleLink.Checked;
+			Settings.AllowUserSort = chkAllowUserSort.Checked;
+            Settings.GridStyle = comboGridStyle.SelectedItem.Value;
 
 			if (folderDefaultFolder.SelectedFolder != null)
-				DocumentsSettings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
+				Settings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
 			else
-				DocumentsSettings.DefaultFolder = null;
+				Settings.DefaultFolder = null;
 
 			var objColumnSettings = RetrieveDisplayColumnSettings ();
 			intIndex = 0;
@@ -424,7 +424,7 @@ namespace R7.Documents
 				intIndex = intIndex + 1;
 			}
 
-			DocumentsSettings.DisplayColumns = strDisplayColumns;
+			Settings.DisplayColumns = strDisplayColumns;
 
 			objSortColumns = RetrieveSortColumnSettings ();
 			foreach (DocumentsSortColumnInfo objSortColumn_loopVariable in objSortColumns)
@@ -436,8 +436,8 @@ namespace R7.Documents
 				}
 				strSortColumnList = strSortColumnList + (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Descending ? "-" : "").ToString () + objSortColumn.ColumnName;
 			}
-			DocumentsSettings.SortOrder = strSortColumnList;
-            DocumentsSettings.GridStyle = comboGridStyle.SelectedValue;
+			Settings.SortOrder = strSortColumnList;
+            Settings.GridStyle = comboGridStyle.SelectedValue;
 		}
 
 		private void SwapColumn (string ColumnName, System.ComponentModel.ListSortDirection Direction)

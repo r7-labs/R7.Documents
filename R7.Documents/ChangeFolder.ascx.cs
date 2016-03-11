@@ -53,8 +53,8 @@ namespace R7.Documents
 			base.OnInit (e);
 
 			// set folder to module's default folder
-			if (DocumentsSettings.DefaultFolder != null)
-				ddlFolder.SelectedFolder = FolderManager.Instance.GetFolder (DocumentsSettings.DefaultFolder.Value);
+			if (Settings.DefaultFolder != null)
+				ddlFolder.SelectedFolder = FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
 			
 			linkCancel.NavigateUrl = Globals.NavigateURL ();
 		}
@@ -154,7 +154,7 @@ namespace R7.Documents
 
 					// update module's default folder setting
 					if (checkUpdateDefaultFolder.Checked)
-						DocumentsSettings.DefaultFolder = ddlFolder.SelectedFolder.FolderID;
+						Settings.DefaultFolder = ddlFolder.SelectedFolder.FolderID;
 
                     Synchronize ();
 				}

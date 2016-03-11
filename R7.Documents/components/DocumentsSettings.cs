@@ -35,6 +35,10 @@ namespace R7.Documents
 	/// </summary>
 	public class DocumentsSettings : SettingsWrapper
 	{
+        public DocumentsSettings ()
+        {
+        }
+        
 		public DocumentsSettings (IModuleControl module) : base (module)
 		{
 		}

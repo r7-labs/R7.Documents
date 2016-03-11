@@ -22,21 +22,15 @@
 using System;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
+using DotNetNuke.R7.Entities.Modules;
 
 namespace R7.Documents
 {
 	/// <summary>
 	/// Documents portal module base.
 	/// </summary>
-	public class DocumentsPortalModuleBase : PortalModuleBase
+    public class DocumentsPortalModuleBase : PortalModuleBase<DocumentsSettings>
 	{
-		private DocumentsSettings settings = null;
-
-		protected DocumentsSettings DocumentsSettings
-		{
-			get { return settings ?? (settings = new DocumentsSettings (this)); }
-		}
-
 		public string DataCacheKey
 		{
 			get
@@ -56,22 +50,8 @@ namespace R7.Documents
 	/// <summary>
 	/// Documents module settings base.
 	/// </summary>
-	public class DocumentsModuleSettingsBase : ModuleSettingsBase
+    public class DocumentsModuleSettingsBase : ModuleSettingsBase<DocumentsSettings>
 	{
-		private DocumentsController ctrl = null;
-
-		protected DocumentsController DocumentsController
-		{
-			get { return ctrl ?? (ctrl = new DocumentsController ()); }
-		}
-
-		private DocumentsSettings settings = null;
-
-		protected DocumentsSettings DocumentsSettings
-		{
-			get { return settings ?? (settings = new DocumentsSettings (this)); }
-		}
-
 		public string DataCacheKey
 		{
 			get
