@@ -39,6 +39,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using R7.Documents.Data;
 
 namespace R7.Documents
 {
@@ -111,9 +112,9 @@ namespace R7.Documents
 						DocumentInfo document = null;
 
 						if (mdef == "r7.documents")
-							document = DocumentsController.GetDocument (int.Parse (item.Value), module.ModuleID);
+                            document = DocumentsDataProvider.Instance.GetDocument (int.Parse (item.Value), module.ModuleID);
 						else if (mdef == "documents")
-							document = DocumentsController.GetDNNDocument (int.Parse (item.Value), module.ModuleID);
+                            document = DocumentsDataProvider.Instance.GetDNNDocument (int.Parse (item.Value), module.ModuleID);
 
 						if (document != null)
 						{
@@ -127,7 +128,7 @@ namespace R7.Documents
 							document.IsPublished = true;
 
 							// add new document
-							DocumentsController.Add (document);
+                            DocumentsDataProvider.Instance.Add (document);
 
 							// add new url tracking data
 							ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, 
@@ -164,9 +165,9 @@ namespace R7.Documents
 					var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
 
 					if (mdef == "r7.documents")
-						documents = DocumentsController.GetDocuments (module.ModuleID, module.PortalID);
+                        documents = DocumentsDataProvider.Instance.GetDocuments (module.ModuleID, module.PortalID);
 					else if (mdef == "documents")
-						documents = DocumentsController.GetDNNDocuments (module.ModuleID, module.PortalID);
+                        documents = DocumentsDataProvider.Instance.GetDNNDocuments (module.ModuleID, module.PortalID);
 				
 					if (documents != null && documents.Any ())
 					{

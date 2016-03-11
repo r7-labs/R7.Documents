@@ -37,6 +37,7 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.R7;
+using R7.Documents.Data;
 
 namespace R7.Documents
 {
@@ -422,7 +423,7 @@ namespace R7.Documents
 			{
 				//	mobjDocumentList = (ArrayList) DocumentsController.GetObjects<DocumentInfo>(ModuleId); // PortalId!!!
 
-				mobjDocumentList = DocumentsController.GetDocuments (ModuleId, PortalId).ToList ();
+				mobjDocumentList = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
 
 				// Check security on files
 				DocumentInfo objDocument = null;

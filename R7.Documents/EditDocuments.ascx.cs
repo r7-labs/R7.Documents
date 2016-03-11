@@ -41,6 +41,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.R7;
 using DotNetNuke.Services.Messaging.Data;
+using R7.Documents.Data;
 
 namespace R7.Documents
 {
@@ -133,7 +134,7 @@ namespace R7.Documents
 					if (!Null.IsNull (itemId))
 					{
 						// Read document information
-                        var document = DocumentsController.GetDocument (itemId, ModuleId);
+                        var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
 
 						// Read values from documentInfo object on to page
 						if (document != null)
@@ -227,7 +228,7 @@ namespace R7.Documents
                             lblOwner.Text = UserInfo.DisplayName;
 
                             // HACK: Calculate sortindex for new documents
-                            var documents = DocumentsController.GetDocuments (ModuleId, PortalId);
+                            var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
                             if (documents != null && documents.Any ())
                             {
                                 var maxSortIndex = documents.Max (d => d.SortOrderIndex);
@@ -507,14 +508,14 @@ namespace R7.Documents
 			{
 				if (!Null.IsNull (itemId))
 				{
-					var document = DocumentsController.GetDocument (itemId, ModuleId);
+                    var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
 					if (document != null)
 					{
-                        DocumentsController.Delete (document);
-						DocumentsController.DeleteDocumentUrl (document.Url, PortalId, ModuleId);
+                        DocumentsDataProvider.Instance.Delete (document);
+                        DocumentsDataProvider.Instance.DeleteDocumentUrl (document.Url, PortalId, ModuleId);
 
                         if (checkDeleteWithResource.Checked)
-                            DocumentsController.DeleteDocumentResource (document, PortalId);
+                            DocumentsDataProvider.Instance.DeleteDocumentResource (document, PortalId);
 					}
 				}
 
@@ -584,7 +585,7 @@ namespace R7.Documents
 					}
 
 					// Get existing document record
-					var objDocument = DocumentsController.GetDocument (itemId, ModuleId);
+                    var objDocument = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
 
 					if (objDocument == null)
 					{
@@ -686,15 +687,15 @@ namespace R7.Documents
 
 					if (Null.IsNull (itemId))
 					{
-						DocumentsController.Add (objDocument);
+                        DocumentsDataProvider.Instance.Add (objDocument);
 					}
 					else
 					{
-						DocumentsController.Update (objDocument);
+                        DocumentsDataProvider.Instance.Update (objDocument);
 						if (objDocument.Url != oldUrl)
 						{
 							// delete old URL tracking data
-							DocumentsController.DeleteDocumentUrl (oldUrl, PortalId, ModuleId);
+                            DocumentsDataProvider.Instance.DeleteDocumentUrl (oldUrl, PortalId, ModuleId);
 						}
 					}
 
@@ -731,7 +732,7 @@ namespace R7.Documents
 			try
 			{
 				// Get existing document record
-                var document = DocumentsController.GetDocument (itemId, ModuleId);
+                var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
 
 				try
 				{

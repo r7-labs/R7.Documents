@@ -30,13 +30,6 @@ namespace R7.Documents
 	/// </summary>
 	public class DocumentsPortalModuleBase : PortalModuleBase
 	{
-		private DocumentsController ctrl = null;
-
-		protected DocumentsController DocumentsController
-		{
-			get { return ctrl ?? (ctrl = new DocumentsController ()); }
-		}
-
 		private DocumentsSettings settings = null;
 
 		protected DocumentsSettings DocumentsSettings

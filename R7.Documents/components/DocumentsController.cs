@@ -35,133 +35,17 @@ using DotNetNuke.Services.Search;
 using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.R7;
+using R7.Documents.Data;
 
 namespace R7.Documents
 {
-	public partial class DocumentsController : ControllerBase, IPortable
+	public partial class DocumentsController : ModuleSearchBase, IPortable
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Documents.DocumentsController"/> class.
 		/// </summary>
 		public DocumentsController () : base ()
 		{ 
-
-		}
-
-		public DocumentInfo GetDocument (int ItemId, int ModuleId)
-		{
-			DocumentInfo document;
-
-			using (var ctx = DataContext.Instance ())
-			{
-				document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
-					System.Data.CommandType.StoredProcedure, "Documents_GetDocument", ItemId, ModuleId);
-			}
-
-			return document;
-		}
-
-		public IEnumerable<DocumentInfo> GetDocuments (int ModuleId, int PortalId)
-		{
-			IEnumerable<DocumentInfo> documents;
-
-			using (var ctx = DataContext.Instance ())
-			{
-				documents = ctx.ExecuteQuery<DocumentInfo> (
-					System.Data.CommandType.StoredProcedure, "Documents_GetDocuments", ModuleId, PortalId);
-			}
-
-			return documents;
-		}
-
-		/// <summary>
-		/// Gets documents from DNN Documents module
-		/// </summary>
-		/// <returns>The DNN documents.</returns>
-		/// <param name="ModuleId">Module identifier.</param>
-		/// <param name="PortalId">Portal identifier.</param>
-		public IEnumerable<DocumentInfo> GetDNNDocuments (int ModuleId, int PortalId)
-		{
-			IEnumerable<DocumentInfo> documents;
-
-			using (var ctx = DataContext.Instance ())
-			{
-				documents = ctx.ExecuteQuery<DocumentInfo> (
-					System.Data.CommandType.StoredProcedure, "GetDocuments", ModuleId, PortalId);
-			}
-
-			return documents;
-		}
-
-		public DocumentInfo GetDNNDocument (int ItemId, int ModuleId)
-		{
-			DocumentInfo document;
-
-			using (var ctx = DataContext.Instance ())
-			{
-				document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
-					System.Data.CommandType.StoredProcedure, "GetDocument", ItemId, ModuleId);
-			}
-
-			return document;
-		}
-
-        /// <summary>
-        /// Deletes the resource, accociated with the document (only files and URLs are supported).
-        /// </summary>
-        /// <param name="document">Document.</param>
-        /// <param name="portalId">Portal identifier.</param>
-        public int DeleteDocumentResource (DocumentInfo document, int portalId)
-        {
-            // count resource references
-            var count = GetObjects<DocumentInfo> ("WHERE [ItemID] <> @0 AND [Url] = @1", document.ItemId, document.Url).Count ();
-
-            // if no other document references it
-            if (count == 0)
-            {
-                switch (Globals.GetURLType (document.Url))
-                {
-                    // delete file
-                    case TabType.File:
-                        var file = FileManager.Instance.GetFile (Utils.GetResourceId (document.Url));
-                        if (file != null)
-                            FileManager.Instance.DeleteFile (file);
-                        break;
-
-                    // delete URL
-                    case TabType.Url:
-                        new UrlController ().DeleteUrl (portalId, document.Url);
-                        break;
-                }
-            }
-
-            return count;
-        }
-
-		public void DeleteDocumentUrl (string oldUrl, int PortalId, int ModuleId)
-		{
-			// NOTE: we shouldn't delete URL itself as is can be used in other modules
-			// DataProvider.Instance().DeleteUrl (PortalId, document.Url);
-			
-			// delete URL tracking data
-			DataProvider.Instance ().DeleteUrlTracking (PortalId, oldUrl, ModuleId);
-		}
-
-		public void UpdateDocumentUrl (DocumentInfo document, string oldUrl, int PortalId, int ModuleId)
-		{
-			if (document.Url != oldUrl)
-			{
-				var ctrlUrl = new UrlController ();
-	
-				// get tracking data for the old URL
-				var url = ctrlUrl.GetUrlTracking (PortalId, oldUrl, ModuleId);
-				
-				// delete old URL tracking data
-				DataProvider.Instance ().DeleteUrlTracking (PortalId, oldUrl, ModuleId);
-				
-				// create new URL tracking data
-				ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
-			}
 		}
 
 		#region ModuleSearchBase implementaion
@@ -170,7 +54,7 @@ namespace R7.Documents
 		{
 			var searchDocs = new List<SearchDocument> ();
 			
-            var documents = GetDocuments (moduleInfo.ModuleID, moduleInfo.PortalID);
+            var documents = DocumentsDataProvider.Instance.GetDocuments (moduleInfo.ModuleID, moduleInfo.PortalID);
 
             foreach (var document in documents ?? Enumerable.Empty<DocumentInfo> ())
 			{
@@ -268,7 +152,7 @@ namespace R7.Documents
 		
 			try
 			{
-                var documents = GetDocuments (moduleId, module.PortalID);
+                var documents = DocumentsDataProvider.Instance.GetDocuments (moduleId, module.PortalID);
 				
 				if (documents.Any ())
 				{
@@ -373,7 +257,7 @@ namespace R7.Documents
 				document.CreatedDate = now;
 				document.ModifiedDate = now;
 
-				Add<DocumentInfo> (document);
+                DocumentsDataProvider.Instance.Add<DocumentInfo> (document);
 
 				// Update Tracking options
                 var urlType = document.Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)? "F" : "U";
@@ -392,7 +276,7 @@ namespace R7.Documents
 				settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlSettings, "showtitlelink");
 				settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlSettings, "usecategorieslist");
 				settings.CategoriesListName = XmlUtils.GetNodeValue (xmlSettings, "categorieslistname");
-                settings.DefaultFolder = TypeUtils.ParseToNullableInt (XmlUtils.GetNodeValue (xmlSettings, "defaultfolder"));
+                settings.DefaultFolder = TypeUtils.ParseToNullable<int> (XmlUtils.GetNodeValue (xmlSettings, "defaultfolder"));
 				settings.DisplayColumns = XmlUtils.GetNodeValue (xmlSettings, "displaycolumns");
 				settings.SortOrder = XmlUtils.GetNodeValue (xmlSettings, "sortorder");
 

@@ -145,7 +145,7 @@ namespace R7.Documents
                     {
                         case TabType.File:
                             
-                            var fileId = TypeUtils.ParseToNullableInt (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+                            var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
                             if (fileId != null)
                             {
                                 var fileInfo = FileManager.Instance.GetFile (fileId.Value);
@@ -158,7 +158,7 @@ namespace R7.Documents
 
                         case TabType.Tab:
                             
-                            var tabId = TypeUtils.ParseToNullableInt (Url);
+                            var tabId = TypeUtils.ParseToNullable<int> (Url);
                             if (tabId != null)
                             {
                                 var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
@@ -197,7 +197,7 @@ namespace R7.Documents
                     {
                         case TabType.File:
 
-                            var fileId = TypeUtils.ParseToNullableInt (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+                            var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
                             if (fileId != null)
                             {
                                 var fileInfo = FileManager.Instance.GetFile (fileId.Value);

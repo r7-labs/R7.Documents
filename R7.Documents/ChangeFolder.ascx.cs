@@ -36,6 +36,7 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using R7.Documents.Data;
 
 namespace R7.Documents
 {
@@ -87,7 +88,7 @@ namespace R7.Documents
 				
 				if (folder != null)
 				{
-					var documents = DocumentsController.GetDocuments (ModuleId, PortalId);
+                    var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
 					var files = FolderManager.Instance.GetFiles (folder);
 
 					foreach (var document in documents)
@@ -130,13 +131,13 @@ namespace R7.Documents
                                     {
                                         if (oldDocument.Url != document.Url)
                                         {
-                                            DocumentsController.DeleteDocumentResource (oldDocument, PortalId);
+                                            DocumentsDataProvider.Instance.DeleteDocumentResource (oldDocument, PortalId);
                                         }
                                     }
 
                                     // update document & URL tracking data
-                                    DocumentsController.Update (document);
-                                    DocumentsController.UpdateDocumentUrl (document, oldDocument.Url, PortalId, ModuleId);
+                                    DocumentsDataProvider.Instance.Update (document);
+                                    DocumentsDataProvider.Instance.UpdateDocumentUrl (document, oldDocument.Url, PortalId, ModuleId);
                                 }
                                 else
                                 {
@@ -144,7 +145,7 @@ namespace R7.Documents
                                     {
                                         // unpublish not updated documents & update them
                                         document.IsPublished = false;
-                                        DocumentsController.Update (document);
+                                        DocumentsDataProvider.Instance.Update (document);
                                     }
                                 } // if (updated)
 							}
