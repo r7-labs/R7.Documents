@@ -34,10 +34,10 @@
         <value>Настройки документов</value>
     </data>
     <data name="CreatedBy.Header">
-        <value>Создал</value>
+        <value>Разместил</value>
     </data>
     <data name="CreatedDate.Header">
-        <value>Создано</value>
+        <value>Размещено</value>
     </data>
     <data name="Description.Header">
         <value>Описание</value>

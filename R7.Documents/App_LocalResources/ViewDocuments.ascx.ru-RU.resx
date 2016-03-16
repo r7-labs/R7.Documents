@@ -31,10 +31,10 @@
         <value>Загружено {0} раз(а)</value>
     </data>
     <data name="CreatedBy.Text">
-        <value>Создал</value>
+        <value>Разместил</value>
     </data>
     <data name="CreatedDate.Text">
-        <value>Создано</value>
+        <value>Размещено</value>
     </data>
     <data name="Description.Text">
         <value>Описание</value>

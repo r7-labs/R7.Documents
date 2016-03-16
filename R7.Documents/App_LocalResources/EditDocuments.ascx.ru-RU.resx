@@ -177,10 +177,10 @@
         <value>Ссылка</value>
     </data>
     <data name="labelCreatedDate.Help" xml:space="preserve">
-        <value>Введите дату и время создания документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
+        <value>Введите дату и время создания (размещения) документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
     </data>
     <data name="labelCreatedDate.Text" xml:space="preserve">
-        <value>Создан</value>
+        <value>Размещен</value>
     </data>
     <data name="labelLastModifiedDate.Help" xml:space="preserve">
         <value>Введите дату и время последних изменений в документе. Оставьте поле пустым (или просто не изменяйте его значения), чтобы выбрать текущие дату и время.</value>
