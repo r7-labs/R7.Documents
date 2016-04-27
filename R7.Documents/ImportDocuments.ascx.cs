@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,30 +20,19 @@
 // THE SOFTWARE.
 
 using System;
-using System.IO;
-using System.Text;
 using System.Linq;
-using System.Collections;
-using System.Web;
 using System.Web.UI.WebControls;
-using DotNetNuke;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
-using DotNetNuke.Entities.Tabs;
-using DotNetNuke.Entities.Users;
-using DotNetNuke.UI.UserControls;
-using DotNetNuke.Security.Permissions;
-using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Services.FileSystem;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using R7.Documents.Data;
+using R7.DotNetNuke.Extensions.Entities.Modules;
 
 namespace R7.Documents
 {
-	public partial class ImportDocuments : DocumentsPortalModuleBase
+    public partial class ImportDocuments : PortalModuleBase<DocumentsSettings>
 	{
 		#region Fields
 
@@ -139,9 +128,9 @@ namespace R7.Documents
 					}
 				}
 
-				Synchronize ();
+                ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 
-				// redirect back to the portal home page
+				// redirect back to the module page
 				Response.Redirect (Globals.NavigateURL (), true);
 			}
 			catch (Exception ex)

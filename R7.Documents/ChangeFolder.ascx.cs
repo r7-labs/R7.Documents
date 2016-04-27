@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,32 +20,17 @@
 // THE SOFTWARE.
 
 using System;
-using System.IO;
-using System.Text;
-using System.Collections;
-using System.Web;
-using System.Web.UI.WebControls;
-using DotNetNuke;
 using DotNetNuke.Common;
-using DotNetNuke.Common.Utilities;
-using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;
-using DotNetNuke.Entities.Users;
-using DotNetNuke.UI.UserControls;
-using DotNetNuke.Security.Permissions;
-using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using R7.Documents.Data;
+using R7.DotNetNuke.Extensions.Entities.Modules;
 
 namespace R7.Documents
 {
-	public partial class ChangeFolder : DocumentsPortalModuleBase
+    public partial class ChangeFolder : PortalModuleBase<DocumentsSettings>
 	{
-		#region Fields
-		
-		#endregion
-		
 		#region Event Handlers
 
 		protected override void OnInit (EventArgs e)
@@ -156,7 +141,7 @@ namespace R7.Documents
 					if (checkUpdateDefaultFolder.Checked)
 						Settings.DefaultFolder = ddlFolder.SelectedFolder.FolderID;
 
-                    Synchronize ();
+                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 				}
 
 				// redirect back to the portal home page

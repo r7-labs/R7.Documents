@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,22 +20,16 @@
 // THE SOFTWARE.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Linq;
-using DotNetNuke.Collections;
-using DotNetNuke.Data;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
-using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Modules;
-using DotNetNuke.Services.Search;
 using DotNetNuke.Services.Search.Entities;
-using DotNetNuke.Services.FileSystem;
-using DotNetNuke.R7;
 using R7.Documents.Data;
+using R7.DotNetNuke.Extensions.Utilities;
 
 namespace R7.Documents
 {
@@ -280,7 +274,7 @@ namespace R7.Documents
 				settings.DisplayColumns = XmlUtils.GetNodeValue (xmlSettings, "displaycolumns");
 				settings.SortOrder = XmlUtils.GetNodeValue (xmlSettings, "sortorder");
 
-				// Need Utils.SynchronizeModule() call
+				// REVIEW: Need module synchronization?
 			}
 		}
 

@@ -25,14 +25,14 @@
 // THE SOFTWARE.
 
 using System;
-using DotNetNuke.R7;
+using System.Linq;
 using DotNetNuke.Data;
 using System.Collections.Generic;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Common;
 using DotNetNuke.Services.FileSystem;
-using System.Linq;
+using R7.DotNetNuke.Extensions.Data;
 
 namespace R7.Documents.Data
 {

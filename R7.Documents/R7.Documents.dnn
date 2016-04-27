@@ -15,7 +15,7 @@
                 <dependency type="CoreVersion">07.04.00</dependency>
                 <!-- .NET 4.5 -->
                 <dependency type="type">System.Reflection.ReflectionContext</dependency>
-                <dependency type="managedPackage" version="0.5.0">DotNetNuke.R7</dependency>
+                <dependency type="managedPackage" version="0.7.0">R7.DotNetNuke.Extensions</dependency>
             </dependencies>
             <components>
 				<component type="Module">

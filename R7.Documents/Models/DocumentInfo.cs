@@ -21,20 +21,13 @@
 // THE SOFTWARE.
 
 using System;
-using System.IO;
-using System.Configuration;
-using System.Data;
-using DotNetNuke;
-using DotNetNuke.Data;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Icons;
-using DotNetNuke.Entities.Portals;
 using DotNetNuke.ComponentModel.DataAnnotations;
-using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Tabs;
-using DotNetNuke.R7;
+using R7.DotNetNuke.Extensions.Utilities;
 
 namespace R7.Documents
 {

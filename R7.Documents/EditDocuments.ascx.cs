@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,23 +25,21 @@ using System.IO;
 using System.Text;
 using System.Linq;
 using System.Collections;
-using System.Web;
 using System.Web.UI.WebControls;
-using DotNetNuke;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Users;
-using DotNetNuke.UI.UserControls;
 using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
-using DotNetNuke.R7;
-using DotNetNuke.Services.Messaging.Data;
+using DotNetNuke.UI.Skins.Controls;
 using R7.Documents.Data;
+using R7.DotNetNuke.Extensions.Entities.Modules;
+using R7.DotNetNuke.Extensions.ModuleExtensions;
 
 namespace R7.Documents
 {
@@ -57,7 +55,7 @@ namespace R7.Documents
 	///   [ag]  11 March 2007 Migrated to VS2005
 	/// </history>
 	/// -----------------------------------------------------------------------------
-	public partial class EditDocuments : DocumentsPortalModuleBase
+    public partial class EditDocuments : PortalModuleBase<DocumentsSettings>
 	{
 		#region Private Members
 
@@ -519,14 +517,15 @@ namespace R7.Documents
 					}
 				}
 
-				Synchronize ();
+                ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 				
-				// Redirect back to the portal home page
+				// redirect back to the module page
 				Response.Redirect (Globals.NavigateURL (), true);
-				//Module failed to load
+				
 			}
 			catch (Exception exc)
 			{
+                // module failed to load
 				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}
@@ -579,7 +578,7 @@ namespace R7.Documents
 							this.cmdUpdate.Visible = false;
 
 							// '' Display page-level warning instructing users to click update again if they want to ignore the warning
-							DotNetNuke.UI.Skins.Skin.AddPageMessage (this.Page, Localization.GetString ("msgFileWarningHeading.Text", this.LocalResourceFile), DotNetNuke.Services.Localization.Localization.GetString ("msgFileWarning.Text", this.LocalResourceFile), DotNetNuke.UI.Skins.Controls.ModuleMessage.ModuleMessageType.YellowWarning);
+							global::DotNetNuke.UI.Skins.Skin.AddPageMessage (Page, LocalizeString ("msgFileWarningHeading.Text"), LocalizeString ("msgFileWarning.Text"), ModuleMessage.ModuleMessageType.YellowWarning);
 							return;
 						}
 					}
@@ -703,16 +702,16 @@ namespace R7.Documents
 					var ctrlUrl = new UrlController ();
 					ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
-                    Synchronize ();
+                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 					
-					// Redirect back to the portal home page
+					// redirect back to the module page
 					Response.Redirect (Globals.NavigateURL (), true);
 
 				}
-				//Module failed to load
 			}
 			catch (Exception exc)
 			{
+                // module failed to load
 				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.UI.Modules;
 using DotNetNuke.Services.Localization;
-using DotNetNuke.R7;
+using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {

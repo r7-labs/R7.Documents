@@ -21,18 +21,18 @@
 // THE SOFTWARE.
 
 using System;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using System.Web;
 using System.Web.UI.WebControls;
-using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Icons;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using DotNetNuke.Entities.Tabs;
+using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
-using DotNetNuke.R7;
+using R7.DotNetNuke.Extensions.Modules;
+using R7.DotNetNuke.Extensions.ControlExtensions;
 
 namespace R7.Documents
 {
@@ -47,7 +47,7 @@ namespace R7.Documents
 	/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
 	/// </history>
 	/// -----------------------------------------------------------------------------
-	public partial class SettingsDocuments : DocumentsModuleSettingsBase
+    public partial class SettingsDocuments : ModuleSettingsBase<DocumentsSettings>
 	{
 		private const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
 
@@ -166,8 +166,8 @@ namespace R7.Documents
 
 		public void LoadLists ()
 		{
-            var _with2 = new DotNetNuke.Common.Lists.ListController ();
-			foreach (DotNetNuke.Common.Lists.ListInfo objList in _with2.GetListInfoCollection())
+            var _with2 = new ListController ();
+			foreach (ListInfo objList in _with2.GetListInfoCollection())
 			{
 				if (!objList.SystemList)
 				{
@@ -199,18 +199,16 @@ namespace R7.Documents
 		{
 			try
 			{
-				
 				if (Page.IsValid)
 				{
-					
 					FillSettings ();
 
-					Synchronize ();
+                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 				}
-				//Module failed to load
 			}
 			catch (Exception exc)
 			{
+                // module failed to load
 				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}
@@ -581,8 +579,8 @@ namespace R7.Documents
 
 				try
 				{
-					var _with7 = new DotNetNuke.Entities.Tabs.TabController ();
-					lnkEditLists.NavigateUrl = _with7.GetTabByName ("Lists", DotNetNuke.Common.Utilities.Null.NullInteger).FullUrl;
+					var _with7 = new TabController ();
+					lnkEditLists.NavigateUrl = _with7.GetTabByName ("Lists", Null.NullInteger).FullUrl;
 				}
 				catch
 				{

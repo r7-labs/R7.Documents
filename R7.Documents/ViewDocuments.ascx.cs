@@ -22,7 +22,6 @@
 
 using System;
 using System.Linq;
-using DotNetNuke;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Icons;
 using DotNetNuke.Entities.Modules;
@@ -36,8 +35,9 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Common.Utilities;
-using DotNetNuke.R7;
 using R7.Documents.Data;
+using R7.DotNetNuke.Extensions.Entities.Modules;
+using R7.DotNetNuke.Extensions.ModuleExtensions;
 
 namespace R7.Documents
 {
@@ -52,7 +52,7 @@ namespace R7.Documents
 	/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
 	/// </history>
 	/// -----------------------------------------------------------------------------
-	public partial class ViewDocuments : DocumentsPortalModuleBase, IActionable
+    public partial class ViewDocuments : PortalModuleBase<DocumentsSettings>, IActionable
 	{
 		private const int NOT_READ = -2;
 		
@@ -404,6 +404,15 @@ namespace R7.Documents
 				}
 			}
 		}
+
+        public string DataCacheKey
+        {
+            get
+            {
+                return "TabModule:" + TabModuleId + ":" +
+                    System.Threading.Thread.CurrentThread.CurrentCulture;
+            }
+        }
 
 		private void LoadData ()
 		{
