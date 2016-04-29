@@ -38,7 +38,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.UI.Skins.Controls;
 using R7.Documents.Data;
-using R7.DotNetNuke.Extensions.Entities.Modules;
+using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
 
 namespace R7.Documents

@@ -36,7 +36,6 @@ using R7.DotNetNuke.Extensions.ControlExtensions;
 
 namespace R7.Documents
 {
-
 	/// -----------------------------------------------------------------------------
 	/// <summary>
 	/// The EditDocs Class provides the UI for manaing the Documents

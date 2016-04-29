@@ -25,7 +25,7 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using R7.Documents.Data;
-using R7.DotNetNuke.Extensions.Entities.Modules;
+using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {

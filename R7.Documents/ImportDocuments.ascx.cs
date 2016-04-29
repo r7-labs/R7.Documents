@@ -28,7 +28,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 using System.Collections.Generic;
 using R7.Documents.Data;
-using R7.DotNetNuke.Extensions.Entities.Modules;
+using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {
