@@ -54,4 +54,10 @@
   <ItemGroup>
     <Compile Include="Dummy.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\R7.Documents\R7.Documents.csproj">
+      <Project>{CE24E9F1-305C-4801-97CF-28C255093F48}</Project>
+      <Name>R7.Documents</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
