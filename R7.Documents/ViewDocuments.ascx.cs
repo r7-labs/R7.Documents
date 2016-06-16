@@ -311,15 +311,15 @@ namespace R7.Documents
 				
 				Actions.Add (GetNextActionID (), 
 					Localization.GetString (ModuleActionType.AddContent, LocalResourceFile), 
-					ModuleActionType.AddContent, "", "", EditUrl (), false, SecurityAccessLevel.Edit, true, false);
+                    ModuleActionType.AddContent, "", IconController.IconURL ("Add"), EditUrl (), false, SecurityAccessLevel.Edit, true, false);
 
 				Actions.Add (GetNextActionID (), 
 					Localization.GetString ("ChangeFolder.Action", LocalResourceFile),
-					"ChangeFolder.Action", "", "", EditUrl ("ChangeFolder"), false, SecurityAccessLevel.Edit, true, false);
+                    "ChangeFolder.Action", "", IconController.IconURL ("FileMove"), EditUrl ("ChangeFolder"), false, SecurityAccessLevel.Edit, true, false);
 
 				Actions.Add (GetNextActionID (), 
 					Localization.GetString ("ImportDocuments.Action", LocalResourceFile),
-					"ImportDocuments.Action", "", "", EditUrl ("ImportDocuments"), false, SecurityAccessLevel.Edit, true, false);
+                    "ImportDocuments.Action", "", IconController.IconURL ("Rt"), EditUrl ("ImportDocuments"), false, SecurityAccessLevel.Edit, true, false);
 			
 				return Actions;
 			}
