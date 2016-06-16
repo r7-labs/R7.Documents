@@ -30,6 +30,7 @@
 .ViewDocuments .IconHeader { width:0 }
 
 .ViewDocuments ._nonpublished { background-color:#ffc }
+.ViewDocuments ._nonpublished:hover { background-color:#fefe97 }
     
 /* dnnGridHeader fix */
 .ViewDocuments .dnnGridHeader th {
