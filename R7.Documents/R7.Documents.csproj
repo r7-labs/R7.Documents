@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="js\" />
     <Folder Include="SqlDataProvider\" />
     <Folder Include="GridStyles\" />
     <Folder Include="Properties\" />
