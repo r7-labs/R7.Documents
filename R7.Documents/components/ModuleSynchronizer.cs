@@ -25,7 +25,6 @@
 // THE SOFTWARE.
 
 using System;
-using DotNetNuke.UI.Utilities;
 using DotNetNuke.Entities.Modules;
 using System.Globalization;
 
@@ -40,8 +39,8 @@ namespace R7.Documents
 
         public static void Synchronize (int moduleId, int tabModuleId)
         {
+            CacheHelper.RemoveCacheByPrefix ("//r7_Documents?ModuleId=" + moduleId);
             ModuleController.SynchronizeModule (moduleId);
-            DataCache.RemoveCache (GetDataCacheKey (moduleId, tabModuleId));
         }
     }
 }

@@ -25,19 +25,40 @@
 // THE SOFTWARE.
 
 using System;
-using System.Web.UI;
+using System.Collections.ObjectModel;
+using DotNetNuke.Services.Cache;
+using DataCache = DotNetNuke.Common.Utilities.DataCache;
 
-namespace R7.Documents.components
+namespace R7.Documents
 {
     public static class CacheHelper
     {
-        /// <summary>
-        /// Hack to fix DataCache.RemoveCache not working in 7.4.2
-        /// </summary>
-        public static void RemoveCache (UserControl control, string cacheKey)
+        public static void RemoveCache (string cacheKey)
         {
-            control.Cache.Remove ("DNN_" + cacheKey);
+            DataCache.RemoveCache (cacheKey);
+        }
+
+        /// <summary>
+        /// Remove all cache keys with specified prefix
+        /// </summary>
+        /// <param name="cacheKeyPrefix">Cache key prefix.</param>
+        public static void RemoveCacheByPrefix (string cacheKeyPrefix)
+        {
+            // get all cache keys with s
+            var cacheKeys = new Collection<string> ();
+            var cacheEnumerator = CachingProvider.Instance ().GetEnumerator ();
+
+            while (cacheEnumerator.MoveNext ()) {
+                var cacheKey = cacheEnumerator.Key.ToString ();
+                if (cacheKey.StartsWith ("DNN_" + cacheKeyPrefix, StringComparison.InvariantCultureIgnoreCase)) {
+                    cacheKeys.Add (cacheKey);
+                }
+            }
+
+            foreach (var cacheKey in cacheKeys) {
+                // Substring (4) removes DNN_ prefix 
+                DataCache.RemoveCache (cacheKey.Substring (4));
+            }
         }
     }
 }
-
