@@ -324,19 +324,7 @@ namespace R7.Documents
                     SecurityAccessLevel.Edit,
                     true,
                     false);
-
-                actions.Add (
-                    GetNextActionID (), 
-                    Localization.GetString ("ChangeFolder.Action", LocalResourceFile),
-                    "ChangeFolder.Action",
-                    "",
-                    IconController.IconURL ("FileMove"),
-                    EditUrl ("ChangeFolder"),
-                    false,
-                    SecurityAccessLevel.Edit,
-                    true,
-                    false);
-
+                
                 actions.Add (
                     GetNextActionID (), 
                     Localization.GetString ("ImportDocuments.Action", LocalResourceFile),
@@ -344,6 +332,18 @@ namespace R7.Documents
                     "",
                     IconController.IconURL ("Rt"),
                     EditUrl ("ImportDocuments"),
+                    false,
+                    SecurityAccessLevel.Edit,
+                    true,
+                    false);
+
+                actions.Add (
+                    GetNextActionID (), 
+                    Localization.GetString ("ChangeFolder.Action", LocalResourceFile),
+                    "ChangeFolder.Action",
+                    "",
+                    IconController.IconURL ("FileMove", "16X16", "Gray"),
+                    EditUrl ("ChangeFolder"),
                     false,
                     SecurityAccessLevel.Edit,
                     true,
