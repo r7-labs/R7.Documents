@@ -55,7 +55,7 @@ namespace R7.Documents.Data
 
             using (var ctx = DataContext.Instance ()) {
                 document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
-                    System.Data.CommandType.StoredProcedure, "Documents_GetDocument", itemId, moduleId);
+                    System.Data.CommandType.StoredProcedure, "{objectQualifier}Documents_GetDocument", itemId, moduleId);
             }
 
             return document;
@@ -67,7 +67,7 @@ namespace R7.Documents.Data
 
             using (var ctx = DataContext.Instance ()) {
                 documents = ctx.ExecuteQuery<DocumentInfo> (
-                    System.Data.CommandType.StoredProcedure, "Documents_GetDocuments", moduleId, portalId);
+                    System.Data.CommandType.StoredProcedure, "{objectQualifier}Documents_GetDocuments", moduleId, portalId);
             }
 
             return documents;
@@ -85,7 +85,7 @@ namespace R7.Documents.Data
 
             using (var ctx = DataContext.Instance ()) {
                 documents = ctx.ExecuteQuery<DocumentInfo> (
-                    System.Data.CommandType.StoredProcedure, "GetDocuments", moduleId, portalId);
+                    System.Data.CommandType.StoredProcedure, "{objectQualifier}GetDocuments", moduleId, portalId);
             }
 
             return documents;
@@ -97,7 +97,7 @@ namespace R7.Documents.Data
 
             using (var ctx = DataContext.Instance ()) {
                 document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
-                    System.Data.CommandType.StoredProcedure, "GetDocument", itemId, moduleId);
+                    System.Data.CommandType.StoredProcedure, "{objectQualifier}GetDocument", itemId, moduleId);
             }
 
             return document;
