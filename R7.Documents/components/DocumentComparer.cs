@@ -22,146 +22,138 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace R7.Documents
 {
-	public class DocumentComparer : IComparer
-	{
-		private ArrayList mobjSortColumns;
 
-		public DocumentComparer (ArrayList SortColumns)
-		{
-			mobjSortColumns = SortColumns;
-		}
+    public class DocumentComparer : IComparer
+    {
+        private ArrayList mobjSortColumns;
 
-		/// <summary>
-		/// Compares two documents and returns a value indicating whether one is less than, 
-		/// equal to, or greater than the other. This method is of Comparison<T> delegate type
-		/// </summary>
-		/// <param name="x">First document.</param>
-		/// <param name="y">Second document.</param>
-		public int Compare (DocumentInfo x, DocumentInfo y)
-		{
-			if (mobjSortColumns.Count == 0)
-				return 0;
+        public DocumentComparer (ArrayList sortColumns) {
+            mobjSortColumns = sortColumns;
+        }
 
-			return Compare (0, x, y);
-		}
+        /// <summary>
+        /// Compares two documents and returns a value indicating whether one is less than, 
+        /// equal to, or greater than the other. This method is of Comparison<T> delegate type
+        /// </summary>
+        /// <param name="x">First document.</param>
+        /// <param name="y">Second document.</param>
+        public int Compare (DocumentInfo x, DocumentInfo y)
+        {
+            if (mobjSortColumns.Count == 0) {
+                return 0;
+            }
 
-		public int Compare (object x, object y)
-		{
-			if (mobjSortColumns.Count == 0)
-				return 0;
+            return Compare (0, x, y);
+        }
 
-			return Compare (0, (DocumentInfo)x, (DocumentInfo)y);
-		}
+        public int Compare (object x, object y)
+        {
+            if (mobjSortColumns.Count == 0) {
+                return 0;
+            }
 
-		private int Compare (int SortColumnIndex, DocumentInfo objX, DocumentInfo objY)
-		{
-			DocumentsSortColumnInfo objSortColumn = default(DocumentsSortColumnInfo);
-			int intResult = 0;
+            return Compare (0, (DocumentInfo) x, (DocumentInfo) y);
+        }
 
-			if (SortColumnIndex >= mobjSortColumns.Count)
-			{
-				return 0;
-			}
+        private int Compare (int sortColumnIndex, DocumentInfo objX, DocumentInfo objY)
+        {
+            var objSortColumn = default(DocumentsSortColumnInfo);
+            int intResult = 0;
 
-			objSortColumn = (DocumentsSortColumnInfo)mobjSortColumns [SortColumnIndex];
+            if (sortColumnIndex >= mobjSortColumns.Count) {
+                return 0;
+            }
 
-			if (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Ascending)
-			{
-				intResult = CompareValues (objSortColumn.ColumnName, objX, objY);
-			}
-			else
-			{
-				intResult = CompareValues (objSortColumn.ColumnName, objY, objX);
-			}
+            objSortColumn = (DocumentsSortColumnInfo) mobjSortColumns [sortColumnIndex];
 
-			// Difference not found, sort by next sort column
-			if (intResult == 0)
-			{
-				return Compare (SortColumnIndex + 1, objX, objY);
-			}
-			else
-			{
-				return intResult;
-			}
-		}
+            if (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Ascending) {
+                intResult = CompareValues (objSortColumn.ColumnName, objX, objY);
+            }
+            else {
+                intResult = CompareValues (objSortColumn.ColumnName, objY, objX);
+            }
 
-		private int CompareValues (string ColumnName, DocumentInfo ObjX, DocumentInfo ObjY)
-		{
-			switch (ColumnName)
-			{
-				case DocumentsDisplayColumnInfo.COLUMN_SORTORDER:
-					if (ObjX.SortOrderIndex.CompareTo (ObjY.SortOrderIndex) != 0)
-					{
-						return ObjX.SortOrderIndex.CompareTo (ObjY.SortOrderIndex);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
-					if (ObjX.Category.CompareTo (ObjY.Category) != 0)
-					{
-						return ObjX.Category.CompareTo (ObjY.Category);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
-					if (ObjX.CreatedByUser.CompareTo (ObjY.CreatedByUser) != 0)
-					{
-						return ObjX.CreatedByUser.CompareTo (ObjY.CreatedByUser);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
-					if (ObjX.CreatedDate.CompareTo (ObjY.CreatedDate) != 0)
-					{
-						return ObjX.CreatedDate.CompareTo (ObjY.CreatedDate);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
-					if (ObjX.Description.CompareTo (ObjY.Description) != 0)
-					{
-						return ObjX.Description.CompareTo (ObjY.Description);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
-					if (ObjX.ModifiedByUser.CompareTo (ObjY.ModifiedByUser) != 0)
-					{
-						return ObjX.ModifiedByUser.CompareTo (ObjY.ModifiedByUser);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
-					if (ObjX.ModifiedDate.CompareTo (ObjY.ModifiedDate) != 0)
-					{
-						return ObjX.ModifiedDate.CompareTo (ObjY.ModifiedDate);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
-					if (ObjX.OwnedByUser.CompareTo (ObjY.OwnedByUser) != 0)
-					{
-						return ObjX.OwnedByUser.CompareTo (ObjY.OwnedByUser);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_SIZE:
-					if (ObjX.Size.CompareTo (ObjY.Size) != 0)
-					{
-						return ObjX.Size.CompareTo (ObjY.Size);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_TITLE:
-					if (ObjX.Title.CompareTo (ObjY.Title) != 0)
-					{
-						return ObjX.Title.CompareTo (ObjY.Title);
-					}
-					break;
-				case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
-					if (ObjX.Clicks.CompareTo (ObjY.Clicks) != 0)
-					{
-						return ObjX.Clicks.CompareTo (ObjY.Clicks);
-					}
-					break;
-			}
+            // Difference not found, sort by next sort column
+            if (intResult == 0) {
+                return Compare (sortColumnIndex + 1, objX, objY);
+            }
 
-			return 0;
-		}
-	}
+            return intResult;
+        }
+
+        private int CompareValues (string columnName, DocumentInfo objX, DocumentInfo objY)
+        {
+            switch (columnName) {
+                case DocumentsDisplayColumnInfo.COLUMN_SORTORDER:
+                    if (objX.SortOrderIndex.CompareTo (objY.SortOrderIndex) != 0) {
+                        return objX.SortOrderIndex.CompareTo (objY.SortOrderIndex);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
+                    if (objX.Category.CompareTo (objY.Category) != 0) {
+                        return objX.Category.CompareTo (objY.Category);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
+                    if (objX.CreatedByUser.CompareTo (objY.CreatedByUser) != 0) {
+                        return objX.CreatedByUser.CompareTo (objY.CreatedByUser);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
+                    if (objX.CreatedDate.CompareTo (objY.CreatedDate) != 0) {
+                        return objX.CreatedDate.CompareTo (objY.CreatedDate);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
+                    if (objX.Description.CompareTo (objY.Description) != 0) {
+                        return objX.Description.CompareTo (objY.Description);
+                    }
+                    break;
+                case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
+                    if (objX.ModifiedByUser.CompareTo (objY.ModifiedByUser) != 0) {
+                        return objX.ModifiedByUser.CompareTo (objY.ModifiedByUser);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
+                    if (objX.ModifiedDate.CompareTo (objY.ModifiedDate) != 0) {
+                        return objX.ModifiedDate.CompareTo (objY.ModifiedDate);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
+                    if (objX.OwnedByUser.CompareTo (objY.OwnedByUser) != 0) {
+                        return objX.OwnedByUser.CompareTo (objY.OwnedByUser);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_SIZE:
+                    if (objX.Size.CompareTo (objY.Size) != 0) {
+                        return objX.Size.CompareTo (objY.Size);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_TITLE:
+                    if (objX.Title.CompareTo (objY.Title) != 0) {
+                        return objX.Title.CompareTo (objY.Title);
+                    }
+                    break;
+
+                case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
+                    if (objX.Clicks.CompareTo (objY.Clicks) != 0) {
+                        return objX.Clicks.CompareTo (objY.Clicks);
+                    }
+                    break;
+            }
+
+            return 0;
+        }
+    }
 }

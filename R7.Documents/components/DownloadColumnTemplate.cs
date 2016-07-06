@@ -20,46 +20,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using System.Web.UI.WebControls;
+
 namespace R7.Documents
 {
+    public class DownloadColumnTemplate : System.Web.UI.ITemplate
+    {
+        private ListItemType mobjTemplateType;
 
-	public class DownloadColumnTemplate : System.Web.UI.ITemplate
-	{
+        private string mstrID;
 
-		//Shared itemcount As Integer = 0
-		private System.Web.UI.WebControls.ListItemType mobjTemplateType;
-		private string mstrID;
+        private string mstrCaption;
 
-		private string mstrCaption;
+        public DownloadColumnTemplate (string id, string caption, ListItemType itemType) {
+            mobjTemplateType = itemType;
+            mstrID = id;
+            mstrCaption = caption;
+            if (mstrCaption == string.Empty) {
+                mstrCaption = "Download";
+            }
+        }
 
-		public DownloadColumnTemplate (string ID, string Caption, System.Web.UI.WebControls.ListItemType Type)
-		{
-			mobjTemplateType = Type;
-			mstrID = ID;
-			mstrCaption = Caption;
-			if (mstrCaption == string.Empty)
-			{
-				mstrCaption = "Download";
-			}
-		}
+        public void InstantiateIn (System.Web.UI.Control container)
+        {
+            var objButton = default (HyperLink);
 
-		public void InstantiateIn (System.Web.UI.Control container)
-		{
-			System.Web.UI.WebControls.HyperLink objButton = default(System.Web.UI.WebControls.HyperLink);
+            switch (mobjTemplateType) {
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                case ListItemType.SelectedItem:
+                    objButton = new HyperLink ();
+                    objButton.Text = mstrCaption;
+                    objButton.ID = mstrID;
 
-			switch (mobjTemplateType)
-			{
-				case System.Web.UI.WebControls.ListItemType.Item:
-				case System.Web.UI.WebControls.ListItemType.AlternatingItem:
-				case System.Web.UI.WebControls.ListItemType.SelectedItem:
-					objButton = new System.Web.UI.WebControls.HyperLink ();
-					objButton.Text = mstrCaption;
-					objButton.ID = mstrID;
-
-					container.Controls.Add (objButton);
-					break;
-			}
-			//itemcount += 1
-		}
-	}
+                    container.Controls.Add (objButton);
+                    break;
+            }
+        }
+    }
 }

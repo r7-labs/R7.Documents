@@ -28,122 +28,110 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Tabs;
 using R7.DotNetNuke.Extensions.Utilities;
+using System.Web.UI;
 
 namespace R7.Documents
 {
-	public delegate string LocalizeHandler (string text);
+    public delegate string LocalizeHandler (string text);
 
-	/// <summary>
-	/// Holds the information about a single document
-	/// </summary>
-	[TableName ("Documents_Documents")]
-	[PrimaryKey ("ItemId", AutoIncrement = true)]
-	[Scope ("ModuleId")]
-	public class DocumentInfo
-	{
-		/// <summary>
-		/// Empty default cstor
-		/// </summary>
-		public DocumentInfo ()
-		{
-		}
+    /// <summary>
+    /// Holds the information about a single document
+    /// </summary>
+    [TableName ("Documents_Documents")]
+    [PrimaryKey ("ItemId", AutoIncrement = true)]
+    [Scope ("ModuleId")]
+    public class DocumentInfo
+    {
+        #region Private Members
 
-		#region Private Members
+        private int _clicks;
+        private string _formatIcon;
+        private string _formatUrl;
 
-		private int _clicks;
-		private string _formatIcon;
-		private string _formatUrl;
+        #endregion
 
-		#endregion
+        #region Properties
 
+        public int ItemId { get; set; }
 
-		#region DB Properties
+        public int ModuleId { get; set; }
 
-		public int ItemId { get; set; }
+        public int CreatedByUserId { get; set; }
 
-		public int ModuleId { get; set; }
+        public int ModifiedByUserId { get; set; }
 
-		public int CreatedByUserId { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-		public int ModifiedByUserId { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
-		public DateTime CreatedDate { get; set; }
+        public string Url { get; set; }
 
-		public DateTime ModifiedDate { get; set; }
+        public string Title { get; set; }
 
-		public string Url { get; set; }
+        public string Category { get; set; }
 
-		public string Title { get; set; }
+        public int OwnedByUserId { get; set; }
 
-		public string Category { get; set; }
+        public int SortOrderIndex { get; set; }
 
-		public int OwnedByUserId { get; set; }
+        public string Description { get; set; }
 
-		public int SortOrderIndex { get; set; }
+        public bool ForceDownload { get; set; }
 
-		public string Description { get; set; }
-
-		public bool ForceDownload { get; set; }
-
-		public bool IsPublished { get; set; }
+        public bool IsPublished { get; set; }
 
         public string LinkAttributes { get; set; }
 
-		#endregion
+        #endregion
 
-		#region External properties
+        #region External properties
 
-		[ReadOnlyColumn]
-		public bool TrackClicks { get; set; }
+        [ReadOnlyColumn]
+        public bool TrackClicks { get; set; }
 
-		[ReadOnlyColumn]
-		public string ContentType { get; set; }
+        [ReadOnlyColumn]
+        public string ContentType { get; set; }
 
-		[ReadOnlyColumn]
-		public bool NewWindow { get; set; }
+        [ReadOnlyColumn]
+        public bool NewWindow { get; set; }
 
-		[ReadOnlyColumn]
-		public int Size { get; set; }
+        [ReadOnlyColumn]
+        public int Size { get; set; }
 
-		[ReadOnlyColumn]
-		public string CreatedByUser { get; set; }
+        [ReadOnlyColumn]
+        public string CreatedByUser { get; set; }
 
-		[ReadOnlyColumn]
-		public string OwnedByUser { get; set; }
+        [ReadOnlyColumn]
+        public string OwnedByUser { get; set; }
 
-		[ReadOnlyColumn]
-		public string ModifiedByUser { get; set; }
+        [ReadOnlyColumn]
+        public string ModifiedByUser { get; set; }
 
-		[ReadOnlyColumn]
-		public int Clicks
-		{
-			get { return (_clicks < 0) ? 0 : _clicks; }
-			set { _clicks = value; }
-		}
+        [ReadOnlyColumn]
+        public int Clicks
+        {
+            get { return (_clicks < 0) ? 0 : _clicks; }
+            set { _clicks = value; }
+        }
 
-		#endregion
+        #endregion
 
-		#region Custom properties
+        #region Custom properties
 
-		[IgnoreColumn]
-		public string FormatUrl
-		{
-			get
-			{
-				if (_formatUrl == null)
-				{
-					_formatUrl = "";
+        [IgnoreColumn]
+        public string FormatUrl
+        {
+            get {
+                if (_formatUrl == null) {
+                    _formatUrl = "";
 
-                    switch (Globals.GetURLType (Url))
-                    {
+                    switch (Globals.GetURLType (Url)) {
                         case TabType.File:
                             
                             var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
-                            if (fileId != null)
-                            {
+                            if (fileId != null) {
                                 var fileInfo = FileManager.Instance.GetFile (fileId.Value);
-                                if (fileInfo != null)
-                                {
+                                if (fileInfo != null) {
                                     _formatUrl = fileInfo.RelativePath;
                                 }
                             }
@@ -152,11 +140,9 @@ namespace R7.Documents
                         case TabType.Tab:
                             
                             var tabId = TypeUtils.ParseToNullable<int> (Url);
-                            if (tabId != null)
-                            {
+                            if (tabId != null) {
                                 var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
-                                if (tabInfo != null)
-                                {
+                                if (tabInfo != null) {
                                     // REVIEW: Show LocalizedTabName instead?
                                     _formatUrl = tabInfo.TabName;
                                 }
@@ -167,38 +153,35 @@ namespace R7.Documents
                             _formatUrl = Url;
                             break;
                     }
-				}
+                }
 			
-				return _formatUrl;
-			}
-		}
+                return _formatUrl;
+            }
+        }
 
-		/// <summary>
-		/// Formats document's type icon image.
-		/// </summary>
-		/// <value>Document's type icon image HTML code.</value>
-		[IgnoreColumn]
-		public string FormatIcon
-		{ 
-			get
-			{
-				if (_formatIcon == null)
-				{
-					_formatIcon = "";
+        /// <summary>
+        /// Formats document's type icon image.
+        /// </summary>
+        /// <value>Document's type icon image HTML code.</value>
+        [IgnoreColumn]
+        public string FormatIcon
+        { 
+            get {
+                if (_formatIcon == null) {
+                    _formatIcon = "";
 					
-                    switch (Globals.GetURLType (Url))
-                    {
+                    switch (Globals.GetURLType (Url)) {
                         case TabType.File:
 
                             var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
-                            if (fileId != null)
-                            {
+                            if (fileId != null) {
                                 var fileInfo = FileManager.Instance.GetFile (fileId.Value);
-                                if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension))
-                                {
+                                if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension)) {
                                     // Optimistic way 
-                                    _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                        IconController.IconURL ("Ext" + fileInfo.Extension), fileInfo.Extension.ToUpperInvariant ());
+                                    _formatIcon = string.Format (
+                                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+                                        IconController.IconURL ("Ext" + fileInfo.Extension),
+                                        fileInfo.Extension.ToUpperInvariant ());
 								
                                     /* 
 								// Less optimistic way
@@ -223,64 +206,54 @@ namespace R7.Documents
                             _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
                                 IconController.IconURL ("Link", "16X16", "Gray"), "URL");
                             break;
-					}
-				}
+                    }
+                }
 
-				return _formatIcon;
-			} 
-		}
+                return _formatIcon;
+            } 
+        }
 
-		[IgnoreColumn]
-		public string Info
-		{
-			get { return FormatUrl; }
-		}
+        [IgnoreColumn]
+        public string Info
+        {
+            get { return FormatUrl; }
+        }
 
-		public event LocalizeHandler OnLocalize;
+        public event LocalizeHandler OnLocalize;
 
-		private string Localize (string text)
-		{
-			if (OnLocalize != null)
-				return OnLocalize (text);
-			else
-				return text;
-		}
+        private string Localize (string text)
+        {
+            if (OnLocalize != null) {
+                return OnLocalize (text);
+            }
 
-		/// <summary>
-		/// Gets the size of the format.
-		/// </summary>
-		/// <value>The size of the format.</value>
-		[IgnoreColumn]
-		public string FormatSize
-		{
-			get
-			{
-				try
-				{
-					if (Size > 0)
-					{
-						if (Size > (1024 * 1024))
-						{
-							return string.Format ("{0:#,##0.00} {1}", Size / 1024f / 1024f, Localize ("Megabytes.Text"));
-						}
-						else
-						{
-							return string.Format ("{0:#,##0.00} {1}", Size / 1024f, Localize ("Kilobytes.Text"));
-						}
-					}
-					else
-					{
-						return Localize ("Unknown.Text");
-					}
-				}
-				catch
-				{
-					return Localize ("Unknown.Text");
-				}
-			}
-		}
+            return text;
+        }
 
-		#endregion
+        /// <summary>
+        /// Gets the size of the format.
+        /// </summary>
+        /// <value>The size of the format.</value>
+        [IgnoreColumn]
+        public string FormatSize
+        {
+            get {
+                try {
+                    if (Size > 0) {
+                        if (Size > (1024 * 1024)) {
+                            return string.Format ("{0:#,##0.00} {1}", Size / 1024f / 1024f, Localize ("Megabytes.Text"));
+                        }
+                        return string.Format ("{0:#,##0.00} {1}", Size / 1024f, Localize ("Kilobytes.Text"));
+                    }
+                    return Localize ("Unknown.Text");
+                }
+                catch {
+                    return Localize ("Unknown.Text");
+                }
+            }
+        }
+
+        #endregion
 
         #region Methods
 
@@ -290,5 +263,5 @@ namespace R7.Documents
         }
 
         #endregion
-	}
+    }
 }

@@ -33,569 +33,512 @@ using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
 using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.ControlExtensions;
+using System.ComponentModel;
 
 namespace R7.Documents
 {
-	/// -----------------------------------------------------------------------------
-	/// <summary>
-	/// The EditDocs Class provides the UI for manaing the Documents
-	/// </summary>
-	/// <remarks>
-	/// </remarks>
-	/// <history>
-	/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
-	/// </history>
-	/// -----------------------------------------------------------------------------
+    /// <summary>
+    /// Provides the UI for managing Document's module settings
+    /// </summary>
+    /// <history>
+    /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
+    /// </history>
     public partial class SettingsDocuments : ModuleSettingsBase<DocumentsSettings>
-	{
-		private const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
+    {
+        private const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
 
-		private const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
+        private const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
 
-		#region Event Handlers
+        #region Event Handlers
 
-		protected override void OnInit (EventArgs e)
-		{
-			base.OnInit (e);
+        protected override void OnInit (EventArgs e)
+        {
+            base.OnInit (e);
 
-			// fill sort order direction combobox
-			comboSortOrderDirection.AddItem (LocalizeString ("SortOrderAscending.Text"), "ASC");
-			comboSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
+            // fill sort order direction combobox
+            comboSortOrderDirection.AddItem (LocalizeString ("SortOrderAscending.Text"), "ASC");
+            comboSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
 
             // bind grid styles
             comboGridStyle.DataSource = GridStyle.Styles.Values;
             comboGridStyle.DataBind ();
-		}
+        }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// LoadSettings loads the settings from the Databas and displays them
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <history>
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		public override void LoadSettings ()
-		{
-			DocumentsDisplayColumnInfo objColumnInfo = null;
+        /// <summary>
+        /// LoadSettings loads the settings from the Databas and displays them
+        /// </summary>
+        public override void LoadSettings ()
+        {
+            DocumentsDisplayColumnInfo objColumnInfo = null;
 			
-			try
-			{
-				if (!IsPostBack)
-				{
-					LoadLists ();
+            try {
+                if (!IsPostBack) {
+                    LoadLists ();
 
-					chkShowTitleLink.Checked = Settings.ShowTitleLink;
-					chkUseCategoriesList.Checked = Settings.UseCategoriesList;
-					chkAllowUserSort.Checked = Settings.AllowUserSort;
+                    chkShowTitleLink.Checked = Settings.ShowTitleLink;
+                    chkUseCategoriesList.Checked = Settings.UseCategoriesList;
+                    chkAllowUserSort.Checked = Settings.AllowUserSort;
                     comboGridStyle.SelectByValue (Settings.GridStyle);
 
-					try
-					{
-						if (Settings.DefaultFolder != null)
-						{
-							folderDefaultFolder.SelectedFolder = 
+                    try {
+                        if (Settings.DefaultFolder != null) {
+                            folderDefaultFolder.SelectedFolder = 
 								FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
-						}
-					}
-					catch
-					{
-						// suppress exception.  Can be caused if the selected folder has been deleted
-					}
+                        }
+                    }
+                    catch {
+                        // suppress exception.  Can be caused if the selected folder has been deleted
+                    }
 
-					try
-					{
-						cboCategoriesList.SelectedValue = Settings.CategoriesListName;
-					}
-					catch
-					{
-						// suppress exception.  Can be caused if the selected list has been deleted
-					}
+                    try {
+                        cboCategoriesList.SelectedValue = Settings.CategoriesListName;
+                    }
+                    catch {
+                        // suppress exception.  Can be caused if the selected list has been deleted
+                    }
 
-					// read "saved" column sort orders in first
-					var objColumnSettings = Settings.DisplayColumnList;
+                    // read "saved" column sort orders in first
+                    var objColumnSettings = Settings.DisplayColumnList;
 
-					foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings)
-					{
-						objColumnInfo = objColumnInfo_loopVariable;
-						// Set localized column names
-						objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
-					}
+                    foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings) {
+                        objColumnInfo = objColumnInfo_loopVariable;
+                        // set localized column names
+                        objColumnInfo.LocalizedColumnName = Localization.GetString (
+                            objColumnInfo.ColumnName + ".Header",
+                            base.LocalResourceFile);
+                    }
 					
-					// Add any missing columns to the end
-					foreach (string strColumnName_loopVariable in DocumentsDisplayColumnInfo.AvailableDisplayColumns)
-					{
-						var strColumnName = strColumnName_loopVariable;
-						if (DocumentsSettings.FindColumn (strColumnName, objColumnSettings, false) < 0)
-						{
-							objColumnInfo = new DocumentsDisplayColumnInfo ();
-							objColumnInfo.ColumnName = strColumnName;
-							objColumnInfo.LocalizedColumnName = Localization.GetString (objColumnInfo.ColumnName + ".Header", base.LocalResourceFile);
-							objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
-							objColumnInfo.Visible = false;
+                    // add any missing columns to the end
+                    foreach (string strColumnName_loopVariable in DocumentsDisplayColumnInfo.AvailableDisplayColumns) {
+                        var strColumnName = strColumnName_loopVariable;
+                        if (DocumentsSettings.FindColumn (strColumnName, objColumnSettings, false) < 0) {
+                            objColumnInfo = new DocumentsDisplayColumnInfo ();
+                            objColumnInfo.ColumnName = strColumnName;
+                            objColumnInfo.LocalizedColumnName = Localization.GetString (
+                                objColumnInfo.ColumnName + ".Header",
+                                base.LocalResourceFile);
+                            objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
+                            objColumnInfo.Visible = false;
 							
-							objColumnSettings.Add (objColumnInfo);
-						}
-					}
+                            objColumnSettings.Add (objColumnInfo);
+                        }
+                    }
 
-					// Sort by DisplayOrder
-					BindColumnSettings (objColumnSettings);
+                    // sort by DisplayOrder
+                    BindColumnSettings (objColumnSettings);
 
-					// Load sort columns 
-					string strSortColumn = null;
-					foreach (string strSortColumn_loopVariable in DocumentsDisplayColumnInfo.AvailableSortColumns)
-					{
-						strSortColumn = strSortColumn_loopVariable;
-						comboSortFields.AddItem (LocalizeString (strSortColumn + ".Header"), strSortColumn);
-					}
+                    // load sort columns 
+                    string strSortColumn = null;
+                    foreach (string strSortColumn_loopVariable in DocumentsDisplayColumnInfo.AvailableSortColumns) {
+                        strSortColumn = strSortColumn_loopVariable;
+                        comboSortFields.AddItem (LocalizeString (strSortColumn + ".Header"), strSortColumn);
+                    }
 
-					BindSortSettings (Settings.GetSortColumnList (this.LocalResourceFile));
+                    BindSortSettings (Settings.GetSortColumnList (this.LocalResourceFile));
 
                     // load grid style
                     comboGridStyle.SelectByValue (Settings.GridStyle);
-				}
-				//Module failed to load
-			}
-			catch (Exception exc)
-			{
-				Exceptions.ProcessModuleLoadException (this, exc);
-			}
-		}
+                }
 
-		public void LoadLists ()
-		{
-            var _with2 = new ListController ();
-			foreach (ListInfo objList in _with2.GetListInfoCollection())
-			{
-				if (!objList.SystemList)
-				{
-					// for some reason, the "DataType" is not marked as a system list, but we want to exclude that one too
-					if (objList.DisplayName != "DataType")
-					{
-						cboCategoriesList.Items.Add (new ListItem (objList.DisplayName, objList.DisplayName));
-					}
-				}
-			}
+            }
+            catch (Exception exc) {
+                // module failed to load
+                Exceptions.ProcessModuleLoadException (this, exc);
+            }
+        }
 
-			if (cboCategoriesList.Items.Count == 0)
-			{
-				lstNoListsAvailable.Text = Localization.GetString ("msgNoListsAvailable.Text", base.LocalResourceFile);
-				lstNoListsAvailable.Visible = true;
-			}
-		}
+        public void LoadLists ()
+        {
+            var listController = new ListController ();
+            foreach (ListInfo objList in listController.GetListInfoCollection()) {
+                if (!objList.SystemList) {
+                    // for some reason, the "DataType" is not marked as a system list, but we want to exclude that one too
+                    if (objList.DisplayName != "DataType") {
+                        cboCategoriesList.Items.Add (new ListItem (objList.DisplayName, objList.DisplayName));
+                    }
+                }
+            }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// UpdateSettings saves the modified settings to the Database
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <history>
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		public override void UpdateSettings ()
-		{
-			try
-			{
-				if (Page.IsValid)
-				{
-					FillSettings ();
+            if (cboCategoriesList.Items.Count == 0) {
+                lstNoListsAvailable.Text = Localization.GetString ("msgNoListsAvailable.Text", base.LocalResourceFile);
+                lstNoListsAvailable.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// UpdateSettings saves the modified settings to the Database
+        /// </summary>
+        public override void UpdateSettings ()
+        {
+            try {
+                if (Page.IsValid) {
+                    FillSettings ();
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-				}
-			}
-			catch (Exception exc)
-			{
+                }
+            }
+            catch (Exception exc) {
                 // module failed to load
-				Exceptions.ProcessModuleLoadException (this, exc);
-			}
-		}
+                Exceptions.ProcessModuleLoadException (this, exc);
+            }
+        }
 
-		public string GetLocalizedText (string Key)
-		{
-			return Localization.GetString (Key, base.LocalResourceFile);
-		}
+        public string GetLocalizedText (string key)
+        {
+            return Localization.GetString (key, LocalResourceFile);
+        }
 
-		protected void grdSortColumns_ItemCreated (object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
-		{
-			switch (e.Item.ItemType)
-			{
-				case System.Web.UI.WebControls.ListItemType.AlternatingItem:
-				case System.Web.UI.WebControls.ListItemType.Item:
-				case System.Web.UI.WebControls.ListItemType.SelectedItem:
+        protected void grdSortColumns_ItemCreated (object sender, DataGridItemEventArgs e)
+        {
+            switch (e.Item.ItemType) {
+                case ListItemType.AlternatingItem:
+                case ListItemType.Item:
+                case ListItemType.SelectedItem:
 
 					// Localize the delete button and set image
-					var deleteButton = (ImageButton)e.Item.FindControl ("buttonDeleteSortOrder");
-					deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("buttonDeleteSortOrder.Text");
-					deleteButton.ImageUrl = IconController.IconURL ("Delete");
+                    var deleteButton = (ImageButton) e.Item.FindControl ("buttonDeleteSortOrder");
+                    deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("buttonDeleteSortOrder.Text");
+                    deleteButton.ImageUrl = IconController.IconURL ("Delete");
 
-					break;
-			}
-		}
+                    break;
+            }
+        }
 
-		protected void grdDisplayColumns_ItemCreated (System.Object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
-		{
-			System.Web.UI.WebControls.ImageButton objUpImage = default(System.Web.UI.WebControls.ImageButton);
-			System.Web.UI.WebControls.ImageButton objDownImage = default(System.Web.UI.WebControls.ImageButton);
+        protected void grdDisplayColumns_ItemCreated (object sender, DataGridItemEventArgs e)
+        {
+            var objUpImage = default (ImageButton);
+            var objDownImage = default (ImageButton);
 
-			switch (e.Item.ItemType)
-			{
-				case System.Web.UI.WebControls.ListItemType.AlternatingItem:
-				case System.Web.UI.WebControls.ListItemType.Item:
-				case System.Web.UI.WebControls.ListItemType.SelectedItem:
+            switch (e.Item.ItemType) {
+                case ListItemType.AlternatingItem:
+                case ListItemType.Item:
+                case ListItemType.SelectedItem:
 
 					// Center the "visible" checkbox in its cell
-					e.Item.Cells [1].Style.Add ("text-align", "center");
+                    e.Item.Cells [1].Style.Add ("text-align", "center");
 
 					// imgUp
-					objUpImage = (System.Web.UI.WebControls.ImageButton)e.Item.Cells [2].FindControl ("imgUp");
-					objUpImage.Visible = (e.Item.ItemIndex != 0);
-					objUpImage.ImageUrl = IconController.IconURL ("Up", "16X16");
+                    objUpImage = (System.Web.UI.WebControls.ImageButton) e.Item.Cells [2].FindControl ("imgUp");
+                    objUpImage.Visible = (e.Item.ItemIndex != 0);
+                    objUpImage.ImageUrl = IconController.IconURL ("Up", "16X16");
 				
 					// imgDown
-					objDownImage = (System.Web.UI.WebControls.ImageButton)e.Item.Cells [2].FindControl ("imgDown");
-					objDownImage.ImageUrl = IconController.IconURL ("Dn", "16X16");
-					if (objUpImage.Visible == false)
-					{
-						objDownImage.Style.Add ("margin-left", "19px");
-					}
+                    objDownImage = (System.Web.UI.WebControls.ImageButton) e.Item.Cells [2].FindControl ("imgDown");
+                    objDownImage.ImageUrl = IconController.IconURL ("Dn", "16X16");
+                    if (objUpImage.Visible == false) {
+                        objDownImage.Style.Add ("margin-left", "19px");
+                    }
 
-					e.Item.CssClass = "Normal";
+                    e.Item.CssClass = "Normal";
+                    break;
 
-					break;
-				case System.Web.UI.WebControls.ListItemType.Header:
-					e.Item.CssClass = "SubHead";
-					break;
-			}
-		}
+                case ListItemType.Header:
+                    e.Item.CssClass = "SubHead";
+                    break;
+            }
+        }
 
-		protected void grdDisplayColumns_ItemCommand (System.Object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
-		{
-			switch (e.CommandName)
-			{
-				case "DisplayOrderDown":
+        protected void grdDisplayColumns_ItemCommand (object source, DataGridCommandEventArgs e)
+        {
+            switch (e.CommandName) {
+                case "DisplayOrderDown":
 					// swap e.CommandArgument and the one after it
-					SwapColumn (e.CommandArgument.ToString (), System.ComponentModel.ListSortDirection.Descending);
-					break;
-				case "DisplayOrderUp":
+                    SwapColumn (e.CommandArgument.ToString (), System.ComponentModel.ListSortDirection.Descending);
+                    break;
+                case "DisplayOrderUp":
 					// swap e.CommandArgument and the one before it
-					SwapColumn (e.CommandArgument.ToString (), System.ComponentModel.ListSortDirection.Ascending);
-					break;
-			}
-		}
+                    SwapColumn (e.CommandArgument.ToString (), System.ComponentModel.ListSortDirection.Ascending);
+                    break;
+            }
+        }
 
-		protected void lnkAddSortColumn_Click (System.Object sender, System.EventArgs e)
-		{
-			ArrayList objSortColumns = default(ArrayList);
-			DocumentsSortColumnInfo objNewSortColumn = new DocumentsSortColumnInfo ();
+        protected void lnkAddSortColumn_Click (object sender, EventArgs e)
+        {
+            var objSortColumns = default (ArrayList);
+            var objNewSortColumn = new DocumentsSortColumnInfo ();
 
-			objSortColumns = RetrieveSortColumnSettings ();
-			objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
-			objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Header");
-			if (comboSortOrderDirection.SelectedValue == "ASC")
-			{
-				objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
-			}
-			else
-			{
-				objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Descending;
-			}
+            objSortColumns = RetrieveSortColumnSettings ();
+            objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
+            objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Header");
+            if (comboSortOrderDirection.SelectedValue == "ASC") {
+                objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
+            }
+            else {
+                objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Descending;
+            }
 
-			objSortColumns.Add (objNewSortColumn);
-			BindSortSettings (objSortColumns);
-		}
+            objSortColumns.Add (objNewSortColumn);
+            BindSortSettings (objSortColumns);
+        }
 
-		protected void grdSortColumns_DeleteCommand (object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
-		{
-			ArrayList objSortColumns = default(ArrayList);
-			DocumentsSortColumnInfo objSortColumnToDelete = new DocumentsSortColumnInfo ();
+        protected void grdSortColumns_DeleteCommand (object source, DataGridCommandEventArgs e)
+        {
+            var objSortColumns = default (ArrayList);
+            var objSortColumnToDelete = new DocumentsSortColumnInfo ();
 
-			objSortColumns = RetrieveSortColumnSettings ();
+            objSortColumns = RetrieveSortColumnSettings ();
 
-			foreach (DocumentsSortColumnInfo objSortColumnToDelete_loopVariable in objSortColumns)
-			{
-				objSortColumnToDelete = objSortColumnToDelete_loopVariable;
-				if (objSortColumnToDelete.ColumnName == grdSortColumns.DataKeys [e.Item.ItemIndex].ToString ())
-				{
-					objSortColumns.Remove (objSortColumnToDelete);
-					break; // TODO: might not be correct. Was : Exit For
-				}
-			}
+            foreach (DocumentsSortColumnInfo objSortColumnToDelete_loopVariable in objSortColumns) {
+                objSortColumnToDelete = objSortColumnToDelete_loopVariable;
+                if (objSortColumnToDelete.ColumnName == grdSortColumns.DataKeys [e.Item.ItemIndex].ToString ()) {
+                    objSortColumns.Remove (objSortColumnToDelete);
+                    // REVIEW: might not be correct. Was : Exit For
+                    break; 
+                }
+            }
 
-			BindSortSettings (objSortColumns);
-		}
+            BindSortSettings (objSortColumns);
+        }
 
-		#endregion
+        #endregion
 
-		#region Control Handling/Utility Functions
+        #region Control Handling/Utility Functions
 
-		private void BindSortSettings (ArrayList objSortColumns)
-		{
-			SaveSortColumnSettings (objSortColumns);
-			grdSortColumns.DataSource = objSortColumns;
-			grdSortColumns.DataKeyField = "ColumnName";
+        private void BindSortSettings (ArrayList objSortColumns)
+        {
+            SaveSortColumnSettings (objSortColumns);
+            grdSortColumns.DataSource = objSortColumns;
+            grdSortColumns.DataKeyField = "ColumnName";
 
-			// REVIEW: Original:			Localization.LocalizeDataGrid(ref grdSortColumns, this.LocalResourceFile);
-			Localization.LocalizeDataGrid (ref grdSortColumns, this.LocalResourceFile);
-			grdSortColumns.DataBind ();
-		}
+            // REVIEW: Original: Localization.LocalizeDataGrid(ref grdSortColumns, this.LocalResourceFile);
+            Localization.LocalizeDataGrid (ref grdSortColumns, this.LocalResourceFile);
+            grdSortColumns.DataBind ();
+        }
 
-		private void BindColumnSettings (List<DocumentsDisplayColumnInfo> objColumnSettings)
-		{
-			objColumnSettings.Sort ();
-			SaveDisplayColumnSettings (objColumnSettings);
-			grdDisplayColumns.DataSource = objColumnSettings;
-			grdDisplayColumns.DataKeyField = "ColumnName";
+        private void BindColumnSettings (List<DocumentsDisplayColumnInfo> objColumnSettings)
+        {
+            objColumnSettings.Sort ();
+            SaveDisplayColumnSettings (objColumnSettings);
+            grdDisplayColumns.DataSource = objColumnSettings;
+            grdDisplayColumns.DataKeyField = "ColumnName";
 
-			if (!this.IsPostBack)
-			{
+            if (!IsPostBack) {
 				
-				// REVIEW: Original: Localization.LocalizeDataGrid(ref grdDisplayColumns, this.LocalResourceFile);
-				Localization.LocalizeDataGrid (ref grdSortColumns, this.LocalResourceFile);
-			}
+                // REVIEW: Original: Localization.LocalizeDataGrid(ref grdDisplayColumns, this.LocalResourceFile);
+                Localization.LocalizeDataGrid (ref grdSortColumns, this.LocalResourceFile);
+            }
  
-			grdDisplayColumns.DataBind ();
+            grdDisplayColumns.DataBind ();
 
-			var _with6 = (System.Web.UI.WebControls.ImageButton)grdDisplayColumns.Items [grdDisplayColumns.Items.Count - 1].Cells [2].FindControl ("imgDown");
-			// Set down arrow invisible on the last item
-			_with6.Visible = false;
+            var imageDownload = (ImageButton) grdDisplayColumns.Items [grdDisplayColumns.Items.Count - 1].Cells [2].FindControl ("imgDown");
+            // set down arrow invisible on the last item
+            imageDownload.Visible = false;
 
-		}
+        }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Read settings from the screen into the passed-in DocumentsSettings object
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <history>
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		private void FillSettings ()
-		{
-			string strDisplayColumns = "";
-			DocumentsDisplayColumnInfo objColumnInfo = null;
-			int intIndex = 0;
-			ArrayList objSortColumns = default(ArrayList);
-			string strSortColumnList = "";
-			DocumentsSortColumnInfo objSortColumn = null;
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Read settings from the screen into the passed-in DocumentsSettings object
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <history>
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        private void FillSettings ()
+        {
+            string strDisplayColumns = "";
+            DocumentsDisplayColumnInfo objColumnInfo = null;
+            int intIndex = 0;
+            var objSortColumns = default (ArrayList);
+            string strSortColumnList = "";
+            DocumentsSortColumnInfo objSortColumn = null;
 
-			//Ensure that if categories list is checked that we did have an available category
-			if ((chkUseCategoriesList.Checked && !lstNoListsAvailable.Visible))
-			{
-				//If so, set normally
-				Settings.UseCategoriesList = chkUseCategoriesList.Checked;
-				Settings.CategoriesListName = cboCategoriesList.SelectedValue;
-			}
-			else
-			{
-				//Otherwise default values
-				Settings.UseCategoriesList = false;
-				Settings.CategoriesListName = "";
-			}
+            // ensure that if categories list is checked that we did have an available category
+            if ((chkUseCategoriesList.Checked && !lstNoListsAvailable.Visible)) {
+                // if so, set normally
+                Settings.UseCategoriesList = chkUseCategoriesList.Checked;
+                Settings.CategoriesListName = cboCategoriesList.SelectedValue;
+            }
+            else {
+                // otherwise default values
+                Settings.UseCategoriesList = false;
+                Settings.CategoriesListName = "";
+            }
 
-			Settings.ShowTitleLink = chkShowTitleLink.Checked;
-			Settings.AllowUserSort = chkAllowUserSort.Checked;
+            Settings.ShowTitleLink = chkShowTitleLink.Checked;
+            Settings.AllowUserSort = chkAllowUserSort.Checked;
             Settings.GridStyle = comboGridStyle.SelectedItem.Value;
 
-			if (folderDefaultFolder.SelectedFolder != null)
-				Settings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
-			else
-				Settings.DefaultFolder = null;
+            if (folderDefaultFolder.SelectedFolder != null) {
+                Settings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
+            }
+            else {
+                Settings.DefaultFolder = null;
+            }
 
-			var objColumnSettings = RetrieveDisplayColumnSettings ();
-			intIndex = 0;
-			foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings)
-			{
-				objColumnInfo = objColumnInfo_loopVariable;
-				// Figure out column visibility
-				objColumnInfo.Visible = ((System.Web.UI.WebControls.CheckBox)grdDisplayColumns.Items [intIndex].Cells [1].FindControl ("chkVisible")).Checked;
+            var objColumnSettings = RetrieveDisplayColumnSettings ();
+            intIndex = 0;
+            foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings) {
+                objColumnInfo = objColumnInfo_loopVariable;
+                // Figure out column visibility
+                objColumnInfo.Visible = ((System.Web.UI.WebControls.CheckBox) grdDisplayColumns.Items [intIndex].Cells [1].FindControl ("chkVisible")).Checked;
 
-				if (strDisplayColumns != string.Empty)
-				{
-					strDisplayColumns = strDisplayColumns + ",";
-				}
-				strDisplayColumns = strDisplayColumns + objColumnInfo.ColumnName + ";" + objColumnInfo.Visible.ToString ();
+                if (strDisplayColumns != string.Empty) {
+                    strDisplayColumns = strDisplayColumns + ",";
+                }
+                strDisplayColumns = strDisplayColumns + objColumnInfo.ColumnName + ";" + objColumnInfo.Visible.ToString ();
 
-				intIndex = intIndex + 1;
-			}
+                intIndex = intIndex + 1;
+            }
 
-			Settings.DisplayColumns = strDisplayColumns;
+            Settings.DisplayColumns = strDisplayColumns;
 
-			objSortColumns = RetrieveSortColumnSettings ();
-			foreach (DocumentsSortColumnInfo objSortColumn_loopVariable in objSortColumns)
-			{
-				objSortColumn = objSortColumn_loopVariable;
-				if (strSortColumnList != string.Empty)
-				{
-					strSortColumnList = strSortColumnList + ",";
-				}
-				strSortColumnList = strSortColumnList + (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Descending ? "-" : "").ToString () + objSortColumn.ColumnName;
-			}
-			Settings.SortOrder = strSortColumnList;
+            objSortColumns = RetrieveSortColumnSettings ();
+            foreach (DocumentsSortColumnInfo objSortColumn_loopVariable in objSortColumns) {
+                objSortColumn = objSortColumn_loopVariable;
+                if (strSortColumnList != string.Empty) {
+                    strSortColumnList = strSortColumnList + ",";
+                }
+                strSortColumnList = strSortColumnList + (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Descending ? "-" : "").ToString () + objSortColumn.ColumnName;
+            }
+            Settings.SortOrder = strSortColumnList;
             Settings.GridStyle = comboGridStyle.SelectedValue;
-		}
+        }
 
-		private void SwapColumn (string ColumnName, System.ComponentModel.ListSortDirection Direction)
-		{
-			int intIndex = 0;
-			int intDisplayOrderTemp = 0;
+        private void SwapColumn (string columnName, ListSortDirection direction)
+        {
+            int intIndex = 0;
+            int intDisplayOrderTemp = 0;
 
-			// First, find the column we want
-			var objColumnSettings = RetrieveDisplayColumnSettings ();
-			intIndex = DocumentsSettings.FindColumn (ColumnName, objColumnSettings, false);
+            // first, find the column we want
+            var objColumnSettings = RetrieveDisplayColumnSettings ();
+            intIndex = DocumentsSettings.FindColumn (columnName, objColumnSettings, false);
 
-			// Swap display orders
-			if (intIndex >= 0)
-			{
-				switch (Direction)
-				{
-					case System.ComponentModel.ListSortDirection.Ascending:
+            // swap display orders
+            if (intIndex >= 0) {
+                switch (direction) {
+                    case ListSortDirection.Ascending:
 						// swap up
-						if (intIndex > 0)
-						{
-							intDisplayOrderTemp = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder;
-							((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex - 1]).DisplayOrder;
-							((DocumentsDisplayColumnInfo)objColumnSettings [intIndex - 1]).DisplayOrder = intDisplayOrderTemp;
-						}
-						break;
-					case System.ComponentModel.ListSortDirection.Descending:
+                        if (intIndex > 0) {
+                            intDisplayOrderTemp = ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex]).DisplayOrder;
+                            ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex - 1]).DisplayOrder;
+                            ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex - 1]).DisplayOrder = intDisplayOrderTemp;
+                        }
+                        break;
+                    case ListSortDirection.Descending:
 						// swap down
-						if (intIndex < objColumnSettings.Count)
-						{
-							intDisplayOrderTemp = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder;
-							((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex + 1]).DisplayOrder;
-							((DocumentsDisplayColumnInfo)objColumnSettings [intIndex + 1]).DisplayOrder = intDisplayOrderTemp;
-						}
-						break;
-				}
-			}
+                        if (intIndex < objColumnSettings.Count) {
+                            intDisplayOrderTemp = ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex]).DisplayOrder;
+                            ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex + 1]).DisplayOrder;
+                            ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex + 1]).DisplayOrder = intDisplayOrderTemp;
+                        }
+                        break;
+                }
+            }
 
-			// Re-bind the newly sorted collection to the datagrid
-			BindColumnSettings (objColumnSettings);
-		}
+            // re-bind the newly sorted collection to the datagrid
+            BindColumnSettings (objColumnSettings);
+        }
 
-		#endregion
+        #endregion
 
-		private void SaveSortColumnSettings (ArrayList objSettings)
-		{
-			// Custom viewstate implementation to avoid reflection
-			DocumentsSortColumnInfo objSortColumnInfo = null;
-			string strValues = "";
+        private void SaveSortColumnSettings (ArrayList objSettings)
+        {
+            // custom viewstate implementation to avoid reflection
+            DocumentsSortColumnInfo objSortColumnInfo = null;
+            string strValues = "";
 
-			foreach (DocumentsSortColumnInfo objSortColumnInfo_loopVariable in objSettings)
-			{
-				objSortColumnInfo = objSortColumnInfo_loopVariable;
-				if (strValues != string.Empty)
-				{
-					strValues = strValues + "#";
-				}
+            foreach (DocumentsSortColumnInfo objSortColumnInfo_loopVariable in objSettings) {
+                objSortColumnInfo = objSortColumnInfo_loopVariable;
+                if (strValues != string.Empty) {
+                    strValues = strValues + "#";
+                }
 
-				strValues = strValues + objSortColumnInfo.ColumnName + "," + objSortColumnInfo.LocalizedColumnName + "," + objSortColumnInfo.Direction.ToString ();
-			}
-			ViewState [VIEWSTATE_SORTCOLUMNSETTINGS] = strValues;
-		}
+                strValues = strValues + objSortColumnInfo.ColumnName + "," + objSortColumnInfo.LocalizedColumnName + "," + objSortColumnInfo.Direction.ToString ();
+            }
+            ViewState [VIEWSTATE_SORTCOLUMNSETTINGS] = strValues;
+        }
 
-		private ArrayList RetrieveSortColumnSettings ()
-		{
-			// Custom viewstate implementation to avoid reflection
-			ArrayList objSortColumnSettings = new ArrayList ();
-			DocumentsSortColumnInfo objSortColumnInfo = null;
+        private ArrayList RetrieveSortColumnSettings ()
+        {
+            // custom viewstate implementation to avoid reflection
+            var objSortColumnSettings = new ArrayList ();
+            DocumentsSortColumnInfo objSortColumnInfo = null;
 
-			string strValues = null;
+            string strValues = null;
 
-			strValues = Convert.ToString (ViewState [VIEWSTATE_SORTCOLUMNSETTINGS]);
-			if ((strValues != null) && strValues != string.Empty)
-			{
-				foreach (string strSortColumnSetting in strValues.Split(char.Parse("#")))
-				{
-					objSortColumnInfo = new DocumentsSortColumnInfo ();
-					objSortColumnInfo.ColumnName = strSortColumnSetting.Split (char.Parse (",")) [0];
-					objSortColumnInfo.LocalizedColumnName = strSortColumnSetting.Split (char.Parse (",")) [1];
-					objSortColumnInfo.Direction = (DocumentsSortColumnInfo.SortDirection)System.Enum.Parse (typeof(DocumentsSortColumnInfo.SortDirection), strSortColumnSetting.Split (char.Parse (",")) [2]);
+            strValues = Convert.ToString (ViewState [VIEWSTATE_SORTCOLUMNSETTINGS]);
+            if ((strValues != null) && strValues != string.Empty) {
+                foreach (string strSortColumnSetting in strValues.Split(char.Parse("#"))) {
+                    objSortColumnInfo = new DocumentsSortColumnInfo ();
+                    objSortColumnInfo.ColumnName = strSortColumnSetting.Split (char.Parse (",")) [0];
+                    objSortColumnInfo.LocalizedColumnName = strSortColumnSetting.Split (char.Parse (",")) [1];
+                    objSortColumnInfo.Direction = (DocumentsSortColumnInfo.SortDirection) System.Enum.Parse (
+                        typeof (DocumentsSortColumnInfo.SortDirection),
+                        strSortColumnSetting.Split (char.Parse (",")) [2]);
 
-					objSortColumnSettings.Add (objSortColumnInfo);
-				}
-			}
+                    objSortColumnSettings.Add (objSortColumnInfo);
+                }
+            }
 
-			return objSortColumnSettings;
-		}
+            return objSortColumnSettings;
+        }
 
-		private void SaveDisplayColumnSettings (List<DocumentsDisplayColumnInfo> objSettings)
-		{
-			// Custom viewstate implementation to avoid reflection
-			DocumentsDisplayColumnInfo objDisplayColumnInfo = null;
-			string strValues = "";
+        private void SaveDisplayColumnSettings (List<DocumentsDisplayColumnInfo> objSettings)
+        {
+            // custom viewstate implementation to avoid reflection
+            DocumentsDisplayColumnInfo objDisplayColumnInfo = null;
+            var strValues = "";
 
-			foreach (DocumentsDisplayColumnInfo objDisplayColumnInfo_loopVariable in objSettings)
-			{
-				objDisplayColumnInfo = objDisplayColumnInfo_loopVariable;
-				if (strValues != string.Empty)
-				{
-					strValues = strValues + "#";
-				}
-				strValues = strValues + objDisplayColumnInfo.ColumnName + "," + objDisplayColumnInfo.LocalizedColumnName + "," + objDisplayColumnInfo.DisplayOrder + "," + objDisplayColumnInfo.Visible;
-			}
-			ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS] = strValues;
-		}
+            foreach (DocumentsDisplayColumnInfo objDisplayColumnInfo_loopVariable in objSettings) {
+                objDisplayColumnInfo = objDisplayColumnInfo_loopVariable;
+                if (strValues != string.Empty) {
+                    strValues = strValues + "#";
+                }
+                strValues = strValues + objDisplayColumnInfo.ColumnName + "," + objDisplayColumnInfo.LocalizedColumnName + "," + objDisplayColumnInfo.DisplayOrder + "," + objDisplayColumnInfo.Visible;
+            }
+            ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS] = strValues;
+        }
 
-		private List<DocumentsDisplayColumnInfo> RetrieveDisplayColumnSettings ()
-		{
-			// Custom viewstate implementation to avoid reflection
-			var objDisplayColumnSettings = new List<DocumentsDisplayColumnInfo> ();
-			DocumentsDisplayColumnInfo objDisplayColumnInfo = null;
+        private List<DocumentsDisplayColumnInfo> RetrieveDisplayColumnSettings ()
+        {
+            // custom viewstate implementation to avoid reflection
+            var objDisplayColumnSettings = new List<DocumentsDisplayColumnInfo> ();
+            DocumentsDisplayColumnInfo objDisplayColumnInfo = null;
 
-			string strValues = null;
+            string strValues = null;
 
-			strValues = Convert.ToString (ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
-			if (!string.IsNullOrEmpty (strValues))
-			{
-				foreach (string strDisplayColumnSetting in strValues.Split('#'))
-				{
-					objDisplayColumnInfo = new DocumentsDisplayColumnInfo ();
-					objDisplayColumnInfo.ColumnName = strDisplayColumnSetting.Split (char.Parse (",")) [0];
-					objDisplayColumnInfo.LocalizedColumnName = strDisplayColumnSetting.Split (char.Parse (",")) [1];
-					objDisplayColumnInfo.DisplayOrder = Convert.ToInt32 (strDisplayColumnSetting.Split (char.Parse (",")) [2]);
-					objDisplayColumnInfo.Visible = Convert.ToBoolean (strDisplayColumnSetting.Split (char.Parse (",")) [3]);
+            strValues = Convert.ToString (ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
+            if (!string.IsNullOrEmpty (strValues)) {
+                foreach (string strDisplayColumnSetting in strValues.Split('#')) {
+                    objDisplayColumnInfo = new DocumentsDisplayColumnInfo ();
+                    objDisplayColumnInfo.ColumnName = strDisplayColumnSetting.Split (char.Parse (",")) [0];
+                    objDisplayColumnInfo.LocalizedColumnName = strDisplayColumnSetting.Split (char.Parse (",")) [1];
+                    objDisplayColumnInfo.DisplayOrder = Convert.ToInt32 (strDisplayColumnSetting.Split (char.Parse (",")) [2]);
+                    objDisplayColumnInfo.Visible = Convert.ToBoolean (strDisplayColumnSetting.Split (char.Parse (",")) [3]);
 
-					objDisplayColumnSettings.Add (objDisplayColumnInfo);
-				}
-			}
+                    objDisplayColumnSettings.Add (objDisplayColumnInfo);
+                }
+            }
 
-			return objDisplayColumnSettings;
-		}
+            return objDisplayColumnSettings;
+        }
 
-		protected override void OnLoad (EventArgs e)
-		{
-			base.OnLoad (e);
+        protected override void OnLoad (EventArgs e)
+        {
+            base.OnLoad (e);
 
-			if (UserInfo.IsSuperUser)
-			{
-				lnkEditLists.Text = Localization.GetString ("lnkEditLists", base.LocalResourceFile);
+            if (UserInfo.IsSuperUser) {
+                lnkEditLists.Text = Localization.GetString ("lnkEditLists", base.LocalResourceFile);
 
-				//lnkEditLists.Target = "_blank"
-
-				try
-				{
-					var _with7 = new TabController ();
-					lnkEditLists.NavigateUrl = _with7.GetTabByName ("Lists", Null.NullInteger).FullUrl;
-				}
-				catch
-				{
-					//Unable to locate "Lists" tab
-					lblCannotEditLists.Text = Localization.GetString ("UnableToFindLists", base.LocalResourceFile);
-					lblCannotEditLists.Visible = true;
-					lnkEditLists.Visible = false;
-				}
-			}
-			else
-			{
-				//Show error, then hide the "Edit" link
-				lblCannotEditLists.Text = Localization.GetString ("NoListAccess", base.LocalResourceFile);
-				lblCannotEditLists.Visible = true;
-				lnkEditLists.Visible = false;
-			}
-		}
-	}
+                try {
+                    var tabController = new TabController ();
+                    lnkEditLists.NavigateUrl = tabController.GetTabByName ("Lists", Null.NullInteger).FullUrl;
+                }
+                catch {
+                    // unable to locate "Lists" tab
+                    lblCannotEditLists.Text = Localization.GetString ("UnableToFindLists", base.LocalResourceFile);
+                    lblCannotEditLists.Visible = true;
+                    lnkEditLists.Visible = false;
+                }
+            }
+            else {
+                // show error, then hide the "Edit" link
+                lblCannotEditLists.Text = Localization.GetString ("NoListAccess", base.LocalResourceFile);
+                lblCannotEditLists.Visible = true;
+                lnkEditLists.Visible = false;
+            }
+        }
+    }
 }

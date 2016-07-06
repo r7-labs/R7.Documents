@@ -49,27 +49,25 @@ namespace R7.Documents.Data
 
         #endregion
 
-        public DocumentInfo GetDocument (int ItemId, int ModuleId)
+        public DocumentInfo GetDocument (int itemId, int moduleId)
         {
             DocumentInfo document;
 
-            using (var ctx = DataContext.Instance ())
-            {
+            using (var ctx = DataContext.Instance ()) {
                 document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
-                    System.Data.CommandType.StoredProcedure, "Documents_GetDocument", ItemId, ModuleId);
+                    System.Data.CommandType.StoredProcedure, "Documents_GetDocument", itemId, moduleId);
             }
 
             return document;
         }
 
-        public IEnumerable<DocumentInfo> GetDocuments (int ModuleId, int PortalId)
+        public IEnumerable<DocumentInfo> GetDocuments (int moduleId, int portalId)
         {
             IEnumerable<DocumentInfo> documents;
 
-            using (var ctx = DataContext.Instance ())
-            {
+            using (var ctx = DataContext.Instance ()) {
                 documents = ctx.ExecuteQuery<DocumentInfo> (
-                    System.Data.CommandType.StoredProcedure, "Documents_GetDocuments", ModuleId, PortalId);
+                    System.Data.CommandType.StoredProcedure, "Documents_GetDocuments", moduleId, portalId);
             }
 
             return documents;
@@ -79,29 +77,27 @@ namespace R7.Documents.Data
         /// Gets documents from DNN Documents module
         /// </summary>
         /// <returns>The DNN documents.</returns>
-        /// <param name="ModuleId">Module identifier.</param>
-        /// <param name="PortalId">Portal identifier.</param>
-        public IEnumerable<DocumentInfo> GetDNNDocuments (int ModuleId, int PortalId)
+        /// <param name="moduleId">Module identifier.</param>
+        /// <param name="portalId">Portal identifier.</param>
+        public IEnumerable<DocumentInfo> GetDNNDocuments (int moduleId, int portalId)
         {
             IEnumerable<DocumentInfo> documents;
 
-            using (var ctx = DataContext.Instance ())
-            {
+            using (var ctx = DataContext.Instance ()) {
                 documents = ctx.ExecuteQuery<DocumentInfo> (
-                    System.Data.CommandType.StoredProcedure, "GetDocuments", ModuleId, PortalId);
+                    System.Data.CommandType.StoredProcedure, "GetDocuments", moduleId, portalId);
             }
 
             return documents;
         }
 
-        public DocumentInfo GetDNNDocument (int ItemId, int ModuleId)
+        public DocumentInfo GetDNNDocument (int itemId, int moduleId)
         {
             DocumentInfo document;
 
-            using (var ctx = DataContext.Instance ())
-            {
+            using (var ctx = DataContext.Instance ()) {
                 document = ctx.ExecuteSingleOrDefault<DocumentInfo> (
-                    System.Data.CommandType.StoredProcedure, "GetDocument", ItemId, ModuleId);
+                    System.Data.CommandType.StoredProcedure, "GetDocument", itemId, moduleId);
             }
 
             return document;
@@ -118,18 +114,17 @@ namespace R7.Documents.Data
             var count = GetObjects<DocumentInfo> ("WHERE [ItemID] <> @0 AND [Url] = @1", document.ItemId, document.Url).Count ();
 
             // if no other document references it
-            if (count == 0)
-            {
-                switch (Globals.GetURLType (document.Url))
-                {
-                    // delete file
+            if (count == 0) {
+                switch (Globals.GetURLType (document.Url)) {
+                // delete file
                     case TabType.File:
                         var file = FileManager.Instance.GetFile (Utils.GetResourceId (document.Url));
-                        if (file != null)
+                        if (file != null) {
                             FileManager.Instance.DeleteFile (file);
+                        }
                         break;
 
-                        // delete URL
+                // delete URL
                     case TabType.Url:
                         new UrlController ().DeleteUrl (portalId, document.Url);
                         break;
@@ -139,29 +134,35 @@ namespace R7.Documents.Data
             return count;
         }
 
-        public void DeleteDocumentUrl (string oldUrl, int PortalId, int ModuleId)
+        public void DeleteDocumentUrl (string oldUrl, int portalId, int moduleId)
         {
             // NOTE: we shouldn't delete URL itself as is can be used in other modules
             // DataProvider.Instance().DeleteUrl (PortalId, document.Url);
 
             // delete URL tracking data
-            DataProvider.Instance ().DeleteUrlTracking (PortalId, oldUrl, ModuleId);
+            DataProvider.Instance ().DeleteUrlTracking (portalId, oldUrl, moduleId);
         }
 
-        public void UpdateDocumentUrl (DocumentInfo document, string oldUrl, int PortalId, int ModuleId)
+        public void UpdateDocumentUrl (DocumentInfo document, string oldUrl, int portalId, int moduleId)
         {
-            if (document.Url != oldUrl)
-            {
+            if (document.Url != oldUrl) {
                 var ctrlUrl = new UrlController ();
 
                 // get tracking data for the old URL
-                var url = ctrlUrl.GetUrlTracking (PortalId, oldUrl, ModuleId);
+                var url = ctrlUrl.GetUrlTracking (portalId, oldUrl, moduleId);
 
                 // delete old URL tracking data
-                DataProvider.Instance ().DeleteUrlTracking (PortalId, oldUrl, ModuleId);
+                DataProvider.Instance ().DeleteUrlTracking (portalId, oldUrl, moduleId);
 
                 // create new URL tracking data
-                ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
+                ctrlUrl.UpdateUrl (
+                    portalId,
+                    document.Url,
+                    url.UrlType,
+                    url.LogActivity,
+                    url.TrackClicks,
+                    moduleId,
+                    url.NewWindow);
             }
         }
     }

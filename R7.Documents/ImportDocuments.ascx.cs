@@ -33,158 +33,132 @@ using R7.DotNetNuke.Extensions.Modules;
 namespace R7.Documents
 {
     public partial class ImportDocuments : PortalModuleBase<DocumentsSettings>
-	{
-		#region Fields
+    {
+        #region Event Handlers
 
-		#endregion
+        protected override void OnInit (EventArgs e)
+        {
+            base.OnInit (e);
 
-		#region Event Handlers
+            var mctrl = new ModuleController ();
+            var docModules = new List<ModuleInfo> ();
 
-		protected override void OnInit (EventArgs e)
-		{
-			base.OnInit (e);
+            // get all document modules (R7.Documents and DNN Documents)
+            foreach (var module in mctrl.GetTabModules (TabId).Values) {
+                var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
+                if (module.ModuleID != ModuleId && !module.IsDeleted && (mdef == "r7.documents" || mdef == "documents")) {
+                    docModules.Add (module);
+                }
+            }
 
-			var mctrl = new ModuleController ();
-			var docModules = new List<ModuleInfo>();
+            // fill modules combo
+            comboModule.AddItem (LocalizeString ("NotSelected.Text"), Null.NullInteger.ToString ());
+            foreach (var docModule in docModules) {
+                comboModule.AddItem (docModule.ModuleTitle, docModule.ModuleID.ToString ());
+            }
 
-			// get all document modules (R7.Documents and DNN Documents)
-			foreach (var module in mctrl.GetTabModules (TabId).Values)
-			{
-				var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant();
-				if (module.ModuleID != ModuleId && !module.IsDeleted && (mdef == "r7.documents" || mdef == "documents"))
-					docModules.Add (module);
-			}
+            // set Cancel button link
+            linkCancel.NavigateUrl = Globals.NavigateURL ();
+        }
 
-			// fill modules combo
-			comboModule.AddItem (LocalizeString ("NotSelected.Text"), Null.NullInteger.ToString ());
-			foreach (var docModule in docModules)
-				comboModule.AddItem (docModule.ModuleTitle, docModule.ModuleID.ToString());
+        protected void buttonImport_Click (object sender, EventArgs e)
+        {
+            try {
+                var mctrl = new ModuleController ();
+                var module = mctrl.GetModule (int.Parse (comboModule.SelectedValue), TabId);
+                var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
 
-			// set Cancel button link
-			linkCancel.NavigateUrl = Globals.NavigateURL ();
-		}
+                foreach (ListItem item in listDocuments.Items) {
+                    if (item.Selected) {
+                        DocumentInfo document = null;
 
-		/*
-		protected override void OnLoad (EventArgs e)
-		{
-			base.OnLoad (e);
+                        if (mdef == "r7.documents") {
+                            document = DocumentsDataProvider.Instance.GetDocument (
+                                int.Parse (item.Value),
+                                module.ModuleID);
+                        }
+                        else if (mdef == "documents") {
+                            document = DocumentsDataProvider.Instance.GetDNNDocument (
+                                int.Parse (item.Value),
+                                module.ModuleID);
+                        }
 
-			try
-			{
-				if (!IsPostBack)
-				{
+                        if (document != null) {
+                            var ctrlUrl = new UrlController ();
 
-				}
-				else
-				{
-				}
-			}
-			catch (Exception ex)
-			{
-				// module failed to load
-				Exceptions.ProcessModuleLoadException (this, ex);
-			}
-		}*/
+                            // get original document tracking data
+                            var url = ctrlUrl.GetUrlTracking (PortalId, document.Url, document.ModuleId);
 
-		protected void buttonImport_Click (object sender, EventArgs e)
-		{
-			try
-			{
-				var mctrl = new ModuleController ();
-				var module = mctrl.GetModule (int.Parse (comboModule.SelectedValue), TabId);
-				var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
+                            document.ItemId = Null.NullInteger;
+                            document.ModuleId = ModuleId;
+                            document.IsPublished = true;
 
-				foreach (ListItem item in listDocuments.Items)
-				{
-					if (item.Selected)
-					{
-						DocumentInfo document = null;
-
-						if (mdef == "r7.documents")
-                            document = DocumentsDataProvider.Instance.GetDocument (int.Parse (item.Value), module.ModuleID);
-						else if (mdef == "documents")
-                            document = DocumentsDataProvider.Instance.GetDNNDocument (int.Parse (item.Value), module.ModuleID);
-
-						if (document != null)
-						{
-							var ctrlUrl = new UrlController ();
-
-							// get original document tracking data
-							var url = ctrlUrl.GetUrlTracking (PortalId, document.Url, document.ModuleId);
-
-							document.ItemId = Null.NullInteger;
-							document.ModuleId = ModuleId;
-							document.IsPublished = true;
-
-							// add new document
+                            // add new document
                             DocumentsDataProvider.Instance.Add (document);
 
-							// add new url tracking data
-							ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, 
-								url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
+                            // add new url tracking data
+                            ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, 
+                                url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
 
-							// NOTE: using url.Clicks, url.LastClick, url.CreatedDate not working
-						}
-					}
-				}
+                            // NOTE: using url.Clicks, url.LastClick, url.CreatedDate not working
+                        }
+                    }
+                }
 
                 ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 
-				// redirect back to the module page
-				Response.Redirect (Globals.NavigateURL (), true);
-			}
-			catch (Exception ex)
-			{
-				// module failed to load
-				Exceptions.ProcessModuleLoadException (this, ex);
-			}
-		}
+                // redirect back to the module page
+                Response.Redirect (Globals.NavigateURL (), true);
+            }
+            catch (Exception ex) {
+                // module failed to load
+                Exceptions.ProcessModuleLoadException (this, ex);
+            }
+        }
 
-		protected void comboModules_SelectedIndexChanged (object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
-		{
-			try
-			{
-				var mctrl = new ModuleController ();
-				var module = mctrl.GetModule (int.Parse (e.Value), TabId);
+        protected void comboModules_SelectedIndexChanged (object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            try {
+                var mctrl = new ModuleController ();
+                var module = mctrl.GetModule (int.Parse (e.Value), TabId);
 
-				if (module != null)
-				{
-					IEnumerable<DocumentInfo> documents = null;
+                if (module != null) {
+                    IEnumerable<DocumentInfo> documents = null;
 
-					var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
+                    var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
 
-					if (mdef == "r7.documents")
+                    if (mdef == "r7.documents") {
                         documents = DocumentsDataProvider.Instance.GetDocuments (module.ModuleID, module.PortalID);
-					else if (mdef == "documents")
+                    }
+                    else if (mdef == "documents") {
                         documents = DocumentsDataProvider.Instance.GetDNNDocuments (module.ModuleID, module.PortalID);
+                    }
 				
-					if (documents != null && documents.Any ())
-					{
-						panelDocuments.Visible = true;
-						buttonImport.Visible = true;
+                    if (documents != null && documents.Any ()) {
+                        panelDocuments.Visible = true;
+                        buttonImport.Visible = true;
 
-						listDocuments.DataSource = documents;
-						listDocuments.DataBind ();
+                        listDocuments.DataSource = documents;
+                        listDocuments.DataBind ();
 
-						foreach (ListItem item in listDocuments.Items)
-							item.Selected = true;
-					}
-					else
-					{
-						panelDocuments.Visible = false;
-						buttonImport.Visible = false;
+                        foreach (ListItem item in listDocuments.Items) {
+                            item.Selected = true;
+                        }
+                    }
+                    else {
+                        panelDocuments.Visible = false;
+                        buttonImport.Visible = false;
 
-						listDocuments.Items.Clear ();
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				// module failed to load
-				Exceptions.ProcessModuleLoadException (this, ex);
-			}
-		}
+                        listDocuments.Items.Clear ();
+                    }
+                }
+            }
+            catch (Exception ex) {
+                // module failed to load
+                Exceptions.ProcessModuleLoadException (this, ex);
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -22,111 +22,80 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using DotNetNuke;
 
 namespace R7.Documents
 {
-	[Serializable ()]
-	public class DocumentsDisplayColumnInfo : IComparable
-	{
+    [Serializable]
+    public class DocumentsDisplayColumnInfo : IComparable
+    {
 
-		public const string COLUMN_CREATEDBY = "CreatedBy";
-		public const string COLUMN_CREATEDDATE = "CreatedDate";
-		public const string COLUMN_TITLE = "Title";
-		public const string COLUMN_CATEGORY = "Category";
-		public const string COLUMN_OWNEDBY = "Owner";
-		public const string COLUMN_MODIFIEDBY = "ModifiedBy";
-		public const string COLUMN_MODIFIEDDATE = "ModifiedDate";
-		public const string COLUMN_SORTORDER = "SortIndex";
-		public const string COLUMN_DESCRIPTION = "Description";
-		public const string COLUMN_SIZE = "Size";
-		public const string COLUMN_DOWNLOADLINK = "DownloadLink";
-		public const string COLUMN_CLICKS = "Clicks";
-		public const string COLUMN_ICON = "Icon";
-		// public const string COLUMN_URL = "Url";
+        public const string COLUMN_CREATEDBY = "CreatedBy";
+        public const string COLUMN_CREATEDDATE = "CreatedDate";
+        public const string COLUMN_TITLE = "Title";
+        public const string COLUMN_CATEGORY = "Category";
+        public const string COLUMN_OWNEDBY = "Owner";
+        public const string COLUMN_MODIFIEDBY = "ModifiedBy";
+        public const string COLUMN_MODIFIEDDATE = "ModifiedDate";
+        public const string COLUMN_SORTORDER = "SortIndex";
+        public const string COLUMN_DESCRIPTION = "Description";
+        public const string COLUMN_SIZE = "Size";
+        public const string COLUMN_DOWNLOADLINK = "DownloadLink";
+        public const string COLUMN_CLICKS = "Clicks";
+        public const string COLUMN_ICON = "Icon";
 
-		public static HashSet<string> AvailableDisplayColumns = new HashSet<string> () {
-			COLUMN_ICON,
-			COLUMN_TITLE,
-			COLUMN_DESCRIPTION,
-			COLUMN_CATEGORY,
-			COLUMN_OWNEDBY,
-			COLUMN_CREATEDDATE,
-			COLUMN_CREATEDBY,
-			COLUMN_MODIFIEDDATE,
-			COLUMN_MODIFIEDBY,
-			COLUMN_SIZE,
-			COLUMN_CLICKS,
-			COLUMN_DOWNLOADLINK,
-			// ,COLUMN_URL
-		};
-		public static List<string> AvailableSortColumns = new List<string> () {
-			COLUMN_SORTORDER,
-			COLUMN_TITLE,
-			COLUMN_DESCRIPTION,
-			COLUMN_CATEGORY,
-			COLUMN_OWNEDBY,
-			COLUMN_CREATEDDATE,
-			COLUMN_CREATEDBY,
-			COLUMN_MODIFIEDDATE,
-			COLUMN_MODIFIEDBY,
-			COLUMN_SIZE,
-			COLUMN_CLICKS
-			// ,COLUMN_URL
-		};
+        public static HashSet<string> AvailableDisplayColumns = new HashSet<string> {
+            COLUMN_ICON,
+            COLUMN_TITLE,
+            COLUMN_DESCRIPTION,
+            COLUMN_CATEGORY,
+            COLUMN_OWNEDBY,
+            COLUMN_CREATEDDATE,
+            COLUMN_CREATEDBY,
+            COLUMN_MODIFIEDDATE,
+            COLUMN_MODIFIEDBY,
+            COLUMN_SIZE,
+            COLUMN_CLICKS,
+            COLUMN_DOWNLOADLINK
+        };
 
-		#region "Private Members"
+        public static List<string> AvailableSortColumns = new List<string> {
+            COLUMN_SORTORDER,
+            COLUMN_TITLE,
+            COLUMN_DESCRIPTION,
+            COLUMN_CATEGORY,
+            COLUMN_OWNEDBY,
+            COLUMN_CREATEDDATE,
+            COLUMN_CREATEDBY,
+            COLUMN_MODIFIEDDATE,
+            COLUMN_MODIFIEDBY,
+            COLUMN_SIZE,
+            COLUMN_CLICKS
+        };
 
-		private string _ColumnName;
-		private int _DisplayOrder;
-		private bool _Visible;
+        private string _LocalizedColumnName;
 
-		#endregion
+        #region "Properties"
 
-		private string _LocalizedColumnName;
+        public string ColumnName { get; set; }
 
-		#region "Properties"
+        public string LocalizedColumnName { get; set; }
 
-		public string ColumnName
-		{
-			get { return _ColumnName; }
-			set { _ColumnName = value; }
-		}
+        public int DisplayOrder { get; set; }
 
-		public string LocalizedColumnName
-		{
-			get { return _LocalizedColumnName; }
-			set { _LocalizedColumnName = value; }
-		}
+        public bool Visible { get; set; }
 
-		public int DisplayOrder
-		{
-			get { return _DisplayOrder; }
-			set { _DisplayOrder = value; }
-		}
+        #endregion
 
-		public bool Visible
-		{
-			get { return _Visible; }
-			set { _Visible = value; }
-		}
+        #region "ICompareable Interface"
 
-		#endregion
+        public int CompareTo (object obj)
+        {
+            DocumentsDisplayColumnInfo objYItem = null;
 
-		#region "ICompareable Interface"
+            objYItem = (DocumentsDisplayColumnInfo) obj;
+            return DisplayOrder.CompareTo (objYItem.DisplayOrder);
+        }
 
-		public int CompareTo (object obj)
-		{
-			DocumentsDisplayColumnInfo objYItem = null;
-
-			objYItem = (DocumentsDisplayColumnInfo)obj;
-			return this.DisplayOrder.CompareTo (objYItem.DisplayOrder);
-		}
-
-		#endregion
-
-
-	}
+        #endregion
+    }
 }

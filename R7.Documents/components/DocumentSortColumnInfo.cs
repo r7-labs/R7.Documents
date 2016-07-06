@@ -21,31 +21,28 @@
 // THE SOFTWARE.
 
 using System;
-using System.Configuration;
-using System.Data;
-using DotNetNuke;
 
 namespace R7.Documents
 {
-	[Serializable ()]
-	public class DocumentsSortColumnInfo
-	{
-		private SortDirection _Direction = SortDirection.Ascending;
+    [Serializable]
+    public class DocumentsSortColumnInfo
+    {
+        private SortDirection _direction = SortDirection.Ascending;
 
-		public enum SortDirection : int
-		{
-			Ascending,
-			Descending
-		}
+        public enum SortDirection
+        {
+            Ascending,
+            Descending
+        }
 
-		public SortDirection Direction
-		{
-			get { return _Direction; }
-			set { _Direction = value; }
-		}
+        public SortDirection Direction
+        {
+            get { return _direction; }
+            set { _direction = value; }
+        }
 
-		public string ColumnName { get; set; }
+        public string ColumnName { get; set; }
 
-		public string LocalizedColumnName { get; set; }
-	}
+        public string LocalizedColumnName { get; set; }
+    }
 }

@@ -20,39 +20,24 @@
 // THE SOFTWARE.
 
 using System;
-using System.Web;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using System.Web.UI.WebControls;
-using DotNetNuke.UI.Modules;
-using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
-using DotNetNuke.Entities.Portals;
-using DotNetNuke.Entities.Modules;
-using DotNetNuke.Entities.Users;
-using DotNetNuke.Services.Localization;
 
 namespace R7.Documents
 {
-    
-	public class Utils
-	{
-		public static int GetResourceId (string url)
+    public class Utils
+    {
+        public static int GetResourceId (string url)
         {
-            var urlParts = url.Split ( new [] {'='}, 2, StringSplitOptions.RemoveEmptyEntries);
-            if (urlParts.Length == 2)
-            {
+            var urlParts = url.Split (new [] { '=' }, 2, StringSplitOptions.RemoveEmptyEntries);
+            if (urlParts.Length == 2) {
                 int resourceId;
-                if (int.TryParse (urlParts [1], out resourceId))
+                if (int.TryParse (urlParts [1], out resourceId)) {
                     return resourceId;
+                }
             }
 
             return Null.NullInteger;
         }
 
     }
-	// class
 }
-// namespace
-

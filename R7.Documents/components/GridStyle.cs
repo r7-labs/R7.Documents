@@ -43,11 +43,17 @@ namespace R7.Documents
         public string Name { get; set; }
 
         public string GridCssClass { get; set; }
+
         public string HeaderCssClass { get; set; }
+
         public string FooterCssClass { get; set; }
+
         public string ItemCssClass { get; set; }
+
         public string AlternatingItemCssClass { get; set; }
+
         public string GridLines { get; set; }
+
         public string Width { get; set; }
 
         // not used:
@@ -63,22 +69,21 @@ namespace R7.Documents
         [XmlIgnore]
         public static Dictionary<string, GridStyle> Styles;
 
-        static GridStyle ()
-        {
+        static GridStyle () {
             // get all *.xml files from gridstyles folder
             var styleFiles = Directory.GetFiles (Path.Combine (Globals.ApplicationMapPath, 
-                "DesktopModules\\R7.Documents\\R7.Documents\\GridStyles"), "*.xml");
+                                 "DesktopModules\\R7.Documents\\R7.Documents\\GridStyles"), "*.xml");
 
             // create dictionary to store grid styles
             Styles = new Dictionary<string, GridStyle> ();
 
             // load grid styles
-            foreach (var styleFile in styleFiles)
-            {
+            foreach (var styleFile in styleFiles) {
                 var gridStyle = LoadGridStyle (styleFile);
 
-                if (gridStyle != null)
+                if (gridStyle != null) {
                     Styles.Add (gridStyle.Name, gridStyle);
+                }
             }
         }
 
@@ -92,16 +97,15 @@ namespace R7.Documents
             FileStream stream = null;
             GridStyle gridStyle = null;
 
-            try 
-            {
+            try {
                 stream = new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                 var serializer = new XmlSerializer (typeof (GridStyle));
                 gridStyle = (GridStyle) serializer.Deserialize (stream);
             }
-            finally
-            {
-                if (stream != null)
+            finally {
+                if (stream != null) {
                     stream.Close ();
+                }
             }
 
             return gridStyle;

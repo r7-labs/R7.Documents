@@ -37,22 +37,18 @@ namespace R7.Documents
 
         public DocumentInfo Document { get; protected set; }
 
-        public DocumentInfoFormatter (DocumentInfo document)
-        {
+        public DocumentInfoFormatter (DocumentInfo document) {
             Document = document;
         }
 
         public IEnumerable<Tuple<string,string>> LinkAttributesCollection
         {
-            get
-            {
+            get {
                 var attrs = new List<Tuple<string,string>> ();
 
-                if (!string.IsNullOrWhiteSpace (Document.LinkAttributes))
-                {
+                if (!string.IsNullOrWhiteSpace (Document.LinkAttributes)) {
                     // for earch attribute name / value pair
-                    foreach (var attr in Document.LinkAttributes.Split (attributeSeparators, StringSplitOptions.RemoveEmptyEntries))
-                    {
+                    foreach (var attr in Document.LinkAttributes.Split (attributeSeparators, StringSplitOptions.RemoveEmptyEntries)) {
                         var attrPair = attr.Split ('=');
                         if (attrPair.Length == 2)
                             attrs.Add (new Tuple<string, string> (attrPair [0], attrPair [1].Trim (attributeQuotes)));

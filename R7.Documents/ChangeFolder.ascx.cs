@@ -30,131 +30,104 @@ using R7.DotNetNuke.Extensions.Modules;
 namespace R7.Documents
 {
     public partial class ChangeFolder : PortalModuleBase<DocumentsSettings>
-	{
-		#region Event Handlers
+    {
+        #region Event Handlers
 
-		protected override void OnInit (EventArgs e)
-		{
-			base.OnInit (e);
+        protected override void OnInit (EventArgs e)
+        {
+            base.OnInit (e);
 
-			// set folder to module's default folder
-			if (Settings.DefaultFolder != null)
-				ddlFolder.SelectedFolder = FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
+            // set folder to module's default folder
+            if (Settings.DefaultFolder != null)
+                ddlFolder.SelectedFolder = FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
 			
-			linkCancel.NavigateUrl = Globals.NavigateURL ();
-		}
+            linkCancel.NavigateUrl = Globals.NavigateURL ();
+        }
 
-		/*
-		protected override void OnLoad (EventArgs e)
-		{
-			base.OnLoad (e);
-
-			try
-			{
-				if (!IsPostBack)
-				{
-				}
-				else
-				{
-				}
-			}
-			catch (Exception ex)
-			{
-				// module failed to load
-				Exceptions.ProcessModuleLoadException (this, ex);
-			}
-		}*/
-
-		protected void buttonApply_Click (object sender, EventArgs e)
-		{
-			try
-			{
-				var folder = ddlFolder.SelectedFolder;
+        protected void buttonApply_Click (object sender, EventArgs e)
+        {
+            try {
+                var folder = ddlFolder.SelectedFolder;
 				
-				if (folder != null)
-				{
+                if (folder != null) {
                     var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
-					var files = FolderManager.Instance.GetFiles (folder);
+                    var files = FolderManager.Instance.GetFiles (folder);
 
-					foreach (var document in documents)
-					{
-						// only for files
-						if (Globals.GetURLType (document.Url) == TabType.File)
-						{
+                    foreach (var document in documents) {
+                        // only for files
+                        if (Globals.GetURLType (document.Url) == TabType.File) {
                             var docFileId = Utils.GetResourceId (document.Url);
-							var docFile = FileManager.Instance.GetFile (docFileId);
+                            var docFile = FileManager.Instance.GetFile (docFileId);
 							
-							if (docFile != null)
-							{
-								var updated = false; 
-								var oldDocument = document.Clone ();
+                            if (docFile != null) {
+                                var updated = false; 
+                                var oldDocument = document.Clone ();
 
-								foreach (var file in files)
-								{
-									// case-insensitive comparison
-									if (0 == string.Compare (file.FileName, docFile.FileName, StringComparison.InvariantCultureIgnoreCase))
-									{
+                                foreach (var file in files) {
+                                    // case-insensitive comparison
+                                    if (0 == string.Compare (file.FileName, docFile.FileName, StringComparison.InvariantCultureIgnoreCase)) {
                                         document.Url = "FileID=" + file.FileId;
-										document.CreatedDate = DateTime.Now;
-										document.ModifiedDate = document.CreatedDate;
-										document.CreatedByUserId = UserId;
-										document.ModifiedByUserId = UserId;
+                                        document.CreatedDate = DateTime.Now;
+                                        document.ModifiedDate = document.CreatedDate;
+                                        document.CreatedByUserId = UserId;
+                                        document.ModifiedByUserId = UserId;
 
-										updated = true;
-										break;
-									}
-								} // foreach 
+                                        updated = true;
+                                        break;
+                                    }
+                                } // foreach 
 
-                                if (updated)
-                                {
+                                if (updated) {
                                     // publish updated documents
                                     document.IsPublished |= checkPublishUpdated.Checked;
 
                                     // safe remove old files, if needed.
                                     // need to do this before update!
-                                    if (checkDeleteOldFiles.Checked)
-                                    {
-                                        if (oldDocument.Url != document.Url)
-                                        {
-                                            DocumentsDataProvider.Instance.DeleteDocumentResource (oldDocument, PortalId);
+                                    if (checkDeleteOldFiles.Checked) {
+                                        if (oldDocument.Url != document.Url) {
+                                            DocumentsDataProvider.Instance.DeleteDocumentResource (
+                                                oldDocument,
+                                                PortalId);
                                         }
                                     }
 
                                     // update document & URL tracking data
                                     DocumentsDataProvider.Instance.Update (document);
-                                    DocumentsDataProvider.Instance.UpdateDocumentUrl (document, oldDocument.Url, PortalId, ModuleId);
+                                    DocumentsDataProvider.Instance.UpdateDocumentUrl (
+                                        document,
+                                        oldDocument.Url,
+                                        PortalId,
+                                        ModuleId);
                                 }
-                                else
-                                {
-                                    if (checkUnpublishSkipped.Checked)
-                                    {
+                                else {
+                                    if (checkUnpublishSkipped.Checked) {
                                         // unpublish not updated documents & update them
                                         document.IsPublished = false;
                                         DocumentsDataProvider.Instance.Update (document);
                                     }
                                 } // if (updated)
-							}
-						}
-					} // foreach
+                            }
+                        }
+                    } // foreach
 
-					// update module's default folder setting
-					if (checkUpdateDefaultFolder.Checked)
-						Settings.DefaultFolder = ddlFolder.SelectedFolder.FolderID;
+                    // update module's default folder setting
+                    if (checkUpdateDefaultFolder.Checked) {
+                        Settings.DefaultFolder = ddlFolder.SelectedFolder.FolderID;
+                    }
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-				}
+                }
 
-				// redirect back to the portal home page
-				Response.Redirect (Globals.NavigateURL (), true);
+                // redirect back to the portal home page
+                Response.Redirect (Globals.NavigateURL (), true);
 
-			}
-			catch (Exception ex)
-			{
-				// module failed to load
-				Exceptions.ProcessModuleLoadException (this, ex);
-			}
-		}
+            }
+            catch (Exception ex) {
+                // module failed to load
+                Exceptions.ProcessModuleLoadException (this, ex);
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }
