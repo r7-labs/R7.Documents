@@ -42,7 +42,7 @@ using R7.DotNetNuke.Extensions.ModuleExtensions;
 namespace R7.Documents
 {
 	/// <summary>
-	/// The Document Class provides the UI for displaying the Documents
+    /// Provides the UI for displaying the documents
 	/// </summary>
 	/// <history>
 	/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
@@ -90,7 +90,9 @@ namespace R7.Documents
 
 			try
 			{
-				LoadData ();
+                if (!IsReadComplete) {
+                    mobjDocumentList = LoadData ();
+                }
 			
 				if (IsEditable && mobjDocumentList.Count == 0)
 				{
@@ -168,7 +170,7 @@ namespace R7.Documents
             // only bind if not a user selected sort
             if (!IsReadComplete) {
                 
-                LoadData ();
+                mobjDocumentList = LoadData ();
 
                 // use DocumentComparer to do sort based on the default sort order (mobjSettings.SortOrder)
                 var docComparer = new DocumentComparer (Settings.GetSortColumnList (this.LocalResourceFile));
@@ -225,7 +227,7 @@ namespace R7.Documents
                     	// if ShowTitleLink is true, the title column is generated dynamically
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
-                        objDocument = (DocumentInfo)mobjDocumentList [e.Row.RowIndex];
+                        objDocument = mobjDocumentList [e.Row.RowIndex];
 
 						// set CSS class for edit column cells
 						e.Row.Cells [0].CssClass = "EditCell";
@@ -404,29 +406,27 @@ namespace R7.Documents
 			}
 		}
 
-        private void LoadData ()
+        private List<DocumentInfo> LoadData ()
 		{
-            if (IsReadComplete) {
-                return;
-            }
+            List<DocumentInfo> documents = null;
 
 			// only read from the cache if the users is not logged in
             var strCacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
 			if (!Request.IsAuthenticated)
 			{
-				mobjDocumentList = (List<DocumentInfo>) DataCache.GetCache (strCacheKey);
+                documents = (List<DocumentInfo>) DataCache.GetCache (strCacheKey);
 			}
 
-			if (mobjDocumentList == null)
+            if (documents == null)
 			{
-				mobjDocumentList = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
+                documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
 
 				// check security on files
 				DocumentInfo objDocument = null;
 
-                for (var intCount = mobjDocumentList.Count - 1; intCount >= 0; intCount--)
+                for (var intCount = documents.Count - 1; intCount >= 0; intCount--)
 				{
-					objDocument = mobjDocumentList [intCount];
+                    objDocument = documents [intCount];
                     if (objDocument.Url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0)
 					{
 						// document is a file, check security
@@ -439,7 +439,7 @@ namespace R7.Documents
                             if (folder != null && !FolderPermissionController.CanViewFolder ((FolderInfo)folder))
 							{
 								// remove document from the list
-                                mobjDocumentList.Remove (objDocument);
+                                documents.Remove (objDocument);
 								continue;
 							}
 						}
@@ -448,7 +448,7 @@ namespace R7.Documents
 					// remove unpublished documents from the list
 					if (!objDocument.IsPublished && !IsEditable)
 					{
-						mobjDocumentList.Remove (objDocument);
+                        documents.Remove (objDocument);
 						continue;
 					}
 
@@ -458,15 +458,17 @@ namespace R7.Documents
 				// only write to the cache if the user is not logged in
 				if (!Request.IsAuthenticated)
 				{
-                    DataCache.SetCache (strCacheKey, mobjDocumentList, DateTime.Now + new TimeSpan (0, 0, 1200));
+                    DataCache.SetCache (strCacheKey, documents, DateTime.Now + new TimeSpan (0, 0, 1200));
 				}
 			}
 
 			// sort documents
 			var docComparer = new DocumentComparer (Settings.GetSortColumnList (this.LocalResourceFile));
-			mobjDocumentList.Sort (docComparer.Compare);
+            documents.Sort (docComparer.Compare);
 
 			IsReadComplete = true;
+
+            return documents;
 		}
 
 		private string OnLocalize (string text)
