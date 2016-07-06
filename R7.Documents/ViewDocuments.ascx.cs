@@ -28,6 +28,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Web.Caching;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Security;
 using DotNetNuke.Security.Permissions;
@@ -437,54 +438,59 @@ namespace R7.Documents
             List<DocumentInfo> documents = null;
 
             // only read from the cache if the users is not logged in
-            var strCacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
             if (!Request.IsAuthenticated) {
-                documents = (List<DocumentInfo>) DataCache.GetCache (strCacheKey);
+                var cacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
+                documents = DataCache.GetCachedData<List<DocumentInfo>> (
+                    new CacheItemArgs (cacheKey, 1200, CacheItemPriority.Normal),
+                    c => LoadData_Internal (false)
+                );
             }
-
-            if (documents == null) {
-                documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
-
-                // check security on files
-                DocumentInfo objDocument = null;
-
-                for (var intCount = documents.Count - 1; intCount >= 0; intCount--) {
-                    objDocument = documents [intCount];
-                    if (objDocument.Url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0) {
-                        // document is a file, check security
-                        var objFile = FileManager.Instance.GetFile (int.Parse (objDocument.Url.Split ('=') [1]));
-					
-                        //if ((objFile != null) && !PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(objFile.Folder, PortalSettings.PortalId, "READ"))) {
-                        if (objFile != null) {
-                            var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
-                            if (folder != null && !FolderPermissionController.CanViewFolder ((FolderInfo) folder)) {
-                                // remove document from the list
-                                documents.Remove (objDocument);
-                                continue;
-                            }
-                        }
-                    }
-					
-                    // remove unpublished documents from the list
-                    if (!objDocument.IsPublished && !IsEditable) {
-                        documents.Remove (objDocument);
-                        continue;
-                    }
-
-                    objDocument.OnLocalize += OnLocalize;
-                }
-
-                // only write to the cache if the user is not logged in
-                if (!Request.IsAuthenticated) {
-                    DataCache.SetCache (strCacheKey, documents, DateTime.Now + new TimeSpan (0, 0, 1200));
-                }
+            else {
+                documents = LoadData_Internal (IsEditable);
             }
 
             // sort documents
-            var docComparer = new DocumentComparer (Settings.GetSortColumnList (this.LocalResourceFile));
+            var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
             documents.Sort (docComparer.Compare);
 
+            // TODO: Move outside method or implement as 'out' argument
             IsReadComplete = true;
+
+            return documents;
+        }
+
+        private List<DocumentInfo> LoadData_Internal (bool isEditable)
+        {
+            var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
+
+            // check security on files
+            DocumentInfo objDocument = null;
+
+            for (var intCount = documents.Count - 1; intCount >= 0; intCount--) {
+                objDocument = documents [intCount];
+                if (objDocument.Url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0) {
+                    // document is a file, check security
+                    var objFile = FileManager.Instance.GetFile (int.Parse (objDocument.Url.Split ('=') [1]));
+
+                    //if ((objFile != null) && !PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(objFile.Folder, PortalSettings.PortalId, "READ"))) {
+                    if (objFile != null) {
+                        var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
+                        if (folder != null && !FolderPermissionController.CanViewFolder ((FolderInfo) folder)) {
+                            // remove document from the list
+                            documents.Remove (objDocument);
+                            continue;
+                        }
+                    }
+                }
+
+                // remove unpublished documents from the list
+                if (!isEditable && !objDocument.IsPublished) {
+                    documents.Remove (objDocument);
+                    continue;
+                }
+
+                objDocument.OnLocalize += OnLocalize;
+            }
 
             return documents;
         }
