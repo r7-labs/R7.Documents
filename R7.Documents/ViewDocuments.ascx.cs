@@ -414,7 +414,7 @@ namespace R7.Documents
             }
         }
 
-		private void LoadData ()
+        private void LoadData ()
 		{
 			string strCacheKey = null;
 			
@@ -471,7 +471,7 @@ namespace R7.Documents
 				// Only write to the cache if the user is not logged in
 				if (!Request.IsAuthenticated)
 				{
-					DataCache.SetCache (strCacheKey, mobjDocumentList, new TimeSpan (0, 5, 0));
+                    DataCache.SetCache (strCacheKey, mobjDocumentList, DateTime.Now + new TimeSpan (0, 0, 1200));
 				}
 			}
 
