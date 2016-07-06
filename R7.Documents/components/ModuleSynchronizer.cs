@@ -27,7 +27,7 @@
 using System;
 using DotNetNuke.UI.Utilities;
 using DotNetNuke.Entities.Modules;
-using System.Threading;
+using System.Globalization;
 
 namespace R7.Documents
 {
@@ -35,7 +35,7 @@ namespace R7.Documents
     {
         public static string GetDataCacheKey (int moduleId, int tabModuleId)
         {
-            return "//r7_Documents?ModuleId=" + moduleId + "&Culture=" + Thread.CurrentThread.CurrentCulture;
+            return "//r7_Documents?ModuleId=" + moduleId + "&Culture=" + CultureInfo.CurrentCulture.IetfLanguageTag;
         }
 
         public static void Synchronize (int moduleId, int tabModuleId)
