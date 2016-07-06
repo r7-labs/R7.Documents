@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -41,27 +41,32 @@ using R7.DotNetNuke.Extensions.ModuleExtensions;
 
 namespace R7.Documents
 {
-
-	/// -----------------------------------------------------------------------------
 	/// <summary>
 	/// The Document Class provides the UI for displaying the Documents
 	/// </summary>
-	/// <remarks>
-	/// </remarks>
 	/// <history>
 	/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
 	/// </history>
-	/// -----------------------------------------------------------------------------
-    public partial class ViewDocuments : PortalModuleBase<DocumentsSettings>, IActionable
+	public partial class ViewDocuments : PortalModuleBase<DocumentsSettings>, IActionable
 	{
 		private const int NOT_READ = -2;
-		
-		// private ArrayList mobjDocumentList;
-		private List<DocumentInfo> mobjDocumentList;
-		private int mintTitleColumnIndex = NOT_READ;
-		private int mintDownloadLinkColumnIndex = NOT_READ;
 
-		private bool mblnReadComplete = false;
+		private List<DocumentInfo> mobjDocumentList;
+		
+        private int mintTitleColumnIndex = NOT_READ;
+		
+        private int mintDownloadLinkColumnIndex = NOT_READ;
+
+        #region Properties
+
+        private bool IsReadComplete { get; set; }
+
+        protected string EditImageUrl
+        {
+            get { return IconController.IconURL ("Edit"); } 
+        }
+
+        #endregion
 
 		#region Event Handlers
 
@@ -79,7 +84,6 @@ namespace R7.Documents
 		/// <summary>
 		/// OnLoad runs when the control is loaded
 		/// </summary>
-		/// <param name="e"></param>
 		protected override void OnLoad (EventArgs e)
 		{
 			base.OnLoad (e);
@@ -105,7 +109,7 @@ namespace R7.Documents
 			}
 			catch (Exception exc)
 			{
-				// Module failed to load
+				// module failed to load
 				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}
@@ -113,18 +117,15 @@ namespace R7.Documents
 		/// <summary>
 		/// Process user-initiated sort operation
 		/// </summary>
-		/// <param name="source"></param>
-		/// <param name="e"></param>
-		/// <remarks></remarks>
 		/// <history>
 		/// 	[msellers]	5/17/2007	 Added
 		/// </history>
         protected void grdDocuments_Sorting (object sender, GridViewSortEventArgs e)
 		{
-			ArrayList objCustomSortList = new ArrayList ();
-			DocumentsSortColumnInfo objCustomSortColumn = new DocumentsSortColumnInfo ();
-			DocumentsSortColumnInfo.SortDirection objCustomSortDirecton = DocumentsSortColumnInfo.SortDirection.Ascending;
-			string strSortDirectionString = "ASC";
+			var objCustomSortList = new ArrayList ();
+			var objCustomSortColumn = new DocumentsSortColumnInfo ();
+			var objCustomSortDirecton = DocumentsSortColumnInfo.SortDirection.Ascending;
+			var strSortDirectionString = "ASC";
 
 			// Set the sort column name
 			objCustomSortColumn.ColumnName = e.SortExpression;
@@ -132,7 +133,7 @@ namespace R7.Documents
 			// Determine if we need to reverse the sort.  This is needed if an existing sort on the same column existed that was desc
 			if (ViewState ["CurrentSortOrder"] != null && ViewState ["CurrentSortOrder"].ToString () != string.Empty)
 			{
-				string existingSort = ViewState ["CurrentSortOrder"].ToString ();
+				var existingSort = ViewState ["CurrentSortOrder"].ToString ();
 				if (existingSort.StartsWith (e.SortExpression) && existingSort.EndsWith ("ASC"))
 				{
 					objCustomSortDirecton = DocumentsSortColumnInfo.SortDirection.Descending;
@@ -160,31 +161,29 @@ namespace R7.Documents
 		/// If the datagrid was not sorted and bound via the "_Sort" method it will be bound at this time using
 		/// default values
 		/// </summary>
-		/// <param name="e"></param>
 		protected override void OnPreRender (EventArgs e)
-		{
-			base.OnPreRender (e);
+        {
+            base.OnPreRender (e);
 			
-			// Only bind if not a user selected sort
-			if (!IsReadComplete)
-			{
-				LoadData ();
+            // only bind if not a user selected sort
+            if (!IsReadComplete) {
+                
+                LoadData ();
 
-				// Use DocumentComparer to do sort based on the default sort order (mobjSettings.SortOrder)
-				var docComparer = new DocumentComparer (Settings.GetSortColumnList (this.LocalResourceFile));
-				mobjDocumentList.Sort (docComparer.Compare);
+                // use DocumentComparer to do sort based on the default sort order (mobjSettings.SortOrder)
+                var docComparer = new DocumentComparer (Settings.GetSortColumnList (this.LocalResourceFile));
+                mobjDocumentList.Sort (docComparer.Compare);
 
-				//Bind the grid
-				grdDocuments.DataSource = mobjDocumentList;
-				grdDocuments.DataBind ();
-			}
+                // dind the grid
+                grdDocuments.DataSource = mobjDocumentList;
+                grdDocuments.DataBind ();
+            }
 
-			// Localize the Data Grid
-			// REVIEW: Original: Localization.LocalizeDataGrid(ref grdDocuments, this.LocalResourceFile);
+            // localize the Data Grid
+			// REVIEW: O                riginal: Localization.LocalizeDataGrid(ref grdDocuments, this.LocalResourceFile);
             Localization.LocalizeGridView (ref grdDocuments, this.LocalResourceFile);
 		}
 
-		/// -----------------------------------------------------------------------------
 		/// <summary>
 		/// grdDocuments_ItemCreated runs when an item in the grid is created
 		/// </summary>
@@ -195,7 +194,6 @@ namespace R7.Documents
 		/// <history>
 		/// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
 		/// </history>
-		/// -----------------------------------------------------------------------------
 		protected void grdDocuments_RowCreated (object sender, GridViewRowEventArgs e)
 		{
 			int intCount = 0;
@@ -204,8 +202,9 @@ namespace R7.Documents
 			try
 			{
 				// hide edit column if not in edit mode
-				if (!IsEditable)
+                if (!IsEditable) {
 					e.Row.Cells [0].Visible = false;  
+                }
 
 				switch (e.Row.RowType)
 				{
@@ -213,7 +212,8 @@ namespace R7.Documents
 						// set CSS class for edit column header
 						e.Row.Cells [0].CssClass = "EditHeader";
 
-						// Setting "scope" to "col" indicates to for text-to-speech
+                        // REVIEW: Doesn't UseAccessibleHeader=true does same thing?
+						// setting "scope" to "col" indicates to for text-to-speech
 						// or braille readers that this row containes headings
 						for (intCount = 1; intCount <= e.Row.Cells.Count - 1; intCount++)
 						{
@@ -222,7 +222,7 @@ namespace R7.Documents
 						break;
 
                     case DataControlRowType.DataRow:
-                    	// If ShowTitleLink is true, the title column is generated dynamically
+                    	// if ShowTitleLink is true, the title column is generated dynamically
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
                         objDocument = (DocumentInfo)mobjDocumentList [e.Row.RowIndex];
@@ -246,55 +246,58 @@ namespace R7.Documents
 
 							if (mintTitleColumnIndex >= 0)
 							{
-								// Dynamically set the title link URL
-								var _with1 = (HyperLink)e.Row.Controls [mintTitleColumnIndex + 1].FindControl ("ctlTitle");
-								_with1.Text = objDocument.Title;
+								// dynamically set the title link URL
+                                var linkTitle = (HyperLink) e.Row.Controls [mintTitleColumnIndex + 1].FindControl ("ctlTitle");
+								linkTitle.Text = objDocument.Title;
 								
 								// set link title to display document description
-								_with1.ToolTip = objDocument.Description;
+								linkTitle.ToolTip = objDocument.Description;
 
 								// Note: The title link should display inline if possible, so set
 								// ForceDownload=False
-								_with1.NavigateUrl = Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
+								linkTitle.NavigateUrl = Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
 								if (objDocument.NewWindow)
 								{
-									_with1.Target = "_blank";
+									linkTitle.Target = "_blank";
 								}
 
                                 // set HTML attributes for the link
                                 var docFormatter = new DocumentInfoFormatter (objDocument);
-                                foreach (var htmlAttr in docFormatter.LinkAttributesCollection)
-                                    _with1.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
+                                foreach (var htmlAttr in docFormatter.LinkAttributesCollection) {
+                                    linkTitle.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
+                                }
 							}
 						}
 
-						// If there's a "download" link, set the NavigateUrl 
+						// if there's a "download" link, set the NavigateUrl 
 						if (mintDownloadLinkColumnIndex == NOT_READ)
 						{
 							mintDownloadLinkColumnIndex = DocumentsSettings.FindGridColumn (DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK, Settings.DisplayColumnList, true);
 						}
 						if (mintDownloadLinkColumnIndex >= 0)
 						{
-							var _with2 = (HyperLink)e.Row.Controls [mintDownloadLinkColumnIndex].FindControl ("ctlDownloadLink");
-							// Note: The title link should display open/save dialog if possible, 
-							// so set ForceDownload=True
-							_with2.NavigateUrl = Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
+                            var linkDownload = (HyperLink) e.Row.Controls [mintDownloadLinkColumnIndex].FindControl ("ctlDownloadLink");
+							
+                            // the title link should display open/save dialog if possible, so set ForceDownload=True
+							linkDownload.NavigateUrl = Globals.LinkClick (objDocument.Url, TabId, ModuleId, objDocument.TrackClicks, objDocument.ForceDownload);
 							if (objDocument.NewWindow)
 							{
-								_with2.Target = "_blank";
+								linkDownload.Target = "_blank";
 							}
 
                             // display clicks in the tooltip
-                            if (objDocument.Clicks >= 0)
-                                _with2.ToolTip = string.Format (LocalizeString ("Clicks.Format"), objDocument.Clicks);
+                            if (objDocument.Clicks >= 0) {
+                                linkDownload.ToolTip = string.Format (LocalizeString ("Clicks.Format"), objDocument.Clicks);
+                            }
 						}
 						break;
 				}
 
-				//Module failed to load
+				
 			}
 			catch (Exception exc)
 			{
+                // module failed to load
 				Exceptions.ProcessModuleLoadException (this, exc);
 			}
 		}
@@ -307,21 +310,21 @@ namespace R7.Documents
 		{
 			get
 			{
-				ModuleActionCollection Actions = new ModuleActionCollection ();
+                var actions = new ModuleActionCollection ();
 				
-				Actions.Add (GetNextActionID (), 
+				actions.Add (GetNextActionID (), 
 					Localization.GetString (ModuleActionType.AddContent, LocalResourceFile), 
                     ModuleActionType.AddContent, "", IconController.IconURL ("Add"), EditUrl (), false, SecurityAccessLevel.Edit, true, false);
 
-				Actions.Add (GetNextActionID (), 
+				actions.Add (GetNextActionID (), 
 					Localization.GetString ("ChangeFolder.Action", LocalResourceFile),
                     "ChangeFolder.Action", "", IconController.IconURL ("FileMove"), EditUrl ("ChangeFolder"), false, SecurityAccessLevel.Edit, true, false);
 
-				Actions.Add (GetNextActionID (), 
+				actions.Add (GetNextActionID (), 
 					Localization.GetString ("ImportDocuments.Action", LocalResourceFile),
                     "ImportDocuments.Action", "", IconController.IconURL ("Rt"), EditUrl ("ImportDocuments"), false, SecurityAccessLevel.Edit, true, false);
 			
-				return Actions;
+				return actions;
 			}
 		}
 
@@ -333,8 +336,8 @@ namespace R7.Documents
 		{
 			DocumentsDisplayColumnInfo objDisplayColumn = null;
 
-			// Add columns dynamically
-			foreach (DocumentsDisplayColumnInfo objDisplayColumn_loopVariable in Settings.DisplayColumnList)
+			// add columns dynamically
+			foreach (var objDisplayColumn_loopVariable in Settings.DisplayColumnList)
 			{
 				objDisplayColumn = objDisplayColumn_loopVariable;
 
@@ -344,53 +347,49 @@ namespace R7.Documents
 					{
 						case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
 							AddDocumentColumn (Localization.GetString ("Category", LocalResourceFile), "Category", "Category");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
 							AddDocumentColumn (Localization.GetString ("CreatedBy", LocalResourceFile), "CreatedBy", "CreatedByUser", "");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
 							AddDocumentColumn (Localization.GetString ("CreatedDate", LocalResourceFile), "CreatedDate", "CreatedDate", "{0:d}");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
 							AddDocumentColumn (Localization.GetString ("Description", LocalResourceFile), "Description", "Description");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
 							AddDownloadLink ("DownloadLink", "DownloadLink", "DownloadLink", "ctlDownloadLink");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
 							AddDocumentColumn (Localization.GetString ("ModifiedBy", LocalResourceFile), "ModifiedBy", "ModifiedByUser");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
 							AddDocumentColumn (Localization.GetString ("ModifiedDate", LocalResourceFile), "ModifiedDate", "ModifiedDate", "{0:d}");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
 							AddDocumentColumn (Localization.GetString ("Owner", LocalResourceFile), "Owner", "OwnedByUser");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_SIZE:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_SIZE:
 							AddDocumentColumn (Localization.GetString ("Size", LocalResourceFile), "Size", "FormatSize");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
 							AddDocumentColumn (Localization.GetString ("Clicks", LocalResourceFile), "Clicks", "Clicks");
-
 							break;
-						case DocumentsDisplayColumnInfo.COLUMN_ICON:
+
+                        case DocumentsDisplayColumnInfo.COLUMN_ICON:
 							AddDocumentColumn (Localization.GetString ("Icon", LocalResourceFile), "Icon", "FormatIcon");
-
 							break;
-					// case DocumentsDisplayColumnInfo.COLUMN_URL:
-					// AddDocumentColumn (Localization.GetString ("Url", LocalResourceFile), "Url", "FormatUrl");
-					// break;
 
-						case DocumentsDisplayColumnInfo.COLUMN_TITLE:
+                        case DocumentsDisplayColumnInfo.COLUMN_TITLE:
 							if (Settings.ShowTitleLink)
 							{
 								AddDownloadLink (Localization.GetString ("Title", LocalResourceFile), "Title", "Title", "ctlTitle");
@@ -405,34 +404,24 @@ namespace R7.Documents
 			}
 		}
 
-        public string DataCacheKey
-        {
-            get
-            {
-                return "TabModule:" + TabModuleId + ":" +
-                    System.Threading.Thread.CurrentThread.CurrentCulture;
-            }
-        }
-
         private void LoadData ()
 		{
-			if (IsReadComplete)
-				return;
+            if (IsReadComplete) {
+                return;
+            }
 
-			// Only read from the cache if the users is not logged in
+			// only read from the cache if the users is not logged in
             var strCacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
 			if (!Request.IsAuthenticated)
 			{
-				mobjDocumentList = (List<DocumentInfo>)DataCache.GetCache (strCacheKey);
+				mobjDocumentList = (List<DocumentInfo>) DataCache.GetCache (strCacheKey);
 			}
 
 			if (mobjDocumentList == null)
 			{
-				//	mobjDocumentList = (ArrayList) DocumentsController.GetObjects<DocumentInfo>(ModuleId); // PortalId!!!
-
 				mobjDocumentList = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
 
-				// Check security on files
+				// check security on files
 				DocumentInfo objDocument = null;
 
                 for (var intCount = mobjDocumentList.Count - 1; intCount >= 0; intCount--)
@@ -463,17 +452,17 @@ namespace R7.Documents
 						continue;
 					}
 
-					objDocument.OnLocalize += new LocalizeHandler (OnLocalize);
+					objDocument.OnLocalize += OnLocalize;
 				}
 
-				// Only write to the cache if the user is not logged in
+				// only write to the cache if the user is not logged in
 				if (!Request.IsAuthenticated)
 				{
                     DataCache.SetCache (strCacheKey, mobjDocumentList, DateTime.Now + new TimeSpan (0, 0, 1200));
 				}
 			}
 
-			//Sort documents
+			// sort documents
 			var docComparer = new DocumentComparer (Settings.GetSortColumnList (this.LocalResourceFile));
 			mobjDocumentList.Sort (docComparer.Compare);
 
@@ -482,39 +471,26 @@ namespace R7.Documents
 
 		private string OnLocalize (string text)
 		{
-			return Localization.GetString (text, this.LocalResourceFile);
+			return Localization.GetString (text, LocalResourceFile);
 		}
 
-		private bool IsReadComplete
-		{
-			get { return mblnReadComplete; }
-			set { mblnReadComplete = value; }
-		}
-
-		/// -----------------------------------------------------------------------------
 		/// <summary>
 		/// Dynamically adds a column to the datagrid
 		/// </summary>
-		/// <remarks>
-		/// </remarks>
 		/// <param name="Title">The name of the property to read data from</param>
+        /// <param name="CssClass"></param>
 		/// <param name="DataField">The name of the property to read data from</param>
-		/// -----------------------------------------------------------------------------
 		private void AddDocumentColumn (string Title, string CssClass, string DataField)
 		{
 			AddDocumentColumn (Title, CssClass, DataField, "");
 		}
 
-		/// -----------------------------------------------------------------------------
 		/// <summary>
 		/// Dynamically adds a column to the datagrid
 		/// </summary>
-		/// <remarks>
-		/// </remarks>
 		/// <param name="Title">The name of the property to read data from</param>
 		/// <param name="DataField">The name of the property to read data from</param>
 		/// <param name="Format">Format string for value</param>
-		/// -----------------------------------------------------------------------------
 		private void AddDocumentColumn (string Title, string CssClass, string DataField, string Format)
 		{
             var objBoundColumn = new BoundField ();
@@ -526,85 +502,45 @@ namespace R7.Documents
 			objBoundColumn.DataField = DataField;
 			objBoundColumn.DataFormatString = Format;
 			objBoundColumn.HeaderText = Title;
-			//Added 5/17/2007
-			//By Mitchel Sellers
+		
+            // added 5/17/2007 by Mitchel Sellers
 			if (Settings.AllowUserSort)
 			{
 				objBoundColumn.SortExpression = DataField;
 			}
 
 			objBoundColumn.HeaderStyle.CssClass = CssClass + "Header";
-			//"NormalBold"
 			objBoundColumn.ItemStyle.CssClass = CssClass + "Cell";
-			//"Normal"
 
-            this.grdDocuments.Columns.Add (objBoundColumn);
-
+            grdDocuments.Columns.Add (objBoundColumn);
 		}
 
-		/// -----------------------------------------------------------------------------
 		/// <summary>
 		/// Dynamically adds a DownloadColumnTemplate column to the datagrid.  Used to
 		/// add the download link and title (if "title as link" is set) columns.
 		/// </summary>
-		/// <remarks>
-		/// </remarks>
 		/// <param name="Title">The name of the property to read data from</param>
+        /// <param name="CssClass"></param>
+        /// <param name="DataField"></param>
 		/// <param name="Name">The name of the property to read data from</param>
-		/// -----------------------------------------------------------------------------
 		private void AddDownloadLink (string Title, string CssClass, string DataField, string Name)
 		{
 			var objTemplateColumn = new TemplateField ();
 			objTemplateColumn.ItemTemplate = new DownloadColumnTemplate (Name, Localization.GetString ("DownloadLink.Text", LocalResourceFile), ListItemType.Item);
-			
-			if (Name == "ctlDownloadLink")
-				objTemplateColumn.HeaderText = "";
-			else
-				objTemplateColumn.HeaderText = Title;
-			
-			objTemplateColumn.HeaderStyle.CssClass = CssClass + "Header";
-			//"NormalBold"
+		    objTemplateColumn.HeaderText = (Name == "ctlDownloadLink") ? string.Empty : Title;
+            objTemplateColumn.HeaderStyle.CssClass = CssClass + "Header";
 			objTemplateColumn.ItemStyle.CssClass = CssClass + "Cell";
-			//"Normal"
-
-			//Added 5/17/2007
-			//By Mitchel Sellers
-			// Add the sort expression, however ensure that it is NOT added for download
+			
+			// added 5/17/2007 by Mitchel Sellers
+			// add the sort expression, however ensure that it is NOT added for download
 			if (Settings.AllowUserSort && !Name.Equals ("ctlDownloadLink"))
 			{
 				objTemplateColumn.SortExpression = DataField;
 			}
-			this.grdDocuments.Columns.Add (objTemplateColumn);
+			
+            grdDocuments.Columns.Add (objTemplateColumn);
 		}
 
-		protected string EditImageUrl
-		{
-			get { return IconController.IconURL ("Edit"); } 
-		}
-
-		/*
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Load module settings from the database.
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// -----------------------------------------------------------------------------
-		private DocumentsSettingsInfo LoadSettings()
-		{
-			DocumentsSettingsInfo objDocumentsSettings = null;
-			// Load module instance settings
-			var _with3 = new DocumentsController();
-			objDocumentsSettings = _with3.GetDocumentsSettings(ModuleId);
-
-			// first time around, no existing documents settings will exist
-			if (objDocumentsSettings == null) {
-				objDocumentsSettings = new DocumentsSettingsInfo();
-			}
-
-			return objDocumentsSettings;
-		}
-*/
 		#endregion
 	}
 }
