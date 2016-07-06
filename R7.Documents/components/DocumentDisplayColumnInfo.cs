@@ -28,7 +28,6 @@ namespace R7.Documents
     [Serializable]
     public class DocumentsDisplayColumnInfo : IComparable
     {
-
         public const string COLUMN_CREATEDBY = "CreatedBy";
         public const string COLUMN_CREATEDDATE = "CreatedDate";
         public const string COLUMN_TITLE = "Title";
@@ -71,8 +70,6 @@ namespace R7.Documents
             COLUMN_SIZE,
             COLUMN_CLICKS
         };
-
-        private string _LocalizedColumnName;
 
         #region "Properties"
 
