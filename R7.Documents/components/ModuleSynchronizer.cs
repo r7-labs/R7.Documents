@@ -27,21 +27,21 @@
 using System;
 using DotNetNuke.UI.Utilities;
 using DotNetNuke.Entities.Modules;
+using System.Threading;
 
 namespace R7.Documents
 {
     public static class ModuleSynchronizer
     {
-        public static string GetDataCacheKey (int tabModuleId)
+        public static string GetDataCacheKey (int moduleId, int tabModuleId)
         {
-            return "TabModule:" + tabModuleId + ":" +
-                System.Threading.Thread.CurrentThread.CurrentCulture;
+            return "//r7_Documents?ModuleId=" + moduleId + "&Culture=" + Thread.CurrentThread.CurrentCulture;
         }
 
         public static void Synchronize (int moduleId, int tabModuleId)
         {
             ModuleController.SynchronizeModule (moduleId);
-            DataCache.RemoveCache (GetDataCacheKey (tabModuleId) + ";anon-doclist");
+            DataCache.RemoveCache (GetDataCacheKey (moduleId, tabModuleId));
         }
     }
 }

@@ -416,13 +416,11 @@ namespace R7.Documents
 
         private void LoadData ()
 		{
-			string strCacheKey = null;
-			
 			if (IsReadComplete)
 				return;
 
 			// Only read from the cache if the users is not logged in
-			strCacheKey = this.DataCacheKey + ";anon-doclist";
+            var strCacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
 			if (!Request.IsAuthenticated)
 			{
 				mobjDocumentList = (List<DocumentInfo>)DataCache.GetCache (strCacheKey);
