@@ -2,14 +2,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="MakeInstallPackage">
     <Target Name="MakeInstallPackage" Condition=" '$(Configuration)' == 'Release' ">
         <!-- Read package version from the manifest -->
-        <XmlRead Condition=" '$(OS)' != 'Unix' " Prefix="n" Namespace="http://schemas.microsoft.com/developer/msbuild/2003" XPath="/dotnetnuke/packages/package[1]/@version" XmlFileName="$(MainProjectPath)\R7.Documents.dnn">
-            <Output TaskParameter="Value" PropertyName="Version" />
-        </XmlRead>
-        <Exec Condition=" '$(OS)' == 'Unix' " Command="xmllint --xpath 'string(/dotnetnuke/packages/package[1]/@version)' $(MainProjectPath)\R7.Documents.dnn &gt; __version" />
-        <ReadLinesFromFile Condition=" '$(OS)' == 'Unix' " File="__version">
-            <Output TaskParameter="Lines" PropertyName="Version" />
-        </ReadLinesFromFile>
-        <Delete Condition=" '$(OS)' == 'Unix' " Files="__version" />
+		<XmlPeek Query="/dotnetnuke/packages/package[1]/@version" XmlInputPath="$(MainProjectPath)\R7.Documents.dnn">
+            <Output TaskParameter="Result" PropertyName="Version" />
+        </XmlPeek>
         <!-- Declare binaries -->
         <ItemGroup>
             <InstallBinaryFiles Include="$(MainProjectOutputPath)\R7.Documents*.dll" />
