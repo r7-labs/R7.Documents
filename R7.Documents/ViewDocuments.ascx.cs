@@ -442,11 +442,11 @@ namespace R7.Documents
                 var cacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
                 documents = DataCache.GetCachedData<List<DocumentInfo>> (
                     new CacheItemArgs (cacheKey, 1200, CacheItemPriority.Normal),
-                    c => LoadData_Internal (false)
+                    c => LoadData_Internal (false, false)
                 );
             }
             else {
-                documents = LoadData_Internal (IsEditable);
+                documents = LoadData_Internal (IsEditable, UserInfo.IsSuperUser || UserInfo.IsInRole ("Administrators"));
             }
 
             // sort documents
@@ -459,26 +459,30 @@ namespace R7.Documents
             return documents;
         }
 
-        private List<DocumentInfo> LoadData_Internal (bool isEditable)
+        private List<DocumentInfo> LoadData_Internal (bool isEditable, bool userIsAdmin)
         {
             var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
 
-            // check security on files
             DocumentInfo objDocument = null;
 
             for (var intCount = documents.Count - 1; intCount >= 0; intCount--) {
                 objDocument = documents [intCount];
-                if (objDocument.Url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0) {
-                    // document is a file, check security
-                    var objFile = FileManager.Instance.GetFile (int.Parse (objDocument.Url.Split ('=') [1]));
 
-                    //if ((objFile != null) && !PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(objFile.Folder, PortalSettings.PortalId, "READ"))) {
-                    if (objFile != null) {
-                        var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
-                        if (folder != null && !FolderPermissionController.CanViewFolder ((FolderInfo) folder)) {
-                            // remove document from the list
-                            documents.Remove (objDocument);
-                            continue;
+                // no need to check security for superusers and admins
+                if (!userIsAdmin) {
+                    if (objDocument.Url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0) {
+                        // document is a file, check security
+                        var objFile = FileManager.Instance.GetFile (int.Parse (objDocument.Url.Split ('=') [1]));
+
+                        // TODO: Remove old code
+                        // if ((objFile != null) && !PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(objFile.Folder, PortalSettings.PortalId, "READ")))
+                        if (objFile != null) {
+                            var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
+                            if (folder != null && !FolderPermissionController.CanViewFolder ((FolderInfo)folder)) {
+                                // remove document from the list
+                                documents.Remove (objDocument);
+                                continue;
+                            }
                         }
                     }
                 }
