@@ -140,10 +140,10 @@
         <value>Warning: The security permissions for the selected file do not match this module's configured view roles. The module is configured to allow viewing by role(s) "[$ROLELIST]", but the file does not.  For users who are not members of a role that can view the file, this document row will not be displayed.  You can adjust security settings using the File Manager in the admin menu.</value>
     </data>
     <data name="msgFileWarning.Text" xml:space="preserve">
-        <value>Your file selection may not work for all users (see message below).  Click 'Update' again to ignore the warning messages.</value>
+        <value>Your file selection may not work for all users (see message above).  Click 'Update anyway' to ignore the warning messages.</value>
     </data>
     <data name="msgFileWarningHeading.Text" xml:space="preserve">
-        <value>File Selection Warning</value>
+        <value>File Selection Warning:</value>
     </data>
     <data name="msgNoFileSelected.Text" xml:space="preserve">
         <value>Warning: No file has been selected.</value>
