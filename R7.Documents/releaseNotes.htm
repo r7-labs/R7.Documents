@@ -1,5 +1,15 @@
 ﻿<div style="white-space:normal">
 
+<h3>Version 1.7.3</h3>
+<ul>
+    <li>Fixed &quot;Update anyway&quot; not preserve selected document link (#48).</li>
+    <li>Fixed crash on loading document edit form if associated file was deleted but document still in cache (#42).</li>
+    <li>Fixed minor bug with imported documents which loose theirs &quot;not published&quot; state (#46).</li>
+    <li>Potentially fixed a magical issue with &quot;itemid=null&quot; errors in the Event Log (#47).</li>
+    <li>Improved performance of the main view by not checking for file security for admins and superusers (#45).</li>
+	<li>Module now logs user attempts to access documents, not related to the module, in the Event Log.</li>
+</ul>
+	
 <h3>Version 1.7.2</h3>
 <ul>
     <li>Fix #38: Data cache won't invalidate.</li>
