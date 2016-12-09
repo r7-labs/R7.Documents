@@ -35,6 +35,7 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
+using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.UI.Skins.Controls;
 using R7.Documents.Data;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
@@ -183,7 +184,7 @@ namespace R7.Documents
                             }
                         }
                         else {
-                            // security violation attempt to access item not related to this Module							
+                            AddLog ("Security violation: Attempt to access document not related to the module.", EventLogController.EventLogType.ADMIN_ALERT);
                             Response.Redirect (Globals.NavigateURL (), true);
                         }
                     }
@@ -242,6 +243,19 @@ namespace R7.Documents
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
 
+        }
+
+        void AddLog (string message, EventLogController.EventLogType logType)
+        {
+            var log = new LogInfo ();
+            log.AddProperty ("Module", ModuleConfiguration.ModuleDefinition.DefinitionName);
+            log.AddProperty ("PortalId", PortalId.ToString ());
+            log.AddProperty ("UserId", UserId.ToString ());
+            log.AddProperty ("UserEmail", UserInfo.Email);
+            log.AddProperty ("RawUrl", Request.RawUrl);
+            log.AddProperty ("Message", message);
+            log.LogTypeKey = logType.ToString ();
+            EventLogController.Instance.AddLog (log);
         }
 
         /// <summary>
