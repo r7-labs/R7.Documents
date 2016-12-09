@@ -21,10 +21,10 @@
 // THE SOFTWARE.
 
 using System;
-using System.IO;
-using System.Text;
-using System.Linq;
 using System.Collections;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Lists;
@@ -32,13 +32,14 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Permissions;
-using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
 using R7.Documents.Data;
-using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
+using R7.DotNetNuke.Extensions.Modules;
+using R7.DotNetNuke.Extensions.Utilities;
 
 namespace R7.Documents
 {
@@ -103,16 +104,13 @@ namespace R7.Documents
             base.OnLoad (e);
 
             try {
+
                 // determine ItemId of Document to Update
-                if (Request.QueryString ["ItemId"] != null) {
-                    itemId = int.Parse (Request.QueryString ["ItemId"]);
-                }
-                else {
-                    itemId = Null.NullInteger;
-                }
+                itemId = TypeUtils.ParseToNullable<int> (Request.QueryString ["ItemId"]) ?? Null.NullInteger;
 
                 // Load module instance settings
                 if (!IsPostBack) {
+                    
                     // if the page is being requested the first time, determine if an
                     // document itemId value is specified, and if so populate page
                     // contents with the document details
