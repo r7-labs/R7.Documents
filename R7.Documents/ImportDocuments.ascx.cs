@@ -81,6 +81,9 @@ namespace R7.Documents
                             document = DocumentsDataProvider.Instance.GetDNNDocument (
                                 int.Parse (item.Value),
                                 module.ModuleID);
+
+                            // publish documents, imported from the DNN Documents module
+                            document.IsPublished = true;
                         }
 
                         if (document != null) {
@@ -91,7 +94,6 @@ namespace R7.Documents
 
                             document.ItemId = Null.NullInteger;
                             document.ModuleId = ModuleId;
-                            document.IsPublished = true;
 
                             // add new document
                             DocumentsDataProvider.Instance.Add (document);
