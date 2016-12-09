@@ -138,8 +138,9 @@ namespace R7.Documents
                             if (!CheckFileExists (document.Url)) {
                                 ctlUrl.UrlType = "N";
                             }
-
-                            CheckFileSecurity (document.Url);
+                            else {
+                                CheckFileSecurity (document.Url);
+                            }
 
                             txtSortIndex.Text = document.SortOrderIndex.ToString ();
 
