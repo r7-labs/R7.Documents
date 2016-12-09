@@ -500,15 +500,10 @@ namespace R7.Documents
                     if (!Override) {
                         // test file exists, security
                         if (!CheckFileExists (ctlUrl.Url) || !CheckFileSecurity (ctlUrl.Url)) {
-                            this.cmdUpdateOverride.Visible = true;
-                            this.cmdUpdate.Visible = false;
-
-                            // display page-level warning instructing users to click update again if they want to ignore the warning
-                            global::DotNetNuke.UI.Skins.Skin.AddPageMessage (
-                                Page,
-                                LocalizeString ("msgFileWarningHeading.Text"),
-                                LocalizeString ("msgFileWarning.Text"),
-                                ModuleMessage.ModuleMessageType.YellowWarning);
+                            cmdUpdateOverride.Visible = true;
+                            cmdUpdate.Visible = false;
+                            // display warning instructing users to click update again if they want to ignore the warning
+                            this.Message ("msgFileWarningHeading.Text", "msgFileWarning.Text", MessageType.Warning, true);
                             return;
                         }
                     }
