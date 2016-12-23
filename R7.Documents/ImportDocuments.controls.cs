@@ -11,7 +11,7 @@ namespace R7.Documents
 	public partial class ImportDocuments
 	{
 		protected LabelControl labelModule;
-		protected DnnComboBox comboModule;
+        protected DropDownList comboModule;
 		protected Panel panelDocuments;
 		protected LabelControl labelDocuments;
 		protected CheckBoxList listDocuments;

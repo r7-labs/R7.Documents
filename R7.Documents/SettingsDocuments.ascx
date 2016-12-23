@@ -62,11 +62,11 @@
 	    </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="plSorting" runat="server" ControlName="comboSortFields" Suffix=":" />
-	        <dnn:DnnComboBox id="comboSortFields" runat="server" CssClass="comboSortFields" />
+	        <asp:DropDownList id="comboSortFields" runat="server" CssClass="comboSortFields" />
 		</div>
 	    <div class="dnnFormItem">
 	        <label class="dnnLabel"></label>
-	        <dnn:DnnComboBox id="comboSortOrderDirection" runat="server" CssClass="comboSortOrderDirection" />
+	        <asp:DropDownList id="comboSortOrderDirection" runat="server" CssClass="comboSortOrderDirection" />
 	        <asp:LinkButton id="lnkAddSortColumn" runat="server" resourcekey="cmdAdd" CssClass="dnnSecondaryAction" 
                 OnClick="lnkAddSortColumn_Click" />
 	    </div>

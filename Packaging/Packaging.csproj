@@ -8,7 +8,7 @@
     <RootNamespace>Packaging</RootNamespace>
     <AssemblyName>Packaging</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>1.7.3</ReleaseVersion>
+    <ReleaseVersion>1.8.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,7 +45,7 @@
     <PackageOutputPath>output</PackageOutputPath>
     <MainProjectPath>..\R7.Documents</MainProjectPath>
     <MainProjectOutputPath>$(MainProjectPath)\bin\$(Configuration)</MainProjectOutputPath>
-    <DnnLocalDeployPath Condition="'$(OS)' == 'Unix'">/home/redhound/mnt/dnn</DnnLocalDeployPath>
+    <DnnLocalDeployPath Condition="'$(OS)' == 'Unix'">/home/redhound/mnt/dnn8</DnnLocalDeployPath>
     <DnnLocalDeployPath Condition="'$(OS)' != 'Unix'">C:\Dotnetnuke7</DnnLocalDeployPath>
   </PropertyGroup>
   <Import Project="Install.targets" />
