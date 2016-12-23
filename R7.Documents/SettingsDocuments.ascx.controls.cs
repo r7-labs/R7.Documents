@@ -13,7 +13,7 @@ namespace R7.Documents
 		protected CheckBox chkShowTitleLink;
         protected DropDownList comboGridStyle;
 		protected CheckBox chkUseCategoriesList;
-		protected DnnComboBox comboSortFields;
+		protected DropDownList comboSortFields;
 		protected DataGrid grdSortColumns;
 		protected LinkButton lnkAddSortColumn;
 		protected DataGrid grdDisplayColumns;
@@ -21,7 +21,7 @@ namespace R7.Documents
 		protected DnnFolderDropDownList folderDefaultFolder;
 		protected HyperLink lnkEditLists;
 		protected Label lstNoListsAvailable;
-		protected DnnComboBox comboSortOrderDirection;
+		protected DropDownList comboSortOrderDirection;
 		protected CheckBox chkAllowUserSort;
 		protected Label lblCannotEditLists;
 	}

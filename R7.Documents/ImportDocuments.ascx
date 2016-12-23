@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ImportDocuments.ascx.cs" Inherits="R7.Documents.ImportDocuments" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
-<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
 <dnn:DnnCssInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents/admin.css" Priority="200" />
@@ -8,7 +7,7 @@
 	<fieldset>
 		<div class="dnnFormItem">
 			<dnn:Label id="labelModule" runat="server" ControlName="comboModule" Suffix=":" />
-			<dnn:DnnComboBox id="comboModule" runat="server" AutoPostBack="true" OnSelectedIndexChanged="comboModules_SelectedIndexChanged" /> 
+			<asp:DropDownList id="comboModule" runat="server" AutoPostBack="true" OnSelectedIndexChanged="comboModule_SelectedIndexChanged" /> 
 		</div>
 		<asp:Panel id="panelDocuments" runat="server" CssClass="dnnFormItem" Visible="false">
 			<dnn:Label id="labelDocuments" runat="server" ControlName="listDocuments" Suffix=":" />

@@ -20,14 +20,15 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
-using System.Collections.Generic;
 using R7.Documents.Data;
+using R7.DotNetNuke.Extensions.ControlExtensions;
 using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
@@ -118,11 +119,11 @@ namespace R7.Documents
             }
         }
 
-        protected void comboModules_SelectedIndexChanged (object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void comboModule_SelectedIndexChanged (object sender, EventArgs e)
         {
             try {
                 var mctrl = new ModuleController ();
-                var module = mctrl.GetModule (int.Parse (e.Value), TabId);
+                var module = mctrl.GetModule (int.Parse (((ListControl) sender).SelectedValue), TabId);
 
                 if (module != null) {
                     IEnumerable<DocumentInfo> documents = null;
