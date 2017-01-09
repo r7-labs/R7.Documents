@@ -21,23 +21,22 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Caching;
+using System.Web.UI.WebControls;
 using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Icons;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
-using System.Collections;
-using System.Collections.Generic;
-using System.Web.Caching;
-using DotNetNuke.Services.Localization;
 using DotNetNuke.Security;
 using DotNetNuke.Security.Permissions;
-using System.Web.UI.WebControls;
-using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Common.Utilities;
+using DotNetNuke.Services.FileSystem;
+using DotNetNuke.Services.Localization;
 using R7.Documents.Data;
-using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
 
 namespace R7.Documents
@@ -49,7 +48,7 @@ namespace R7.Documents
     /// <history>
     /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
     /// </history>
-    public partial class ViewDocuments : PortalModuleBase<DocumentsSettings>, IActionable
+    public partial class ViewDocuments : PortalModuleBase, IActionable
     {
         private const int NOT_READ = -2;
 
@@ -66,6 +65,13 @@ namespace R7.Documents
         protected string EditImageUrl
         {
             get { return IconController.IconURL ("Edit"); } 
+        }
+
+        private DocumentsSettings _settings;
+        private new DocumentsSettings Settings {
+            get {
+                return _settings ?? (_settings = new DocumentsSettingsRepository ().GetSettings (ModuleConfiguration));
+            }
         }
 
         #endregion
@@ -168,7 +174,7 @@ namespace R7.Documents
                 mobjDocumentList = LoadData ();
 
                 // use DocumentComparer to do sort based on the default sort order (mobjSettings.SortOrder)
-                var docComparer = new DocumentComparer (Settings.GetSortColumnList (this.LocalResourceFile));
+                var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
                 mobjDocumentList.Sort (docComparer.Compare);
 
                 // dind the grid
@@ -234,7 +240,7 @@ namespace R7.Documents
                             if (mintTitleColumnIndex == NOT_READ) {
                                 mintTitleColumnIndex = DocumentsSettings.FindGridColumn (
                                     DocumentsDisplayColumnInfo.COLUMN_TITLE,
-                                    Settings.DisplayColumnList,
+                                    Settings.GetDisplayColumnList (LocalResourceFile),
                                     true);
                             }
 
@@ -270,8 +276,8 @@ namespace R7.Documents
                         if (mintDownloadLinkColumnIndex == NOT_READ) {
                             mintDownloadLinkColumnIndex = DocumentsSettings.FindGridColumn (
                                 DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK,
-                                Settings.DisplayColumnList,
-                                true);
+                                Settings.GetDisplayColumnList (LocalResourceFile),
+                            true);
                         }
                         if (mintDownloadLinkColumnIndex >= 0) {
                             var linkDownload = (HyperLink) e.Row.Controls [mintDownloadLinkColumnIndex].FindControl ("ctlDownloadLink");
@@ -363,7 +369,7 @@ namespace R7.Documents
             DocumentsDisplayColumnInfo objDisplayColumn = null;
 
             // add columns dynamically
-            foreach (var objDisplayColumn_loopVariable in Settings.DisplayColumnList) {
+            foreach (var objDisplayColumn_loopVariable in Settings.GetDisplayColumnList (LocalResourceFile)) {
                 objDisplayColumn = objDisplayColumn_loopVariable;
 
                 if (objDisplayColumn.Visible) {

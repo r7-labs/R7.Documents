@@ -23,17 +23,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.UI.WebControls;
-using DotNetNuke.Entities.Icons;
-using DotNetNuke.Services.Localization;
-using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Services.FileSystem;
-using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
-using R7.DotNetNuke.Extensions.Modules;
+using DotNetNuke.Entities.Icons;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Tabs;
+using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.FileSystem;
+using DotNetNuke.Services.Localization;
 using R7.DotNetNuke.Extensions.ControlExtensions;
-using System.ComponentModel;
 
 namespace R7.Documents
 {
@@ -43,8 +43,15 @@ namespace R7.Documents
     /// <history>
     /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
     /// </history>
-    public partial class SettingsDocuments : ModuleSettingsBase<DocumentsSettings>
+    public partial class SettingsDocuments : ModuleSettingsBase
     {
+        private DocumentsSettings _settings;
+        private new DocumentsSettings Settings {
+            get {
+                return _settings ?? (_settings = new DocumentsSettingsRepository ().GetSettings (ModuleConfiguration));
+            }
+        }
+
         private const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
 
         private const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
@@ -98,7 +105,7 @@ namespace R7.Documents
                     }
 
                     // read "saved" column sort orders in first
-                    var objColumnSettings = Settings.DisplayColumnList;
+                    var objColumnSettings = Settings.GetDisplayColumnList (LocalResourceFile);
 
                     foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings) {
                         objColumnInfo = objColumnInfo_loopVariable;
@@ -134,7 +141,7 @@ namespace R7.Documents
                         comboSortFields.AddItem (LocalizeString (strSortColumn + ".Header"), strSortColumn);
                     }
 
-                    BindSortSettings (Settings.GetSortColumnList (this.LocalResourceFile));
+                    BindSortSettings (Settings.GetSortColumnList (LocalResourceFile));
 
                     // load grid style
                     comboGridStyle.SelectByValue (Settings.GridStyle);
@@ -173,6 +180,8 @@ namespace R7.Documents
             try {
                 if (Page.IsValid) {
                     FillSettings ();
+
+                    new DocumentsSettingsRepository ().SaveSettings (ModuleController.Instance.GetTabModule (TabModuleId), Settings);
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
                 }

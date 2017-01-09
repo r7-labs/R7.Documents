@@ -29,6 +29,7 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Permissions;
@@ -36,10 +37,8 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
-using DotNetNuke.UI.Skins.Controls;
 using R7.Documents.Data;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
-using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.Utilities;
 
 namespace R7.Documents
@@ -53,11 +52,18 @@ namespace R7.Documents
     /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
     ///   [ag]  11 March 2007 Migrated to VS2005
     /// </history>
-    public partial class EditDocuments : PortalModuleBase<DocumentsSettings>
+    public partial class EditDocuments : PortalModuleBase
     {
         #region Private Members
 
         private int itemId;
+
+        private DocumentsSettings _settings;
+        private new DocumentsSettings Settings {
+            get {
+                return _settings ?? (_settings = new DocumentsSettingsRepository ().GetSettings (ModuleConfiguration));
+            }
+        }
 
         #endregion
 

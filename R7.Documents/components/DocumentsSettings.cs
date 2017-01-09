@@ -22,125 +22,73 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DotNetNuke.Entities.Modules;
-using DotNetNuke.UI.Modules;
+using DotNetNuke.Entities.Modules.Settings;
 using DotNetNuke.Services.Localization;
-using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {
     /// <summary>
     /// Provides strong typed access to settings used by module
     /// </summary>
-    public class DocumentsSettings : SettingsWrapper
+    [Serializable]
+    public class DocumentsSettings
     {
-        public DocumentsSettings () {
-        }
+        [TabModuleSetting (Prefix = "Documents_")]
+        public bool ShowTitleLink { get; set; } = true;
 
-        public DocumentsSettings (IModuleControl module) : base (module) {
-        }
+        [TabModuleSetting (Prefix = "Documents_")]
+        public string SortOrder { get; set; } = DocumentsDisplayColumnInfo.COLUMN_SORTORDER;
 
-        public DocumentsSettings (ModuleInfo module) : base (module) {
-        }
-
-        public string LocalResourceFile { get; set; }
-
-        #region TabModule settings
-
-        public bool ShowTitleLink
-        {
-            get { return ReadSetting<bool> ("Documents_ShowTitleLink", true); }
-            set { WriteTabModuleSetting<bool> ("Documents_ShowTitleLink", value); }
-        }
-
-        public string SortOrder
-        {
-            get { return ReadSetting<string> ("Documents_SortOrder", DocumentsDisplayColumnInfo.COLUMN_SORTORDER); }
-            set { WriteTabModuleSetting<string> ("Documents_SortOrder", value); }
-        }
-
-        public string DisplayColumns
-        {
-            get { 
-                return ReadSetting<string> ("Documents_DisplayColumns", 
-                    DocumentsDisplayColumnInfo.COLUMN_ICON + ";true," +
+        [TabModuleSetting (Prefix = "Documents_")]
+        public string DisplayColumns { get; set; } = DocumentsDisplayColumnInfo.COLUMN_ICON + ";true," +
                     DocumentsDisplayColumnInfo.COLUMN_TITLE + ";true," +
-				    DocumentsDisplayColumnInfo.COLUMN_CATEGORY + ";true," +
+                    DocumentsDisplayColumnInfo.COLUMN_CATEGORY + ";true," +
                     DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY + ";true," +
                     DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE + ";true," +
                     DocumentsDisplayColumnInfo.COLUMN_SIZE + ";true," +
                     DocumentsDisplayColumnInfo.COLUMN_CLICKS + ";true," +
-                    DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK + ";true"
-                ); 
-            }
-            set { WriteTabModuleSetting<string> ("Documents_DisplayColumns", value); }
-        }
+                    DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK + ";true";
 
-        public bool AllowUserSort
+        [TabModuleSetting (Prefix = "Documents_")]
+        public bool AllowUserSort { get; set; } = false;
+
+        [TabModuleSetting (Prefix = "Documents_")]
+        public string GridStyle { get; set; } = "bootstrap";
+
+        [ModuleSetting (Prefix = "Documents_")]
+        public bool UseCategoriesList { get; set; } = false;
+
+        [ModuleSetting (Prefix = "Documents_")]
+        public string CategoriesListName { get; set; } = "Document Categories";
+
+        [ModuleSetting (Prefix = "Documents_")]
+        public int? DefaultFolder { get; set; }
+
+        public List<DocumentsDisplayColumnInfo> GetDisplayColumnList (string localResourceFile)
         {
-            get { return ReadSetting<bool> ("Documents_AllowUserSort", false); }
-            set { WriteTabModuleSetting<bool> ("Documents_AllowUserSort", value); }
-        }
+            var objColumnSettings = new List<DocumentsDisplayColumnInfo> ();
+		
+            if (!string.IsNullOrWhiteSpace (DisplayColumns)) {
+                // read "saved" column sort orders in first
+                foreach (var strColumn in DisplayColumns.Split( new [] {','}, StringSplitOptions.RemoveEmptyEntries)) {
+                    var strColumnData = strColumn.Split (new [] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    var strColumnName = strColumnData [0];
 
-        public string GridStyle
-        {
-            get { return ReadSetting<string> ("Documents_GridStyle", "bootstrap"); }
-            set { WriteTabModuleSetting<string> ("Documents_GridStyle", value); }
-        }
+                    if (DocumentsDisplayColumnInfo.AvailableDisplayColumns.Contains (strColumnName)) {
+                        var objColumnInfo = new DocumentsDisplayColumnInfo () {
+                            ColumnName = strColumnName,
+                            DisplayOrder = objColumnSettings.Count + 1,
+                            Visible = bool.Parse (strColumnData [1]),
+                            LocalizedColumnName = Localization.GetString (strColumnName + ".Header", localResourceFile)
+                        };
 
-        #endregion
-
-        #region Module settings
-
-        public bool UseCategoriesList
-        {
-            get { return ReadSetting<bool> ("Documents_UseCategoriesList", false); }
-            set { WriteModuleSetting<bool> ("Documents_UseCategoriesList", value); }
-        }
-
-        public string CategoriesListName
-        {
-            get { return ReadSetting<string> ("Documents_CategoriesListName", "Document Categories"); }
-            set { WriteModuleSetting<string> ("Documents_CategoriesListName", value); }
-        }
-
-        public int? DefaultFolder
-        {
-            get { return ReadSetting<int?> ("Documents_DefaultFolder", null); }
-            set { WriteModuleSetting<int?> ("Documents_DefaultFolder", value); }
-        }
-
-        #endregion
-
-        public List<DocumentsDisplayColumnInfo> DisplayColumnList
-        {
-            get {
-                var objColumnSettings = new List<DocumentsDisplayColumnInfo> ();
-			
-                if (!string.IsNullOrWhiteSpace (DisplayColumns)) {
-                    // read "saved" column sort orders in first
-                    foreach (var strColumn in DisplayColumns.Split( new [] {','}, StringSplitOptions.RemoveEmptyEntries)) {
-                        var strColumnData = strColumn.Split (new [] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                        var strColumnName = strColumnData [0];
-
-                        if (DocumentsDisplayColumnInfo.AvailableDisplayColumns.Contains (strColumnName)) {
-                            var objColumnInfo = new DocumentsDisplayColumnInfo () {
-                                ColumnName = strColumnName,
-                                DisplayOrder = objColumnSettings.Count + 1,
-                                Visible = bool.Parse (strColumnData [1]),
-                                LocalizedColumnName = Localization.GetString (strColumnName + ".Header", LocalResourceFile)
-                            };
-
-                            objColumnSettings.Add (objColumnInfo);
-                        }
+                        objColumnSettings.Add (objColumnInfo);
                     }
                 }
-
-                return objColumnSettings;
             }
-        }
 
-        #region Calculated properties
+            return objColumnSettings;
+        }
 
         public ArrayList GetSortColumnList (string localResourceFile)
         {
@@ -149,7 +97,7 @@ namespace R7.Documents
             var objSortColumns = new ArrayList ();
 
             if (!string.IsNullOrEmpty (SortOrder)) {
-                foreach (string strSortColumn_loopVariable in this.SortOrder.Split(char.Parse(","))) {
+                foreach (string strSortColumn_loopVariable in SortOrder.Split(char.Parse(","))) {
                     strSortColumn = strSortColumn_loopVariable;
                     objSortColumn = new DocumentsSortColumnInfo ();
                     // REVIEW: Original: if (Strings.Left(strSortColumn, 1) == "-") {
@@ -172,6 +120,8 @@ namespace R7.Documents
 
             return objSortColumns;
         }
+
+        #region Static methods
 
         public static int FindColumn (string columnName, List<DocumentsDisplayColumnInfo> columnList, bool visibleOnly)
         {
@@ -212,4 +162,6 @@ namespace R7.Documents
 
         #endregion
     }
+
+
 }

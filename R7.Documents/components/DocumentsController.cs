@@ -142,7 +142,7 @@ namespace R7.Documents
                     }
                 }
 
-                var settings = new DocumentsSettings (module);
+                var settings = new DocumentsSettingsRepository ().GetSettings (module);
                 strXml.Append ("<settings>");
                 strXml.AppendFormat ("<allowusersort>{0}</allowusersort>", XmlUtils.XMLEncode (settings.AllowUserSort.ToString ()));
                 strXml.AppendFormat ("<showtitlelink>{0}</showtitlelink>", XmlUtils.XMLEncode (settings.ShowTitleLink.ToString ()));
@@ -239,7 +239,8 @@ namespace R7.Documents
 
             var xmlSettings = Globals.GetContent (content, "documents/settings");
             if (xmlSettings != null) {
-                var settings = new DocumentsSettings (module);
+                var settingsRepository = new DocumentsSettingsRepository ();
+                var settings = settingsRepository.GetSettings (module);
 			
                 settings.AllowUserSort = XmlUtils.GetNodeValueBoolean (xmlSettings, "allowusersort");
                 settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlSettings, "showtitlelink");
@@ -251,6 +252,7 @@ namespace R7.Documents
                 settings.DisplayColumns = XmlUtils.GetNodeValue (xmlSettings, "displaycolumns");
                 settings.SortOrder = XmlUtils.GetNodeValue (xmlSettings, "sortorder");
 
+                settingsRepository.SaveSettings (module, settings);
                 // REVIEW: Need module synchronization?
             }
         }

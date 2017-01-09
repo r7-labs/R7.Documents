@@ -21,16 +21,23 @@
 
 using System;
 using DotNetNuke.Common;
+using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using R7.Documents.Data;
-using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {
-    public partial class ChangeFolder : PortalModuleBase<DocumentsSettings>
+    public partial class ChangeFolder : PortalModuleBase
     {
+        private DocumentsSettings _settings;
+        private new DocumentsSettings Settings {
+            get {
+                return _settings ?? (_settings = new DocumentsSettingsRepository ().GetSettings (ModuleConfiguration));
+            }
+        }
+
         #region Event Handlers
 
         protected override void OnInit (EventArgs e)
@@ -113,6 +120,7 @@ namespace R7.Documents
                     // update module's default folder setting
                     if (checkUpdateDefaultFolder.Checked) {
                         Settings.DefaultFolder = ddlFolder.SelectedFolder.FolderID;
+                        new DocumentsSettingsRepository ().SaveSettings (ModuleController.Instance.GetTabModule (TabModuleId), Settings);
                     }
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);

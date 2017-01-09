@@ -29,11 +29,10 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 using R7.Documents.Data;
 using R7.DotNetNuke.Extensions.ControlExtensions;
-using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {
-    public partial class ImportDocuments : PortalModuleBase<DocumentsSettings>
+    public partial class ImportDocuments : PortalModuleBase
     {
         #region Event Handlers
 
