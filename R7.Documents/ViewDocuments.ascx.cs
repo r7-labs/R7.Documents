@@ -38,6 +38,7 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using R7.Documents.Data;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
+using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {
@@ -48,7 +49,7 @@ namespace R7.Documents
     /// <history>
     /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
     /// </history>
-    public partial class ViewDocuments : PortalModuleBase, IActionable
+    public partial class ViewDocuments : PortalModuleBase<DocumentsSettings>, IActionable
     {
         private const int NOT_READ = -2;
 
@@ -65,13 +66,6 @@ namespace R7.Documents
         protected string EditImageUrl
         {
             get { return IconController.IconURL ("Edit"); } 
-        }
-
-        private DocumentsSettings _settings;
-        private new DocumentsSettings Settings {
-            get {
-                return _settings ?? (_settings = new DocumentsSettingsRepository ().GetSettings (ModuleConfiguration));
-            }
         }
 
         #endregion

@@ -34,6 +34,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using R7.DotNetNuke.Extensions.ControlExtensions;
+using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {
@@ -43,15 +44,8 @@ namespace R7.Documents
     /// <history>
     /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
     /// </history>
-    public partial class SettingsDocuments : ModuleSettingsBase
+    public partial class SettingsDocuments : ModuleSettingsBase<DocumentsSettings>
     {
-        private DocumentsSettings _settings;
-        private new DocumentsSettings Settings {
-            get {
-                return _settings ?? (_settings = new DocumentsSettingsRepository ().GetSettings (ModuleConfiguration));
-            }
-        }
-
         private const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
 
         private const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
@@ -181,7 +175,7 @@ namespace R7.Documents
                 if (Page.IsValid) {
                     FillSettings ();
 
-                    new DocumentsSettingsRepository ().SaveSettings (ModuleController.Instance.GetTabModule (TabModuleId), Settings);
+                    SettingsRepository.SaveSettings (ModuleConfiguration, Settings);
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
                 }

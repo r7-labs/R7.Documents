@@ -59,7 +59,7 @@
       <HintPath>..\packages\DotNetNuke.Web.Deprecated.8.0.4.226\lib\net40\Telerik.Web.UI.dll</HintPath>
     </Reference>
     <Reference Include="R7.DotNetNuke.Extensions">
-      <HintPath>..\packages\R7.DotNetNuke.Extensions.0.9.0\lib\net45\R7.DotNetNuke.Extensions.dll</HintPath>
+      <HintPath>..\packages\R7.DotNetNuke.Extensions.0.10.0-beta3\lib\net45\R7.DotNetNuke.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
