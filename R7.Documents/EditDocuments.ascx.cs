@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,7 @@ namespace R7.Documents
             base.OnInit (e);
 			
             // set URL for cancel button
-            linkCancel.NavigateUrl = Globals.NavigateURL ();
+            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlHelper.IsInPopup (Request));
 
             // Add the "are you sure" message to the delete button click event
             cmdDelete.Attributes.Add ("onClick", 

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 using R7.Documents.Data;
 using R7.DotNetNuke.Extensions.ControlExtensions;
+using R7.DotNetNuke.Extensions.Utilities;
 
 namespace R7.Documents
 {
@@ -58,7 +59,7 @@ namespace R7.Documents
             }
 
             // set Cancel button link
-            linkCancel.NavigateUrl = Globals.NavigateURL ();
+            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlHelper.IsInPopup (Request));
         }
 
         protected void buttonImport_Click (object sender, EventArgs e)
