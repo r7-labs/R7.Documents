@@ -27,6 +27,7 @@ using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
+using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.DotNetNuke.Extensions.ControlExtensions;
 using R7.DotNetNuke.Extensions.Utilities;
@@ -46,8 +47,8 @@ namespace R7.Documents
 
             // get all document modules (R7.Documents and DNN Documents)
             foreach (var module in mctrl.GetTabModules (TabId).Values) {
-                var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
-                if (module.ModuleID != ModuleId && !module.IsDeleted && (mdef == "r7_documents" || mdef == "documents")) {
+                var mdef = module.ModuleDefinition.DefinitionName;
+                if (module.ModuleID != ModuleId && !module.IsDeleted && (mdef == ModuleDefinitions.R7_DOCUMENTS || mdef == ModuleDefinitions.DNN_DOCUMENTS)) {
                     docModules.Add (module);
                 }
             }
@@ -67,18 +68,18 @@ namespace R7.Documents
             try {
                 var mctrl = new ModuleController ();
                 var module = mctrl.GetModule (int.Parse (comboModule.SelectedValue), TabId);
-                var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
+                var mdef = module.ModuleDefinition.DefinitionName;
 
                 foreach (ListItem item in listDocuments.Items) {
                     if (item.Selected) {
                         DocumentInfo document = null;
 
-                        if (mdef == "r7_documents") {
+                        if (mdef == ModuleDefinitions.R7_DOCUMENTS) {
                             document = DocumentsDataProvider.Instance.GetDocument (
                                 int.Parse (item.Value),
                                 module.ModuleID);
                         }
-                        else if (mdef == "documents") {
+                        else if (mdef == ModuleDefinitions.DNN_DOCUMENTS) {
                             document = DocumentsDataProvider.Instance.GetDNNDocument (
                                 int.Parse (item.Value),
                                 module.ModuleID);
@@ -128,12 +129,12 @@ namespace R7.Documents
                 if (module != null) {
                     IEnumerable<DocumentInfo> documents = null;
 
-                    var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
+                    var mdef = module.ModuleDefinition.DefinitionName;
 
-                    if (mdef == "r7_documents") {
+                    if (mdef == ModuleDefinitions.R7_DOCUMENTS) {
                         documents = DocumentsDataProvider.Instance.GetDocuments (module.ModuleID, module.PortalID);
                     }
-                    else if (mdef == "documents") {
+                    else if (mdef == ModuleDefinitions.DNN_DOCUMENTS) {
                         documents = DocumentsDataProvider.Instance.GetDNNDocuments (module.ModuleID, module.PortalID);
                     }
 				

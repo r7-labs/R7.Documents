@@ -149,6 +149,7 @@
     <Compile Include="components\ModuleSynchronizer.cs" />
     <Compile Include="components\CacheHelper.cs" />
     <Compile Include="components\DocumentsSettingsRepository.cs" />
+    <Compile Include="components\ModuleDefinitions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
