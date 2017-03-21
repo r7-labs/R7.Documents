@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 using System.Collections;
+using R7.Documents.Models;
 
 namespace R7.Documents
 {

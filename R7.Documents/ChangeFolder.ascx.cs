@@ -21,11 +21,11 @@
 
 using System;
 using DotNetNuke.Common;
-using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using R7.Documents.Data;
+using R7.Documents.Models;
 using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.Utilities;
 

@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using R7.Documents.Models;
 
 namespace R7.Documents
 {

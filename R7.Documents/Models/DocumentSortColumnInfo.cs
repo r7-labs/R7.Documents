@@ -22,7 +22,7 @@
 
 using System;
 
-namespace R7.Documents
+namespace R7.Documents.Models
 {
     [Serializable]
     public class DocumentsSortColumnInfo

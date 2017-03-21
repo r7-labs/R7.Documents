@@ -31,7 +31,7 @@ using System.Web.UI.WebControls;
 using System.Collections.Generic;
 using DotNetNuke.Common;
 
-namespace R7.Documents
+namespace R7.Documents.Models
 {
     /// <summary>
     /// Grid style.

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using DotNetNuke.Entities.Modules.Settings;
 using DotNetNuke.Services.Localization;
 
-namespace R7.Documents
+namespace R7.Documents.Models
 {
     /// <summary>
     /// Provides strong typed access to settings used by module

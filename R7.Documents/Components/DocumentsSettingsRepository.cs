@@ -24,8 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System;
 using DotNetNuke.Entities.Modules.Settings;
+using R7.Documents.Models;
 
 namespace R7.Documents
 {

@@ -30,6 +30,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Search.Entities;
 using R7.Documents.Data;
 using R7.DotNetNuke.Extensions.Utilities;
+using R7.Documents.Models;
 
 namespace R7.Documents
 {

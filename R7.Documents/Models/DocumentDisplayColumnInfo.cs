@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace R7.Documents
+namespace R7.Documents.Models
 {
     [Serializable]
     public class DocumentsDisplayColumnInfo : IComparable

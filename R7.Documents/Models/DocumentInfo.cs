@@ -28,9 +28,8 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Tabs;
 using R7.DotNetNuke.Extensions.Utilities;
-using System.Web.UI;
 
-namespace R7.Documents
+namespace R7.Documents.Models
 {
     public delegate string LocalizeHandler (string text);
 
