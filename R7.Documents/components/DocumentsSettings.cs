@@ -42,11 +42,6 @@ namespace R7.Documents
         [TabModuleSetting (Prefix = "Documents_")]
         public string DisplayColumns { get; set; } = DocumentsDisplayColumnInfo.COLUMN_ICON + ";true," +
                     DocumentsDisplayColumnInfo.COLUMN_TITLE + ";true," +
-                    DocumentsDisplayColumnInfo.COLUMN_CATEGORY + ";true," +
-                    DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY + ";true," +
-                    DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE + ";true," +
-                    DocumentsDisplayColumnInfo.COLUMN_SIZE + ";true," +
-                    DocumentsDisplayColumnInfo.COLUMN_CLICKS + ";true," +
                     DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK + ";true";
 
         [TabModuleSetting (Prefix = "Documents_")]
