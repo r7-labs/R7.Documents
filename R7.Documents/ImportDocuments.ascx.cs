@@ -47,7 +47,7 @@ namespace R7.Documents
             // get all document modules (R7.Documents and DNN Documents)
             foreach (var module in mctrl.GetTabModules (TabId).Values) {
                 var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
-                if (module.ModuleID != ModuleId && !module.IsDeleted && (mdef == "r7.documents" || mdef == "documents")) {
+                if (module.ModuleID != ModuleId && !module.IsDeleted && (mdef == "r7_documents" || mdef == "documents")) {
                     docModules.Add (module);
                 }
             }
@@ -73,7 +73,7 @@ namespace R7.Documents
                     if (item.Selected) {
                         DocumentInfo document = null;
 
-                        if (mdef == "r7.documents") {
+                        if (mdef == "r7_documents") {
                             document = DocumentsDataProvider.Instance.GetDocument (
                                 int.Parse (item.Value),
                                 module.ModuleID);
@@ -130,7 +130,7 @@ namespace R7.Documents
 
                     var mdef = module.ModuleDefinition.DefinitionName.ToLowerInvariant ();
 
-                    if (mdef == "r7.documents") {
+                    if (mdef == "r7_documents") {
                         documents = DocumentsDataProvider.Instance.GetDocuments (module.ModuleID, module.PortalID);
                     }
                     else if (mdef == "documents") {
