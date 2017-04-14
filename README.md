@@ -1,5 +1,6 @@
 # About R7.Documents
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/roman-yagodin/R7.Documents)](https://bettercodehub.com/)
 [![Join the chat at https://gitter.im/roman-yagodin/R7.Documents](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/roman-yagodin/R7.Documents?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 *R7.Documents* is a redesigned version of the classic [DNN Documents](http://dnndocuments.codeplex.com) module.
