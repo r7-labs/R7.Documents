@@ -105,7 +105,7 @@ namespace R7.Documents
                         objColumnInfo = objColumnInfo_loopVariable;
                         // set localized column names
                         objColumnInfo.LocalizedColumnName = Localization.GetString (
-                            objColumnInfo.ColumnName + ".Header",
+                            objColumnInfo.ColumnName + ".Column",
                             base.LocalResourceFile);
                     }
 					
@@ -116,7 +116,7 @@ namespace R7.Documents
                             objColumnInfo = new DocumentsDisplayColumnInfo ();
                             objColumnInfo.ColumnName = strColumnName;
                             objColumnInfo.LocalizedColumnName = Localization.GetString (
-                                objColumnInfo.ColumnName + ".Header",
+                                objColumnInfo.ColumnName + ".Column",
                                 base.LocalResourceFile);
                             objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
                             objColumnInfo.Visible = false;
@@ -132,7 +132,7 @@ namespace R7.Documents
                     string strSortColumn = null;
                     foreach (string strSortColumn_loopVariable in DocumentsDisplayColumnInfo.AvailableSortColumns) {
                         strSortColumn = strSortColumn_loopVariable;
-                        comboSortFields.AddItem (LocalizeString (strSortColumn + ".Header"), strSortColumn);
+                        comboSortFields.AddItem (LocalizeString (strSortColumn + ".Column"), strSortColumn);
                     }
 
                     BindSortSettings (Settings.GetSortColumnList (LocalResourceFile));
@@ -262,7 +262,7 @@ namespace R7.Documents
 
             objSortColumns = RetrieveSortColumnSettings ();
             objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
-            objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Header");
+            objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Column");
             if (comboSortOrderDirection.SelectedValue == "ASC") {
                 objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
             }

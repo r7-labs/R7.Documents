@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Category.Column">
+        <value>Категория</value>
+    </data>
+    <data name="Clicks.Column">
+        <value>Загрузок</value>
+    </data>
+    <data name="CreatedBy.Column">
+        <value>Опубликовал</value>
+    </data>
+    <data name="CreatedDate.Column">
+        <value>Создано</value>
+    </data>
+	<data name="PublishedOnDate.Column" xml:space="preserve">
+        <value>Опубликовано</value>
+    </data>
+    <data name="Description.Column">
+        <value>Описание</value>
+    </data>
+    <data name="ModifiedBy.Column">
+        <value>Изменил</value>
+    </data>
+    <data name="ModifiedDate.Column">
+        <value>Последние изменения</value>
+    </data>
+    <data name="Owner.Column">
+        <value>Владелец</value>
+    </data>
+    <data name="Size.Column">
+        <value>Размер</value>
+    </data>
+    <data name="SortIndex.Column">
+        <value>Индекс сортировки</value>
+    </data>
+    <data name="Title.Column">
+        <value>Название</value>
+    </data>
+    <data name="Url.Column">
+        <value>Ссылка</value>
+    </data>
+</root>

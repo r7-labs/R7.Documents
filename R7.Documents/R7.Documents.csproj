@@ -102,6 +102,8 @@
     <None Include="GridStyles\bootstrap-condensed.xml" />
     <None Include="SqlDataProvider\01.00.08.SqlDataProvider" />
     <None Include="SqlDataProvider\01.09.00.SqlDataProvider" />
+    <None Include="App_LocalResources\SharedResources.resx" />
+    <None Include="App_LocalResources\SharedResources.ru-RU.resx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DocumentsController.cs" />
