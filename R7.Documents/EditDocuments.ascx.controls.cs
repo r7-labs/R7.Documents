@@ -30,12 +30,13 @@ namespace R7.Documents
 		protected LinkButton lnkChange;
 		protected Panel panelUrlTracking;
 		protected URLTrackingControl ctlUrlTracking;
-		protected CheckBox checkIsPublished;
-        protected CheckBox checkDeleteWithResource;
+	    protected CheckBox checkDeleteWithResource;
 		protected DnnDateTimePicker pickerCreatedDate;
 		protected DnnDateTimePicker pickerLastModifiedDate;
         protected Panel panelDelete;
         protected Panel panelUpdate;
         protected CheckBox checkDontUpdateLastModifiedDate;
+        protected DnnDateTimePicker datetimeStartDate;
+        protected DnnDateTimePicker datetimeEndDate;
 	}
 }

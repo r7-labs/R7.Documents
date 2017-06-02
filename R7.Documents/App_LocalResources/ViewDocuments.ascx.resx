@@ -24,14 +24,17 @@
     <data name="Title.Text" xml:space="preserve">
         <value>Title</value>
     </data>
-    <data name="CreatedBy.Text" xml:space="preserve">
-        <value>Created By</value>
-    </data>
     <data name="DownloadLink.Text" xml:space="preserve">
         <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Download" /&gt;</value>
     </data>
+	<data name="CreatedBy.Text" xml:space="preserve">
+        <value>Published By</value>
+    </data>
     <data name="CreatedDate.Text" xml:space="preserve">
-        <value>Created Date</value>
+        <value>Created</value>
+    </data>
+	<data name="PublishedOnDate.Text" xml:space="preserve">
+        <value>Published</value>
     </data>
     <data name="Description.Text" xml:space="preserve">
         <value>Description</value>
@@ -43,7 +46,7 @@
         <value>Modified By</value>
     </data>
     <data name="ModifiedDate.Text" xml:space="preserve">
-        <value>Modified Date</value>
+        <value>Last Modified</value>
     </data>
     <data name="Owner.Text" xml:space="preserve">
         <value>Owner</value>

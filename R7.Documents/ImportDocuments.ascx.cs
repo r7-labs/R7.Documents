@@ -84,9 +84,6 @@ namespace R7.Documents
                             document = DocumentsDataProvider.Instance.GetDNNDocument (
                                 int.Parse (item.Value),
                                 module.ModuleID);
-
-                            // publish documents, imported from the DNN Documents module
-                            document.IsPublished = true;
                         }
 
                         if (document != null) {

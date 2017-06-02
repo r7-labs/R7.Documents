@@ -111,6 +111,12 @@ namespace R7.Documents
                     }
                     break;
 
+                case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
+                    if (objX.PublishedOnDate.CompareTo (objY.PublishedOnDate) != 0) {
+                        return objX.PublishedOnDate.CompareTo (objY.PublishedOnDate);
+                    }
+                    break;
+
                 case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
                     if (objX.Description.CompareTo (objY.Description) != 0) {
                         return objX.Description.CompareTo (objY.Description);

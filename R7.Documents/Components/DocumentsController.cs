@@ -51,6 +51,7 @@ namespace R7.Documents
 			
             var documents = DocumentsDataProvider.Instance.GetDocuments (moduleInfo.ModuleID, moduleInfo.PortalID);
 
+            var now = DateTime.Now;
             foreach (var document in documents ?? Enumerable.Empty<DocumentInfo> ()) {
                 if (document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ()) {
                     var documentText = TextUtils.FormatList (" ", document.Title, document.Description);
@@ -63,7 +64,7 @@ namespace R7.Documents
                         Body = documentText,
                         ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
                         UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
-                        IsActive = document.IsPublished,
+                        IsActive = document.IsPublished (now),
                         Url = string.Format ("/Default.aspx?tabid={0}#{1}", moduleInfo.TabID, moduleInfo.ModuleID)
 
                         // FIXME: This one produce null reference exception
@@ -102,7 +103,8 @@ namespace R7.Documents
 		
             try {
                 var documents = DocumentsDataProvider.Instance.GetDocuments (moduleId, module.PortalID);
-				
+
+                var now = DateTime.Now;
                 if (documents.Any ()) {
                     foreach (var document in documents) {
                         strXml.Append ("<document>");
@@ -115,7 +117,8 @@ namespace R7.Documents
                         strXml.AppendFormat (
                             "<forcedownload>{0}</forcedownload>",
                             XmlUtils.XMLEncode (document.ForceDownload.ToString ()));
-                        strXml.AppendFormat ("<ispublished>{0}</ispublished>", XmlUtils.XMLEncode (document.IsPublished.ToString ()));
+                        strXml.AppendFormat ("<startDate>{0}</startDate>", XmlUtils.XMLEncode (document.StartDate.ToString ()));
+                        strXml.AppendFormat ("<endDate>{0}</endDate>", XmlUtils.XMLEncode (document.EndDate.ToString ()));
                         strXml.AppendFormat (
                             "<ownedbyuserid>{0}</ownedbyuserid>",
                             XmlUtils.XMLEncode (document.OwnedByUserId.ToString ()));
@@ -205,7 +208,8 @@ namespace R7.Documents
                 document.SortOrderIndex = XmlUtils.GetNodeValueInt (documentNode, "sortorderindex");
                 document.LinkAttributes = XmlUtils.GetNodeValue (documentNode, "linkattributes");
                 document.ForceDownload = XmlUtils.GetNodeValueBoolean (documentNode, "forcedownload");
-                document.IsPublished = XmlUtils.GetNodeValueBoolean (documentNode, "ispublished");
+                document.StartDate = GetNodeValueDateNullable (documentNode, "startDate");
+                document.EndDate = GetNodeValueDateNullable (documentNode, "endDate");
 
                 document.CreatedByUserId = userId;
                 document.ModifiedByUserId = userId;
@@ -256,6 +260,12 @@ namespace R7.Documents
                 settingsRepository.SaveSettings (module, settings);
                 // REVIEW: Need module synchronization?
             }
+        }
+
+        DateTime? GetNodeValueDateNullable (XmlNode node, string nodeName)
+        {
+            var date = XmlUtils.GetNodeValueDate (node, nodeName, DateTime.MinValue);
+            return (date != DateTime.MinValue) ? (DateTime?) date : null;
         }
 
         #endregion

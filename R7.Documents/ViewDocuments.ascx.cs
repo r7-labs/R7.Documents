@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Caching;
 using System.Web.UI.WebControls;
 using DotNetNuke.Common;
@@ -95,11 +96,12 @@ namespace R7.Documents
                 if (!IsReadComplete) {
                     mobjDocumentList = LoadData ();
                 }
-			
+
+                var now = HttpContext.Current.Timestamp;
                 if (IsEditable && mobjDocumentList.Count == 0) {
                     this.Message ("NothingToDisplay.Text", MessageType.Info, true);
                 }
-                else if (!IsEditable && mobjDocumentList.Count (d => d.IsPublished) == 0) {
+                else if (!IsEditable && mobjDocumentList.Count (d => d.IsPublished (now)) == 0) {
                     ContainerControl.Visible = false;
                 }
                 else {
@@ -226,7 +228,7 @@ namespace R7.Documents
                         e.Row.Cells [0].CssClass = "EditCell";
 
 						// decorate unpublished items
-                        if (!objDocument.IsPublished) {
+                        if (!objDocument.IsPublished (HttpContext.Current.Timestamp)) {
                             e.Row.CssClass = ((e.Row.RowIndex % 2 == 0) ? grdDocuments.RowStyle.CssClass
                                 : grdDocuments.AlternatingRowStyle.CssClass) + " _nonpublished";
                         }
@@ -385,6 +387,14 @@ namespace R7.Documents
                                 "{0:d}");
                             break;
 
+                        case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
+                            AddDocumentColumn (
+								Localization.GetString ("PublishedOnDate", LocalResourceFile),
+                                "PublishedOnDate",
+                                "PublishedOnDate",
+                                "{0:d}");
+                            break;
+
                         case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
                             AddDocumentColumn (Localization.GetString ("Description", LocalResourceFile), "Description", "Description");
                             break;
@@ -489,7 +499,7 @@ namespace R7.Documents
                 }
 
                 // remove unpublished documents from the list
-                if (!isEditable && !objDocument.IsPublished) {
+                if (!isEditable && !objDocument.IsPublished (HttpContext.Current.Timestamp)) {
                     documents.Remove (objDocument);
                     continue;
                 }

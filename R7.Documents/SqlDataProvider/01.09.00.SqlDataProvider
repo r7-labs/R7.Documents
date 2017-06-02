@@ -13,3 +13,20 @@ BEGIN
         SET DefinitionName = N'R7_Documents' WHERE DefinitionName = N'R7.Documents'
 END
 GO
+
+IF NOT EXISTS (select * from sys.columns where object_id = object_id(N'{databaseOwner}[{objectQualifier}Documents_Documents]') and name = N'StartDate')
+    ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents]
+        ADD StartDate datetime NULL,
+            EndDate datetime NULL
+GO
+
+IF EXISTS (select * from sys.columns where object_id = object_id(N'{databaseOwner}[{objectQualifier}Documents_Documents]') and name = N'IsPublished')
+BEGIN
+    UPDATE {databaseOwner}[{objectQualifier}Documents_Documents]
+        SET EndDate = GETDATE()
+        WHERE IsPublished = 0
+
+    ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents]
+        DROP COLUMN IsPublished
+END
+GO

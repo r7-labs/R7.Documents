@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2013 by DotNetNuke Corporation
-// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,8 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Tabs;
 using R7.DotNetNuke.Extensions.Utilities;
+using R7.MiniGallery.Models;
+using System.Web.ModelBinding;
 
 namespace R7.Documents.Models
 {
@@ -63,6 +65,10 @@ namespace R7.Documents.Models
 
         public DateTime ModifiedDate { get; set; }
 
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
         public string Url { get; set; }
 
         public string Title { get; set; }
@@ -76,8 +82,6 @@ namespace R7.Documents.Models
         public string Description { get; set; }
 
         public bool ForceDownload { get; set; }
-
-        public bool IsPublished { get; set; }
 
         public string LinkAttributes { get; set; }
 
@@ -107,8 +111,7 @@ namespace R7.Documents.Models
         public string ModifiedByUser { get; set; }
 
         [ReadOnlyColumn]
-        public int Clicks
-        {
+        public int Clicks {
             get { return (_clicks < 0) ? 0 : _clicks; }
             set { _clicks = value; }
         }
@@ -118,42 +121,41 @@ namespace R7.Documents.Models
         #region Custom properties
 
         [IgnoreColumn]
-        public string FormatUrl
-        {
+        public string FormatUrl {
             get {
                 if (_formatUrl == null) {
                     _formatUrl = "";
 
                     switch (Globals.GetURLType (Url)) {
-                        case TabType.File:
-                            
-                            var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
-                            if (fileId != null) {
-                                var fileInfo = FileManager.Instance.GetFile (fileId.Value);
-                                if (fileInfo != null) {
-                                    _formatUrl = fileInfo.RelativePath;
-                                }
-                            }
-                            break;
+                    case TabType.File:
 
-                        case TabType.Tab:
-                            
-                            var tabId = TypeUtils.ParseToNullable<int> (Url);
-                            if (tabId != null) {
-                                var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
-                                if (tabInfo != null) {
-                                    // REVIEW: Show LocalizedTabName instead?
-                                    _formatUrl = tabInfo.TabName;
-                                }
+                        var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+                        if (fileId != null) {
+                            var fileInfo = FileManager.Instance.GetFile (fileId.Value);
+                            if (fileInfo != null) {
+                                _formatUrl = fileInfo.RelativePath;
                             }
-                            break;
+                        }
+                        break;
 
-                        default:
-                            _formatUrl = Url;
-                            break;
+                    case TabType.Tab:
+
+                        var tabId = TypeUtils.ParseToNullable<int> (Url);
+                        if (tabId != null) {
+                            var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
+                            if (tabInfo != null) {
+                                // REVIEW: Show LocalizedTabName instead?
+                                _formatUrl = tabInfo.TabName;
+                            }
+                        }
+                        break;
+
+                    default:
+                        _formatUrl = Url;
+                        break;
                     }
                 }
-			
+
                 return _formatUrl;
             }
         }
@@ -163,58 +165,56 @@ namespace R7.Documents.Models
         /// </summary>
         /// <value>Document's type icon image HTML code.</value>
         [IgnoreColumn]
-        public string FormatIcon
-        { 
+        public string FormatIcon {
             get {
                 if (_formatIcon == null) {
                     _formatIcon = "";
-					
+
                     switch (Globals.GetURLType (Url)) {
-                        case TabType.File:
+                    case TabType.File:
 
-                            var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
-                            if (fileId != null) {
-                                var fileInfo = FileManager.Instance.GetFile (fileId.Value);
-                                if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension)) {
-                                    // Optimistic way 
-                                    _formatIcon = string.Format (
-                                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                        IconController.IconURL ("Ext" + fileInfo.Extension),
-                                        fileInfo.Extension.ToUpperInvariant ());
-								
-                                    /* 
-								// Less optimistic way
-								var iconFile = IconController.IconURL ("Ext" + file.Extension);
+                        var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+                        if (fileId != null) {
+                            var fileInfo = FileManager.Instance.GetFile (fileId.Value);
+                            if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension)) {
+                                // Optimistic way 
+                                _formatIcon = string.Format (
+                                    "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+                                    IconController.IconURL ("Ext" + fileInfo.Extension),
+                                    fileInfo.Extension.ToUpperInvariant ());
 
-								if (File.Exists (PortalSettings.Current.HomeDirectoryMapPath + "../.." + iconFile))
-								{
+                                /* 
+                            // Less optimistic way
+                            var iconFile = IconController.IconURL ("Ext" + file.Extension);
 
-									_icon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-										iconFile, file.Extension.ToLowerInvariant ());
-								}*/
-                                }
+                            if (File.Exists (PortalSettings.Current.HomeDirectoryMapPath + "../.." + iconFile))
+                            {
+
+                                _icon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+                                    iconFile, file.Extension.ToLowerInvariant ());
+                            }*/
                             }
-                            break;
-                        
-                        case TabType.Tab:
-                            _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                IconController.IconURL ("Tabs", "16X16"), Localize ("Page.Text"));
-                            break;
+                        }
+                        break;
 
-                        default:
-                            _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                IconController.IconURL ("Link", "16X16", "Gray"), "URL");
-                            break;
+                    case TabType.Tab:
+                        _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+                            IconController.IconURL ("Tabs", "16X16"), Localize ("Page.Text"));
+                        break;
+
+                    default:
+                        _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
+                            IconController.IconURL ("Link", "16X16", "Gray"), "URL");
+                        break;
                     }
                 }
 
                 return _formatIcon;
-            } 
+            }
         }
 
         [IgnoreColumn]
-        public string Info
-        {
+        public string Info {
             get { return FormatUrl; }
         }
 
@@ -234,8 +234,7 @@ namespace R7.Documents.Models
         /// </summary>
         /// <value>The size of the format.</value>
         [IgnoreColumn]
-        public string FormatSize
-        {
+        public string FormatSize {
             get {
                 try {
                     if (Size > 0) {
@@ -245,10 +244,16 @@ namespace R7.Documents.Models
                         return string.Format ("{0:#,##0.00} {1}", Size / 1024f, Localize ("Kilobytes.Text"));
                     }
                     return Localize ("Unknown.Text");
-                }
-                catch {
+                } catch {
                     return Localize ("Unknown.Text");
                 }
+            }
+        }
+
+        [IgnoreColumn]
+        public DateTime PublishedOnDate {
+	        get {
+		        return ModelHelper.PublishedOnDate (StartDate, CreatedDate);
             }
         }
 
@@ -259,6 +264,27 @@ namespace R7.Documents.Models
         public DocumentInfo Clone ()
         {
             return (DocumentInfo) MemberwiseClone ();
+        }
+
+        public bool IsPublished (DateTime now)
+        {
+            return ModelHelper.IsPublished (now, StartDate, EndDate);
+        }
+
+        public void Publish ()
+        {
+            EndDate = null;
+            if (StartDate != null && StartDate > DateTime.Now) {
+                StartDate = null;
+            }
+        }
+
+        public void UnPublish ()
+        {
+            EndDate = DateTime.Today;
+            if (StartDate != null && StartDate > EndDate) {
+                StartDate = null;
+            }
         }
 
         #endregion

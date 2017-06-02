@@ -150,6 +150,7 @@
     <Compile Include="Models\DocumentsSettings.cs" />
     <Compile Include="Models\DocumentSortColumnInfo.cs" />
     <Compile Include="Models\DocumentDisplayColumnInfo.cs" />
+    <Compile Include="Models\ModelHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -158,12 +158,6 @@
     <data name="plSortIndex.Text">
         <value>Индекс сортировки</value>
     </data>
-    <data name="labelIsPublished.Help">
-        <value>Если этот флаг снят, документ будет показан в списке только редакторам модуля в режиме редактирования.</value>
-    </data>
-    <data name="labelIsPublished.Text">
-        <value>Опубликован</value>
-    </data>
     <data name="labelUrlTracking.Help">
         <value>Отображает сведения, собранные в результате отслеживания URL документа.</value>
     </data>
@@ -202,5 +196,17 @@
     </data>
     <data name="CurrentFolder.Warning" xml:space="preserve">
         <value>Не удалось установить ссылку на файл папку по-умолчанию, так как в ней нет файлов.</value>
+    </data>	
+    <data name="labelStartDate.Text">
+        <value>Начало публикации:</value>
+    </data>
+    <data name="labelStartDate.Help">
+        <value>Введите дату, начиная с которой изображение должно быть опубликовано на сайте.</value>
+    </data>
+    <data name="labelEndDate.Text">
+        <value>Окончание публикации:</value>
+    </data>
+    <data name="labelEndDate.Help">
+        <value>Введите дату, при наступлении которой изображение должно быть снято с публикации на сайте.</value>
     </data>
 </root>

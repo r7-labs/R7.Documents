@@ -30,6 +30,7 @@ namespace R7.Documents.Models
     {
         public const string COLUMN_CREATEDBY = "CreatedBy";
         public const string COLUMN_CREATEDDATE = "CreatedDate";
+        public const string COLUMN_PUBLISHEDONDATE = "PublishedOnDate";
         public const string COLUMN_TITLE = "Title";
         public const string COLUMN_CATEGORY = "Category";
         public const string COLUMN_OWNEDBY = "Owner";
@@ -49,6 +50,7 @@ namespace R7.Documents.Models
             COLUMN_CATEGORY,
             COLUMN_OWNEDBY,
             COLUMN_CREATEDDATE,
+            COLUMN_PUBLISHEDONDATE,
             COLUMN_CREATEDBY,
             COLUMN_MODIFIEDDATE,
             COLUMN_MODIFIEDBY,
@@ -64,6 +66,7 @@ namespace R7.Documents.Models
             COLUMN_CATEGORY,
             COLUMN_OWNEDBY,
             COLUMN_CREATEDDATE,
+            COLUMN_PUBLISHEDONDATE,
             COLUMN_CREATEDBY,
             COLUMN_MODIFIEDDATE,
             COLUMN_MODIFIEDBY,

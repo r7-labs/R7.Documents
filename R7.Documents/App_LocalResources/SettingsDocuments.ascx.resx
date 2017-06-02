@@ -57,14 +57,17 @@
     <data name="Title.Header" xml:space="preserve">
         <value>Title</value>
     </data>
-    <data name="CreatedBy.Header" xml:space="preserve">
-        <value>Created By</value>
-    </data>
     <data name="DownloadLink.Header" xml:space="preserve">
         <value>Download Link</value>
     </data>
     <data name="CreatedDate.Header" xml:space="preserve">
-        <value>Created Date</value>
+        <value>Created</value>
+    </data>
+	<data name="PublishedOnDate.Header" xml:space="preserve">
+        <value>Published</value>
+    </data>
+	<data name="CreatedBy.Header" xml:space="preserve">
+        <value>Published By</value>
     </data>
     <data name="Description.Header" xml:space="preserve">
         <value>Description</value>
@@ -76,7 +79,7 @@
         <value>Modified By</value>
     </data>
     <data name="ModifiedDate.Header" xml:space="preserve">
-        <value>Modified Date</value>
+        <value>Last Modified</value>
     </data>
     <data name="Owner.Header" xml:space="preserve">
         <value>Owner</value>

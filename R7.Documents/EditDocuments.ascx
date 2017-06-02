@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="Portal" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="Portal" TagName="Tracking" Src="~/controls/URLTrackingControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
-<%@ Register TagPrefix="dnnweb" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
 <dnn:DnnCssInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents/admin.css" Priority="200" />
@@ -34,12 +34,20 @@
 	    </div>
 		<div class="dnnFormItem">
 	        <dnn:label id="labelCreatedDate" runat="server" controlname="textCreatedDate" suffix=":" />
-			<dnnweb:DnnDateTimePicker id="pickerCreatedDate" runat="server" />
+			<dnn:DnnDateTimePicker id="pickerCreatedDate" runat="server" />
 	    </div>
 	 	<div class="dnnFormItem">
 	        <dnn:label id="labelLastModifiedDate" runat="server" controlname="textLastModifiedDate" suffix=":" />
-			<dnnweb:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
+			<dnn:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
 	    </div>
+		<div class="dnnFormItem">
+            <dnn:Label ID="labelStartDate" runat="server" ControlName="datetimeStartDate" />
+            <dnn:DnnDateTimePicker id="datetimeStartDate" runat="server" />
+        </div>
+        <div class="dnnFormItem">
+            <dnn:Label ID="labelEndDate" runat="server" ControlName="datetimeEndDate" />
+            <dnn:DnnDateTimePicker id="datetimeEndDate" runat="server" />
+        </div>
         <div class="dnnFormItem">
             <dnn:label id="plSortIndex" runat="server" controlname="txtSortIndex" suffix=":" />
             <asp:textbox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
@@ -71,10 +79,6 @@
 	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
 	        <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" Text="Delete" OnClick="cmdDelete_Click" /></li>
 	    </ul>
-        <div class="dnnFormItem">
-            <dnn:Label id="labelIsPublished" runat="server" controlname="checkIsPublished" suffix="?" />
-            <asp:CheckBox runat="server" ID="checkIsPublished" />
-        </div>
         <asp:Panel id="panelUpdate" runat="server" CssClass="dnnFormItem">
             <dnn:Label id="labelDontUpdateLastModifiedDate" runat="server" ControlName="checkDontUpdateLastModifiedDate" Suffix=":" />
             <asp:CheckBox id="checkDontUpdateLastModifiedDate" runat="server"  />

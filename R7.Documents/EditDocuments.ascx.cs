@@ -125,7 +125,8 @@ namespace R7.Documents
                             txtName.Text = document.Title;
                             txtDescription.Text = document.Description;
                             chkForceDownload.Checked = document.ForceDownload;
-                            checkIsPublished.Checked = document.IsPublished;
+                            datetimeStartDate.SelectedDate = document.StartDate;
+                            datetimeEndDate.SelectedDate = document.EndDate;
                             textLinkAttributes.Text = document.LinkAttributes;
 
                             pickerCreatedDate.SelectedDate = document.CreatedDate;
@@ -212,9 +213,6 @@ namespace R7.Documents
                         panelUpdate.Visible = false;
                         ctlAudit.Visible = false;
                         panelUrlTracking.Visible = false;
-
-                        // set document published by default
-                        checkIsPublished.Checked = true;
 
                         // set default folder
                         if (Settings.DefaultFolder != null) {
@@ -523,8 +521,9 @@ namespace R7.Documents
                         // by the value of the dropdown list (below)
                         objDocument.OwnedByUserId = UserId;
                     }
-				
-                    objDocument.IsPublished = checkIsPublished.Checked;
+
+                    objDocument.StartDate = datetimeStartDate.SelectedDate;
+                    objDocument.EndDate = datetimeEndDate.SelectedDate;
                     objDocument.ModifiedByUserId = UserInfo.UserID;
 
                     objDocument.Title = txtName.Text;

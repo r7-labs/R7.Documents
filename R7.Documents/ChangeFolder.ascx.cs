@@ -81,7 +81,9 @@ namespace R7.Documents
 
                                 if (updated) {
                                     // publish updated documents
-                                    document.IsPublished |= checkPublishUpdated.Checked;
+                                    if (checkPublishUpdated.Checked) {
+                                        document.Publish ();
+                                    }
 
                                     // safe remove old files, if needed.
                                     // need to do this before update!
@@ -104,7 +106,7 @@ namespace R7.Documents
                                 else {
                                     if (checkUnpublishSkipped.Checked) {
                                         // unpublish not updated documents & update them
-                                        document.IsPublished = false;
+                                        document.UnPublish ();
                                         DocumentsDataProvider.Instance.Update (document);
                                     }
                                 } // if (updated)

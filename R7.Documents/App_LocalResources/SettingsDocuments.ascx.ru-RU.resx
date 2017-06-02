@@ -33,11 +33,14 @@
     <data name="ControlTitle_settings.Text">
         <value>Настройки документов</value>
     </data>
-    <data name="CreatedBy.Header">
-        <value>Разместил</value>
-    </data>
     <data name="CreatedDate.Header">
-        <value>Размещено</value>
+        <value>Создано</value>
+    </data>
+	<data name="PublishedOnDate.Header" xml:space="preserve">
+        <value>Опубликовано</value>
+    </data>
+	<data name="CreatedBy.Header">
+        <value>Опубликовал</value>
     </data>
     <data name="Description.Header">
         <value>Описание</value>
@@ -55,7 +58,7 @@
         <value>Изменил</value>
     </data>
     <data name="ModifiedDate.Header">
-        <value>Изменено</value>
+        <value>Последние изменения</value>
     </data>
     <data name="ModuleHelp.Text">
         <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;

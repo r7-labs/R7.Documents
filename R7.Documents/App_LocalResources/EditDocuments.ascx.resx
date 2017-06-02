@@ -169,12 +169,6 @@
     <data name="labelUrlTracking.Text" xml:space="preserve">
         <value>URL Tracking</value>
     </data>
-    <data name="labelIsPublished.Help" xml:space="preserve">
-        <value>If not checked, document will be shown only to module editors in edit mode.</value>
-    </data>
-    <data name="labelIsPublished.Text" xml:space="preserve">
-        <value>Is Published</value>
-    </data>
     <data name="labelCreatedDate.Help" xml:space="preserve">
         <value>Enter date and time of document creation or leave empty to select current date and time.</value>
     </data>
@@ -201,5 +195,17 @@
     </data>
     <data name="CurrentFolder.Warning" xml:space="preserve">
         <value>Cannot set link to a file in the current folder, as there are no files in it.</value>
+    </data>
+	<data name="labelStartDate.Text">
+        <value>Start Publication:</value>
+    </data>
+    <data name="labelStartDate.Help">
+        <value>Enter the date from current document should be published on the site.</value>
+    </data>
+    <data name="labelEndDate.Text">
+        <value>End Publication:</value>
+    </data>
+    <data name="labelEndDate.Help">
+        <value>Enter the date from current document should be removed from publication on the site.</value>
     </data>
 </root>
