@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="LocalDeploy">
+    <Import Project="__Settings.targets" Condition=" '$(BuildSettingsImported)' == '' " />
+    <Import Project="Preprocess.targets" Condition=" '$(PreprocessImported)' == '' " />
+    <Import Project="Tests.targets" Condition=" '$(TestsImported)' == '' " />
+    <PropertyGroup>
+        <!-- Enable local deploy by default (standalone) -->
+        <EnableLocalDeploy Condition=" '$(EnableLocalDeploy)' == '' ">true</EnableLocalDeploy>
+        <!-- Include binary files in local deploy by default -->
+        <LocalDeployIncludeBinaries Condition=" '$(LocalDeployIncludeBinaries)' == '' ">true</LocalDeployIncludeBinaries>
+    </PropertyGroup>
+    <Target Name="LocalDeploy" Condition=" '$(EnableLocalDeploy)' == 'true' " DependsOnTargets="Preprocess;Tests">
+        <!-- Declare binaries -->
+        <ItemGroup>
+            <LocalDeployBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.dll" />
+            <LocalDeployBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.pdb" Condition="'$(Configuration)' == 'Debug'" />
+        </ItemGroup>
+        <!-- Declare resource files -->
+        <ItemGroup>
+            <LocalDeployResourceFiles Include="../**/*.ascx" />
+            <LocalDeployResourceFiles Include="../**/*.aspx" />
+            <LocalDeployResourceFiles Include="../**/*.asmx" />
+            <LocalDeployResourceFiles Include="../**/*.ashx" />
+            <LocalDeployResourceFiles Include="../**/*.resx" />
+            <LocalDeployResourceFiles Include="../**/*.css" />
+            <LocalDeployResourceFiles Include="../**/*.cshtml" />
+            <LocalDeployResourceFiles Include="../**/*.html" />
+            <LocalDeployResourceFiles Include="../**/*.htm" />
+            <LocalDeployResourceFiles Include="../**/*.xml" />
+            <LocalDeployResourceFiles Include="../**/*.xsl" />
+            <LocalDeployResourceFiles Include="../**/*.xslt" />
+            <LocalDeployResourceFiles Include="../**/*.json" />
+            <LocalDeployResourceFiles Include="../**/*.yml" />
+            <LocalDeployResourceFiles Include="../**/*.js" />
+            <LocalDeployResourceFiles Include="../**/*.jpg" />
+            <LocalDeployResourceFiles Include="../**/*.png" />
+            <LocalDeployResourceFiles Include="../**/*.gif" />
+        </ItemGroup>
+        <!-- Declare excluded files -->
+        <ItemGroup>
+            <LocalDeployResourceExcludeFiles Include="../*/bin/**/*" />
+            <LocalDeployResourceExcludeFiles Include="../*/obj/**/*" />
+            <LocalDeployResourceExcludeFiles Include="../.git/**/*" />
+            <LocalDeployResourceExcludeFiles Include="../.vscode/**/*" />
+            <LocalDeployResourceExcludeFiles Include="../packages/**/*" />
+            <LocalDeployResourceExcludeFiles Include="../Deploy/**/*" />
+            <LocalDeployResourceExcludeFiles Include="../.*" />
+            <LocalDeployResourceExcludeFiles Include="$(MainProjectPath)/license.htm" />
+            <LocalDeployResourceExcludeFiles Include="$(MainProjectPath)/releaseNotes.htm" />
+            <LocalDeployResourceExcludeFiles Include="$(CustomExcludeFiles)" Condition=" '$(CustomExcludeFiles)' != '' " />
+        </ItemGroup>
+        <!-- Apply excluded files filters -->
+        <ItemGroup>
+            <LocalDeployResourceFilteredFiles Include="@(LocalDeployResourceFiles)" Exclude="@(LocalDeployResourceExcludeFiles)" />
+        </ItemGroup>
+        <!-- Copy files -->
+        <Copy Condition=" '$(LocalDeployIncludeBinaries)' == 'true' " SourceFiles="@(LocalDeployBinaryFiles)" DestinationFolder="$(DnnBinPath)" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(LocalDeployResourceFilteredFiles)" DestinationFolder="$(DnnModulesPath)/%(RecursiveDir)" SkipUnchangedFiles="true" />
+    </Target>
+</Project>

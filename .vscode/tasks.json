@@ -1,0 +1,58 @@
+﻿{
+    // see http://go.microsoft.com/fwlink/?LinkId=733558 for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "windows": {
+        "command": "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\MSBuild.exe"
+    },
+    "linux": {
+        "command": "msbuild"
+    },
+    "args": [
+        // active build configuration
+        "/p:Configuration=Debug",
+        // ask msbuild to generate full paths for file names
+        "/p:GenerateFullPaths=true"
+    ],
+    // don't pass task name as an argument
+    "suppressTaskName": true,
+    // always show output window
+    "showOutput": "always",
+    "tasks": [
+        {
+            "taskName": "Build",
+            "isBuildCommand": true,
+            "args": ["/t:Build"],
+            // use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "Build Only",
+            "args": ["/t:Build", "/p:EnableAfterBuild=false"],
+            // use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "Do Local Deploy",
+            "args": ["/t:Build", "/p:EnableTests=false", "/p:EnableInstallPackage=false", "/p:EnableLocalDeploy=true"],
+            // use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "Make Install Package",
+            "args": ["/t:Build", "/p:EnableTests=true", "/p:EnableInstallPackage=true", "/p:EnableLocalDeploy=false"],
+            // use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "Run Tests",
+            "isTestCommand": true,
+            "args": ["/t:Build", "/p:EnableTests=true", "/p:EnableInstallPackage=false", "/p:EnableLocalDeploy=false"],
+            // use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "Re-deploy Assets",
+            "args": ["/p:LocalDeployIncludeBinaries=false", "/p:EnableTests=false", "Deploy/LocalDeploy.targets"]
+        }
+    ]
+}

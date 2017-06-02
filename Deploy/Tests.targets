@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="Tests">
+    <PropertyGroup>
+        <!-- Enable tests by default (standalone) -->
+        <EnableTests Condition=" '$(EnableTests)' == '' ">true</EnableTests>
+        <TestsImported>true</TestsImported>
+    </PropertyGroup>
+    <Target Name="Tests" Condition=" '$(EnableTests)' == 'true' ">
+        <!-- Run tests here -->
+    </Target>
+</Project>

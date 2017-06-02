@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="InstallPackage">
+    <Import Project="__Settings.targets" Condition=" '$(BuildSettingsImported)' == '' " />
+    <Import Project="Preprocess.targets" Condition=" '$(PreprocessImported)' == '' " />
+    <Import Project="Tests.targets" Condition=" '$(TestsImported)' == '' " />
+    <PropertyGroup>
+        <!-- Enable install package creation by default (standalone) -->
+        <EnableInstallPackage Condition=" '$(EnableInstallPackage)' == '' ">true</EnableInstallPackage>
+    </PropertyGroup>
+    <Target Name="InstallPackage" Condition=" '$(EnableInstallPackage)' == 'true' " DependsOnTargets="Preprocess;Tests">
+        <RemoveDir Directories="$(TmpDir)" />
+        <!-- Read package version from the manifest -->
+        <XmlPeek Query="/dotnetnuke/packages/package[1]/@version" XmlInputPath="$(MainProjectPath)/$(MainProjectName).dnn">
+            <Output TaskParameter="Result" PropertyName="Version" />
+        </XmlPeek>
+        <PropertyGroup>
+            <PackageFileName>$(PackageName)-$(Version)-Install.$(Configuration).zip</PackageFileName>
+        </PropertyGroup>
+        <!-- Declare binaries -->
+        <ItemGroup>
+            <InstallBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.dll" />
+            <InstallBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.pdb" Condition="'$(Configuration)' == 'Debug'" />
+        </ItemGroup>
+        <!-- Declare manifest files -->
+        <ItemGroup>
+            <InstallManifestFiles Include="$(MainProjectPath)/*.dnn*" />
+            <InstallManifestFiles Include="$(MainProjectPath)/license.htm" />
+            <InstallManifestFiles Include="$(MainProjectPath)/releaseNotes.htm" />
+        </ItemGroup>
+        <!-- Declare SqlDataProvider files -->
+        <ItemGroup>
+            <InstallSqlDataProviderFiles Include="$(MainProjectPath)/SqlDataProvider/*.SqlDataProvider" />
+        </ItemGroup>
+        <!-- Declare resource files -->
+        <ItemGroup>
+            <InstallResourceFiles Include="../**/*.ascx" />
+            <InstallResourceFiles Include="../**/*.aspx" />
+            <InstallResourceFiles Include="../**/*.asmx" />
+            <InstallResourceFiles Include="../**/*.ashx" />
+            <InstallResourceFiles Include="../**/*.cshtml" />
+            <InstallResourceFiles Include="../**/*.resx" />
+            <InstallResourceFiles Include="../**/*.css" />
+            <InstallResourceFiles Include="../**/*.html" />
+            <InstallResourceFiles Include="../**/*.htm" />
+            <InstallResourceFiles Include="../**/*.xml" />
+            <InstallResourceFiles Include="../**/*.xsl" />
+            <InstallResourceFiles Include="../**/*.xslt" />
+            <InstallResourceFiles Include="../**/*.json" />
+            <InstallResourceFiles Include="../**/*.yml" />
+            <InstallResourceFiles Include="../**/*.js" />
+            <InstallResourceFiles Include="../**/*.jpg" />
+            <InstallResourceFiles Include="../**/*.png" />
+            <InstallResourceFiles Include="../**/*.gif" />
+        </ItemGroup>
+        <!-- Declare excluded files -->
+        <ItemGroup>
+            <InstallResourceExcludeFiles Include="../*/bin/**/*" />
+            <InstallResourceExcludeFiles Include="../*/obj/**/*" />
+            <InstallResourceExcludeFiles Include="../.git/**/*" />
+            <InstallResourceExcludeFiles Include="../.vscode/**/*" />
+            <InstallResourceExcludeFiles Include="../packages/**/*" />
+            <InstallResourceExcludeFiles Include="../Deploy/**/*" />
+            <InstallResourceExcludeFiles Include="../.*" />
+            <InstallResourceExcludeFiles Include="$(MainProjectPath)/license.htm" />
+            <InstallResourceExcludeFiles Include="$(MainProjectPath)/releaseNotes.htm" />
+            <InstallResourceExcludeFiles Include="$(CustomExcludeFiles)" Condition=" '$(CustomExcludeFiles)' != '' " />
+        </ItemGroup>
+        <!-- Apply excluded files filters -->
+        <ItemGroup>
+            <InstallResourceFilteredFiles Include="@(InstallResourceFiles)" Exclude="@(InstallResourceExcludeFiles)" />
+        </ItemGroup>
+        <!-- Copy files -->
+        <Copy SourceFiles="@(InstallBinaryFiles)" DestinationFolder="$(TmpDir)/Package/bin" />
+        <Copy SourceFiles="@(InstallManifestFiles)" DestinationFolder="$(TmpDir)/Package" />
+        <Copy SourceFiles="@(InstallSqlDataProviderFiles)" DestinationFolder="$(TmpDir)/Package/SqlDataProvider" />
+        <Copy SourceFiles="@(InstallResourceFilteredFiles)" DestinationFolder="$(TmpDir)/Resources/%(RecursiveDir)" />
+        <!-- Create Resources.zip -->
+        <ItemGroup>
+            <InstallResourceZipFiles Include="$(TmpDir)/Resources/**/*.*" />
+        </ItemGroup>
+        <Zip Condition=" '$(OS)' != 'Unix' " Files="@(InstallResourceZipFiles)" WorkingDirectory="$(TmpDir)\Resources" ZipFileName="$(TmpDir)\Resources\Resources.zip" />
+        <Exec Condition=" '$(OS)' == 'Unix' " Command="zip -r -6 -UN=UTF8 &quot;Resources.zip&quot; ." WorkingDirectory="$(TmpDir)/Resources" />
+        <Copy SourceFiles="$(TmpDir)/Resources/Resources.zip" DestinationFolder="$(TmpDir)/Package/" />
+        <Delete Files="$(TmpDir)/Resources/Resources.zip" />
+        <!-- Create the install package -->
+        <ItemGroup>
+            <InstallPackageFiles Include="$(TmpDir)/Package/**/*.*" />
+        </ItemGroup>
+        <Zip Condition=" '$(OS)' != 'Unix' " Files="@(InstallPackageFiles)" WorkingDirectory="$(TmpDir)\Package" ZipFileName="$(TmpDir)\Package\$(PackageFileName)" />
+        <Exec Condition=" '$(OS)' == 'Unix' " Command="zip -r -6 -UN=UTF8 &quot;$(PackageFileName)&quot; ." WorkingDirectory="$(TmpDir)/Package" />
+        <Copy SourceFiles="$(TmpDir)/Package/$(PackageFileName)" DestinationFolder="$(PackageOutputPath)/" />
+        <Delete Files="$(TmpDir)/Package/$(PackageFileName)" />
+        <RemoveDir Directories="$(TmpDir)" />
+    </Target>
+</Project>

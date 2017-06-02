@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+    <!-- Defaults -->
+    <PropertyGroup>
+        <EnableAfterBuild Condition=" '$(EnableAfterBuild)' == '' ">true</EnableAfterBuild>
+    </PropertyGroup>
+    <!-- Configuration-specific defaults -->
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <EnableInstallPackage Condition=" '$(EnableInstallPackage)' == '' ">false</EnableInstallPackage>
+        <EnableTests Condition=" '$(EnableTests)' == '' ">false</EnableTests>
+        <EnableLocalDeploy Condition=" '$(EnableLocalDeploy)' == '' ">true</EnableLocalDeploy>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <EnableInstallPackage Condition=" '$(EnableInstallPackage)' == '' ">true</EnableInstallPackage>
+        <EnableTests Condition=" '$(EnableTests)' == '' ">true</EnableTests>
+        <EnableLocalDeploy Condition=" '$(EnableLocalDeploy)' == '' ">false</EnableLocalDeploy>
+    </PropertyGroup>
+</Project>
