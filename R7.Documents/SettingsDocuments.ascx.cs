@@ -106,7 +106,7 @@ namespace R7.Documents
                         // set localized column names
                         objColumnInfo.LocalizedColumnName = Localization.GetString (
                             objColumnInfo.ColumnName + ".Column",
-                            base.LocalResourceFile);
+                            LocalResourceFile);
                     }
 					
                     // add any missing columns to the end
@@ -117,7 +117,7 @@ namespace R7.Documents
                             objColumnInfo.ColumnName = strColumnName;
                             objColumnInfo.LocalizedColumnName = Localization.GetString (
                                 objColumnInfo.ColumnName + ".Column",
-                                base.LocalResourceFile);
+                                LocalResourceFile);
                             objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
                             objColumnInfo.Visible = false;
 							
@@ -161,7 +161,7 @@ namespace R7.Documents
             }
 
             if (cboCategoriesList.Items.Count == 0) {
-                lstNoListsAvailable.Text = Localization.GetString ("msgNoListsAvailable.Text", base.LocalResourceFile);
+                lstNoListsAvailable.Text = Localization.GetString ("msgNoListsAvailable.Text", LocalResourceFile);
                 lstNoListsAvailable.Visible = true;
             }
         }
@@ -523,7 +523,7 @@ namespace R7.Documents
             base.OnLoad (e);
 
             if (UserInfo.IsSuperUser) {
-                lnkEditLists.Text = Localization.GetString ("lnkEditLists", base.LocalResourceFile);
+                lnkEditLists.Text = Localization.GetString ("lnkEditLists", LocalResourceFile);
 
                 try {
                     var tabController = new TabController ();
@@ -531,14 +531,14 @@ namespace R7.Documents
                 }
                 catch {
                     // unable to locate "Lists" tab
-                    lblCannotEditLists.Text = Localization.GetString ("UnableToFindLists", base.LocalResourceFile);
+                    lblCannotEditLists.Text = Localization.GetString ("UnableToFindLists", LocalResourceFile);
                     lblCannotEditLists.Visible = true;
                     lnkEditLists.Visible = false;
                 }
             }
             else {
                 // show error, then hide the "Edit" link
-                lblCannotEditLists.Text = Localization.GetString ("NoListAccess", base.LocalResourceFile);
+                lblCannotEditLists.Text = Localization.GetString ("NoListAccess", LocalResourceFile);
                 lblCannotEditLists.Visible = true;
                 lnkEditLists.Visible = false;
             }
