@@ -11,8 +11,8 @@
 	<div id="document-tabs" class="dnnForm dnnClear">
         <ul class="dnnAdminTabNav dnnClear">
             <li><a href="#document-common-tab"><%= LocalizeString ("Common.Tab") %></a></li>
-            <li><a href="#document-owner-tab"><%= LocalizeString ("Owner.Tab") %></a></li>
-            <li><a href="#document-audit-tab"><%= LocalizeString ("Audit.Tab") %></a></li>
+            <li><a href="#document-advanced-tab"><%= LocalizeString ("Advanced.Tab") %></a></li>
+		    <li><a href="#document-audit-tab"><%= LocalizeString ("Audit.Tab") %></a></li>
         </ul>
     	<div id="document-common-tab">
         	<fieldset>
@@ -24,39 +24,6 @@
 					    ErrorMessage="You Must Enter A Title For The Document"
 					    ControlToValidate="txtName" />
         	    </div>
-        	    <div class="dnnFormItem">
-        	        <dnn:Label id="plDescription" runat="server" ControlName="txtDescription" />
-        	        <asp:TextBox id="txtDescription" runat="server" TextMode="MultiLine" Rows="3" />
-        	    </div>
-        	    <div class="dnnFormItem">
-        	        <dnn:Label id="plCategory" runat="server" ControlName="txtCategory" />
-        	        <asp:TextBox id="txtCategory" runat="server" maxlength="50" />
-        	        <asp:DropDownList id="lstCategory" runat="server" />
-        	    </div>
-        		<div class="dnnFormItem">
-        	        <dnn:Label id="labelCreatedDate" runat="server" ControlName="textCreatedDate" />
-        			<dnn:DnnDateTimePicker id="pickerCreatedDate" runat="server" />
-        	    </div>
-        	 	<div class="dnnFormItem">
-        	        <dnn:Label id="labelLastModifiedDate" runat="server" ControlName="textLastModifiedDate" />
-        			<dnn:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
-        	    </div>
-        		<div class="dnnFormItem">
-                    <dnn:Label id="labelStartDate" runat="server" ControlName="datetimeStartDate" />
-                    <dnn:DnnDateTimePicker id="datetimeStartDate" runat="server" />
-                </div>
-                <div class="dnnFormItem">
-                    <dnn:Label id="labelEndDate" runat="server" ControlName="datetimeEndDate" />
-                    <dnn:DnnDateTimePicker id="datetimeEndDate" runat="server" />
-                </div>
-                <div class="dnnFormItem">
-                    <dnn:Label id="plSortIndex" runat="server" ControlName="txtSortIndex" />
-                    <asp:TextBox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
-                    <asp:RangeValidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError"
-					    ErrorMessage="Please enter a valid integer value." Display="Dynamic"
-					    ControlToValidate="txtSortIndex" Type="Integer"
-					    MaximumValue="2147483647" MinimumValue="-2147483648" />
-                </div>
         		<div class="dnnFormItem">
         	        <dnn:Label id="plUrl" runat="server" ControlName="ctlURL" />
         	       	<div class="dnnLeft" style="width:440px">
@@ -66,30 +33,63 @@
     						ShowSecure="True" ShowDatabase="True" />
         	        </div>
         	    </div>
-        		<div class="dnnFormItem">
-        	        <dnn:Label id="plForceDownload" runat="server" ControlName="chkForceDownload" />
-        	        <asp:CheckBox id="chkForceDownload" runat="server" />
-        	    </div>
+            </fieldset>
+    	</div>
+    	<div id="document-advanced-tab">
+            <fieldset>
+				<div class="dnnFormItem">
+                    <dnn:Label id="plDescription" runat="server" ControlName="txtDescription" />
+                    <asp:TextBox id="txtDescription" runat="server" TextMode="MultiLine" Rows="3" />
+                </div>
+				<div class="dnnFormItem">
+                    <dnn:Label id="plCategory" runat="server" ControlName="txtCategory" />
+                    <asp:TextBox id="txtCategory" runat="server" maxlength="50" />
+                    <asp:DropDownList id="lstCategory" runat="server" />
+                </div>
+				<div class="dnnFormItem">
+                    <dnn:Label id="labelStartDate" runat="server" ControlName="datetimeStartDate" />
+                    <dnn:DnnDateTimePicker id="datetimeStartDate" runat="server" />
+                </div>
                 <div class="dnnFormItem">
+                    <dnn:Label id="labelEndDate" runat="server" ControlName="datetimeEndDate" />
+                    <dnn:DnnDateTimePicker id="datetimeEndDate" runat="server" />
+                </div>
+				<div class="dnnFormItem">
+                    <dnn:Label id="labelCreatedDate" runat="server" ControlName="textCreatedDate" />
+                    <dnn:DnnDateTimePicker id="pickerCreatedDate" runat="server" />
+                </div>
+                <div class="dnnFormItem">
+                    <dnn:Label id="labelLastModifiedDate" runat="server" ControlName="textLastModifiedDate" />
+                    <dnn:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
+                </div>
+				<div class="dnnFormItem">
+                    <dnn:Label id="plSortIndex" runat="server" ControlName="txtSortIndex" />
+                    <asp:TextBox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
+                    <asp:RangeValidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError"
+                        ErrorMessage="Please enter a valid integer value." Display="Dynamic"
+                        ControlToValidate="txtSortIndex" Type="Integer"
+                        MaximumValue="2147483647" MinimumValue="-2147483648" />
+                </div>
+				<div class="dnnFormItem">
                     <dnn:Label id="labelLinkAttributes" runat="server" ControlName="textLinkAttributes" />
                     <asp:TextBox runat="server" id="textLinkAttributes" MaxLength="255" />
                 </div>
-    		</fieldset>
-    	</div>
-    	<div id="document-owner-tab">
-            <fieldset>
-    			<div class="dnnFormItem">
+				<div class="dnnFormItem">
+                    <dnn:Label id="plForceDownload" runat="server" ControlName="chkForceDownload" />
+                    <asp:CheckBox id="chkForceDownload" runat="server" />
+                </div>
+				<div class="dnnFormItem">
                     <dnn:Label id="plOwner" runat="server" ControlName="lstOwner" />
-					<asp:Label id="lblOwner" runat="server" />
+                    <asp:Label id="lblOwner" runat="server" />
                     <asp:DropDownList id="lstOwner" runat="server" Visible="False" 
                         DataTextField="DisplayName"
                         DataValueField="UserID" />
                 </div>
-				<div class="dnnFormItem">
-					<div class="dnnLabel"></div>
+                <div class="dnnFormItem">
+                    <div class="dnnLabel"></div>
                     <asp:LinkButton id="lnkChange" runat="server" CssClass="dnnSecondaryAction" resourcekey="lnkChangeOwner" causesvalidation="False" text="Change Owner" OnClick="lnkChange_Click" />
                 </div>
-            </fieldset>
+			</fieldset>
         </div>
        	<div id="document-audit-tab">
     		<fieldset>

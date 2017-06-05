@@ -64,7 +64,7 @@ namespace R7.Documents
         protected enum EditDocumentTab
         {
             Common,
-            Owner,
+            Advanced,
             Audit
         }
 
@@ -76,8 +76,8 @@ namespace R7.Documents
         		if (!string.IsNullOrEmpty (eventTarget)) {
         			// check if postback initiator is on Owner tab
         			if (eventTarget.Contains ("$" + lnkChange.ID)) {
-                        ViewState ["SelectedTab"] = EditDocumentTab.Owner;
-        				return EditDocumentTab.Owner;
+                        ViewState ["SelectedTab"] = EditDocumentTab.Advanced;
+        				return EditDocumentTab.Advanced;
         			}
         		}
 

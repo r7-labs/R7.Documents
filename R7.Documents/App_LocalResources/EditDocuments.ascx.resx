@@ -141,8 +141,8 @@
 	<data name="Common.Tab" xml:space="preserve">
         <value>Document</value>
     </data>
-	<data name="Owner.Tab" xml:space="preserve">
-        <value>Owner</value>
+	<data name="Advanced.Tab" xml:space="preserve">
+        <value>Advanced</value>
     </data>
 	<data name="Audit.Tab" xml:space="preserve">
         <value>Audit</value>

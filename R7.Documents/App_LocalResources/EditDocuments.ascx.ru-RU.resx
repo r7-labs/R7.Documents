@@ -141,8 +141,8 @@
 	<data name="Common.Tab" xml:space="preserve">
         <value>Документ</value>
     </data>
-    <data name="Owner.Tab" xml:space="preserve">
-        <value>Владелец</value>
+    <data name="Advanced.Tab" xml:space="preserve">
+        <value>Расширенные</value>
     </data>
     <data name="Audit.Tab" xml:space="preserve">
         <value>Аудит</value>
