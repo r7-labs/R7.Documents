@@ -1,16 +1,4 @@
-﻿/* DnnDateTimePicker style fix */
-
-.dnnEditDocs .RadPicker_Default 
-{ 	
-	/* override inline style */
-	height:33px!important
-}
-
-.dnnEditDocs .RadPicker_Default .riTextBox { height:33px }
-
-/* end fix */
-
-.dnnEditDocs {}
+﻿.dnnEditDocs {}
 
 .dnnEditDocs .dnnFormItem input[type=checkbox], 
 .dnnTabsModule .dnnFormItem input[type=radio] { width:auto }
