@@ -43,19 +43,19 @@
         <value>Укажите категорию для документа</value>
     </data>
     <data name="plCategory.Text">
-        <value>Категория</value>
+        <value>Категория:</value>
     </data>
     <data name="plDescription.Help">
         <value>Укажите описание документа</value>
     </data>
     <data name="plDescription.Text">
-        <value>Описание</value>
+        <value>Описание:</value>
     </data>
     <data name="plForceDownload.Help">
         <value>При установке этого флага форсируется скачивание файла при переходе по ссылке. Полезно в тех случаях, когда нужно исключить открытие документов непосредственно в браузере пользователя.</value>
     </data>
     <data name="plForceDownload.Text">
-        <value>Скачивать</value>
+        <value>Скачивание?</value>
     </data>
     <data name="labelLinkAttributes.Text" xml:space="preserve">
         <value>Атрибуты ссылки:</value>
@@ -67,52 +67,52 @@
         <value>Введите название документа</value>
     </data>
     <data name="plName.Text">
-        <value>Название</value>
+        <value>Название:</value>
     </data>
     <data name="plOwner.Help">
         <value>Укажите владельца документа</value>
     </data>
     <data name="plOwner.Text">
-        <value>Владелец</value>
+        <value>Владелец:</value>
     </data>
     <data name="plSortIndex.Help">
         <value>Укажите индекс сортировки для документа. Это значение можно указать как один из критериев сортировки на странице настроек модуля.</value>
     </data>
     <data name="plSortIndex.Text">
-        <value>Индекс сортировки</value>
+        <value>Индекс сортировки:</value>
     </data>
     <data name="labelUrlTracking.Help">
         <value>Отображает сведения, собранные в результате отслеживания URL документа.</value>
     </data>
     <data name="labelUrlTracking.Text">
-        <value>Данные отслеживания</value>
+        <value>Данные отслеживания ссылки:</value>
     </data>
     <data name="plUrl.Help">
-        <value>Выберите URL, связанный с этим документом</value>
+        <value>Выберите URL, связанный с этим документом.</value>
     </data>
     <data name="plUrl.Text">
-        <value>Ссылка</value>
+        <value>Ссылка:</value>
     </data>
     <data name="labelCreatedDate.Help" xml:space="preserve">
         <value>Введите дату и время создания (размещения) документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
     </data>
     <data name="labelCreatedDate.Text" xml:space="preserve">
-        <value>Размещен</value>
+        <value>Создан:</value>
     </data>
     <data name="labelLastModifiedDate.Help" xml:space="preserve">
         <value>Введите дату и время последних изменений в документе. Оставьте поле пустым (или просто не изменяйте его значения), чтобы выбрать текущие дату и время.</value>
     </data>
     <data name="labelLastModifiedDate.Text" xml:space="preserve">
-        <value>Изменен</value>
+        <value>Изменен:</value>
     </data>
     <data name="labelDeleteWithResource.Text" xml:space="preserve">
-        <value>Удалить вместе с ресурсом</value>
+        <value>Удалить вместе с ресурсом?</value>
     </data>
     <data name="labelDeleteWithResource.Help" xml:space="preserve">
         <value>Если отмечено, документ будет удален вместе со связанным ресурсом (файлом или URL) - но только в том случае, если этот ресурс не связан с другими документами.</value>
     </data>
     <data name="labelDontUpdateLastModifiedDate.Text" xml:space="preserve">
-        <value>Не обновлять дату изменения</value>
+        <value>Не обновлять дату изменения?</value>
     </data>
     <data name="labelDontUpdateLastModifiedDate.Help" xml:space="preserve">
         <value>Если отмечено, дата и время последнего изменения документа не будут обновлены при его сохранении.</value>

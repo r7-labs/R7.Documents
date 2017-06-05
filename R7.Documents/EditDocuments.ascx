@@ -17,7 +17,7 @@
     	<div id="document-common-tab">
         	<fieldset>
         	    <div class="dnnFormItem">
-        	        <dnn:Label id="plName" runat="server" controlname="txtName" Suffix=":" CssClass="dnnFormRequired" />
+        	        <dnn:Label id="plName" runat="server" ControlName="txtName" CssClass="dnnFormRequired" />
         	        <asp:TextBox id="txtName" runat="server" MaxLength="255" CssClass="dnnFormRequired" />
         	        <asp:RequiredFieldValidator id="valName" runat="server" CssClass="dnnFormMessage dnnFormError"
 					    resourcekey="Name.ErrorMessage" Display="Dynamic"
@@ -25,20 +25,20 @@
 					    ControlToValidate="txtName" />
         	    </div>
         	    <div class="dnnFormItem">
-        	        <dnn:Label id="plDescription" runat="server" ControlName="txtDescription" Suffix=":" />
+        	        <dnn:Label id="plDescription" runat="server" ControlName="txtDescription" />
         	        <asp:TextBox id="txtDescription" runat="server" TextMode="MultiLine" Rows="3" />
         	    </div>
         	    <div class="dnnFormItem">
-        	        <dnn:Label id="plCategory" runat="server" controlname="txtCategory" Suffix=":" />
+        	        <dnn:Label id="plCategory" runat="server" ControlName="txtCategory" />
         	        <asp:TextBox id="txtCategory" runat="server" maxlength="50" />
         	        <asp:DropDownList id="lstCategory" runat="server" />
         	    </div>
         		<div class="dnnFormItem">
-        	        <dnn:Label id="labelCreatedDate" runat="server" controlname="textCreatedDate" Suffix=":" />
+        	        <dnn:Label id="labelCreatedDate" runat="server" ControlName="textCreatedDate" />
         			<dnn:DnnDateTimePicker id="pickerCreatedDate" runat="server" />
         	    </div>
         	 	<div class="dnnFormItem">
-        	        <dnn:Label id="labelLastModifiedDate" runat="server" controlname="textLastModifiedDate" Suffix=":" />
+        	        <dnn:Label id="labelLastModifiedDate" runat="server" ControlName="textLastModifiedDate" />
         			<dnn:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
         	    </div>
         		<div class="dnnFormItem">
@@ -50,7 +50,7 @@
                     <dnn:DnnDateTimePicker id="datetimeEndDate" runat="server" />
                 </div>
                 <div class="dnnFormItem">
-                    <dnn:Label id="plSortIndex" runat="server" ControlName="txtSortIndex" Suffix=":" />
+                    <dnn:Label id="plSortIndex" runat="server" ControlName="txtSortIndex" />
                     <asp:TextBox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
                     <asp:RangeValidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError"
 					    ErrorMessage="Please enter a valid integer value." Display="Dynamic"
@@ -58,7 +58,7 @@
 					    MaximumValue="2147483647" MinimumValue="-2147483648" />
                 </div>
         		<div class="dnnFormItem">
-        	        <dnn:Label id="plUrl" runat="server" ControlName="ctlURL" Suffix=":" />
+        	        <dnn:Label id="plUrl" runat="server" ControlName="ctlURL" />
         	       	<div class="dnnLeft" style="width:440px">
         	            <dnn:Url id="ctlUrl" runat="server" UrlType="F"
     						ShowTabs="true" IncludeActiveTab="true"
@@ -67,7 +67,7 @@
         	        </div>
         	    </div>
         		<div class="dnnFormItem">
-        	        <dnn:Label id="plForceDownload" runat="server" ControlName="chkForceDownload" Suffix="?" />
+        	        <dnn:Label id="plForceDownload" runat="server" ControlName="chkForceDownload" />
         	        <asp:CheckBox id="chkForceDownload" runat="server" />
         	    </div>
                 <div class="dnnFormItem">
@@ -79,7 +79,7 @@
     	<div id="document-owner-tab">
             <fieldset>
     			<div class="dnnFormItem">
-                    <dnn:Label id="plOwner" runat="server" ControlName="lstOwner" Suffix=":" />
+                    <dnn:Label id="plOwner" runat="server" ControlName="lstOwner" />
 					<asp:Label id="lblOwner" runat="server" />
                     <asp:DropDownList id="lstOwner" runat="server" Visible="False" 
                         DataTextField="DisplayName"
@@ -98,7 +98,7 @@
                     <dnn:Audit id="ctlAudit" runat="server" />
                 </div>
     			<div class="dnnFormItem">
-                    <dnn:Label id="labelUrlTracking" runat="server" ControlName="ctlUrlTracking" Suffix=":" />
+                    <dnn:Label id="labelUrlTracking" runat="server" ControlName="ctlUrlTracking" />
                     <dnn:Tracking id="ctlUrlTracking" runat="server" />
     			</div>		
         	</fieldset>
@@ -110,11 +110,11 @@
             <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" Text="Delete" OnClick="cmdDelete_Click" /></li>
         </ul>
         <asp:Panel id="panelUpdate" runat="server" CssClass="dnnFormItem">
-            <dnn:Label id="labelDontUpdateLastModifiedDate" runat="server" ControlName="checkDontUpdateLastModifiedDate" Suffix=":" />
+            <dnn:Label id="labelDontUpdateLastModifiedDate" runat="server" ControlName="checkDontUpdateLastModifiedDate" />
             <asp:CheckBox id="checkDontUpdateLastModifiedDate" runat="server"  />
         </asp:Panel>
         <asp:Panel id="panelDelete" runat="server" CssClass="dnnFormItem">
-            <dnn:Label id="labelDeleteWithResource" runat="server" ControlName="checkDeleteWithResource" Suffix="?" />
+            <dnn:Label id="labelDeleteWithResource" runat="server" ControlName="checkDeleteWithResource" />
             <asp:CheckBox id="checkDeleteWithResource" runat="server"  />
         </asp:Panel>
 	</div>	

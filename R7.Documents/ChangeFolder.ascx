@@ -10,23 +10,23 @@
 			<asp:label id="labelInfo" runat="server" resourcekey="labelInfo.Text" CssClass="dnnFormMessage dnnFormWarning" />
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="labelFolder" runat="server" ControlName="ddlFolder" Suffix=":" />
+	        <dnn:Label id="labelFolder" runat="server" ControlName="ddlFolder" />
 			<dnn:DnnFolderDropDownList id="ddlFolder" runat="server" AutoPostBack="true" />
 	    </div>
 		 <div class="dnnFormItem">
-	        <dnn:Label id="labelUpdateDefaultFolder" runat="server" ControlName="checkUpdateDefaultFolder" Suffix="?" />
+	        <dnn:Label id="labelUpdateDefaultFolder" runat="server" ControlName="checkUpdateDefaultFolder" />
 			<asp:CheckBox id="checkUpdateDefaultFolder" runat="server" Checked="true" />
 	    </div>
         <div class="dnnFormItem">
-            <dnn:Label id="labelPublishUpdated" runat="server" ControlName="checkPublishUpdated" Suffix="?" />
+            <dnn:Label id="labelPublishUpdated" runat="server" ControlName="checkPublishUpdated" />
             <asp:CheckBox id="checkPublishUpdated" runat="server" Checked="true" />
         </div>
         <div class="dnnFormItem">
-            <dnn:Label id="labelUnpublishSkipped" runat="server" ControlName="checkUnpublishSkipped" Suffix="?" />
+            <dnn:Label id="labelUnpublishSkipped" runat="server" ControlName="checkUnpublishSkipped" />
             <asp:CheckBox id="checkUnpublishSkipped" runat="server" Checked="true" />
         </div>
         <div class="dnnFormItem">
-            <dnn:Label id="labelDeleteOldFiles" runat="server" ControlName="checkDeleteOldFiles" Suffix="?" />
+            <dnn:Label id="labelDeleteOldFiles" runat="server" ControlName="checkDeleteOldFiles" />
             <asp:CheckBox id="checkDeleteOldFiles" runat="server" Checked="false" />
         </div>
 		<ul class="dnnActions dnnClear">

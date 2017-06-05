@@ -6,11 +6,11 @@
 <div class="dnnForm dnnClear">
 	<fieldset>
 		<div class="dnnFormItem">
-			<dnn:Label id="labelModule" runat="server" ControlName="comboModule" Suffix=":" />
+			<dnn:Label id="labelModule" runat="server" ControlName="comboModule" />
 			<asp:DropDownList id="comboModule" runat="server" AutoPostBack="true" OnSelectedIndexChanged="comboModule_SelectedIndexChanged" /> 
 		</div>
 		<asp:Panel id="panelDocuments" runat="server" CssClass="dnnFormItem" Visible="false">
-			<dnn:Label id="labelDocuments" runat="server" ControlName="listDocuments" Suffix=":" />
+			<dnn:Label id="labelDocuments" runat="server" ControlName="listDocuments" />
 			<asp:CheckBoxList id="listDocuments" runat="server" DataTextField="Title" DataValueField="ItemID" />
 		</asp:Panel>	
 		<ul class="dnnActions dnnClear">

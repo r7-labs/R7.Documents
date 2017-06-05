@@ -23,32 +23,32 @@
         If there is such a file, the document could be published automatically. You also can choose to unpublish skipped documents and delete (or not) old files.</value>
     </data>
     <data name="labelFolder.Text" xml:space="preserve">
-        <value>Folder</value>
+        <value>Folder:</value>
     </data>
     <data name="labelFolder.Help" xml:space="preserve">
         <value>Please select a folder to search files in.</value>
     </data>
     <data name="labelDeleteOldFiles.Text" xml:space="preserve">
-        <value>Delete Old Files</value>
+        <value>Delete Old Files?</value>
     </data>
     <data name="labelDeleteOldFiles.Help" xml:space="preserve">
         <value>Check to delete the files of documents, for which corresponding file will be found in the target folder.
         Note what file will be deleted only then it isn't referenced by other documents.</value>
     </data>
     <data name="labelUnpublishSkipped.Text" xml:space="preserve">
-        <value>Unpublish Skipped Documents</value>
+        <value>Unpublish Skipped Documents?</value>
     </data>
     <data name="labelUnpublishSkipped.Help" xml:space="preserve">
         <value>Check to unpublish all documents, for which no corresponding file will be found in the target folder.</value>
     </data>
     <data name="labelPublishUpdated.Text" xml:space="preserve">
-        <value>Publish Updated Documents</value>
+        <value>Publish Updated Documents?</value>
     </data>
     <data name="labelPublishUpdated.Help" xml:space="preserve">
         <value>Check to publish all documents, for which corresponding file will be found in the target folder.</value>
     </data>
     <data name="labelUpdateDefaultFolder.Text" xml:space="preserve">
-        <value>Update Default Folder</value>
+        <value>Update Default Folder?</value>
     </data>
     <data name="labelUpdateDefaultFolder.Help" xml:space="preserve">
         <value>Check to update default folder value in the module settings.</value>

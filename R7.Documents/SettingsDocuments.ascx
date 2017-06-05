@@ -7,11 +7,11 @@
 <div class="dnnForm dnnDocSettings" id="dnnDocSettings">
 	<fieldset>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plUseCategoriesList" runat="server" ControlName="chkUseCategoriesList" Suffix="?" />
+	        <dnn:Label id="plUseCategoriesList" runat="server" ControlName="chkUseCategoriesList" />
 	        <asp:CheckBox id="chkUseCategoriesList" runat="server" />
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plCategoriesListName" runat="server" Controlname="cboCategoriesList" Suffix=":" />
+	        <dnn:Label id="plCategoriesListName" runat="server" Controlname="cboCategoriesList" />
 	        <div style="float:left">
 	        	<asp:DropDownList ID="cboCategoriesList" runat="server" Style="width:340px;margin-right:0.5em" />
 	       		<asp:Hyperlink ID="lnkEditLists" runat="server" CssClass="dnnSecondaryAction" />
@@ -20,11 +20,11 @@
 	    	</div>
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plDefaultFolder" runat="server" ControlName="folderDefaultFolder" Suffix=":" />
+	        <dnn:Label id="plDefaultFolder" runat="server" ControlName="folderDefaultFolder" />
 	        <dnn:DnnFolderDropDownList id="folderDefaultFolder" runat="server" />
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" Suffix="?" />
+	        <dnn:label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" />
 	        <asp:CheckBox id="chkShowTitleLink" runat="server" />
 	    </div>
         <div class="dnnFormItem">
@@ -32,7 +32,7 @@
             <asp:DropDownList id="comboGridStyle" runat="server" DataTextField="Name" DataValueField="Name" />
         </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plDisplayColumns" runat="server" controlname="grdColumns" Suffix=":" />
+	        <dnn:Label id="plDisplayColumns" runat="server" controlname="grdColumns" />
 	        <asp:DataGrid id="grdDisplayColumns" runat="server" AutoGenerateColumns="False" GridLines="None" Width="350px" CssClass="dnnGrid"
                 OnItemCreated="grdDisplayColumns_ItemCreated" OnItemCommand="grdDisplayColumns_ItemCommand">
 	            <HeaderStyle CssClass="dnnGridHeader" VerticalAlign="Top" />
@@ -61,7 +61,7 @@
 	      </asp:DataGrid>
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plSorting" runat="server" ControlName="comboSortFields" Suffix=":" />
+	        <dnn:Label id="plSorting" runat="server" ControlName="comboSortFields" />
 	        <asp:DropDownList id="comboSortFields" runat="server" CssClass="comboSortFields" />
 		</div>
 	    <div class="dnnFormItem">
@@ -93,7 +93,7 @@
 	      </asp:DataGrid>
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plAllowUserSort" runat="server" ControlName="chkAllowUserSort" Suffix="?" />
+	        <dnn:Label id="plAllowUserSort" runat="server" ControlName="chkAllowUserSort" />
 	        <asp:CheckBox id="chkAllowUserSort" runat="server" />
 	    </div>
 	</fieldset>

@@ -52,34 +52,34 @@
         <value>Если включена, пользователи смогут самостоятельно отсортировать список документов, нажав на заголовок столбца.</value>
     </data>
     <data name="plAllowUserSort.Text" xml:space="preserve">
-        <value>Разрешить пользователям сортировать</value>
+        <value>Разрешить пользователям сортировать?</value>
     </data>
     <data name="plCategoriesListName.Help" xml:space="preserve">
-        <value>Укажите имя списка, в котором хранятся категории этого модуля</value>
+        <value>Укажите имя списка, в котором хранятся категории этого модуля.</value>
     </data>
     <data name="plCategoriesListName.Text" xml:space="preserve">
-        <value>Имя списка категорий</value>
+        <value>Имя списка категорий:</value>
     </data>
     <data name="plDefaultFolder.Help" xml:space="preserve">
-        <value>Укажите папку, которая будет использована по умолчанию для новых файлов</value>
+        <value>Укажите папку, которая будет использована по умолчанию для новых файлов.</value>
     </data>
     <data name="plDefaultFolder.Text" xml:space="preserve">
-        <value>Папка по умолчанию</value>
+        <value>Папка по умолчанию:</value>
     </data>
     <data name="plDisplayColumns.Help" xml:space="preserve">
         <value>Используйте флаги для выбора отображаемых колонок. Порядок следования колонок можно изменить, используя стрелки.</value>
     </data>
     <data name="plDisplayColumns.Text" xml:space="preserve">
-        <value>Отображаемые колонки</value>
+        <value>Отображаемые колонки:</value>
     </data>
     <data name="plShowTitleLink.Help" xml:space="preserve">
         <value>Отображать название документа как обычный текст или как ссылку.</value>
     </data>
     <data name="plShowTitleLink.Text" xml:space="preserve">
-        <value>Название как ссылка</value>
+        <value>Название как ссылка?</value>
     </data>
     <data name="labelGridStyle.Text" xml:space="preserve">
-        <value>Стиль таблицы</value>
+        <value>Стиль таблицы:</value>
     </data>
     <data name="labelGridStyle.Help" xml:space="preserve">
         <value>Выберите один из доступных стилей оформления таблицы документов.</value>
@@ -91,10 +91,10 @@
         <value>Сортировка</value>
     </data>
     <data name="plUseCategoriesList.Help" xml:space="preserve">
-        <value>Использовать поле ввода для ввода категории, или использовать список 'Document Categories', заданный администратором хостинга.</value>
+        <value>Использовать поле ввода для ввода категории, или использовать список 'Document Categories', заданный на странице списков хостинга.</value>
     </data>
     <data name="plUseCategoriesList.Text" xml:space="preserve">
-        <value>Использовать список категорий</value>
+        <value>Использовать список категорий?</value>
     </data>
     <data name="Root.Text" xml:space="preserve">
         <value>Корень</value>

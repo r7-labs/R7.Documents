@@ -19,13 +19,13 @@
         <value>Импорт документов</value>
     </data>
     <data name="labelModule.Text" xml:space="preserve">
-        <value>Модуль документов</value>
+        <value>Модуль документов:</value>
     </data>
     <data name="labelModule.Help" xml:space="preserve">
         <value>Select document module from which you want to import documents.</value>
     </data>
     <data name="labelDocuments.Text" xml:space="preserve">
-        <value>Документы</value>
+        <value>Документы:</value>
     </data>
     <data name="labelDocuments.Help" xml:space="preserve">
         <value>Отметьте все документы, которые требуется импортировать.</value>
