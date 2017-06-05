@@ -30,3 +30,16 @@ BEGIN
         DROP COLUMN IsPublished
 END
 GO
+
+-- Fix indices for pre-01.09.00 installs
+
+ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents]
+    DROP CONSTRAINT [PK_{objectQualifier}Documents_Documents]
+
+DROP INDEX {databaseOwner}[{objectQualifier}Documents_Documents].[IX_{objectQualifier}Documents_Documents]
+
+ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents]
+    ADD CONSTRAINT [PK_{objectQualifier}Documents_Documents] PRIMARY KEY CLUSTERED (ItemID)
+
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Documents_Documents]
+    ON {databaseOwner}[{objectQualifier}Documents_Documents] (ModuleID)

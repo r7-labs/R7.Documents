@@ -8,27 +8,27 @@ IF NOT EXISTS (select * from dbo.sysobjects where id = object_id(N'{databaseOwne
 	BEGIN
 		CREATE TABLE {databaseOwner}[{objectQualifier}Documents_Documents]
 		(
-			[ItemID] [int] NOT NULL IDENTITY(0, 1),
-			[ModuleID] [int] NOT NULL,
-			[CreatedDate] [datetime] NULL,
-			[URL] [nvarchar] (250) NULL,
-			[Title] [nvarchar] (150) NULL,
-			[Category] [nvarchar] (50) NULL,
-			[CreatedByUserID] INT NULL, 
-			[OwnedByUserID] INT NULL, 
-			[ModifiedByUserID] INT NULL, 
-			[ModifiedDate] datetime NULL, 
-			[SortOrderIndex] INT NULL, 
-			[Description] nvarchar (255) NULL,
-			[ForceDownload] BIT,
-			[IsPublished] BIT NOT NULL
+			ItemID int IDENTITY(1, 1) NOT NULL,
+			ModuleID int NOT NULL,
+			CreatedDate datetime NULL,
+			URL nvarchar (250) NULL,
+			Title nvarchar (150) NULL,
+			Category nvarchar (50) NULL,
+			CreatedByUserID INT NULL, 
+			OwnedByUserID INT NULL, 
+			ModifiedByUserID INT NULL, 
+			ModifiedDate datetime NULL, 
+			SortOrderIndex INT NULL, 
+			Description nvarchar (255) NULL,
+			ForceDownload BIT,
+			IsPublished BIT NOT NULL
+            CONSTRAINT [PK_{objectQualifier}Documents_Documents] PRIMARY KEY CLUSTERED (ModuleID)
+            CONSTRAINT [FK_{objectQualifier}Documents_Documents_Modules] FOREIGN KEY (ModuleID)
+                REFERENCES {databaseOwner}[{objectQualifier}Modules] (ModuleID) ON DELETE CASCADE
 		)
 
-		ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents] ADD CONSTRAINT [PK_{objectQualifier}Documents_Documents] PRIMARY KEY NONCLUSTERED  ([ItemID])
-		CREATE CLUSTERED INDEX [IX_{objectQualifier}Documents_Documents] ON {databaseOwner}[{objectQualifier}Documents_Documents] ([ModuleID])
-
-		ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents] WITH NOCHECK ADD
-		CONSTRAINT [FK_{objectQualifier}Documents_Documents_{objectQualifier}Modules] FOREIGN KEY ([ModuleID]) REFERENCES {databaseOwner}[{objectQualifier}Modules] ([ModuleID]) ON DELETE CASCADE
+        CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Documents_Documents]
+            ON {databaseOwner}[{objectQualifier}Documents_Documents] (ModuleID)
 	END
 GO
 

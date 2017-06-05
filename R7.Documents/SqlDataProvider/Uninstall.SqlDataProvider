@@ -4,13 +4,7 @@
 
 -- Drop tables
 
-ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents] DROP CONSTRAINT [FK_{objectQualifier}Documents_Documents_{objectQualifier}Modules]
-GO
-
-ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents] DROP CONSTRAINT [PK_{objectQualifier}Documents_Documents]
-GO
-
-DROP INDEX {databaseOwner}[{objectQualifier}Documents_Documents].[IX_{objectQualifier}Documents_Documents]
+ALTER TABLE {databaseOwner}[{objectQualifier}Documents_Documents] DROP CONSTRAINT [FK_{objectQualifier}Documents_Documents_Modules]
 GO
 
 DROP TABLE {databaseOwner}[{objectQualifier}Documents_Documents]
