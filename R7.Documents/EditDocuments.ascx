@@ -80,10 +80,13 @@
             <fieldset>
     			<div class="dnnFormItem">
                     <dnn:Label id="plOwner" runat="server" ControlName="lstOwner" Suffix=":" />
+					<asp:Label id="lblOwner" runat="server" />
                     <asp:DropDownList id="lstOwner" runat="server" Visible="False" 
                         DataTextField="DisplayName"
                         DataValueField="UserID" />
-                    <asp:Label id="lblOwner" runat="server" />
+                </div>
+				<div class="dnnFormItem">
+					<div class="dnnLabel"></div>
                     <asp:LinkButton id="lnkChange" runat="server" CssClass="dnnSecondaryAction" resourcekey="lnkChangeOwner" causesvalidation="False" text="Change Owner" OnClick="lnkChange_Click" />
                 </div>
             </fieldset>
