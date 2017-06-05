@@ -29,7 +29,6 @@ using DotNetNuke.Common;
 using DotNetNuke.Entities.Tabs;
 using R7.DotNetNuke.Extensions.Utilities;
 using R7.MiniGallery.Models;
-using System.Web.ModelBinding;
 
 namespace R7.Documents.Models
 {
@@ -43,11 +42,13 @@ namespace R7.Documents.Models
     [Scope ("ModuleId")]
     public class DocumentInfo
     {
-        #region Private Members
+        #region Private fields
 
-        private int _clicks;
-        private string _formatIcon;
-        private string _formatUrl;
+        int _clicks;
+
+        string _formatIcon;
+
+        string _formatUrl;
 
         #endregion
 
@@ -144,7 +145,7 @@ namespace R7.Documents.Models
                         if (tabId != null) {
                             var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
                             if (tabInfo != null) {
-                                // REVIEW: Show LocalizedTabName instead?
+                                // TODO: Show LocalizedTabName instead?
                                 _formatUrl = tabInfo.TabName;
                             }
                         }
@@ -220,7 +221,7 @@ namespace R7.Documents.Models
 
         public event LocalizeHandler OnLocalize;
 
-        private string Localize (string text)
+        string Localize (string text)
         {
             if (OnLocalize != null) {
                 return OnLocalize (text);

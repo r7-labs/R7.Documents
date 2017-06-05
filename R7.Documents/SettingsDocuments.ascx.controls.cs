@@ -1,14 +1,9 @@
-﻿using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using DotNetNuke.UI.UserControls;
-using DotNetNuke.UI.WebControls;
+﻿using System.Web.UI.WebControls;
 using DotNetNuke.Web.UI.WebControls;
 
 namespace R7.Documents
 {
-	public partial class SettingsDocuments
+    public partial class SettingsDocuments
 	{
 		protected CheckBox chkShowTitleLink;
         protected DropDownList comboGridStyle;

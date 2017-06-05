@@ -102,7 +102,7 @@ namespace R7.Documents
                             ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, 
                                 url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
 
-                            // NOTE: using url.Clicks, url.LastClick, url.CreatedDate not working
+                            // WTF: using url.Clicks, url.LastClick, url.CreatedDate not working
                         }
                     }
                 }

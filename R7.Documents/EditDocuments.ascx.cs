@@ -55,9 +55,9 @@ namespace R7.Documents
     /// </history>
     public partial class EditDocuments : PortalModuleBase<DocumentsSettings>
     {
-        #region Private Members
+        #region Private fields
 
-        private int itemId;
+        int itemId;
 
         #endregion
 
@@ -204,8 +204,8 @@ namespace R7.Documents
                             }
                         }
                         catch {
-                            // suppress error (defensive code only, would only happen if the owner
-                            // user has been deleted)
+                            // TODO: Log error
+                            // suppress error (defensive code only, would only happen if the owner user has been deleted)
                         }
 
                         cmdDelete.Visible = false;
@@ -263,7 +263,7 @@ namespace R7.Documents
         /// <history>
         /// 	[ag]	11 March 2007	Created
         /// </history>
-        private bool CheckFileSecurity (string url)
+        bool CheckFileSecurity (string url)
         {
             var fileId = 0;
 					
@@ -321,7 +321,7 @@ namespace R7.Documents
         /// <history>
         /// 	[ag]	11 March 2007	Created
         /// </history>
-        private bool CheckRolesMatch (string moduleRoles, string fileRolesString)
+        bool CheckRolesMatch (string moduleRoles, string fileRolesString)
         {
             var fileRoles = new Hashtable ();
             var notMatching = false;
@@ -369,7 +369,7 @@ namespace R7.Documents
         /// <history>
         /// 	[ag]	11 March 2007	Created
         /// </history>
-        private bool CheckFileExists (string url)
+        bool CheckFileExists (string url)
         {
             var fileId = 0;
             var blnAddWarning = false;
@@ -485,12 +485,12 @@ namespace R7.Documents
         /// 	[ag]	11 March 2007	Created
         /// </history>
         /// -----------------------------------------------------------------------------
-        protected void cmdUpdateOverride_Click (object sender, System.EventArgs e)
+        protected void cmdUpdateOverride_Click (object sender, EventArgs e)
         {
             Update (true);
         }
 
-        private void Update (bool Override)
+        void Update (bool Override)
         {
             try {
                 // only Update if Input Data is Valid
@@ -622,7 +622,7 @@ namespace R7.Documents
 
         #endregion
 
-        protected void lnkChange_Click (System.Object sender, System.EventArgs e)
+        protected void lnkChange_Click (object sender, EventArgs e)
         {
             lblOwner.Visible = false;
             lnkChange.Visible = false;
@@ -643,16 +643,18 @@ namespace R7.Documents
                     }
                 }
                 catch {
+                    // TODO: Log error
                     // suppress error selecting owner user
                 }
 
             }
             catch {
+                // TODO: Log error
                 // suppress error if the user no longer exists
             }
         }
 
-        private void PopulateOwnerList ()
+        void PopulateOwnerList ()
         {
             // populate owner list, sort by display name
             lstOwner.DataSource = UserController.GetUsers (PortalId)

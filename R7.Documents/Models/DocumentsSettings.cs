@@ -92,11 +92,10 @@ namespace R7.Documents.Models
             var objSortColumns = new ArrayList ();
 
             if (!string.IsNullOrEmpty (SortOrder)) {
-                foreach (string strSortColumn_loopVariable in SortOrder.Split(char.Parse(","))) {
+                foreach (string strSortColumn_loopVariable in SortOrder.Split (',')) {
                     strSortColumn = strSortColumn_loopVariable;
                     objSortColumn = new DocumentsSortColumnInfo ();
-                    // REVIEW: Original: if (Strings.Left(strSortColumn, 1) == "-") {
-                    if (strSortColumn.StartsWith ("-")) {
+                    if (strSortColumn.StartsWith ("-", StringComparison.InvariantCulture)) {
                         objSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Descending;
                         objSortColumn.ColumnName = strSortColumn.Substring (1);
                     }
@@ -157,6 +156,4 @@ namespace R7.Documents.Models
 
         #endregion
     }
-
-
 }

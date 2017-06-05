@@ -27,7 +27,7 @@ namespace R7.Documents.Models
     [Serializable]
     public class DocumentsSortColumnInfo
     {
-        private SortDirection _direction = SortDirection.Ascending;
+        SortDirection _direction = SortDirection.Ascending;
 
         public enum SortDirection
         {

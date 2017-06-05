@@ -46,9 +46,9 @@ namespace R7.Documents
     /// </history>
     public partial class SettingsDocuments : ModuleSettingsBase<DocumentsSettings>
     {
-        private const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
+        const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
 
-        private const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
+        const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
 
         #region Event Handlers
 
@@ -71,7 +71,7 @@ namespace R7.Documents
         public override void LoadSettings ()
         {
             DocumentsDisplayColumnInfo objColumnInfo = null;
-			
+
             try {
                 if (!IsPostBack) {
                     LoadLists ();
@@ -83,18 +83,18 @@ namespace R7.Documents
 
                     try {
                         if (Settings.DefaultFolder != null) {
-                            folderDefaultFolder.SelectedFolder = 
-								FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
+                            folderDefaultFolder.SelectedFolder =
+                                FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
                         }
-                    }
-                    catch {
+                    } catch {
+                        // TODO: Log error
                         // suppress exception.  Can be caused if the selected folder has been deleted
                     }
 
                     try {
                         cboCategoriesList.SelectedValue = Settings.CategoriesListName;
-                    }
-                    catch {
+                    } catch {
+                        // TODO: Log error
                         // suppress exception.  Can be caused if the selected list has been deleted
                     }
 
@@ -108,7 +108,7 @@ namespace R7.Documents
                             objColumnInfo.ColumnName + ".Column",
                             LocalResourceFile);
                     }
-					
+
                     // add any missing columns to the end
                     foreach (string strColumnName_loopVariable in DocumentsDisplayColumnInfo.AvailableDisplayColumns) {
                         var strColumnName = strColumnName_loopVariable;
@@ -120,7 +120,7 @@ namespace R7.Documents
                                 LocalResourceFile);
                             objColumnInfo.DisplayOrder = objColumnSettings.Count + 1;
                             objColumnInfo.Visible = false;
-							
+
                             objColumnSettings.Add (objColumnInfo);
                         }
                     }
@@ -141,8 +141,7 @@ namespace R7.Documents
                     comboGridStyle.SelectByValue (Settings.GridStyle);
                 }
 
-            }
-            catch (Exception exc) {
+            } catch (Exception exc) {
                 // module failed to load
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
@@ -151,7 +150,7 @@ namespace R7.Documents
         public void LoadLists ()
         {
             var listController = new ListController ();
-            foreach (ListInfo objList in listController.GetListInfoCollection()) {
+            foreach (ListInfo objList in listController.GetListInfoCollection ()) {
                 if (!objList.SystemList) {
                     // for some reason, the "DataType" is not marked as a system list, but we want to exclude that one too
                     if (objList.DisplayName != "DataType") {
@@ -179,8 +178,7 @@ namespace R7.Documents
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
                 }
-            }
-            catch (Exception exc) {
+            } catch (Exception exc) {
                 // module failed to load
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
@@ -194,16 +192,16 @@ namespace R7.Documents
         protected void grdSortColumns_ItemCreated (object sender, DataGridItemEventArgs e)
         {
             switch (e.Item.ItemType) {
-                case ListItemType.AlternatingItem:
-                case ListItemType.Item:
-                case ListItemType.SelectedItem:
+            case ListItemType.AlternatingItem:
+            case ListItemType.Item:
+            case ListItemType.SelectedItem:
 
-					// Localize the delete button and set image
-                    var deleteButton = (ImageButton) e.Item.FindControl ("buttonDeleteSortOrder");
-                    deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("buttonDeleteSortOrder.Text");
-                    deleteButton.ImageUrl = IconController.IconURL ("Delete");
+                // Localize the delete button and set image
+                var deleteButton = (ImageButton)e.Item.FindControl ("buttonDeleteSortOrder");
+                deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("buttonDeleteSortOrder.Text");
+                deleteButton.ImageUrl = IconController.IconURL ("Delete");
 
-                    break;
+                break;
             }
         }
 
@@ -213,31 +211,31 @@ namespace R7.Documents
             var objDownImage = default (ImageButton);
 
             switch (e.Item.ItemType) {
-                case ListItemType.AlternatingItem:
-                case ListItemType.Item:
-                case ListItemType.SelectedItem:
+            case ListItemType.AlternatingItem:
+            case ListItemType.Item:
+            case ListItemType.SelectedItem:
 
-					// Center the "visible" checkbox in its cell
-                    e.Item.Cells [1].Style.Add ("text-align", "center");
+                // Center the "visible" checkbox in its cell
+                e.Item.Cells [1].Style.Add ("text-align", "center");
 
-					// imgUp
-                    objUpImage = (System.Web.UI.WebControls.ImageButton) e.Item.Cells [2].FindControl ("imgUp");
-                    objUpImage.Visible = (e.Item.ItemIndex != 0);
-                    objUpImage.ImageUrl = IconController.IconURL ("Up", "16X16");
-				
-					// imgDown
-                    objDownImage = (System.Web.UI.WebControls.ImageButton) e.Item.Cells [2].FindControl ("imgDown");
-                    objDownImage.ImageUrl = IconController.IconURL ("Dn", "16X16");
-                    if (objUpImage.Visible == false) {
-                        objDownImage.Style.Add ("margin-left", "19px");
-                    }
+                // imgUp
+                objUpImage = (ImageButton)e.Item.Cells [2].FindControl ("imgUp");
+                objUpImage.Visible = (e.Item.ItemIndex != 0);
+                objUpImage.ImageUrl = IconController.IconURL ("Up", "16X16");
 
-                    e.Item.CssClass = "Normal";
-                    break;
+                // imgDown
+                objDownImage = (ImageButton)e.Item.Cells [2].FindControl ("imgDown");
+                objDownImage.ImageUrl = IconController.IconURL ("Dn", "16X16");
+                if (objUpImage.Visible == false) {
+                    objDownImage.Style.Add ("margin-left", "19px");
+                }
 
-                case ListItemType.Header:
-                    e.Item.CssClass = "SubHead";
-                    break;
+                e.Item.CssClass = "Normal";
+                break;
+
+            case ListItemType.Header:
+                e.Item.CssClass = "SubHead";
+                break;
             }
         }
 
@@ -245,12 +243,12 @@ namespace R7.Documents
         {
             switch (e.CommandName) {
                 case "DisplayOrderDown":
-					// swap e.CommandArgument and the one after it
-                    SwapColumn (e.CommandArgument.ToString (), System.ComponentModel.ListSortDirection.Descending);
+                    // swap e.CommandArgument and the one after it
+                    SwapColumn (e.CommandArgument.ToString (), ListSortDirection.Descending);
                     break;
                 case "DisplayOrderUp":
-					// swap e.CommandArgument and the one before it
-                    SwapColumn (e.CommandArgument.ToString (), System.ComponentModel.ListSortDirection.Ascending);
+                    // swap e.CommandArgument and the one before it
+                    SwapColumn (e.CommandArgument.ToString (), ListSortDirection.Ascending);
                     break;
             }
         }
@@ -265,8 +263,7 @@ namespace R7.Documents
             objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Column");
             if (comboSortOrderDirection.SelectedValue == "ASC") {
                 objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
-            }
-            else {
+            } else {
                 objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Descending;
             }
 
@@ -285,8 +282,7 @@ namespace R7.Documents
                 objSortColumnToDelete = objSortColumnToDelete_loopVariable;
                 if (objSortColumnToDelete.ColumnName == grdSortColumns.DataKeys [e.Item.ItemIndex].ToString ()) {
                     objSortColumns.Remove (objSortColumnToDelete);
-                    // REVIEW: might not be correct. Was : Exit For
-                    break; 
+                    break;
                 }
             }
 
@@ -297,18 +293,17 @@ namespace R7.Documents
 
         #region Control Handling/Utility Functions
 
-        private void BindSortSettings (ArrayList objSortColumns)
+        void BindSortSettings (ArrayList objSortColumns)
         {
             SaveSortColumnSettings (objSortColumns);
             grdSortColumns.DataSource = objSortColumns;
             grdSortColumns.DataKeyField = "ColumnName";
 
-            // REVIEW: Original: Localization.LocalizeDataGrid(ref grdSortColumns, this.LocalResourceFile);
-            Localization.LocalizeDataGrid (ref grdSortColumns, this.LocalResourceFile);
+            Localization.LocalizeDataGrid (ref grdSortColumns, LocalResourceFile);
             grdSortColumns.DataBind ();
         }
 
-        private void BindColumnSettings (List<DocumentsDisplayColumnInfo> objColumnSettings)
+        void BindColumnSettings (List<DocumentsDisplayColumnInfo> objColumnSettings)
         {
             objColumnSettings.Sort ();
             SaveDisplayColumnSettings (objColumnSettings);
@@ -316,14 +311,14 @@ namespace R7.Documents
             grdDisplayColumns.DataKeyField = "ColumnName";
 
             if (!IsPostBack) {
-				
-                // REVIEW: Original: Localization.LocalizeDataGrid(ref grdDisplayColumns, this.LocalResourceFile);
-                Localization.LocalizeDataGrid (ref grdSortColumns, this.LocalResourceFile);
+
+                // TODO: Original: Localization.LocalizeDataGrid(ref grdDisplayColumns, this.LocalResourceFile);
+                Localization.LocalizeDataGrid (ref grdSortColumns, LocalResourceFile);
             }
- 
+
             grdDisplayColumns.DataBind ();
 
-            var imageDownload = (ImageButton) grdDisplayColumns.Items [grdDisplayColumns.Items.Count - 1].Cells [2].FindControl ("imgDown");
+            var imageDownload = (ImageButton)grdDisplayColumns.Items [grdDisplayColumns.Items.Count - 1].Cells [2].FindControl ("imgDown");
             // set down arrow invisible on the last item
             imageDownload.Visible = false;
 
@@ -338,7 +333,7 @@ namespace R7.Documents
         /// <history>
         /// </history>
         /// -----------------------------------------------------------------------------
-        private void FillSettings ()
+        void FillSettings ()
         {
             string strDisplayColumns = "";
             DocumentsDisplayColumnInfo objColumnInfo = null;
@@ -352,8 +347,7 @@ namespace R7.Documents
                 // if so, set normally
                 Settings.UseCategoriesList = chkUseCategoriesList.Checked;
                 Settings.CategoriesListName = cboCategoriesList.SelectedValue;
-            }
-            else {
+            } else {
                 // otherwise default values
                 Settings.UseCategoriesList = false;
                 Settings.CategoriesListName = "";
@@ -365,8 +359,7 @@ namespace R7.Documents
 
             if (folderDefaultFolder.SelectedFolder != null) {
                 Settings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
-            }
-            else {
+            } else {
                 Settings.DefaultFolder = null;
             }
 
@@ -375,7 +368,7 @@ namespace R7.Documents
             foreach (DocumentsDisplayColumnInfo objColumnInfo_loopVariable in objColumnSettings) {
                 objColumnInfo = objColumnInfo_loopVariable;
                 // Figure out column visibility
-                objColumnInfo.Visible = ((System.Web.UI.WebControls.CheckBox) grdDisplayColumns.Items [intIndex].Cells [1].FindControl ("chkVisible")).Checked;
+                objColumnInfo.Visible = ((CheckBox)grdDisplayColumns.Items [intIndex].Cells [1].FindControl ("chkVisible")).Checked;
 
                 if (strDisplayColumns != string.Empty) {
                     strDisplayColumns = strDisplayColumns + ",";
@@ -399,7 +392,7 @@ namespace R7.Documents
             Settings.GridStyle = comboGridStyle.SelectedValue;
         }
 
-        private void SwapColumn (string columnName, ListSortDirection direction)
+        void SwapColumn (string columnName, ListSortDirection direction)
         {
             int intIndex = 0;
             int intDisplayOrderTemp = 0;
@@ -411,22 +404,22 @@ namespace R7.Documents
             // swap display orders
             if (intIndex >= 0) {
                 switch (direction) {
-                    case ListSortDirection.Ascending:
-						// swap up
-                        if (intIndex > 0) {
-                            intDisplayOrderTemp = ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex]).DisplayOrder;
-                            ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex - 1]).DisplayOrder;
-                            ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex - 1]).DisplayOrder = intDisplayOrderTemp;
-                        }
-                        break;
-                    case ListSortDirection.Descending:
-						// swap down
-                        if (intIndex < objColumnSettings.Count) {
-                            intDisplayOrderTemp = ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex]).DisplayOrder;
-                            ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex + 1]).DisplayOrder;
-                            ((DocumentsDisplayColumnInfo) objColumnSettings [intIndex + 1]).DisplayOrder = intDisplayOrderTemp;
-                        }
-                        break;
+                case ListSortDirection.Ascending:
+                    // swap up
+                    if (intIndex > 0) {
+                        intDisplayOrderTemp = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder;
+                        ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex - 1]).DisplayOrder;
+                        ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex - 1]).DisplayOrder = intDisplayOrderTemp;
+                    }
+                    break;
+                case ListSortDirection.Descending:
+                    // swap down
+                    if (intIndex < objColumnSettings.Count) {
+                        intDisplayOrderTemp = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder;
+                        ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex + 1]).DisplayOrder;
+                        ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex + 1]).DisplayOrder = intDisplayOrderTemp;
+                    }
+                    break;
                 }
             }
 
@@ -436,7 +429,7 @@ namespace R7.Documents
 
         #endregion
 
-        private void SaveSortColumnSettings (ArrayList objSettings)
+        void SaveSortColumnSettings (ArrayList objSettings)
         {
             // custom viewstate implementation to avoid reflection
             DocumentsSortColumnInfo objSortColumnInfo = null;
@@ -453,7 +446,7 @@ namespace R7.Documents
             ViewState [VIEWSTATE_SORTCOLUMNSETTINGS] = strValues;
         }
 
-        private ArrayList RetrieveSortColumnSettings ()
+        ArrayList RetrieveSortColumnSettings ()
         {
             // custom viewstate implementation to avoid reflection
             var objSortColumnSettings = new ArrayList ();
@@ -462,14 +455,14 @@ namespace R7.Documents
             string strValues = null;
 
             strValues = Convert.ToString (ViewState [VIEWSTATE_SORTCOLUMNSETTINGS]);
-            if ((strValues != null) && strValues != string.Empty) {
-                foreach (string strSortColumnSetting in strValues.Split(char.Parse("#"))) {
+            if (!string.IsNullOrEmpty (strValues)) {
+                foreach (string strSortColumnSetting in strValues.Split ('#')) {
                     objSortColumnInfo = new DocumentsSortColumnInfo ();
-                    objSortColumnInfo.ColumnName = strSortColumnSetting.Split (char.Parse (",")) [0];
-                    objSortColumnInfo.LocalizedColumnName = strSortColumnSetting.Split (char.Parse (",")) [1];
-                    objSortColumnInfo.Direction = (DocumentsSortColumnInfo.SortDirection) System.Enum.Parse (
+                    objSortColumnInfo.ColumnName = strSortColumnSetting.Split (',') [0];
+                    objSortColumnInfo.LocalizedColumnName = strSortColumnSetting.Split (',') [1];
+                    objSortColumnInfo.Direction = (DocumentsSortColumnInfo.SortDirection) Enum.Parse (
                         typeof (DocumentsSortColumnInfo.SortDirection),
-                        strSortColumnSetting.Split (char.Parse (",")) [2]);
+                        strSortColumnSetting.Split (',') [2]);
 
                     objSortColumnSettings.Add (objSortColumnInfo);
                 }
@@ -478,7 +471,7 @@ namespace R7.Documents
             return objSortColumnSettings;
         }
 
-        private void SaveDisplayColumnSettings (List<DocumentsDisplayColumnInfo> objSettings)
+        void SaveDisplayColumnSettings (List<DocumentsDisplayColumnInfo> objSettings)
         {
             // custom viewstate implementation to avoid reflection
             DocumentsDisplayColumnInfo objDisplayColumnInfo = null;
@@ -494,7 +487,7 @@ namespace R7.Documents
             ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS] = strValues;
         }
 
-        private List<DocumentsDisplayColumnInfo> RetrieveDisplayColumnSettings ()
+        List<DocumentsDisplayColumnInfo> RetrieveDisplayColumnSettings ()
         {
             // custom viewstate implementation to avoid reflection
             var objDisplayColumnSettings = new List<DocumentsDisplayColumnInfo> ();
@@ -504,12 +497,12 @@ namespace R7.Documents
 
             strValues = Convert.ToString (ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
             if (!string.IsNullOrEmpty (strValues)) {
-                foreach (string strDisplayColumnSetting in strValues.Split('#')) {
+                foreach (string strDisplayColumnSetting in strValues.Split ('#')) {
                     objDisplayColumnInfo = new DocumentsDisplayColumnInfo ();
-                    objDisplayColumnInfo.ColumnName = strDisplayColumnSetting.Split (char.Parse (",")) [0];
-                    objDisplayColumnInfo.LocalizedColumnName = strDisplayColumnSetting.Split (char.Parse (",")) [1];
-                    objDisplayColumnInfo.DisplayOrder = Convert.ToInt32 (strDisplayColumnSetting.Split (char.Parse (",")) [2]);
-                    objDisplayColumnInfo.Visible = Convert.ToBoolean (strDisplayColumnSetting.Split (char.Parse (",")) [3]);
+                    objDisplayColumnInfo.ColumnName = strDisplayColumnSetting.Split (',') [0];
+                    objDisplayColumnInfo.LocalizedColumnName = strDisplayColumnSetting.Split (',') [1];
+                    objDisplayColumnInfo.DisplayOrder = Convert.ToInt32 (strDisplayColumnSetting.Split (',') [2]);
+                    objDisplayColumnInfo.Visible = Convert.ToBoolean (strDisplayColumnSetting.Split (',') [3]);
 
                     objDisplayColumnSettings.Add (objDisplayColumnInfo);
                 }
@@ -528,15 +521,13 @@ namespace R7.Documents
                 try {
                     var tabController = new TabController ();
                     lnkEditLists.NavigateUrl = tabController.GetTabByName ("Lists", Null.NullInteger).FullUrl;
-                }
-                catch {
+                } catch {
                     // unable to locate "Lists" tab
                     lblCannotEditLists.Text = Localization.GetString ("UnableToFindLists", LocalResourceFile);
                     lblCannotEditLists.Visible = true;
                     lnkEditLists.Visible = false;
                 }
-            }
-            else {
+            } else {
                 // show error, then hide the "Edit" link
                 lblCannotEditLists.Text = Localization.GetString ("NoListAccess", LocalResourceFile);
                 lblCannotEditLists.Visible = true;

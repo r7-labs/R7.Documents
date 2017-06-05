@@ -20,19 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace R7.Documents
 {
-    public class DownloadColumnTemplate : System.Web.UI.ITemplate
+    public class DownloadColumnTemplate : ITemplate
     {
-        private ListItemType mobjTemplateType;
+        readonly ListItemType mobjTemplateType;
 
-        private string mstrID;
+        readonly string mstrID;
 
-        private string mstrCaption;
+        readonly string mstrCaption;
 
-        public DownloadColumnTemplate (string id, string caption, ListItemType itemType) {
+        public DownloadColumnTemplate (string id, string caption, ListItemType itemType)
+        {
             mobjTemplateType = itemType;
             mstrID = id;
             mstrCaption = caption;
@@ -41,7 +43,7 @@ namespace R7.Documents
             }
         }
 
-        public void InstantiateIn (System.Web.UI.Control container)
+        public void InstantiateIn (Control container)
         {
             var objButton = default (HyperLink);
 

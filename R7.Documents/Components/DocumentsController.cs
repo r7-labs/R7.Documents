@@ -34,18 +34,11 @@ using R7.Documents.Models;
 
 namespace R7.Documents
 {
-
-    public partial class DocumentsController : ModuleSearchBase, IPortable
+    public class DocumentsController : ModuleSearchBase, IPortable
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Documents.DocumentsController"/> class.
-        /// </summary>
-        public DocumentsController () : base () { 
-        }
-
         #region ModuleSearchBase implementaion
 
-        public override IList<SearchDocument> GetModifiedSearchDocuments (ModuleInfo moduleInfo, DateTime beginDate)
+        public override IList<SearchDocument> GetModifiedSearchDocuments (ModuleInfo moduleInfo, DateTime beginDateUtc)
         {
             var searchDocs = new List<SearchDocument> ();
 			
@@ -53,7 +46,7 @@ namespace R7.Documents
 
             var now = DateTime.Now;
             foreach (var document in documents ?? Enumerable.Empty<DocumentInfo> ()) {
-                if (document.ModifiedDate.ToUniversalTime () > beginDate.ToUniversalTime ()) {
+                if (document.ModifiedDate.ToUniversalTime () > beginDateUtc.ToUniversalTime ()) {
                     var documentText = TextUtils.FormatList (" ", document.Title, document.Description);
 
                     var sd = new SearchDocument () {
@@ -84,7 +77,7 @@ namespace R7.Documents
         /// <summary>
         /// ExportModule implements the IPortable ExportModule Interface
         /// </summary>
-        /// <param name="ModuleID">The Id of the module to be exported</param>
+        /// <param name="moduleId">The Id of the module to be exported</param>
         /// <history>
         ///		[cnurse]	    17 Nov 2004	documented
         ///		[aglenwright]	18 Feb 2006	Added new fields: Createddate, description, 
@@ -162,6 +155,7 @@ namespace R7.Documents
                 strXml.Append ("</settings>");
             }
             catch {
+                // TODO: Log error
                 // catch errors
             }
             finally {
@@ -175,7 +169,7 @@ namespace R7.Documents
         /// <summary>
         /// ImportModule implements the IPortable ImportModule Interface
         /// </summary>
-        /// <param name="ModuleID">The Id of the module to be imported</param>
+        /// <param name="moduleId">The Id of the module to be imported</param>
         /// <history>
         ///		[cnurse]	    17 Nov 2004	documented
         ///		[aglenwright]	18 Feb 2006	Added new fields: Createddate, description, 
@@ -218,7 +212,7 @@ namespace R7.Documents
                 document.CreatedDate = now;
                 document.ModifiedDate = now;
 
-                DocumentsDataProvider.Instance.Add<DocumentInfo> (document);
+                DocumentsDataProvider.Instance.Add (document);
 
                 // Update Tracking options
                 var urlType = document.Url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase) ? "F" : "U";
@@ -258,7 +252,7 @@ namespace R7.Documents
                 settings.SortOrder = XmlUtils.GetNodeValue (xmlSettings, "sortorder");
 
                 settingsRepository.SaveSettings (module, settings);
-                // REVIEW: Need module synchronization?
+                // TODO: Need module synchronization?
             }
         }
 

@@ -137,7 +137,7 @@ namespace R7.Documents.Data
 
         public void DeleteDocumentUrl (string oldUrl, int portalId, int moduleId)
         {
-            // NOTE: we shouldn't delete URL itself as is can be used in other modules
+            // TODO: shouldn't delete URL itself as is can be used in other modules?
             // DataProvider.Instance().DeleteUrl (PortalId, document.Url);
 
             // delete URL tracking data

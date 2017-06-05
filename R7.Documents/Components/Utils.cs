@@ -24,7 +24,7 @@ using DotNetNuke.Common.Utilities;
 
 namespace R7.Documents
 {
-    public class Utils
+    public static class Utils
     {
         public static int GetResourceId (string url)
         {

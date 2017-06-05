@@ -44,7 +44,6 @@ using R7.DotNetNuke.Extensions.Modules;
 
 namespace R7.Documents
 {
-
     /// <summary>
     /// Provides the UI for displaying the documents
     /// </summary>
@@ -53,17 +52,17 @@ namespace R7.Documents
     /// </history>
     public partial class ViewDocuments : PortalModuleBase<DocumentsSettings>, IActionable
     {
-        private const int NOT_READ = -2;
+        const int NOT_READ = -2;
 
-        private List<DocumentInfo> mobjDocumentList;
+        List<DocumentInfo> mobjDocumentList;
 		
-        private int mintTitleColumnIndex = NOT_READ;
+        int mintTitleColumnIndex = NOT_READ;
 		
-        private int mintDownloadLinkColumnIndex = NOT_READ;
+        int mintDownloadLinkColumnIndex = NOT_READ;
 
         #region Properties
 
-        private bool IsReadComplete { get; set; }
+        bool IsReadComplete { get; set; }
 
         protected string EditImageUrl
         {
@@ -135,7 +134,8 @@ namespace R7.Documents
             // Determine if we need to reverse the sort.  This is needed if an existing sort on the same column existed that was desc
             if (ViewState ["CurrentSortOrder"] != null && ViewState ["CurrentSortOrder"].ToString () != string.Empty) {
                 var existingSort = ViewState ["CurrentSortOrder"].ToString ();
-                if (existingSort.StartsWith (e.SortExpression) && existingSort.EndsWith ("ASC")) {
+                if (existingSort.StartsWith (e.SortExpression, StringComparison.InvariantCulture) 
+                    && existingSort.EndsWith ("ASC", StringComparison.InvariantCulture)) {
                     objCustomSortDirecton = DocumentsSortColumnInfo.SortDirection.Descending;
                     strSortDirectionString = "DESC";
                 }
@@ -174,14 +174,12 @@ namespace R7.Documents
                 var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
                 mobjDocumentList.Sort (docComparer.Compare);
 
-                // dind the grid
+                // bind the grid
                 grdDocuments.DataSource = mobjDocumentList;
                 grdDocuments.DataBind ();
             }
 
-            // localize the Data Grid
-            // REVIEW: O                riginal: Localization.LocalizeDataGrid(ref grdDocuments, this.LocalResourceFile);
-            Localization.LocalizeGridView (ref grdDocuments, this.LocalResourceFile);
+            Localization.LocalizeGridView (ref grdDocuments, LocalResourceFile);
         }
 
         /// <summary>
@@ -210,7 +208,7 @@ namespace R7.Documents
 						// set CSS class for edit column header
                         e.Row.Cells [0].CssClass = "EditHeader";
 
-                        // REVIEW: Doesn't UseAccessibleHeader=true does same thing?
+                        // TIDI: Doesn't UseAccessibleHeader=true does same thing?
 						// setting "scope" to "col" indicates to for text-to-speech
 						// or braille readers that this row containes headings
                         for (intCount = 1; intCount <= e.Row.Cells.Count - 1; intCount++) {
@@ -361,7 +359,7 @@ namespace R7.Documents
 
         #region Private Methods
 
-        private void LoadColumns ()
+        void LoadColumns ()
         {
             DocumentsDisplayColumnInfo objDisplayColumn = null;
 
@@ -444,7 +442,7 @@ namespace R7.Documents
             }
         }
 
-        private List<DocumentInfo> LoadData ()
+        List<DocumentInfo> LoadData ()
         {
             List<DocumentInfo> documents = null;
 
@@ -470,7 +468,7 @@ namespace R7.Documents
             return documents;
         }
 
-        private List<DocumentInfo> LoadData_Internal (bool isEditable, bool userIsAdmin)
+        List<DocumentInfo> LoadData_Internal (bool isEditable, bool userIsAdmin)
         {
             var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
 
@@ -485,12 +483,9 @@ namespace R7.Documents
                         // document is a file, check security
                         var objFile = FileManager.Instance.GetFile (int.Parse (objDocument.Url.Split ('=') [1]));
 
-                        // TODO: Remove old code
-                        // if ((objFile != null) && !PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(objFile.Folder, PortalSettings.PortalId, "READ")))
                         if (objFile != null) {
                             var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
                             if (folder != null && !FolderPermissionController.CanViewFolder ((FolderInfo)folder)) {
-                                // remove document from the list
                                 documents.Remove (objDocument);
                                 continue;
                             }
@@ -510,7 +505,7 @@ namespace R7.Documents
             return documents;
         }
 
-        private string OnLocalize (string text)
+        string OnLocalize (string text)
         {
             return Localization.GetString (text, LocalResourceFile);
         }
@@ -521,7 +516,7 @@ namespace R7.Documents
         /// <param name="title">The name of the property to read data from</param>
         /// <param name="cssClass"></param>
         /// <param name="dataField">The name of the property to read data from</param>
-        private void AddDocumentColumn (string title, string cssClass, string dataField)
+        void AddDocumentColumn (string title, string cssClass, string dataField)
         {
             AddDocumentColumn (title, cssClass, dataField, "");
         }
@@ -533,7 +528,7 @@ namespace R7.Documents
         /// <param name="cssClass"></param>
         /// <param name="dataField">The name of the property to read data from</param>
         /// <param name="format">Format string for value</param>
-        private void AddDocumentColumn (string title, string cssClass, string dataField, string format)
+        void AddDocumentColumn (string title, string cssClass, string dataField, string format)
         {
             var objBoundColumn = new BoundField ();
 
@@ -565,7 +560,7 @@ namespace R7.Documents
         /// <param name="cssClass"></param>
         /// <param name="dataField"></param>
         /// <param name="name">The name of the property to read data from</param>
-        private void AddDownloadLink (string title, string cssClass, string dataField, string name)
+        void AddDownloadLink (string title, string cssClass, string dataField, string name)
         {
             var objTemplateColumn = new TemplateField ();
 

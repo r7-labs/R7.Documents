@@ -25,12 +25,12 @@ using R7.Documents.Models;
 
 namespace R7.Documents
 {
-
     public class DocumentComparer : IComparer
     {
-        private ArrayList mobjSortColumns;
+        ArrayList mobjSortColumns;
 
-        public DocumentComparer (ArrayList sortColumns) {
+        public DocumentComparer (ArrayList sortColumns)
+        {
             mobjSortColumns = sortColumns;
         }
 
@@ -58,7 +58,7 @@ namespace R7.Documents
             return Compare (0, (DocumentInfo) x, (DocumentInfo) y);
         }
 
-        private int Compare (int sortColumnIndex, DocumentInfo objX, DocumentInfo objY)
+        int Compare (int sortColumnIndex, DocumentInfo objX, DocumentInfo objY)
         {
             var objSortColumn = default(DocumentsSortColumnInfo);
             int intResult = 0;
@@ -84,7 +84,7 @@ namespace R7.Documents
             return intResult;
         }
 
-        private int CompareValues (string columnName, DocumentInfo objX, DocumentInfo objY)
+        int CompareValues (string columnName, DocumentInfo objX, DocumentInfo objY)
         {
             switch (columnName) {
                 case DocumentsDisplayColumnInfo.COLUMN_SORTORDER:
@@ -148,7 +148,7 @@ namespace R7.Documents
 
                 case DocumentsDisplayColumnInfo.COLUMN_TITLE:
                     if (objX.Title.CompareTo (objY.Title) != 0) {
-                        return objX.Title.CompareTo (objY.Title);
+                    return objX.Title.CompareTo (objY.Title);
                     }
                     break;
 
