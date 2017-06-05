@@ -24,7 +24,6 @@ namespace R7.Documents
 		protected RangeValidator valSortIndex;
 		protected Label lblOwner;
 		protected LinkButton lnkChange;
-		protected Panel panelUrlTracking;
 		protected URLTrackingControl ctlUrlTracking;
 	    protected CheckBox checkDeleteWithResource;
 		protected DnnDateTimePicker pickerCreatedDate;

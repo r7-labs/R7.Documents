@@ -132,4 +132,19 @@
     <data name="labelEndDate.Help">
         <value>Enter the date from current document should be removed from publication on the site.</value>
     </data>
+	<data name="labelAudit.Text">
+        <value>Audit:</value>
+    </data>
+    <data name="labelAudit.Help">
+        <value>Audit data for current document.</value>
+    </data>
+	<data name="Common.Tab" xml:space="preserve">
+        <value>Document</value>
+    </data>
+	<data name="Owner.Tab" xml:space="preserve">
+        <value>Owner</value>
+    </data>
+	<data name="Audit.Tab" xml:space="preserve">
+        <value>Audit</value>
+    </data>
 </root>

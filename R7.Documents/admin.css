@@ -10,11 +10,7 @@
 
 /* end fix */
 
-.dnnEditDocs 
-{
-	width:100%;
-	margin:2em auto
-}
+.dnnEditDocs {}
 
 .dnnEditDocs .dnnFormItem input[type=checkbox], 
 .dnnTabsModule .dnnFormItem input[type=radio] { width:auto }
@@ -30,9 +26,25 @@
 	text-align:left
 }
 
+.dnnEditDocs .dnnModuleAuditControl,
+.dnnEditDocs .dnnUrlTrackingControl {
+    display:inline-block;
+    width:45%;
+    max-width:445px;
+    margin-bottom:18px;
+    padding:1em;
+    background-color:#eee
+}
+
+.dnnEditDocs .dnnModuleAuditControl p {
+    margin-bottom:0
+}
+
 .dnnDocSettings .comboSortFields, 
 .dnnDocSettings .comboSortOrderDirection { width:290px }
 
 .dnnDocSettings .comboSortFields { margin-bottom:1em }
 
 .dnnDocSettings .comboSortOrderDirection { float:left;margin-right:1em }
+
+

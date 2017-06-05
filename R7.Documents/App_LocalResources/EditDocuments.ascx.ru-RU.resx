@@ -132,4 +132,19 @@
     <data name="labelEndDate.Help">
         <value>Введите дату, при наступлении которой изображение должно быть снято с публикации на сайте.</value>
     </data>
+    <data name="labelAudit.Text">
+        <value>Аудит:</value>
+    </data>
+    <data name="labelAudit.Help">
+        <value>Данные аудита текущего документа.</value>
+    </data>
+	<data name="Common.Tab" xml:space="preserve">
+        <value>Документ</value>
+    </data>
+    <data name="Owner.Tab" xml:space="preserve">
+        <value>Владелец</value>
+    </data>
+    <data name="Audit.Tab" xml:space="preserve">
+        <value>Аудит</value>
+    </data>
 </root>

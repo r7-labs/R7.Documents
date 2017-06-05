@@ -61,6 +61,37 @@ namespace R7.Documents
 
         #endregion
 
+        protected enum EditDocumentTab
+        {
+            Common,
+            Owner,
+            Audit
+        }
+
+        protected EditDocumentTab SelectedTab {
+        	get {
+        		// get postback initiator control
+        		var eventTarget = Request.Form ["__EVENTTARGET"];
+
+        		if (!string.IsNullOrEmpty (eventTarget)) {
+        			// check if postback initiator is on Owner tab
+        			if (eventTarget.Contains ("$" + lnkChange.ID)) {
+                        ViewState ["SelectedTab"] = EditDocumentTab.Owner;
+        				return EditDocumentTab.Owner;
+        			}
+        		}
+
+        		// otherwise, get current tab from viewstate
+        		var obj = ViewState ["SelectedTab"];
+        		if (obj != null) {
+        			return (EditDocumentTab) obj;
+        		}
+
+        		return EditDocumentTab.Common;
+        	}
+        	set { ViewState ["SelectedTab"] = value; }
+        }
+
         #region Event Handlers
 
         protected override void OnInit (EventArgs e)
@@ -176,13 +207,8 @@ namespace R7.Documents
                             ctlAudit.LastModifiedByUser = document.ModifiedByUser;
                             ctlAudit.LastModifiedDate = document.ModifiedDate.ToString ();
 
-                            if (ctlUrl.UrlType == "N") {
-                                panelUrlTracking.Visible = false;
-                            }
-                            else {
-                                ctlUrlTracking.URL = document.Url;
-                                ctlUrlTracking.ModuleID = ModuleId;
-                            }
+                            ctlUrlTracking.URL = document.Url;
+                            ctlUrlTracking.ModuleID = ModuleId;
                         }
                         else {
                             AddLog ("Security violation: Attempt to access document not related to the module.", EventLogController.EventLogType.ADMIN_ALERT);
@@ -211,8 +237,6 @@ namespace R7.Documents
                         cmdDelete.Visible = false;
                         panelDelete.Visible = false;
                         panelUpdate.Visible = false;
-                        ctlAudit.Visible = false;
-                        panelUrlTracking.Visible = false;
 
                         // set default folder
                         if (Settings.DefaultFolder != null) {
