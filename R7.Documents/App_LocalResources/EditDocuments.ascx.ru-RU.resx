@@ -36,8 +36,8 @@
     <data name="msgNoFileSelected.Text">
         <value>Предупреждение: не выбран файл</value>
     </data>
-    <data name="Name.ErrorMessage">
-        <value>&lt;br /&gt;Вы должны указать название документа</value>
+    <data name="Name.Required">
+        <value>Название документа обязательно.</value>
     </data>
     <data name="plCategory.Help">
         <value>Укажите категорию для документа</value>
@@ -80,6 +80,9 @@
     </data>
     <data name="plSortIndex.Text">
         <value>Индекс сортировки:</value>
+    </data>
+	<data name="SortIndex.Invalid" xml:space="preserve">
+        <value>Индекс сортировки должен быть целым числом.</value>
     </data>
     <data name="labelUrlTracking.Help">
         <value>Отображает сведения, собранные в результате отслеживания URL документа.</value>

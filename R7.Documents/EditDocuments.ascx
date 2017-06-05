@@ -19,10 +19,8 @@
         	    <div class="dnnFormItem">
         	        <dnn:Label id="plName" runat="server" ControlName="txtName" CssClass="dnnFormRequired" />
         	        <asp:TextBox id="txtName" runat="server" MaxLength="255" CssClass="dnnFormRequired" />
-        	        <asp:RequiredFieldValidator id="valName" runat="server" CssClass="dnnFormMessage dnnFormError"
-					    resourcekey="Name.ErrorMessage" Display="Dynamic"
-					    ErrorMessage="You Must Enter A Title For The Document"
-					    ControlToValidate="txtName" />
+        	        <asp:RequiredFieldValidator id="valName" runat="server" ControlToValidate="txtName"
+                        resourcekey="Name.Required" CssClass="dnnFormMessage dnnFormError" Display="Dynamic" />
         	    </div>
         		<div class="dnnFormItem">
         	        <dnn:Label id="plUrl" runat="server" ControlName="ctlURL" />
@@ -65,10 +63,9 @@
 				<div class="dnnFormItem">
                     <dnn:Label id="plSortIndex" runat="server" ControlName="txtSortIndex" />
                     <asp:TextBox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
-                    <asp:RangeValidator id="valSortIndex" runat="server" CssClass="dnnFormMessage dnnFormError"
-                        ErrorMessage="Please enter a valid integer value." Display="Dynamic"
-                        ControlToValidate="txtSortIndex" Type="Integer"
-                        MaximumValue="2147483647" MinimumValue="-2147483648" />
+                    <asp:RangeValidator id="valSortIndex" runat="server" ControlToValidate="txtSortIndex"
+                        Type="Integer" MaximumValue="2147483647" MinimumValue="-2147483648"
+						resourcekey="SortIndex.Invalid" CssClass="dnnFormMessage dnnFormError" Display="Dynamic" />
                 </div>
 				<div class="dnnFormItem">
                     <dnn:Label id="labelLinkAttributes" runat="server" ControlName="textLinkAttributes" />

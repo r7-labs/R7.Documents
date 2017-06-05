@@ -21,8 +21,8 @@
     <data name="plName.Help" xml:space="preserve">
         <value>Enter a name for the Document</value>
     </data>
-    <data name="Name.ErrorMessage" xml:space="preserve">
-        <value>&lt;br&gt;You Must Enter A Title For The Document</value>
+    <data name="Name.Required" xml:space="preserve">
+        <value>Title is required.</value>
     </data>
     <data name="plUrl.Text" xml:space="preserve">
         <value>Link:</value>
@@ -53,6 +53,9 @@
     </data>
     <data name="plSortIndex.Help" xml:space="preserve">
         <value>Enter a sort index for the document.  You can use sort index as a sort criteria in the module settings page.</value>
+    </data>
+	<data name="SortIndex.Invalid" xml:space="preserve">
+        <value>Sort index must be an integer.</value>
     </data>
     <data name="lnkChangeOwner.Text" xml:space="preserve">
         <value>Change Owner</value>
