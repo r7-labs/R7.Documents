@@ -507,39 +507,39 @@ namespace R7.Documents
                     }
 
                     // get existing document record
-                    var objDocument = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
+                    var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
 
-                    if (objDocument == null) {
+                    if (document == null) {
                         // new record
-                        objDocument = new DocumentInfo ();
-                        objDocument.ItemId = itemId;
-                        objDocument.ModuleId = ModuleId;
+                        document = new DocumentInfo ();
+                        document.ItemId = itemId;
+                        document.ModuleId = ModuleId;
 						
-                        objDocument.CreatedByUserId = UserInfo.UserID;
+                        document.CreatedByUserId = UserInfo.UserID;
 						
                         // default ownerid value for new documents is current user, may be changed
                         // by the value of the dropdown list (below)
-                        objDocument.OwnedByUserId = UserId;
+                        document.OwnedByUserId = UserId;
                     }
 
-                    objDocument.StartDate = datetimeStartDate.SelectedDate;
-                    objDocument.EndDate = datetimeEndDate.SelectedDate;
-                    objDocument.ModifiedByUserId = UserInfo.UserID;
+                    document.StartDate = datetimeStartDate.SelectedDate;
+                    document.EndDate = datetimeEndDate.SelectedDate;
+                    document.ModifiedByUserId = UserInfo.UserID;
 
-                    objDocument.Title = txtName.Text;
-                    objDocument.Description = txtDescription.Text;
-                    objDocument.ForceDownload = chkForceDownload.Checked;
+                    document.Title = txtName.Text;
+                    document.Description = txtDescription.Text;
+                    document.ForceDownload = chkForceDownload.Checked;
 
-                    var oldUrl = objDocument.Url;
-                    objDocument.Url = ctlUrl.Url;
-                    objDocument.LinkAttributes = textLinkAttributes.Text;
+                    var oldUrl = document.Url;
+                    document.Url = ctlUrl.Url;
+                    document.LinkAttributes = textLinkAttributes.Text;
 					
                     if (lstOwner.Visible) {
                         if (lstOwner.SelectedValue != string.Empty) {
-                            objDocument.OwnedByUserId = Convert.ToInt32 (lstOwner.SelectedValue);
+                            document.OwnedByUserId = Convert.ToInt32 (lstOwner.SelectedValue);
                         }
                         else {
-                            objDocument.OwnedByUserId = Null.NullInteger;
+                            document.OwnedByUserId = Null.NullInteger;
                         }
                     }
                     else {
@@ -547,57 +547,57 @@ namespace R7.Documents
                     }
 
                     if (txtCategory.Visible) {
-                        objDocument.Category = txtCategory.Text;
+                        document.Category = txtCategory.Text;
                     }
                     else {
                         if (lstCategory.SelectedItem.Text == Localization.GetString ("None_Specified")) {
-                            objDocument.Category = "";
+                            document.Category = "";
                         }
                         else {
-                            objDocument.Category = lstCategory.SelectedItem.Value;
+                            document.Category = lstCategory.SelectedItem.Value;
                         }
                     }
 
                     // getting sort index
                     int sortIndex;
-                    objDocument.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 0;
+                    document.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 0;
 
                     #region Update date & time
 
                     var now = DateTime.Now;
 					
                     if (pickerCreatedDate.SelectedDate != null) {
-                        if (Null.IsNull (itemId) || objDocument.CreatedDate != pickerCreatedDate.SelectedDate.Value)
-                            objDocument.CreatedDate = pickerCreatedDate.SelectedDate.Value;
+                        if (Null.IsNull (itemId) || document.CreatedDate != pickerCreatedDate.SelectedDate.Value)
+                            document.CreatedDate = pickerCreatedDate.SelectedDate.Value;
                         // else leave CreatedDate as is
                     }
                     else {
-                        objDocument.CreatedDate = now;
+                        document.CreatedDate = now;
                     }
 
                     if (pickerLastModifiedDate.SelectedDate != null) {
                         if (!checkDontUpdateLastModifiedDate.Checked) {
-                            if (Null.IsNull (itemId) || objDocument.ModifiedDate != pickerLastModifiedDate.SelectedDate.Value) {
-                                objDocument.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
+                            if (Null.IsNull (itemId) || document.ModifiedDate != pickerLastModifiedDate.SelectedDate.Value) {
+                                document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
                             }
                             else {
                                 // update ModifiedDate
-                                objDocument.ModifiedDate = now;
+                                document.ModifiedDate = now;
                             }
                         }
                     }
                     else {
-                        objDocument.ModifiedDate = now;
+                        document.ModifiedDate = now;
                     }
 
                     #endregion
 
                     if (Null.IsNull (itemId)) {
-                        DocumentsDataProvider.Instance.Add (objDocument);
+                        DocumentsDataProvider.Instance.Add (document);
                     }
                     else {
-                        DocumentsDataProvider.Instance.Update (objDocument);
-                        if (objDocument.Url != oldUrl) {
+                        DocumentsDataProvider.Instance.Update (document);
+                        if (document.Url != oldUrl) {
                             // delete old URL tracking data
                             DocumentsDataProvider.Instance.DeleteDocumentUrl (oldUrl, PortalId, ModuleId);
                         }

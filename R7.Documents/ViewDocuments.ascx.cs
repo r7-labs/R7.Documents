@@ -54,7 +54,7 @@ namespace R7.Documents
     {
         const int NOT_READ = -2;
 
-        List<DocumentInfo> mobjDocumentList;
+        List<DocumentInfo> documentList;
 		
         int mintTitleColumnIndex = NOT_READ;
 		
@@ -93,19 +93,19 @@ namespace R7.Documents
 
             try {
                 if (!IsReadComplete) {
-                    mobjDocumentList = LoadData ();
+                    documentList = LoadData ();
                 }
 
                 var now = HttpContext.Current.Timestamp;
-                if (IsEditable && mobjDocumentList.Count == 0) {
+                if (IsEditable && documentList.Count == 0) {
                     this.Message ("NothingToDisplay.Text", MessageType.Info, true);
                 }
-                else if (!IsEditable && mobjDocumentList.Count (d => d.IsPublished (now)) == 0) {
+                else if (!IsEditable && documentList.Count (d => d.IsPublished (now)) == 0) {
                     ContainerControl.Visible = false;
                 }
                 else {
                     LoadColumns ();
-                    grdDocuments.DataSource = mobjDocumentList;
+                    grdDocuments.DataSource = documentList;
                     grdDocuments.DataBind ();
                 }
             }
@@ -146,8 +146,8 @@ namespace R7.Documents
             objCustomSortList.Add (objCustomSortColumn);
 
             var docComparer = new DocumentComparer (objCustomSortList);
-            mobjDocumentList.Sort (docComparer.Compare);
-            grdDocuments.DataSource = mobjDocumentList;
+            documentList.Sort (docComparer.Compare);
+            grdDocuments.DataSource = documentList;
             grdDocuments.DataBind ();
 
             // Save the sort to viewstate
@@ -168,14 +168,14 @@ namespace R7.Documents
             // only bind if not a user selected sort
             if (!IsReadComplete) {
                 
-                mobjDocumentList = LoadData ();
+                documentList = LoadData ();
 
                 // use DocumentComparer to do sort based on the default sort order (mobjSettings.SortOrder)
                 var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
-                mobjDocumentList.Sort (docComparer.Compare);
+                documentList.Sort (docComparer.Compare);
 
                 // bind the grid
-                grdDocuments.DataSource = mobjDocumentList;
+                grdDocuments.DataSource = documentList;
                 grdDocuments.DataBind ();
             }
 
@@ -220,7 +220,7 @@ namespace R7.Documents
                     	// if ShowTitleLink is true, the title column is generated dynamically
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
-                        objDocument = mobjDocumentList [e.Row.RowIndex];
+                        objDocument = documentList [e.Row.RowIndex];
 
 						// set CSS class for edit column cells
                         e.Row.Cells [0].CssClass = "EditCell";
