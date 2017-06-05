@@ -12,70 +12,70 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-	<data name="ControlTitle_settings.Text">
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
         <value>Настройки документов</value>
     </data>
-    <data name="cmdAdd.Text">
+    <data name="cmdAdd.Text" xml:space="preserve">
         <value>Добавить порядок сортировки</value>
     </data>
-    <data name="buttonDeleteSortOrder.Text">
+    <data name="buttonDeleteSortOrder.Text" xml:space="preserve">
         <value>Удалить порядок сортировки</value>
     </data>
-    <data name="cmdDown.Text">
+    <data name="cmdDown.Text" xml:space="preserve">
         <value>Ниже</value>
     </data>
-    <data name="cmdUp.Text">
+    <data name="cmdUp.Text" xml:space="preserve">
         <value>Выше</value>
     </data>
-    <data name="DownloadLink.Column">
+    <data name="DownloadLink.Column" xml:space="preserve">
         <value>Ссылка загрузки</value>
     </data>
-	<data name="Icon.Column">
+	<data name="Icon.Column" xml:space="preserve">
         <value>Значок</value>
     </data>
-    <data name="lnkEditLists.Text">
+    <data name="lnkEditLists.Text" xml:space="preserve">
         <value>Редактор списков</value>
     </data>
-    <data name="msgNoListsAvailable.Text">
+    <data name="msgNoListsAvailable.Text" xml:space="preserve">
         <value>Нет доступных для использования списков. Воспользуйтесь редактором списков в меню администратора хостинга.</value>
     </data>
-    <data name="Name.Header">
+    <data name="Name.Header" xml:space="preserve">
         <value>Имя</value>
     </data>
-    <data name="Visible.Header">
+    <data name="Visible.Header" xml:space="preserve">
         <value>Видимый</value>
     </data>
-    <data name="NoListAccess.Text">
+    <data name="NoListAccess.Text" xml:space="preserve">
         <value>Чтобы создать или отредактировать список, нужно обратиться к администратору хостинга.</value>
     </data>
-    <data name="plAllowUserSort.Help">
+    <data name="plAllowUserSort.Help" xml:space="preserve">
         <value>Если включена, пользователи смогут самостоятельно отсортировать список документов, нажав на заголовок столбца.</value>
     </data>
-    <data name="plAllowUserSort.Text">
+    <data name="plAllowUserSort.Text" xml:space="preserve">
         <value>Разрешить пользователям сортировать</value>
     </data>
-    <data name="plCategoriesListName.Help">
+    <data name="plCategoriesListName.Help" xml:space="preserve">
         <value>Укажите имя списка, в котором хранятся категории этого модуля</value>
     </data>
-    <data name="plCategoriesListName.Text">
+    <data name="plCategoriesListName.Text" xml:space="preserve">
         <value>Имя списка категорий</value>
     </data>
-    <data name="plDefaultFolder.Help">
+    <data name="plDefaultFolder.Help" xml:space="preserve">
         <value>Укажите папку, которая будет использована по умолчанию для новых файлов</value>
     </data>
-    <data name="plDefaultFolder.Text">
+    <data name="plDefaultFolder.Text" xml:space="preserve">
         <value>Папка по умолчанию</value>
     </data>
-    <data name="plDisplayColumns.Help">
+    <data name="plDisplayColumns.Help" xml:space="preserve">
         <value>Используйте флаги для выбора отображаемых колонок. Порядок следования колонок можно изменить, используя стрелки.</value>
     </data>
-    <data name="plDisplayColumns.Text">
+    <data name="plDisplayColumns.Text" xml:space="preserve">
         <value>Отображаемые колонки</value>
     </data>
-    <data name="plShowTitleLink.Help">
+    <data name="plShowTitleLink.Help" xml:space="preserve">
         <value>Отображать название документа как обычный текст или как ссылку.</value>
     </data>
-    <data name="plShowTitleLink.Text">
+    <data name="plShowTitleLink.Text" xml:space="preserve">
         <value>Название как ссылка</value>
     </data>
     <data name="labelGridStyle.Text" xml:space="preserve">
@@ -84,28 +84,28 @@
     <data name="labelGridStyle.Help" xml:space="preserve">
         <value>Выберите один из доступных стилей оформления таблицы документов.</value>
     </data>
-    <data name="plSorting.Help">
+    <data name="plSorting.Help" xml:space="preserve">
         <value>Добавить / удалить колонки, по которым производится сортировка.</value>
     </data>
-    <data name="plSorting.Text">
+    <data name="plSorting.Text" xml:space="preserve">
         <value>Сортировка</value>
     </data>
-    <data name="plUseCategoriesList.Help">
+    <data name="plUseCategoriesList.Help" xml:space="preserve">
         <value>Использовать поле ввода для ввода категории, или использовать список 'Document Categories', заданный администратором хостинга.</value>
     </data>
-    <data name="plUseCategoriesList.Text">
+    <data name="plUseCategoriesList.Text" xml:space="preserve">
         <value>Использовать список категорий</value>
     </data>
-    <data name="Root.Text">
+    <data name="Root.Text" xml:space="preserve">
         <value>Корень</value>
     </data>
-    <data name="SortOrderAscending.Text">
+    <data name="SortOrderAscending.Text" xml:space="preserve">
         <value>По возрастанию</value>
     </data>
-    <data name="SortOrderDescending.Text">
+    <data name="SortOrderDescending.Text" xml:space="preserve">
         <value>По убыванию</value>
     </data>
-    <data name="UnableToFindLists.Text">
+    <data name="UnableToFindLists.Text" xml:space="preserve">
         <value>Управление списками доступно в меню Хост &gt; Списки</value>
     </data>
 </root>

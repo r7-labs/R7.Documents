@@ -120,22 +120,22 @@
     <data name="CurrentFolder.Warning" xml:space="preserve">
         <value>Cannot set link to a file in the current folder, as there are no files in it.</value>
     </data>
-	<data name="labelStartDate.Text">
+	<data name="labelStartDate.Text" xml:space="preserve">
         <value>Start Publication:</value>
     </data>
-    <data name="labelStartDate.Help">
+    <data name="labelStartDate.Help" xml:space="preserve">
         <value>Enter the date from current document should be published on the site.</value>
     </data>
-    <data name="labelEndDate.Text">
+    <data name="labelEndDate.Text" xml:space="preserve">
         <value>End Publication:</value>
     </data>
-    <data name="labelEndDate.Help">
+    <data name="labelEndDate.Help" xml:space="preserve">
         <value>Enter the date from current document should be removed from publication on the site.</value>
     </data>
-	<data name="labelAudit.Text">
+	<data name="labelAudit.Text" xml:space="preserve">
         <value>Audit:</value>
     </data>
-    <data name="labelAudit.Help">
+    <data name="labelAudit.Help" xml:space="preserve">
         <value>Audit data for current document.</value>
     </data>
 	<data name="Common.Tab" xml:space="preserve">

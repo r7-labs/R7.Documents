@@ -12,43 +12,43 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Category.Column">
+    <data name="Category.Column" xml:space="preserve">
         <value>Категория</value>
     </data>
-    <data name="Clicks.Column">
+    <data name="Clicks.Column" xml:space="preserve">
         <value>Загрузок</value>
     </data>
-    <data name="CreatedBy.Column">
+    <data name="CreatedBy.Column" xml:space="preserve">
         <value>Опубликовал</value>
     </data>
-    <data name="CreatedDate.Column">
+    <data name="CreatedDate.Column" xml:space="preserve">
         <value>Создано</value>
     </data>
 	<data name="PublishedOnDate.Column" xml:space="preserve">
         <value>Опубликовано</value>
     </data>
-    <data name="Description.Column">
+    <data name="Description.Column" xml:space="preserve">
         <value>Описание</value>
     </data>
-    <data name="ModifiedBy.Column">
+    <data name="ModifiedBy.Column" xml:space="preserve">
         <value>Изменил</value>
     </data>
-    <data name="ModifiedDate.Column">
+    <data name="ModifiedDate.Column" xml:space="preserve">
         <value>Последние изменения</value>
     </data>
-    <data name="Owner.Column">
+    <data name="Owner.Column" xml:space="preserve">
         <value>Владелец</value>
     </data>
-    <data name="Size.Column">
+    <data name="Size.Column" xml:space="preserve">
         <value>Размер</value>
     </data>
-    <data name="SortIndex.Column">
+    <data name="SortIndex.Column" xml:space="preserve">
         <value>Индекс сортировки</value>
     </data>
-    <data name="Title.Column">
+    <data name="Title.Column" xml:space="preserve">
         <value>Название</value>
     </data>
-    <data name="Url.Column">
+    <data name="Url.Column" xml:space="preserve">
         <value>Ссылка</value>
     </data>
 </root>

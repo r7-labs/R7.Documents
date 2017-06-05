@@ -24,16 +24,16 @@
     <data name="Clicks.Format" xml:space="preserve">
         <value>Загружено {0} раз(а)</value>
     </data>
-    <data name="DownloadLink.Text">
+    <data name="DownloadLink.Text" xml:space="preserve">
         <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Загрузить" /&gt;</value>
     </data>
-    <data name="Kilobytes.Text">
+    <data name="Kilobytes.Text" xml:space="preserve">
         <value>Кб</value>
     </data>
-    <data name="Megabytes.Text">
+    <data name="Megabytes.Text" xml:space="preserve">
         <value>Мб</value>
     </data>
-    <data name="Unknown.Text">
+    <data name="Unknown.Text" xml:space="preserve">
         <value>Неизвестно</value>
     </data>
     <data name="NothingToDisplay.Text" xml:space="preserve">

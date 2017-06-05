@@ -120,22 +120,22 @@
     <data name="CurrentFolder.Warning" xml:space="preserve">
         <value>Не удалось установить ссылку на файл папку по-умолчанию, так как в ней нет файлов.</value>
     </data>	
-    <data name="labelStartDate.Text">
+    <data name="labelStartDate.Text" xml:space="preserve">
         <value>Начало публикации:</value>
     </data>
-    <data name="labelStartDate.Help">
+    <data name="labelStartDate.Help" xml:space="preserve">
         <value>Введите дату, начиная с которой изображение должно быть опубликовано на сайте.</value>
     </data>
-    <data name="labelEndDate.Text">
+    <data name="labelEndDate.Text" xml:space="preserve">
         <value>Окончание публикации:</value>
     </data>
-    <data name="labelEndDate.Help">
+    <data name="labelEndDate.Help" xml:space="preserve">
         <value>Введите дату, при наступлении которой изображение должно быть снято с публикации на сайте.</value>
     </data>
-    <data name="labelAudit.Text">
+    <data name="labelAudit.Text" xml:space="preserve">
         <value>Аудит:</value>
     </data>
-    <data name="labelAudit.Help">
+    <data name="labelAudit.Help" xml:space="preserve">
         <value>Данные аудита текущего документа.</value>
     </data>
 	<data name="Common.Tab" xml:space="preserve">
