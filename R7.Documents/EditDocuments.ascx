@@ -101,11 +101,11 @@
         	</fieldset>
     	</div>		
         <ul class="dnnActions dnnClear">
-            <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" Text="Update" OnClick="cmdUpdate_Click" /></li>
-            <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdateOverride" Text="Update Anyway" Visible="False" OnClick="cmdUpdateOverride_Click" /></li>
-            <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
+            <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" OnClick="cmdUpdate_Click" /></li>
+            <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdateOverride" Visible="False" OnClick="cmdUpdateOverride_Click" /></li>
+            <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 			<li>&nbsp;</li>
-            <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" Text="Delete" OnClick="cmdDelete_Click" /></li>
+            <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
 			<li><asp:LinkButton id="buttonDeleteWithResource" runat="server" CssClass="dnnSecondaryAction" resourcekey="buttonDeleteWithResource.Text" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
         </ul>
         <asp:Panel id="panelUpdate" runat="server" CssClass="dnnFormItem">
