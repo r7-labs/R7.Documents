@@ -108,10 +108,6 @@
             <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
 			<li><asp:LinkButton id="buttonDeleteWithResource" runat="server" CssClass="dnnSecondaryAction" resourcekey="buttonDeleteWithResource.Text" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
         </ul>
-        <asp:Panel id="panelUpdate" runat="server" CssClass="dnnFormItem">
-            <dnn:Label id="labelDontUpdateLastModifiedDate" runat="server" ControlName="checkDontUpdateLastModifiedDate" />
-            <asp:CheckBox id="checkDontUpdateLastModifiedDate" runat="server"  />
-        </asp:Panel>
 	</div>	
 </div>
 <input id="hiddenSelectedTab" type="hidden" value="<%= (int) SelectedTab %>" />

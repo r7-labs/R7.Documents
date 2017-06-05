@@ -97,22 +97,16 @@
         <value>Ссылка:</value>
     </data>
     <data name="labelCreatedDate.Help" xml:space="preserve">
-        <value>Введите дату и время создания (размещения) документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
+        <value>Введите дату и время создания документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
     </data>
     <data name="labelCreatedDate.Text" xml:space="preserve">
         <value>Создан:</value>
     </data>
     <data name="labelLastModifiedDate.Help" xml:space="preserve">
-        <value>Введите дату и время последних изменений в документе. Оставьте поле пустым (или просто не изменяйте его значения), чтобы выбрать текущие дату и время.</value>
+        <value>Введите дату и время последних изменений в документе. Это значение будет обновлено автоматически при изменении ссылки документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
     </data>
     <data name="labelLastModifiedDate.Text" xml:space="preserve">
         <value>Изменен:</value>
-    </data>
-    <data name="labelDontUpdateLastModifiedDate.Text" xml:space="preserve">
-        <value>Не обновлять дату изменения?</value>
-    </data>
-    <data name="labelDontUpdateLastModifiedDate.Help" xml:space="preserve">
-        <value>Если отмечено, дата и время последнего изменения документа не будут обновлены при его сохранении.</value>
     </data>
     <data name="CurrentFolder.Warning" xml:space="preserve">
         <value>Не удалось установить ссылку на файл папку по-умолчанию, так как в ней нет файлов.</value>

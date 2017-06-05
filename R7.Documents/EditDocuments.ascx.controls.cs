@@ -28,8 +28,6 @@ namespace R7.Documents
 		protected URLTrackingControl ctlUrlTracking;
 		protected DnnDateTimePicker pickerCreatedDate;
 		protected DnnDateTimePicker pickerLastModifiedDate;
-        protected Panel panelUpdate;
-        protected CheckBox checkDontUpdateLastModifiedDate;
         protected DnnDateTimePicker datetimeStartDate;
         protected DnnDateTimePicker datetimeEndDate;
 	}

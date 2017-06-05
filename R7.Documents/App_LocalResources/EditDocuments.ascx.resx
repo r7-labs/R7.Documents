@@ -103,16 +103,10 @@
         <value>Created Date:</value>
     </data>
     <data name="labelLastModifiedDate.Help" xml:space="preserve">
-        <value>Enter date and time of last modification of the document ot leave empty (or just leave as is) to select current date and time.</value>
+        <value>Enter date and time of last modification of the document. This value will be updated automatically when document link is changed. Leave empty to select current date and time.</value>
     </data>
     <data name="labelLastModifiedDate.Text" xml:space="preserve">
         <value>Last Modified Date:</value>
-    </data>
-    <data name="labelDontUpdateLastModifiedDate.Text" xml:space="preserve">
-        <value>Don't Update Last Modified Date?</value>
-    </data>
-    <data name="labelDontUpdateLastModifiedDate.Help" xml:space="preserve">
-        <value>If checked, document's last modified date will not be updated on its save.</value>
     </data>
     <data name="CurrentFolder.Warning" xml:space="preserve">
         <value>Cannot set link to a file in the current folder, as there are no files in it.</value>

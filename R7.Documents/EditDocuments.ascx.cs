@@ -239,7 +239,6 @@ namespace R7.Documents
 
                         cmdDelete.Visible = false;
                         buttonDeleteWithResource.Visible = false;
-                        panelUpdate.Visible = false;
 
                         // set default folder
                         if (Settings.DefaultFolder != null) {
@@ -593,30 +592,17 @@ namespace R7.Documents
                     #region Update date & time
 
                     var now = DateTime.Now;
-					
-                    if (pickerCreatedDate.SelectedDate != null) {
-                        if (Null.IsNull (itemId) || document.CreatedDate != pickerCreatedDate.SelectedDate.Value)
-                            document.CreatedDate = pickerCreatedDate.SelectedDate.Value;
-                        // else leave CreatedDate as is
-                    }
-                    else {
-                        document.CreatedDate = now;
+
+                    if (pickerCreatedDate.SelectedDate == null) {
+                        pickerCreatedDate.SelectedDate = now;
                     }
 
-                    if (pickerLastModifiedDate.SelectedDate != null) {
-                        if (!checkDontUpdateLastModifiedDate.Checked) {
-                            if (Null.IsNull (itemId) || document.ModifiedDate != pickerLastModifiedDate.SelectedDate.Value) {
-                                document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
-                            }
-                            else {
-                                // update ModifiedDate
-                                document.ModifiedDate = now;
-                            }
-                        }
+                    if (pickerLastModifiedDate.SelectedDate == null || oldUrl != ctlUrl.Url) {
+                        pickerLastModifiedDate.SelectedDate = now;
                     }
-                    else {
-                        document.ModifiedDate = now;
-                    }
+
+                    document.CreatedDate = pickerCreatedDate.SelectedDate.Value;
+                    document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
 
                     #endregion
 
@@ -639,7 +625,6 @@ namespace R7.Documents
 					
                     // redirect back to the module page
                     Response.Redirect (Globals.NavigateURL (), true);
-
                 }
             }
             catch (Exception exc) {
