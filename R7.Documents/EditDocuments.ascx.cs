@@ -101,9 +101,11 @@ namespace R7.Documents
             // set URL for cancel button
             linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlHelper.IsInPopup (Request));
 
-            // Add the "are you sure" message to the delete button click event
             cmdDelete.Attributes.Add ("onClick", 
-                "javascript:return confirm('" + Localization.GetString ("DeleteItem") + "');");
+                "javascript:return confirm('" + LocalizeString ("Delete.Text")  + "');");
+            
+            buttonDeleteWithResource.Attributes.Add ("onClick", 
+                "javascript:return confirm('" + LocalizeString ("DeleteWithResource.Text") + "');");
 
             // Configure categories entry as a list or textbox, based on user settings
             if (Settings.UseCategoriesList) {
@@ -235,7 +237,7 @@ namespace R7.Documents
                         }
 
                         cmdDelete.Visible = false;
-                        panelDelete.Visible = false;
+                        buttonDeleteWithResource.Visible = false;
                         panelUpdate.Visible = false;
 
                         // set default folder
@@ -466,8 +468,9 @@ namespace R7.Documents
                         DocumentsDataProvider.Instance.Delete (document);
                         DocumentsDataProvider.Instance.DeleteDocumentUrl (document.Url, PortalId, ModuleId);
 
-                        if (checkDeleteWithResource.Checked)
+                        if (sender == buttonDeleteWithResource) {
                             DocumentsDataProvider.Instance.DeleteDocumentResource (document, PortalId);
+                        }
                     }
                 }
 

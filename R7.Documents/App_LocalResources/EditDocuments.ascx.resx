@@ -105,12 +105,6 @@
     <data name="labelLastModifiedDate.Text" xml:space="preserve">
         <value>Last Modified Date:</value>
     </data>
-    <data name="labelDeleteWithResource.Text" xml:space="preserve">
-        <value>Delete with Resource?</value>
-    </data>
-    <data name="labelDeleteWithResource.Help" xml:space="preserve">
-        <value>If checked, document will be deleted with accociated resource (file or URL) - but only if that resource doesn't referenced by another document.</value>
-    </data>
     <data name="labelDontUpdateLastModifiedDate.Text" xml:space="preserve">
         <value>Don't Update Last Modified Date?</value>
     </data>
@@ -146,5 +140,14 @@
     </data>
 	<data name="Audit.Tab" xml:space="preserve">
         <value>Audit</value>
+    </data>
+	<data name="buttonDeleteWithResource.Text" xml:space="preserve">
+        <value>Delete with Resource</value>
+    </data>
+	<data name="Delete.Text" xml:space="preserve">
+        <value>Are you sure you want to delete this document?</value>
+    </data>
+	<data name="DeleteWithResource.Text" xml:space="preserve">
+        <value>Are you sure you want to delete this document with the accociated resource (file or URL)? Note that resource will be deleted only if it's not referenced by other documents.</value>
     </data>
 </root>

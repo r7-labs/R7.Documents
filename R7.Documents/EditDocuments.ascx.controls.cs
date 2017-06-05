@@ -18,6 +18,7 @@ namespace R7.Documents
 		protected LinkButton cmdUpdate;
 		protected HyperLink linkCancel;
 		protected LinkButton cmdDelete;
+        protected LinkButton buttonDeleteWithResource;
 		protected LinkButton cmdUpdateOverride;
 		protected ModuleAuditControl ctlAudit;
 		protected TextBox txtSortIndex;
@@ -25,10 +26,8 @@ namespace R7.Documents
 		protected Label lblOwner;
 		protected LinkButton lnkChange;
 		protected URLTrackingControl ctlUrlTracking;
-	    protected CheckBox checkDeleteWithResource;
 		protected DnnDateTimePicker pickerCreatedDate;
 		protected DnnDateTimePicker pickerLastModifiedDate;
-        protected Panel panelDelete;
         protected Panel panelUpdate;
         protected CheckBox checkDontUpdateLastModifiedDate;
         protected DnnDateTimePicker datetimeStartDate;

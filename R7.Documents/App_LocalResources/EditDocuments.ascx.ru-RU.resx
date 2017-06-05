@@ -105,12 +105,6 @@
     <data name="labelLastModifiedDate.Text" xml:space="preserve">
         <value>Изменен:</value>
     </data>
-    <data name="labelDeleteWithResource.Text" xml:space="preserve">
-        <value>Удалить вместе с ресурсом?</value>
-    </data>
-    <data name="labelDeleteWithResource.Help" xml:space="preserve">
-        <value>Если отмечено, документ будет удален вместе со связанным ресурсом (файлом или URL) - но только в том случае, если этот ресурс не связан с другими документами.</value>
-    </data>
     <data name="labelDontUpdateLastModifiedDate.Text" xml:space="preserve">
         <value>Не обновлять дату изменения?</value>
     </data>
@@ -146,5 +140,14 @@
     </data>
     <data name="Audit.Tab" xml:space="preserve">
         <value>Аудит</value>
+    </data>
+	<data name="buttonDeleteWithResource.Text" xml:space="preserve">
+        <value>Удалить вместе с ресурсом</value>
+    </data>
+	<data name="Delete.Text" xml:space="preserve">
+        <value>Уверены, что хотите удалить этот документ?</value>
+    </data>
+	<data name="DeleteWithResource.Text" xml:space="preserve">
+        <value>Уверены, что хотите удалить этот документ вместе со связанным с ним ресурсом (файлом или ссылкой)? Обратите внимание, что ресурс будет удален только в том случае, если на него не ссылаются другие документы.</value>
     </data>
 </root>
