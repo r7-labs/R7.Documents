@@ -204,6 +204,7 @@ namespace R7.Documents
                                 }
                             }
 
+                            // FIXME: Audit data not preserved between postbacks
                             ctlAudit.CreatedByUser = document.CreatedByUser;
                             ctlAudit.CreatedDate = document.CreatedDate.ToString ();
                             ctlAudit.LastModifiedByUser = document.ModifiedByUser;
