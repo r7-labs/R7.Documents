@@ -65,7 +65,6 @@
         <None Include="Preprocess.targets" />
         <None Include="Tests.targets" />
         <None Include="SETUP.md" />
-        <None Include="..\.vscode\tasks.json" />
         <None Include="Deploy.csproj" />
         <None Include="packages.config" />
     </ItemGroup>

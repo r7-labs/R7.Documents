@@ -1,0 +1,14 @@
+{
+     "files.exclude": {
+        "**/.git": true,
+        // NuGet packages
+        "**/packages": true,
+        // build output
+        "**/bin": true,
+        "**/obj": true
+    },
+
+    "files.associations": {
+        "*.SqlDataProvider": "sql"
+    }
+}
