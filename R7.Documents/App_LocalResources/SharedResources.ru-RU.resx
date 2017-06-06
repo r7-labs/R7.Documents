@@ -19,7 +19,7 @@
         <value>Загрузок</value>
     </data>
     <data name="CreatedBy.Column" xml:space="preserve">
-        <value>Опубликовал</value>
+        <value>Создал</value>
     </data>
     <data name="CreatedDate.Column" xml:space="preserve">
         <value>Создано</value>
@@ -34,10 +34,10 @@
         <value>Изменил</value>
     </data>
     <data name="ModifiedDate.Column" xml:space="preserve">
-        <value>Последние изменения</value>
+        <value>Изменено</value>
     </data>
     <data name="Owner.Column" xml:space="preserve">
-        <value>Владелец</value>
+        <value>Опубликовал</value>
     </data>
     <data name="Size.Column" xml:space="preserve">
         <value>Размер</value>

@@ -16,7 +16,7 @@
         <value>Title</value>
     </data>
 	<data name="CreatedBy.Column" xml:space="preserve">
-        <value>Published By</value>
+        <value>Created by</value>
     </data>
     <data name="CreatedDate.Column" xml:space="preserve">
         <value>Created</value>
@@ -31,13 +31,13 @@
         <value>Sort Index</value>
     </data>
     <data name="ModifiedBy.Column" xml:space="preserve">
-        <value>Modified By</value>
+        <value>Last Modified by</value>
     </data>
     <data name="ModifiedDate.Column" xml:space="preserve">
         <value>Last Modified</value>
     </data>
     <data name="Owner.Column" xml:space="preserve">
-        <value>Owner</value>
+        <value>Published by</value>
     </data>
     <data name="Category.Column" xml:space="preserve">
         <value>Category</value>
