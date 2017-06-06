@@ -189,17 +189,14 @@ namespace R7.Documents
             DocumentInfo objDocument = null;
 
             try {
-                // hide edit column if not in edit mode
-                if (!IsEditable) {
-                    e.Row.Cells [0].Visible = false;  
-                }
+                e.Row.Cells [0].Visible = IsEditable;  
 
                 switch (e.Row.RowType) {
                     case DataControlRowType.Header:
 						// set CSS class for edit column header
                         e.Row.Cells [0].CssClass = "EditHeader";
 
-                        // TIDI: Doesn't UseAccessibleHeader=true does same thing?
+                        // TODO: Doesn't UseAccessibleHeader=true does same thing?
 						// setting "scope" to "col" indicates to for text-to-speech
 						// or braille readers that this row containes headings
                         for (intCount = 1; intCount <= e.Row.Cells.Count - 1; intCount++) {
