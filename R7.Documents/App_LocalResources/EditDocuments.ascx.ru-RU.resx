@@ -147,4 +147,13 @@
 	<data name="DeleteWithResource.Text" xml:space="preserve">
         <value>Уверены, что хотите удалить этот документ вместе со связанным с ним ресурсом (файлом или ссылкой)? Обратите внимание, что ресурс будет удален только в том случае, если на него не ссылаются другие документы.</value>
     </data>
+    <data name="labelUrlHistory.Text" xml:space="preserve">
+        <value>История ссылок:</value>
+    </data>
+    <data name="labelUrlHistory.Help" xml:space="preserve">
+        <value>В этом выпадающем списке содержатся все ссылки, с которыми вы работали в текущем сеансе. Выберите одну из ссылок, а затем нажмите "Выбрать ссылку".</value>
+    </data>
+    <data name="linkSelectUrl.Text" xml:space="preserve">
+        <value>Выбрать ссылку</value>
+    </data>
 </root>

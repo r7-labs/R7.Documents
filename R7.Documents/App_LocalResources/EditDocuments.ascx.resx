@@ -147,4 +147,13 @@
 	<data name="DeleteWithResource.Text" xml:space="preserve">
         <value>Are you sure you want to delete this document with the accociated resource (file or URL)? Note that resource will be deleted only if it's not referenced by other documents.</value>
     </data>
+	<data name="labelUrlHistory.Text" xml:space="preserve">
+        <value>Links History:</value>
+    </data>
+    <data name="labelUrlHistory.Help" xml:space="preserve">
+        <value>This dropdown contains all links you have worked with during current session. Select one of the links, then click "Select Link".</value>
+    </data>
+	<data name="linkSelectUrl.Text" xml:space="preserve">
+        <value>Select Link</value>
+    </data>
 </root>

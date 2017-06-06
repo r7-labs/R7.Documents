@@ -30,7 +30,12 @@
     						ShowNone="True"  ShowNewWindow="True"
     						ShowSecure="True" ShowDatabase="True" />
         	        </div>
-        	    </div>
+				</div>
+				<asp:Panel id="panelUrlHistory" runat="server" class="dnnFormItem">
+					<dnn:Label id="labelUrlHistory" runat="server" ControlName="comboUrlHistory" />
+                    <asp:DropDownList id="comboUrlHistory" runat="server" DataTextField="Text" DataValueField="Value" />
+					<asp:LinkButton id="linkSelectUrl" runat="server" resourcekey="linkSelectUrl" OnClick="linkSelectUrl_Click" CssClass="dnnSecondaryAction" />
+                </asp:Panel>
             </fieldset>
     	</div>
     	<div id="document-advanced-tab">

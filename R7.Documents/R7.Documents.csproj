@@ -152,6 +152,7 @@
     <Compile Include="Models\DocumentSortColumnInfo.cs" />
     <Compile Include="Models\DocumentDisplayColumnInfo.cs" />
     <Compile Include="Models\ModelHelper.cs" />
+    <Compile Include="Components\UrlHistory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

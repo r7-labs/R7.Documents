@@ -36,13 +36,13 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
+using DotNetNuke.Web.UI.WebControls;
+using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Models;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
 using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.Utilities;
-using DotNetNuke.Web.UI.WebControls;
-using System.Data.OleDb;
 
 namespace R7.Documents
 {
@@ -129,6 +129,20 @@ namespace R7.Documents
                 // Configure category entry as a free-text entry
                 lstCategory.Visible = false;
                 txtCategory.Visible = true;
+            }
+
+            BindUrlHistory ();
+        }
+
+        void BindUrlHistory ()
+        {
+            var urlHistory = new UrlHistory (Session);
+            var urls = urlHistory.GetBindableUrls ();
+            if (urls.Count > 0) {
+                comboUrlHistory.DataSource = urls;
+                comboUrlHistory.DataBind ();
+            } else {
+                panelUrlHistory.Visible = false;
             }
         }
 
@@ -628,10 +642,11 @@ namespace R7.Documents
                     var ctrlUrl = new UrlController ();
                     ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
+                    var urlHistory = new UrlHistory (Session);
+                    urlHistory.AddUrl (document.Url);
+
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-					
-                    // redirect back to the module page
-                    Response.Redirect (Globals.NavigateURL (), true);
+			        Response.Redirect (Globals.NavigateURL (), true);
                 }
             }
             catch (Exception exc) {
@@ -671,6 +686,11 @@ namespace R7.Documents
                     // would happen if the user no longer exists
                     Exceptions.LogException (ex);
             }
+        }
+
+        protected void linkSelectUrl_Click (object sender, EventArgs e)
+        {
+            ctlUrl.Url = comboUrlHistory.SelectedValue;
         }
 
         void PopulateOwnerList ()

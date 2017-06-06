@@ -30,5 +30,7 @@ namespace R7.Documents
 		protected DnnDateTimePicker pickerLastModifiedDate;
         protected DnnDateTimePicker datetimeStartDate;
         protected DnnDateTimePicker datetimeEndDate;
+        protected Panel panelUrlHistory;
+        protected DropDownList comboUrlHistory;
 	}
 }
