@@ -64,11 +64,6 @@ namespace R7.Documents
 
         bool IsReadComplete { get; set; }
 
-        protected string EditImageUrl
-        {
-            get { return IconController.IconURL ("Edit"); } 
-        }
-
         #endregion
 
         #region Event Handlers
