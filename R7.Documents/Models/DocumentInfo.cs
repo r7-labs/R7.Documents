@@ -94,9 +94,6 @@ namespace R7.Documents.Models
         public bool TrackClicks { get; set; }
 
         [ReadOnlyColumn]
-        public string ContentType { get; set; }
-
-        [ReadOnlyColumn]
         public bool NewWindow { get; set; }
 
         [ReadOnlyColumn]

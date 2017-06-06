@@ -60,7 +60,6 @@ BEGIN
        {databaseOwner}[{objectQualifier}UserDisplayName] (D.ModifiedByUserID) AS ModifiedByUser,
        {databaseOwner}[{objectQualifier}UserDisplayName] (D.OwnedByUserID) AS OwnedByUser,
        F.Size,
-       F.ContentType,
        UT.TrackClicks,
        UT.Clicks,
        UT.NewWindow
