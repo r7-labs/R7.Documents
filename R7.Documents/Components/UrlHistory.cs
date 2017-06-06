@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.SessionState;
 using System.Web.UI.WebControls;
 using DotNetNuke.Common;
@@ -36,73 +37,137 @@ using DotNetNuke.Services.FileSystem;
 
 namespace R7.Documents.Components
 {
-    // TODO: Move to the base library
-    public class UrlHistory
+    public abstract class UrlHistoryBackend
     {
-        string _variableName;
+        public abstract void Init (HttpSessionState session, string variableName);
 
+        public abstract void StoreUrl (string url);
+
+        public abstract IEnumerable<string> GetUrls ();
+    }
+
+    /// <summary>
+    /// UrlHistory backend for InProc sessions
+    /// </summary>
+    public class UrlHistoryInProcBackend : UrlHistoryBackend
+    {
         HttpSessionState _session;
 
-        const string _separator = ";";
+        string _variableName;
 
-        static char [] _separators = { char.Parse (_separator) };
- 
-        public UrlHistory (HttpSessionState session, string variableName = "r7_Share_UrlHistory")
+        public override void Init (HttpSessionState session, string variableName)
         {
             _session = session;
             _variableName = variableName;
         }
 
-        public void AddUrl (string url)
+        public override void StoreUrl (string url)
+        {
+            var sessionObject = _session [_variableName];
+            if (sessionObject != null) {
+                var urlList = (IList<string>) sessionObject;
+                var index = urlList.IndexOf (url);
+                if (index >= 0) {
+                    urlList.RemoveAt (index);
+                }
+                urlList.Insert (0, url);
+                _session [_variableName] = urlList;
+            }
+            else {
+                _session [_variableName] = new List<string> { url };
+            }
+        }
+
+        public override IEnumerable<string> GetUrls ()
+        {
+            var sessionObject = _session [_variableName];
+            if (sessionObject != null) {
+                return (IEnumerable<string>) sessionObject;
+            }
+
+            return Enumerable.Empty<string> ();
+        }
+    }
+
+    /// <summary>
+    /// UrlHistory backend for non-InProc sessions
+    /// </summary>
+    public class UrlHistoryDefaultBackend : UrlHistoryBackend
+    {
+        HttpSessionState _session;
+
+        string _variableName;
+
+        const string _separator = ";";
+
+        static readonly char [] _separators = { char.Parse (_separator) };
+
+        public override void Init (HttpSessionState session, string variableName)
+        {
+            _session = session;
+            _variableName = variableName;
+        }
+
+        public override void StoreUrl (string url)
+        {
+            var sessionObject = _session [_variableName];
+            if (sessionObject != null) {
+                var urls = (string) sessionObject;
+                var quotedUrl = _separator + url + _separator;
+                var index = urls.IndexOf (quotedUrl, StringComparison.InvariantCulture);
+                if (index >= 0) {
+                    urls = urls.Remove (index, quotedUrl.Length - 1);
+                }
+                _session [_variableName] = _separator + url + urls;
+            }
+            else {
+                _session [_variableName] = _separator + url + _separator;
+            }
+        }
+
+        public override IEnumerable<string> GetUrls ()
+        {
+            var sessionObject = _session [_variableName];
+            if (sessionObject != null) {
+                return ((string) sessionObject).Split (_separators, StringSplitOptions.RemoveEmptyEntries);
+            }
+
+            return Enumerable.Empty<string> ();
+        }
+    }
+
+    // TODO: Move to the base library
+    public class UrlHistory
+    {
+        protected readonly UrlHistoryBackend Backend;
+
+        public UrlHistory (HttpSessionState session, string variableName = "r7_Shared_UrlHistory")
+        {
+            if (session.Mode == SessionStateMode.InProc) {
+                Backend = new UrlHistoryInProcBackend ();
+            }
+            else {
+                Backend = new UrlHistoryDefaultBackend ();
+            }
+
+            Backend.Init (session, variableName);
+        }
+
+        public void StoreUrl (string url)
         {
             if (string.IsNullOrEmpty (url)) {
                 return;
             }
 
-            var sessionObject = _session [_variableName];
-            if (sessionObject != null) {
-                if (_session.Mode == SessionStateMode.InProc) {
-                    var urlList = (IList<string>) sessionObject;
-                    if (!urlList.Contains (url)) {
-                        urlList.Insert (0, url);
-                        _session [_variableName] = urlList;
-                    }
-                }
-                else {
-                    var urls = (string) sessionObject;
-                    if (!urls.Contains (_separator + url + _separator)) {
-                        _session [_variableName] = _separator + url + urls;
-                    }
-                }
-            }
-            else {
-                if (_session.Mode == SessionStateMode.InProc) {
-                    _session [_variableName] = new List<string> { url };
-                }
-                else {
-                    _session [_variableName] = _separator + url + _separator;
-                }
-            }
+            Backend.StoreUrl (url);
         }
 
         public IList<ListItem> GetBindableUrls ()
         {
             var portalId = PortalSettings.Current.PortalId;
             var urlList = new List<ListItem> ();
-            var sessionObject = _session [_variableName];
-            if (sessionObject != null) {
-
-                IEnumerable<string> urls;
-                if (_session.Mode == SessionStateMode.InProc) {
-                    urls = (IList<string>) sessionObject;
-                }
-                else {
-                    urls = ((string) sessionObject).Split (_separators, StringSplitOptions.RemoveEmptyEntries);
-                }
-
-                foreach (var url in urls) {
-                    urlList.Add (new ListItem (GetUrlName (url, portalId), url));
-                }
+            foreach (var url in Backend.GetUrls ()) {
+                urlList.Add (new ListItem (GetUrlName (url, portalId), url));
             }
 
             return urlList;

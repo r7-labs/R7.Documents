@@ -643,7 +643,7 @@ namespace R7.Documents
                     ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
                     var urlHistory = new UrlHistory (Session);
-                    urlHistory.AddUrl (document.Url);
+                    urlHistory.StoreUrl (document.Url);
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 			        Response.Redirect (Globals.NavigateURL (), true);
