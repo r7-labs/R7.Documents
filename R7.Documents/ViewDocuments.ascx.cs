@@ -60,11 +60,7 @@ namespace R7.Documents
 		
         int mintDownloadLinkColumnIndex = NOT_READ;
 
-        #region Properties
-
-        bool IsReadComplete { get; set; }
-
-        #endregion
+        bool readComplete;
 
         #region Event Handlers
 
@@ -87,7 +83,7 @@ namespace R7.Documents
             base.OnLoad (e);
 
             try {
-                if (!IsReadComplete) {
+                if (!readComplete) {
                     documentList = LoadData ();
                 }
 
@@ -149,7 +145,7 @@ namespace R7.Documents
             ViewState ["CurrentSortOrder"] = e.SortExpression + " " + strSortDirectionString;
 
             // Mark as a user selected sort
-            IsReadComplete = true;
+            readComplete = true;
         }
 
         /// <summary>
@@ -161,7 +157,7 @@ namespace R7.Documents
             base.OnPreRender (e);
 			
             // only bind if not a user selected sort
-            if (!IsReadComplete) {
+            if (!readComplete) {
                 
                 documentList = LoadData ();
 
@@ -459,7 +455,7 @@ namespace R7.Documents
             documents.Sort (docComparer.Compare);
 
             // TODO: Move outside method or implement as 'out' argument
-            IsReadComplete = true;
+            readComplete = true;
 
             return documents;
         }
