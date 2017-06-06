@@ -41,6 +41,8 @@ using R7.Documents.Models;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
 using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.Utilities;
+using DotNetNuke.Web.UI.WebControls;
+using System.Data.OleDb;
 
 namespace R7.Documents
 {
@@ -240,33 +242,38 @@ namespace R7.Documents
                         cmdDelete.Visible = false;
                         buttonDeleteWithResource.Visible = false;
 
-                        // set default folder
                         if (Settings.DefaultFolder != null) {
-                            var folder = FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
-                            if (folder != null) {
-                                var file = FolderManager.Instance.GetFiles (folder).FirstOrDefault ();
-                                if (file != null) {
-                                    ctlUrl.Url = "FileId=" + file.FileId;
-                                }
-                                else {
-                                    this.Message ("CurrentFolder.Warning", MessageType.Warning, true);
-
-                                    // FIXME: select folder => postback => root folder is always selected.
-                                    // Setting link type to none provide a way to mask this behavior
-                                    // as user can select folder only after manually changing link type (i.e. after postback).
-
-                                    ctlUrl.UrlType = "N";
-                                }
+                            var folderSelected = SelectFolder (ctlUrl, Settings.DefaultFolder.Value);
+                            if (!folderSelected) {
+                                this.Message ("CurrentFolder.Warning", MessageType.Warning, true);
                             }
                         }
                     }
                 }
             }
             catch (Exception exc) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
+        }
 
+        // TODO: Implement as extension method, move to the base library
+        bool SelectFolder (DnnUrlControl urlControl, int folderId)
+        {
+            var folder = FolderManager.Instance.GetFolder (folderId);
+            if (folder != null) {
+                var file = FolderManager.Instance.GetFiles (folder).FirstOrDefault ();
+                if (file != null) {
+                    urlControl.Url = "fileid=" + file.FileId;
+                    return true;
+                }
+        
+                // TODO: Need to review if following still actual
+                // Select folder => postback => root folder is always selected.
+                // Setting link type to "None" provide a way to mask this behavior,
+                // as user can select folder only after manually changing link type (i.e. after postback).
+                urlControl.UrlType = "N";
+            }
+            return false;
         }
 
         void AddLog (string message, EventLogController.EventLogType logType)
