@@ -235,33 +235,7 @@ namespace R7.Documents
                         }
                     }
                     else {
-                        try {
-                            lstOwner.SelectedValue = UserId.ToString ();
-                            lblOwner.Text = UserInfo.DisplayName;
-
-                            // HACK: Calculate sortindex for new documents
-                            var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
-                            if (documents != null && documents.Any ()) {
-                                var maxSortIndex = documents.Max (d => d.SortOrderIndex);
-
-                                // TODO: Move to portal settings
-                                txtSortIndex.Text = (maxSortIndex + 10).ToString ();
-                            }
-                        }
-                        catch (Exception ex) {
-                            // defensive code only, would only happen if the owner user has been deleted
-                            Exceptions.LogException (ex);
-                        }
-
-                        cmdDelete.Visible = false;
-                        buttonDeleteWithResource.Visible = false;
-
-                        if (Settings.DefaultFolder != null) {
-                            var folderSelected = SelectFolder (ctlUrl, Settings.DefaultFolder.Value);
-                            if (!folderSelected) {
-                                this.Message ("CurrentFolder.Warning", MessageType.Warning, true);
-                            }
-                        }
+                        LoadNewDocument ();
                     }
                 }
             }
@@ -269,6 +243,40 @@ namespace R7.Documents
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
+
+        void LoadNewDocument ()
+        {
+            try {
+                lstOwner.SelectedValue = UserId.ToString ();
+                lblOwner.Text = UserInfo.DisplayName;
+
+                // HACK: Calculate sortindex for new documents
+                var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
+                if (documents != null && documents.Any ()) {
+                    var maxSortIndex = documents.Max (d => d.SortOrderIndex);
+
+                    // TODO: Move to portal settings
+                    txtSortIndex.Text = (maxSortIndex + 10).ToString ();
+                }
+            } catch (Exception ex) {
+                // defensive code only, would only happen if the owner user has been deleted
+                Exceptions.LogException (ex);
+            }
+
+            cmdDelete.Visible = false;
+            buttonDeleteWithResource.Visible = false;
+
+            ctlUrl.NewWindow = true;
+
+            if (Settings.DefaultFolder != null) {
+                var folderSelected = SelectFolder (ctlUrl, Settings.DefaultFolder.Value);
+                if (!folderSelected) {
+
+                    this.Message ("CurrentFolder.Warning", MessageType.Warning, true);
+                }
+            }
+        }
+
 
         // TODO: Implement as extension method, move to the base library
         bool SelectFolder (DnnUrlControl urlControl, int folderId)
