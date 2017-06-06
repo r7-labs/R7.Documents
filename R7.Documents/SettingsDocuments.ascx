@@ -31,6 +31,10 @@
             <dnn:label id="labelGridStyle" runat="server" controlname="comboGridStyle" />
             <asp:DropDownList id="comboGridStyle" runat="server" DataTextField="Name" DataValueField="Name" />
         </div>
+		<div class="dnnFormItem">
+            <dnn:label id="labelDateTimeFormat" runat="server" ControlName="textDateTimeFormat" />
+            <asp:TextBox id="textDateTimeFormat" runat="server" />
+        </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="plDisplayColumns" runat="server" controlname="grdColumns" />
 	        <asp:DataGrid id="grdDisplayColumns" runat="server" AutoGenerateColumns="False" GridLines="None" Width="350px" CssClass="dnnGrid"

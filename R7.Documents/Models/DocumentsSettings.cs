@@ -50,6 +50,9 @@ namespace R7.Documents.Models
         [TabModuleSetting (Prefix = "Documents_")]
         public string GridStyle { get; set; } = "bootstrap";
 
+        [TabModuleSetting (Prefix = "Documents_")]
+        public string DateTimeFormat { get; set; } = null;
+
         [ModuleSetting (Prefix = "Documents_")]
         public bool UseCategoriesList { get; set; } = false;
 
@@ -113,6 +116,11 @@ namespace R7.Documents.Models
             }
 
             return objSortColumns;
+        }
+
+        public string GetDateTimeFormat ()
+        {
+            return (!string.IsNullOrEmpty (DateTimeFormat)) ? DateTimeFormat : "d";
         }
 
         #region Static methods

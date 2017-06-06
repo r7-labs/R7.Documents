@@ -108,4 +108,10 @@
     <data name="UnableToFindLists.Text" xml:space="preserve">
         <value>Управление списками доступно в меню Хост &gt; Списки</value>
     </data>
+	<data name="labelDateTimeFormat.Text" xml:space="preserve">
+        <value>Формат даты и времени:</value>
+    </data>
+    <data name="labelDateTimeFormat.Help" xml:space="preserve">
+        <value>Введите строку формата .NET для даты и времени (например, "ddd, dd MMM yyyy") или оставьте поле пустым, чтобы использовать формат по умолчанию. Подробнее здесь: https://msdn.microsoft.com/ru-ru/library/8kb3ddd4.aspx</value>
+    </data>
 </root>

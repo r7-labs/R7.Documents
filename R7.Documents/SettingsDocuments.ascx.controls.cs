@@ -19,5 +19,6 @@ namespace R7.Documents
 		protected DropDownList comboSortOrderDirection;
 		protected CheckBox chkAllowUserSort;
 		protected Label lblCannotEditLists;
+        protected TextBox textDateTimeFormat;
 	}
 }

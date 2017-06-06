@@ -152,6 +152,7 @@ namespace R7.Documents
                 strXml.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder.ToString ()));
                 strXml.AppendFormat ("<displaycolumns>{0}</displaycolumns>", XmlUtils.XMLEncode (settings.DisplayColumns));
                 strXml.AppendFormat ("<sortorder>{0}</sortorder>", XmlUtils.XMLEncode (settings.SortOrder));
+                strXml.AppendFormat ("<dateTimeFormat>{0}</dateTimeFormat>", XmlUtils.XMLEncode (settings.DateTimeFormat));
                 strXml.Append ("</settings>");
             }
             catch {
@@ -250,6 +251,7 @@ namespace R7.Documents
                     "defaultfolder"));
                 settings.DisplayColumns = XmlUtils.GetNodeValue (xmlSettings, "displaycolumns");
                 settings.SortOrder = XmlUtils.GetNodeValue (xmlSettings, "sortorder");
+                settings.DateTimeFormat = XmlUtils.GetNodeValue (xmlSettings, "dateTimeFormat");
 
                 settingsRepository.SaveSettings (module, settings);
                 // TODO: Need module synchronization?

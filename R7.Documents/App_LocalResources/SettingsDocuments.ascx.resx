@@ -108,4 +108,10 @@
     <data name="UnableToFindLists.Text" xml:space="preserve">
         <value>You can manage lists under "Host" -&gt; "Lists"</value>
     </data>
+	<data name="labelDateTimeFormat.Text" xml:space="preserve">
+        <value>Date and Time Format:</value>
+    </data>
+    <data name="labelDateTimeFormat.Help" xml:space="preserve">
+        <value>Enter .NET format string for date and time values (e.g. "ddd, dd MMM yyyy") or leave empty to use default format. More info here: https://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx</value>
+    </data>
 </root>

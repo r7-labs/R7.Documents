@@ -80,6 +80,7 @@ namespace R7.Documents
                     chkUseCategoriesList.Checked = Settings.UseCategoriesList;
                     chkAllowUserSort.Checked = Settings.AllowUserSort;
                     comboGridStyle.SelectByValue (Settings.GridStyle);
+                    textDateTimeFormat.Text = Settings.DateTimeFormat;
 
                     try {
                         if (Settings.DefaultFolder != null) {
@@ -356,6 +357,14 @@ namespace R7.Documents
             Settings.ShowTitleLink = chkShowTitleLink.Checked;
             Settings.AllowUserSort = chkAllowUserSort.Checked;
             Settings.GridStyle = comboGridStyle.SelectedItem.Value;
+
+            try {
+                DateTime.Now.ToString (textDateTimeFormat.Text);
+                Settings.DateTimeFormat = textDateTimeFormat.Text;
+            } catch {
+                // TODO: Log error
+                Settings.DateTimeFormat = null;
+            }
 
             if (folderDefaultFolder.SelectedFolder != null) {
                 Settings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;

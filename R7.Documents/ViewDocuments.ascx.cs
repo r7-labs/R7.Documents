@@ -366,6 +366,7 @@ namespace R7.Documents
             // add columns dynamically
             foreach (var objDisplayColumn_loopVariable in Settings.GetDisplayColumnList (LocalResourceFile)) {
                 objDisplayColumn = objDisplayColumn_loopVariable;
+                var dateTimeFormat = Settings.GetDateTimeFormat ();
 
                 if (objDisplayColumn.Visible) {
                     switch (objDisplayColumn.ColumnName) {
@@ -382,7 +383,7 @@ namespace R7.Documents
                                 Localization.GetString ("CreatedDate.Column", LocalResourceFile),
                                 "CreatedDate",
                                 "CreatedDate",
-                                "{0:d}");
+                                dateTimeFormat);
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
@@ -390,7 +391,7 @@ namespace R7.Documents
 								Localization.GetString ("PublishedOnDate.Column", LocalResourceFile),
                                 "PublishedOnDate",
                                 "PublishedOnDate",
-                                "{0:d}");
+                                dateTimeFormat);
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
@@ -410,7 +411,7 @@ namespace R7.Documents
                                 Localization.GetString ("ModifiedDate.Column", LocalResourceFile),
                                 "ModifiedDate",
                                 "ModifiedDate",
-                                "{0:d}");
+                                dateTimeFormat);
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
@@ -538,7 +539,7 @@ namespace R7.Documents
             }
 
             objBoundColumn.DataField = dataField;
-            objBoundColumn.DataFormatString = format;
+            objBoundColumn.DataFormatString = "{0:" + format + "}";
             objBoundColumn.HeaderText = title;
 		
             // added 5/17/2007 by Mitchel Sellers
