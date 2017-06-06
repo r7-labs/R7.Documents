@@ -70,9 +70,8 @@ namespace R7.Documents
 
             grdDocuments.AllowSorting = Settings.AllowUserSort;
 
-            // get grid style and apply to grid
-            var style = GridStyle.Styles [Settings.GridStyle];
-            style.ApplyToGrid (grdDocuments);
+            var gridStyle = GridStyle.Styles [Settings.GridStyle];
+            gridStyle.ApplyToGrid (grdDocuments);
         }
 
         /// <summary>
@@ -101,7 +100,6 @@ namespace R7.Documents
                 }
             }
             catch (Exception exc) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
@@ -165,7 +163,6 @@ namespace R7.Documents
                 var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
                 documentList.Sort (docComparer.Compare);
 
-                // bind the grid
                 grdDocuments.DataSource = documentList;
                 grdDocuments.DataBind ();
             }
@@ -289,7 +286,6 @@ namespace R7.Documents
 				
             }
             catch (Exception exc) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }

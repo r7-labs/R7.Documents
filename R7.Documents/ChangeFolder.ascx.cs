@@ -123,12 +123,9 @@ namespace R7.Documents
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
                 }
 
-                // redirect back to the portal home page
                 Response.Redirect (Globals.NavigateURL (), true);
-
             }
             catch (Exception ex) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, ex);
             }
         }

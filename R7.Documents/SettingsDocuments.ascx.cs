@@ -145,7 +145,6 @@ namespace R7.Documents
                 }
 
             } catch (Exception exc) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
@@ -181,8 +180,8 @@ namespace R7.Documents
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
                 }
-            } catch (Exception exc) {
-                // module failed to load
+            }
+            catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
@@ -314,7 +313,6 @@ namespace R7.Documents
             grdDisplayColumns.DataKeyField = "ColumnName";
 
             if (!IsPostBack) {
-
                 // TODO: Original: Localization.LocalizeDataGrid(ref grdDisplayColumns, this.LocalResourceFile);
                 Localization.LocalizeDataGrid (ref grdSortColumns, LocalResourceFile);
             }

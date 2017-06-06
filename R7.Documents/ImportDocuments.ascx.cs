@@ -108,12 +108,9 @@ namespace R7.Documents
                 }
 
                 ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-
-                // redirect back to the module page
                 Response.Redirect (Globals.NavigateURL (), true);
             }
             catch (Exception ex) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, ex);
             }
         }
@@ -156,7 +153,6 @@ namespace R7.Documents
                 }
             }
             catch (Exception ex) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, ex);
             }
         }

@@ -198,7 +198,6 @@ namespace R7.Documents
             if (Settings.DefaultFolder != null) {
                 var folderSelected = SelectFolder (ctlUrl, Settings.DefaultFolder.Value);
                 if (!folderSelected) {
-
                     this.Message ("CurrentFolder.Warning", MessageType.Warning, true);
                 }
             }
@@ -315,7 +314,6 @@ namespace R7.Documents
                     if (!url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)) {
                         // to handle legacy scenarios before the introduction of the FileServerHandler
                         url = "FileID=" + FileManager.Instance.GetFile (PortalId, url).FileId;
-                        // Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
                     }
 
                     fileId = int.Parse (UrlUtils.GetParameterValue (url));
@@ -346,9 +344,9 @@ namespace R7.Documents
                         }
 					
                         return CheckRolesMatch (
-							// this.ModuleConfiguration.AuthorizedViewRoles, 
+							// old code: this.ModuleConfiguration.AuthorizedViewRoles,
                             moduleViewRoles.ToString (),
-							// FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
+							// old code: FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
                             folderViewRoles.ToString ()
                         );
                     }
@@ -492,13 +490,9 @@ namespace R7.Documents
                 }
 
                 ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-				
-                // redirect back to the module page
-                Response.Redirect (Globals.NavigateURL (), true);
-				
-            }
+			    Response.Redirect (Globals.NavigateURL (), true);
+		    }
             catch (Exception exc) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
@@ -537,10 +531,8 @@ namespace R7.Documents
         void Update (bool Override)
         {
             try {
-                // only Update if Input Data is Valid
-                if (Page.IsValid == true) {
+                if (Page.IsValid) {
                     if (!Override) {
-                        // test file exists, security
                         if (!CheckFileExists (ctlUrl.Url) || !CheckFileSecurity (ctlUrl.Url)) {
                             cmdUpdateOverride.Visible = true;
                             cmdUpdate.Visible = false;
@@ -586,9 +578,6 @@ namespace R7.Documents
                             document.OwnedByUserId = Null.NullInteger;
                         }
                     }
-                    else {
-                        // user never clicked "change", leave ownedbyuserid as is
-                    }
 
                     if (txtCategory.Visible) {
                         document.Category = txtCategory.Text;
@@ -602,7 +591,6 @@ namespace R7.Documents
                         }
                     }
 
-                    // getting sort index
                     int sortIndex;
                     document.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 0;
 
@@ -646,7 +634,6 @@ namespace R7.Documents
                 }
             }
             catch (Exception exc) {
-                // module failed to load
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
@@ -679,8 +666,8 @@ namespace R7.Documents
                 }
             }
             catch (Exception ex) {
-                    // would happen if the user no longer exists
-                    Exceptions.LogException (ex);
+                // would happen if the user no longer exists
+                Exceptions.LogException (ex);
             }
         }
 
