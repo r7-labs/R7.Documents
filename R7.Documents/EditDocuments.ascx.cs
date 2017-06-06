@@ -232,9 +232,9 @@ namespace R7.Documents
                                 txtSortIndex.Text = (maxSortIndex + 10).ToString ();
                             }
                         }
-                        catch {
-                            // TODO: Log error
-                            // suppress error (defensive code only, would only happen if the owner user has been deleted)
+                        catch (Exception ex) {
+                            // defensive code only, would only happen if the owner user has been deleted
+                            Exceptions.LogException (ex);
                         }
 
                         cmdDelete.Visible = false;
@@ -655,15 +655,14 @@ namespace R7.Documents
                         lstOwner.SelectedValue = document.OwnedByUserId.ToString ();
                     }
                 }
-                catch {
-                    // TODO: Log error
-                    // suppress error selecting owner user
+                catch (Exception ex) {
+                    // defensive code only, would only happen if the owner user has been deleted
+                    Exceptions.LogException (ex);
                 }
-
             }
-            catch {
-                // TODO: Log error
-                // suppress error if the user no longer exists
+            catch (Exception ex) {
+                    // would happen if the user no longer exists
+                    Exceptions.LogException (ex);
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2016 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml;
-using System.Linq;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
+using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Search.Entities;
 using R7.Documents.Data;
-using R7.DotNetNuke.Extensions.Utilities;
 using R7.Documents.Models;
+using R7.DotNetNuke.Extensions.Utilities;
 
 namespace R7.Documents
 {
@@ -152,9 +153,8 @@ namespace R7.Documents
                 strXml.AppendFormat ("<dateTimeFormat>{0}</dateTimeFormat>", XmlUtils.XMLEncode (settings.DateTimeFormat));
                 strXml.Append ("</settings>");
             }
-            catch {
-                // TODO: Log error
-                // catch errors
+            catch (Exception ex) {
+                Exceptions.LogException (ex);
             }
             finally {
                 // make sure XML is valid

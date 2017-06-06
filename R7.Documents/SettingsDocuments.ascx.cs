@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -87,16 +87,18 @@ namespace R7.Documents
                             folderDefaultFolder.SelectedFolder =
                                 FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
                         }
-                    } catch {
-                        // TODO: Log error
-                        // suppress exception.  Can be caused if the selected folder has been deleted
                     }
-
+                    catch (Exception ex) {
+                        // can be caused if the selected folder has been deleted
+                        Exceptions.LogException (ex);
+                    }
+                   
                     try {
                         cboCategoriesList.SelectedValue = Settings.CategoriesListName;
-                    } catch {
-                        // TODO: Log error
-                        // suppress exception.  Can be caused if the selected list has been deleted
+                    }
+                    catch (Exception ex) {
+                        // can be caused if the selected list has been deleted
+                        Exceptions.LogException (ex);
                     }
 
                     // read "saved" column sort orders in first
@@ -361,8 +363,9 @@ namespace R7.Documents
             try {
                 DateTime.Now.ToString (textDateTimeFormat.Text);
                 Settings.DateTimeFormat = textDateTimeFormat.Text;
-            } catch {
-                // TODO: Log error
+            }
+            catch (Exception ex) {
+                Exceptions.LogException (ex);
                 Settings.DateTimeFormat = null;
             }
 
