@@ -47,14 +47,11 @@ namespace R7.Documents
             var now = DateTime.Now;
             foreach (var document in documents ?? Enumerable.Empty<DocumentInfo> ()) {
                 if (document.ModifiedDate.ToUniversalTime () > beginDateUtc.ToUniversalTime ()) {
-                    var documentText = TextUtils.FormatList (" ", document.Title, document.Description);
-
-                    var sd = new SearchDocument () {
+                    var sd = new SearchDocument {
                         PortalId = moduleInfo.PortalID,
                         AuthorUserId = document.ModifiedByUserId,
                         Title = document.Title,
-                        Description = HtmlUtils.Shorten (documentText, 255, "..."),
-                        Body = documentText,
+                        Description = document.Description,
                         ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
                         UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
                         IsActive = document.IsPublished (now),
