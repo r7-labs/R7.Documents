@@ -145,7 +145,6 @@
     <Compile Include="Models\DocumentInfo.cs" />
     <Compile Include="Data\DocumentsDataProvider.cs" />
     <Compile Include="Components\ModuleSynchronizer.cs" />
-    <Compile Include="Components\CacheHelper.cs" />
     <Compile Include="Components\DocumentsSettingsRepository.cs" />
     <Compile Include="Components\ModuleDefinitions.cs" />
     <Compile Include="Models\GridStyle.cs" />
