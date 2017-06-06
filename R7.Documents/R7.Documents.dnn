@@ -47,7 +47,7 @@
 									<moduleControl>
 										<controlKey>Edit</controlKey>
 										<controlSrc>DesktopModules/R7.Documents/R7.Documents/EditDocuments.ascx</controlSrc>
-										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPartialRendering>True</supportsPartialRendering>
 										<supportsPopUps>True</supportsPopUps>
 										<controlTitle>Edit</controlTitle>
 										<controlType>Edit</controlType>
@@ -60,7 +60,7 @@
 									<moduleControl>
 										<controlKey>ChangeFolder</controlKey>
 										<controlSrc>DesktopModules/R7.Documents/R7.Documents/ChangeFolder.ascx</controlSrc>
-										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPartialRendering>True</supportsPartialRendering>
 										<supportsPopUps>True</supportsPopUps>
 										<controlTitle>Change Folder</controlTitle>
 										<controlType>Edit</controlType>
@@ -73,7 +73,7 @@
 									<moduleControl>
 										<controlKey>ImportDocuments</controlKey>
 										<controlSrc>DesktopModules/R7.Documents/R7.Documents/ImportDocuments.ascx</controlSrc>
-										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPartialRendering>True</supportsPartialRendering>
 										<supportsPopUps>True</supportsPopUps>
 										<controlTitle>Import Documents</controlTitle>
 										<controlType>Edit</controlType>
