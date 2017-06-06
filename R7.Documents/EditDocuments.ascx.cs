@@ -154,85 +154,12 @@ namespace R7.Documents
             base.OnLoad (e);
 
             try {
-
                 // determine ItemId of Document to Update
                 itemId = TypeUtils.ParseToNullable<int> (Request.QueryString ["ItemId"]) ?? Null.NullInteger;
 
-                // Load module instance settings
                 if (!IsPostBack) {
-                    
-                    // if the page is being requested the first time, determine if an
-                    // document itemId value is specified, and if so populate page
-                    // contents with the document details
-
                     if (!Null.IsNull (itemId)) {
-                        // read document information
-                        var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
-
-                        // read values from documentInfo object on to page
-                        if (document != null) {
-                            txtName.Text = document.Title;
-                            txtDescription.Text = document.Description;
-                            chkForceDownload.Checked = document.ForceDownload;
-                            datetimeStartDate.SelectedDate = document.StartDate;
-                            datetimeEndDate.SelectedDate = document.EndDate;
-                            textLinkAttributes.Text = document.LinkAttributes;
-
-                            pickerCreatedDate.SelectedDate = document.CreatedDate;
-                            pickerLastModifiedDate.SelectedDate = document.ModifiedDate;
-							
-                            if (!string.IsNullOrEmpty (document.Url)) {
-                                ctlUrl.Url = document.Url;
-                            }
-
-                            // test to see if the document has been removed/deleted
-                            if (!CheckFileExists (document.Url)) {
-                                ctlUrl.UrlType = "N";
-                            }
-                            else {
-                                CheckFileSecurity (document.Url);
-                            }
-
-                            txtSortIndex.Text = document.SortOrderIndex.ToString ();
-
-                            if (string.IsNullOrEmpty (document.OwnedByUser)) {
-                                lblOwner.Text = Localization.GetString ("None_Specified");
-                            }
-                            else {
-                                lblOwner.Text = document.OwnedByUser;
-                            }
-
-                            if (txtCategory.Visible) {
-                                txtCategory.Text = document.Category;
-                            }
-                            else {
-                                // look for the category by name
-                                var found = lstCategory.Items.FindByText (document.Category);
-                                if (found != null) {
-                                    lstCategory.SelectedValue = found.Value;
-                                }
-                                else {
-                                    // legacy support, do a fall-back
-                                    found = lstCategory.Items.FindByValue (document.Category);
-                                    if (found != null) {
-                                        lstCategory.SelectedValue = found.Value;
-                                    }
-                                }
-                            }
-
-                            // FIXME: Audit data not preserved between postbacks
-                            ctlAudit.CreatedByUser = document.CreatedByUser;
-                            ctlAudit.CreatedDate = document.CreatedDate.ToString ();
-                            ctlAudit.LastModifiedByUser = document.ModifiedByUser;
-                            ctlAudit.LastModifiedDate = document.ModifiedDate.ToString ();
-
-                            ctlUrlTracking.URL = document.Url;
-                            ctlUrlTracking.ModuleID = ModuleId;
-                        }
-                        else {
-                            AddLog ("Security violation: Attempt to access document not related to the module.", EventLogController.EventLogType.ADMIN_ALERT);
-                            Response.Redirect (Globals.NavigateURL (), true);
-                        }
+                        LoadExistingDocument (itemId);
                     }
                     else {
                         LoadNewDocument ();
@@ -277,6 +204,67 @@ namespace R7.Documents
             }
         }
 
+        void LoadExistingDocument (int documentId)
+        {
+            var document = DocumentsDataProvider.Instance.GetDocument (documentId, ModuleId);
+            if (document != null) {
+                txtName.Text = document.Title;
+                txtDescription.Text = document.Description;
+                chkForceDownload.Checked = document.ForceDownload;
+                datetimeStartDate.SelectedDate = document.StartDate;
+                datetimeEndDate.SelectedDate = document.EndDate;
+                textLinkAttributes.Text = document.LinkAttributes;
+                pickerCreatedDate.SelectedDate = document.CreatedDate;
+                pickerLastModifiedDate.SelectedDate = document.ModifiedDate;
+                txtSortIndex.Text = document.SortOrderIndex.ToString ();
+
+                if (!string.IsNullOrEmpty (document.Url)) {
+                    ctlUrl.Url = document.Url;
+                }
+
+                // test to see if the document has been removed/deleted
+                if (!CheckFileExists (document.Url)) {
+                    ctlUrl.UrlType = "N";
+                } else {
+                    CheckFileSecurity (document.Url);
+                }
+
+                if (string.IsNullOrEmpty (document.OwnedByUser)) {
+                    lblOwner.Text = Localization.GetString ("None_Specified");
+                } else {
+                    lblOwner.Text = document.OwnedByUser;
+                }
+
+                if (txtCategory.Visible) {
+                    txtCategory.Text = document.Category;
+                } else {
+                    // look for the category by name
+                    var found = lstCategory.Items.FindByText (document.Category);
+                    if (found != null) {
+                        lstCategory.SelectedValue = found.Value;
+                    } else {
+                        // legacy support, do a fall-back
+                        found = lstCategory.Items.FindByValue (document.Category);
+                        if (found != null) {
+                            lstCategory.SelectedValue = found.Value;
+                        }
+                    }
+                }
+
+                // FIXME: Audit data not preserved between postbacks
+                ctlAudit.CreatedByUser = document.CreatedByUser;
+                ctlAudit.CreatedDate = document.CreatedDate.ToString ();
+                ctlAudit.LastModifiedByUser = document.ModifiedByUser;
+                ctlAudit.LastModifiedDate = document.ModifiedDate.ToString ();
+
+                ctlUrlTracking.URL = document.Url;
+                ctlUrlTracking.ModuleID = ModuleId;
+            }
+            else {
+                AddLog ("Security violation: Attempt to access document not related to the module.", EventLogController.EventLogType.ADMIN_ALERT);
+                Response.Redirect (Globals.NavigateURL (), true);
+            }
+        }
 
         // TODO: Implement as extension method, move to the base library
         bool SelectFolder (DnnUrlControl urlControl, int folderId)
