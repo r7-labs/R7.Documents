@@ -26,7 +26,7 @@
         	    </div>
         		<div class="dnnFormItem">
         	        <dnn:Label id="plUrl" runat="server" ControlName="ctlURL" />
-        	       	<div class="dnnLeft" style="width:440px">
+        	       	<div class="dnnLeft">
         	            <dnn:Url id="ctlUrl" runat="server" UrlType="F"
     						ShowTabs="true" IncludeActiveTab="true"
     						ShowNone="True"  ShowNewWindow="True"
