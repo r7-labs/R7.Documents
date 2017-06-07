@@ -11,6 +11,7 @@
 			</owner>
 			<license src="license.htm" />
 			<releaseNotes src="releaseNotes.htm" />
+            <azureCompatible>true</azureCompatible>
 			<dependencies>
                 <dependency type="CoreVersion">08.00.04</dependency>
                 <!-- .NET 4.5 -->
