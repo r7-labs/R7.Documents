@@ -189,31 +189,28 @@ namespace R7.Documents
 			
             var xmlDocuments = Globals.GetContent (content, "documents");
             var documentNodes = xmlDocuments.SelectNodes ("document");
+            var now = DateTime.Now;
 
             foreach (XmlNode documentNode in documentNodes) {
-                var document = new DocumentInfo ();
-                document.ModuleId = moduleId;
-                document.Title = documentNode ["title"].InnerText;
-				
                 var strUrl = documentNode ["url"].InnerText;
-                document.Url = strUrl.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase) ?
-                    strUrl : Globals.ImportUrl (moduleId, strUrl);
-
-                document.Category = documentNode ["category"].InnerText;
-                document.Description = XmlUtils.GetNodeValue (documentNode, "description");
-                document.OwnedByUserId = XmlUtils.GetNodeValueInt (documentNode, "ownedbyuserid");
-                document.SortOrderIndex = XmlUtils.GetNodeValueInt (documentNode, "sortorderindex");
-                document.LinkAttributes = XmlUtils.GetNodeValue (documentNode, "linkattributes");
-                document.ForceDownload = XmlUtils.GetNodeValueBoolean (documentNode, "forcedownload");
-                document.StartDate = GetNodeValueDateNullable (documentNode, "startDate");
-                document.EndDate = GetNodeValueDateNullable (documentNode, "endDate");
-
-                document.CreatedByUserId = userId;
-                document.ModifiedByUserId = userId;
-				
-                var now = DateTime.Now;
-                document.CreatedDate = now;
-                document.ModifiedDate = now;
+                var document = new DocumentInfo {
+                    ModuleId = moduleId,
+                    Title = documentNode ["title"].InnerText,
+                    Category = documentNode ["category"].InnerText,
+                    Description = XmlUtils.GetNodeValue (documentNode, "description"),
+                    OwnedByUserId = XmlUtils.GetNodeValueInt (documentNode, "ownedbyuserid"),
+                    SortOrderIndex = XmlUtils.GetNodeValueInt (documentNode, "sortorderindex"),
+                    LinkAttributes = XmlUtils.GetNodeValue (documentNode, "linkattributes"),
+                    ForceDownload = XmlUtils.GetNodeValueBoolean (documentNode, "forcedownload"),
+                    StartDate = GetNodeValueDateNullable (documentNode, "startDate"),
+                    EndDate = GetNodeValueDateNullable (documentNode, "endDate"),
+                    CreatedByUserId = userId,
+                    ModifiedByUserId = userId,
+                    CreatedDate = now,
+                    ModifiedDate = now,
+                    Url = strUrl.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase) ?
+                        strUrl : Globals.ImportUrl (moduleId, strUrl)
+                };
 
                 DocumentsDataProvider.Instance.Add (document);
 
@@ -226,17 +223,10 @@ namespace R7.Documents
                     module.PortalID,
                     document.Url,
                     urlType,
-                    XmlUtils.GetNodeValueBoolean (
-                        documentNode,
-                        "logactivity"),
-                    XmlUtils.GetNodeValueBoolean (
-                        documentNode,
-                        "trackclicks",
-                        true),
+                    XmlUtils.GetNodeValueBoolean (documentNode, "logactivity"),
+                    XmlUtils.GetNodeValueBoolean (documentNode, "trackclicks", true),
                     moduleId,
-                    XmlUtils.GetNodeValueBoolean (
-                        documentNode,
-                        "newwindow"));
+                    XmlUtils.GetNodeValueBoolean (documentNode,  "newwindow"));
             }
 
             ImportSettings (module, content);

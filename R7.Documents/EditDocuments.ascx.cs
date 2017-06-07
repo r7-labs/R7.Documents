@@ -601,12 +601,12 @@ namespace R7.Documents
                     // get existing document record
                     var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
                     if (document == null) {
-                        // new record
-                        document = new DocumentInfo ();
-                        document.ItemId = itemId;
-                        document.ModuleId = ModuleId;
-                        document.CreatedByUserId = UserInfo.UserID;
-                        document.OwnedByUserId = UserId;
+                        document = new DocumentInfo {
+                            ItemId = itemId,
+                            ModuleId = ModuleId,
+                            CreatedByUserId = UserInfo.UserID,
+                            OwnedByUserId = UserId
+                        };
                     }
 
                     var oldDocument = document.Clone ();
