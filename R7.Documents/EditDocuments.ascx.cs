@@ -140,18 +140,6 @@ namespace R7.Documents
             BindUrlHistory ();
         }
 
-        void BindUrlHistory ()
-        {
-            var urlHistory = new UrlHistory (Session);
-            var urls = urlHistory.GetBindableUrls ();
-            if (urls.Count > 0) {
-                comboUrlHistory.DataSource = urls;
-                comboUrlHistory.DataBind ();
-            } else {
-                panelUrlHistory.Visible = false;
-            }
-        }
-
         /// <summary>
         /// OnLoad runs when the control is loaded
         /// </summary>
@@ -176,6 +164,114 @@ namespace R7.Documents
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
+
+        /// <summary>
+        /// cmdDelete_Click runs when the delete button is clicked
+        /// </summary>
+        /// <history>
+        /// 	[cnurse]	9/22/2004	Updated to reflect design changes for Help, 508 support
+        ///                       and localisation
+        /// </history>
+        protected void cmdDelete_Click (object sender, EventArgs e)
+        {
+            try {
+                if (!Null.IsNull (itemId)) {
+                    var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
+                    if (document != null) {
+                        DocumentsDataProvider.Instance.Delete (document);
+                        DocumentsDataProvider.Instance.DeleteDocumentUrl (document.Url, PortalId, ModuleId);
+
+                        if (sender == buttonDeleteWithResource) {
+                            DocumentsDataProvider.Instance.DeleteDocumentResource (document, PortalId);
+                        }
+                    }
+                }
+
+                ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
+			    Response.Redirect (Globals.NavigateURL (), true);
+		    }
+            catch (Exception exc) {
+                Exceptions.ProcessModuleLoadException (this, exc);
+            }
+        }
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// cmdUpdate_Click runs when the update button is clicked
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <history>
+        /// 	[cnurse]	9/22/2004	Updated to reflect design changes for Help, 508 support
+        ///                       and localisation
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        protected void cmdUpdate_Click (object sender, EventArgs e)
+        {
+            Update (false);
+        }
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// cmdUpdate_Click runs when the update "override" button is clicked
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <history>
+        /// 	[ag]	11 March 2007	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        protected void cmdUpdateOverride_Click (object sender, EventArgs e)
+        {
+            Update (true);
+        }
+
+        protected void linkAddMore_Click (object sender, EventArgs e)
+        {
+            multiView.ActiveViewIndex = 0;
+            CalculateSortIndex ();
+
+            // document was added before, so we need to reload page
+            linkCancel.NavigateUrl = Globals.NavigateURL ();
+        }
+
+        protected void lnkChange_Click (object sender, EventArgs e)
+        {
+            lblOwner.Visible = false;
+            lnkChange.Visible = false;
+            lstOwner.Visible = true;
+
+            PopulateOwnerList ();
+
+            try {
+                // get existing document record
+                var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
+
+                try {
+                    if (document == null) {
+                        lstOwner.SelectedValue = UserId.ToString ();
+                    }
+                    else {
+                        lstOwner.SelectedValue = document.OwnedByUserId.ToString ();
+                    }
+                }
+                catch (Exception ex) {
+                    // defensive code only, would only happen if the owner user has been deleted
+                    Exceptions.LogException (ex);
+                }
+            }
+            catch (Exception ex) {
+                // would happen if the user no longer exists
+                Exceptions.LogException (ex);
+            }
+        }
+
+        protected void linkSelectUrl_Click (object sender, EventArgs e)
+        {
+            ctlUrl.Url = comboUrlHistory.SelectedValue;
+        }
+
+        #endregion
 
         void LoadNewDocument ()
         {
@@ -207,13 +303,13 @@ namespace R7.Documents
 
         void CalculateSortIndex ()
         {
-        	// HACK: Calculate sortindex for new documents
-        	var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
-        	if (documents != null && documents.Any ()) {
-        		var maxSortIndex = documents.Max (d => d.SortOrderIndex);
+            // HACK: Calculate sortindex for new documents
+            var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
+            if (documents != null && documents.Any ()) {
+                var maxSortIndex = documents.Max (d => d.SortOrderIndex);
 
-        		// TODO: Move to portal settings
-        		txtSortIndex.Text = (maxSortIndex + 10).ToString ();
+                // TODO: Move to portal settings
+                txtSortIndex.Text = (maxSortIndex + 10).ToString ();
             }
         }
 
@@ -292,7 +388,7 @@ namespace R7.Documents
                     urlControl.Url = "fileid=" + file.FileId;
                     return true;
                 }
-        
+
                 // TODO: Need to review if following still actual
                 // Select folder => postback => root folder is always selected.
                 // Setting link type to "None" provide a way to mask this behavior,
@@ -320,24 +416,24 @@ namespace R7.Documents
         /// a warning message if they do not match.
         /// </summary>
         /// <history>
-        /// 	[ag]	11 March 2007	Created
+        ///     [ag]    11 March 2007   Created
         /// </history>
         bool CheckFileSecurity (string url)
         {
             switch (Globals.GetURLType (url)) {
-                case TabType.File:
-                    url = FixLegacyFileUrl (url);
-                    var fileId = int.Parse (UrlUtils.GetParameterValue (url));
-                    var file = FileManager.Instance.GetFile (fileId);
-				    if (file != null) {
-                        return CheckRolesMatch (
-							// TODO review old code: this.ModuleConfiguration.AuthorizedViewRoles,
-                            GetModuleViewRoles (),
-							// TODO reviewold code: FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
-                            GetFolderViewRoles (file.FolderId)
-                        );
-                    }
-                    break;
+            case TabType.File:
+                url = FixLegacyFileUrl (url);
+                var fileId = int.Parse (UrlUtils.GetParameterValue (url));
+                var file = FileManager.Instance.GetFile (fileId);
+                if (file != null) {
+                    return CheckRolesMatch (
+                        // TODO review old code: this.ModuleConfiguration.AuthorizedViewRoles,
+                        GetModuleViewRoles (),
+                        // TODO reviewold code: FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
+                        GetFolderViewRoles (file.FolderId)
+                    );
+                }
+                break;
             }
             return true;
         }
@@ -378,7 +474,7 @@ namespace R7.Documents
         /// the file's read-access roles.  If not, display a warning.
         /// </summary>
         /// <history>
-        /// 	[ag]	11 March 2007	Created
+        ///     [ag]    11 March 2007   Created
         /// </history>
         bool CheckRolesMatch (string moduleRoles, string fileRolesString)
         {
@@ -414,8 +510,8 @@ namespace R7.Documents
 
                 // warn user that roles do not match
                 this.Message (LocalizeString ("msgFileSecurityWarning.Text")
-                    .Replace ("[$ROLELIST]", strRolesForMessage), MessageType.Warning);
-                
+                              .Replace ("[$ROLELIST]", strRolesForMessage), MessageType.Warning);
+
                 return false;
             }
 
@@ -439,7 +535,7 @@ namespace R7.Documents
         /// Tests whether the file exists.  If it does not, add a warning message.
         /// </summary>
         /// <history>
-        /// 	[ag]	11 March 2007	Created
+        ///     [ag]    11 March 2007   Created
         /// </history>
         bool CheckFileExists (string url)
         {
@@ -453,100 +549,39 @@ namespace R7.Documents
             }
 
             switch (Globals.GetURLType (url)) {
-                case TabType.File:
-                    url = FixLegacyFileUrl (url);
-                    fileId = int.Parse (UrlUtils.GetParameterValue (url));
-                    var objFile = FileManager.Instance.GetFile (fileId);
+            case TabType.File:
+                url = FixLegacyFileUrl (url);
+                fileId = int.Parse (UrlUtils.GetParameterValue (url));
+                var objFile = FileManager.Instance.GetFile (fileId);
 
-                    blnAddWarning = false;
-                    if (objFile == null) {
-                        blnAddWarning = true;
-                    }
-                    else {
-                        switch ((FolderController.StorageLocationTypes) objFile.StorageLocation) {
-                            case FolderController.StorageLocationTypes.InsecureFileSystem:
-                                blnAddWarning = !File.Exists (objFile.PhysicalPath);
-                                break;
-                            case FolderController.StorageLocationTypes.SecureFileSystem:
-                                blnAddWarning = !File.Exists (objFile.PhysicalPath + Globals.glbProtectedExtension);
-                                break;
-                            case FolderController.StorageLocationTypes.DatabaseSecure:
-                                blnAddWarning = false;
-								// Database-stored files cannot be deleted seperately
-                                break;
-                        }
-                    }
-
-                    if (blnAddWarning) {
-                        // display a "file not found" warning
-                        this.Message ("msgFileDeleted.Text", MessageType.Warning, true);
-                        return false;
-                    }
-                    break;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// cmdDelete_Click runs when the delete button is clicked
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	9/22/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        protected void cmdDelete_Click (object sender, EventArgs e)
-        {
-            try {
-                if (!Null.IsNull (itemId)) {
-                    var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
-                    if (document != null) {
-                        DocumentsDataProvider.Instance.Delete (document);
-                        DocumentsDataProvider.Instance.DeleteDocumentUrl (document.Url, PortalId, ModuleId);
-
-                        if (sender == buttonDeleteWithResource) {
-                            DocumentsDataProvider.Instance.DeleteDocumentResource (document, PortalId);
-                        }
+                blnAddWarning = false;
+                if (objFile == null) {
+                    blnAddWarning = true;
+                }
+                else {
+                    switch ((FolderController.StorageLocationTypes) objFile.StorageLocation) {
+                    case FolderController.StorageLocationTypes.InsecureFileSystem:
+                        blnAddWarning = !File.Exists (objFile.PhysicalPath);
+                        break;
+                    case FolderController.StorageLocationTypes.SecureFileSystem:
+                        blnAddWarning = !File.Exists (objFile.PhysicalPath + Globals.glbProtectedExtension);
+                        break;
+                    case FolderController.StorageLocationTypes.DatabaseSecure:
+                        blnAddWarning = false;
+                        // Database-stored files cannot be deleted seperately
+                        break;
                     }
                 }
 
-                ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-			    Response.Redirect (Globals.NavigateURL (), true);
-		    }
-            catch (Exception exc) {
-                Exceptions.ProcessModuleLoadException (this, exc);
+                if (blnAddWarning) {
+                    // display a "file not found" warning
+                    this.Message ("msgFileDeleted.Text", MessageType.Warning, true);
+                    return false;
+                }
+                break;
             }
-        }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// cmdUpdate_Click runs when the update button is clicked
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/22/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void cmdUpdate_Click (object sender, EventArgs e)
-        {
-            Update (false);
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// cmdUpdate_Click runs when the update "override" button is clicked
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[ag]	11 March 2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void cmdUpdateOverride_Click (object sender, EventArgs e)
-        {
-            Update (true);
+            return true;
         }
 
         void Update (bool ignoreWarnings)
@@ -621,8 +656,6 @@ namespace R7.Documents
             }
         }
 
-        #endregion
-
         void UpdateOwner (DocumentInfo document)
         {
             if (lstOwner.Visible) {
@@ -663,54 +696,8 @@ namespace R7.Documents
             if (pickerLastModifiedDate.SelectedDate == null || oldDocument.Url != ctlUrl.Url) {
                 document.ModifiedDate = now;
             } else {
-                document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Valu    }
-        }
-
-        #endregion
-
-        protected void linkAddMore_Click (object sender, EventArgs e)
-        {
-            multiView.ActiveViewIndex = 0;
-            CalculateSortIndex ();
-
-            // document was added before, so we need to reload page
-            linkCancel.NavigateUrl = Globals.NavigateURL ();
-        }
-
-        protected void lnkChange_Click (object sender, EventArgs e)
-        {
-            lblOwner.Visible = false;
-            lnkChange.Visible = false;
-            lstOwner.Visible = true;
-
-            PopulateOwnerList ();
-
-            try {
-                // get existing document record
-                var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
-
-                try {
-                    if (document == null) {
-                        lstOwner.SelectedValue = UserId.ToString ();
-                    }
-                    else {
-                        lstOwner.SelectedValue = document.OwnedByUserId.ToString ();
-                    }
-                }
-                catch (Exception ex) {
-                    // defensive code only, would only happen if the owner user has been deleted
-                    Exceptions.LogException (ex);
-                }
+                document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
             }
-            catch (Exception ex) {
-                // would happen if the user no longer exists
-                Exceptions.LogException (ex);
-            }
-        }
-
-        protected void linkSelectUrl_Click (object sender, EventArgs e)
-        {
-            ctlUrl.Url = comboUrlHistory.SelectedValue;
         }
 
         void PopulateOwnerList ()
@@ -732,6 +719,18 @@ namespace R7.Documents
                 lstOwner.Items.Insert (0, new ListItem (
                     superUsers.DisplayName + " (" + superUsers.Username + ")", superUsers.UserID.ToString ())
                 );
+            }
+        }
+
+        void BindUrlHistory ()
+        {
+            var urlHistory = new UrlHistory (Session);
+            var urls = urlHistory.GetBindableUrls ();
+            if (urls.Count > 0) {
+                comboUrlHistory.DataSource = urls;
+                comboUrlHistory.DataBind ();
+            } else {
+                panelUrlHistory.Visible = false;
             }
         }
     }
