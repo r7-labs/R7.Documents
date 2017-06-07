@@ -57,11 +57,7 @@ namespace R7.Documents
     /// </history>
     public partial class EditDocuments : PortalModuleBase<DocumentsSettings>
     {
-        #region Private fields
-
         int itemId;
-
-        #endregion
 
         protected enum EditDocumentTab
         {

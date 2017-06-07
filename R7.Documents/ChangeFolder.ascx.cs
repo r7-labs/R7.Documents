@@ -36,12 +36,12 @@ namespace R7.Documents
 {
     public partial class ChangeFolder : PortalModuleBase<DocumentsSettings>
     {
-        #region Event Handlers
-
         UrlHistory _urlHistory;
         protected UrlHistory UrlHistory {
             get { return _urlHistory ?? (_urlHistory = new UrlHistory (Session)); }
         } 
+
+        #region Event Handlers
 
         protected override void OnInit (EventArgs e)
         {
@@ -103,6 +103,8 @@ namespace R7.Documents
             }
         }
 
+        #endregion
+
         IFileInfo FindMatchedFile (IFileInfo docFile, IEnumerable<IFileInfo> files)
         {
             return files.FirstOrDefault (f => 0 == string.Compare (f.FileName, docFile.FileName, StringComparison.InvariantCultureIgnoreCase));
@@ -144,7 +146,5 @@ namespace R7.Documents
                 }
             } 
         }
-
-        #endregion
     }
 }

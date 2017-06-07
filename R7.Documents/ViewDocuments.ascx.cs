@@ -62,6 +62,11 @@ namespace R7.Documents
 
         bool readComplete;
 
+        DocumentInfoFormatter _documentFormatter;
+        DocumentInfoFormatter DocumentFormatter {
+            get { return _documentFormatter ?? (_documentFormatter = new DocumentInfoFormatter ()); }
+        }
+
         #region Event Handlers
 
         protected override void OnInit (EventArgs e)
@@ -170,11 +175,6 @@ namespace R7.Documents
             Localization.LocalizeGridView (ref grdDocuments, LocalResourceFile);
         }
 
-        DocumentInfoFormatter _documentFormatter;
-        DocumentInfoFormatter DocumentFormatter {
-            get { return _documentFormatter ?? (_documentFormatter = new DocumentInfoFormatter ()); }
-        }
-
         /// <summary>
         /// grdDocuments_ItemCreated runs when an item in the grid is created
         /// </summary>
@@ -263,29 +263,13 @@ namespace R7.Documents
 
         #endregion
 
-        void SetupHyperLink (HyperLink link, DocumentInfo document)
-        {
-            link.NavigateUrl = Globals.LinkClick (document.Url, TabId, ModuleId,
-                                                  document.TrackClicks, document.ForceDownload);
-            if (document.NewWindow) {
-                link.Target = "_blank";
-            }
-        }
-
-        void SetHyperLinkAttributes (HyperLink link, DocumentInfo document)
-        {
-            foreach (var htmlAttr in DocumentFormatter.GetLinkAttributesCollection (document)) {
-                link.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
-            }
-        }
-
         #region IActionable implementation
 
         public ModuleActionCollection ModuleActions
         {
             get {
                 var actions = new ModuleActionCollection ();
-				
+
                 actions.Add (
                     GetNextActionID (), 
                     Localization.GetString (ModuleActionType.AddContent, LocalResourceFile), 
@@ -297,7 +281,7 @@ namespace R7.Documents
                     SecurityAccessLevel.Edit,
                     true,
                     false);
-                
+
                 actions.Add (
                     GetNextActionID (), 
                     Localization.GetString ("ImportDocuments.Action", LocalResourceFile),
@@ -321,14 +305,28 @@ namespace R7.Documents
                     SecurityAccessLevel.Edit,
                     true,
                     false);
-			
+
                 return actions;
             }
         }
 
         #endregion
 
-        #region Private Methods
+        void SetupHyperLink (HyperLink link, DocumentInfo document)
+        {
+            link.NavigateUrl = Globals.LinkClick (document.Url, TabId, ModuleId,
+                                                  document.TrackClicks, document.ForceDownload);
+            if (document.NewWindow) {
+                link.Target = "_blank";
+            }
+        }
+
+        void SetHyperLinkAttributes (HyperLink link, DocumentInfo document)
+        {
+            foreach (var htmlAttr in DocumentFormatter.GetLinkAttributesCollection (document)) {
+                link.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
+            }
+        }
 
         void LoadColumns ()
         {
@@ -522,7 +520,5 @@ namespace R7.Documents
 			
             grdDocuments.Columns.Add (objTemplateColumn);
         }
-
-        #endregion
     }
 }

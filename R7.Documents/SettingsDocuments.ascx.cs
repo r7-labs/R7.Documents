@@ -50,7 +50,7 @@ namespace R7.Documents
 
         const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
 
-        #region Event Handlers
+        #region Event handlers
 
         protected override void OnInit (EventArgs e)
         {
@@ -64,6 +64,132 @@ namespace R7.Documents
             comboGridStyle.DataSource = GridStyle.Styles.Values;
             comboGridStyle.DataBind ();
         }
+
+        protected override void OnLoad (EventArgs e)
+        {
+            base.OnLoad (e);
+
+            if (UserInfo.IsSuperUser) {
+                lnkEditLists.Text = Localization.GetString ("lnkEditLists", LocalResourceFile);
+
+                try {
+                    var tabController = new TabController ();
+                    lnkEditLists.NavigateUrl = tabController.GetTabByName ("Lists", Null.NullInteger).FullUrl;
+                } catch {
+                    // unable to locate "Lists" tab
+                    lblCannotEditLists.Text = Localization.GetString ("UnableToFindLists", LocalResourceFile);
+                    lblCannotEditLists.Visible = true;
+                    lnkEditLists.Visible = false;
+                }
+            } else {
+                // show error, then hide the "Edit" link
+                lblCannotEditLists.Text = Localization.GetString ("NoListAccess", LocalResourceFile);
+                lblCannotEditLists.Visible = true;
+                lnkEditLists.Visible = false;
+            }
+        }
+
+        protected void grdSortColumns_ItemCreated (object sender, DataGridItemEventArgs e)
+        {
+            switch (e.Item.ItemType) {
+            case ListItemType.AlternatingItem:
+            case ListItemType.Item:
+            case ListItemType.SelectedItem:
+
+                // Localize the delete button and set image
+                var deleteButton = (ImageButton)e.Item.FindControl ("buttonDeleteSortOrder");
+                deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("buttonDeleteSortOrder.Text");
+                deleteButton.ImageUrl = IconController.IconURL ("Delete");
+
+                break;
+            }
+        }
+
+        protected void grdDisplayColumns_ItemCreated (object sender, DataGridItemEventArgs e)
+        {
+            var objUpImage = default (ImageButton);
+            var objDownImage = default (ImageButton);
+
+            switch (e.Item.ItemType) {
+            case ListItemType.AlternatingItem:
+            case ListItemType.Item:
+            case ListItemType.SelectedItem:
+
+                // Center the "visible" checkbox in its cell
+                e.Item.Cells [1].Style.Add ("text-align", "center");
+
+                // imgUp
+                objUpImage = (ImageButton)e.Item.Cells [2].FindControl ("imgUp");
+                objUpImage.Visible = (e.Item.ItemIndex != 0);
+                objUpImage.ImageUrl = IconController.IconURL ("Up", "16X16");
+
+                // imgDown
+                objDownImage = (ImageButton)e.Item.Cells [2].FindControl ("imgDown");
+                objDownImage.ImageUrl = IconController.IconURL ("Dn", "16X16");
+                if (objUpImage.Visible == false) {
+                    objDownImage.Style.Add ("margin-left", "19px");
+                }
+
+                e.Item.CssClass = "Normal";
+                break;
+
+            case ListItemType.Header:
+                e.Item.CssClass = "SubHead";
+                break;
+            }
+        }
+
+        protected void grdDisplayColumns_ItemCommand (object source, DataGridCommandEventArgs e)
+        {
+            switch (e.CommandName) {
+            case "DisplayOrderDown":
+                // swap e.CommandArgument and the one after it
+                SwapColumn (e.CommandArgument.ToString (), ListSortDirection.Descending);
+                break;
+            case "DisplayOrderUp":
+                // swap e.CommandArgument and the one before it
+                SwapColumn (e.CommandArgument.ToString (), ListSortDirection.Ascending);
+                break;
+            }
+        }
+
+        protected void lnkAddSortColumn_Click (object sender, EventArgs e)
+        {
+            var objSortColumns = default (ArrayList);
+            var objNewSortColumn = new DocumentsSortColumnInfo ();
+
+            objSortColumns = RetrieveSortColumnSettings ();
+            objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
+            objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Column");
+            if (comboSortOrderDirection.SelectedValue == "ASC") {
+                objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
+            } else {
+                objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Descending;
+            }
+
+            objSortColumns.Add (objNewSortColumn);
+            BindSortSettings (objSortColumns);
+        }
+
+        protected void grdSortColumns_DeleteCommand (object source, DataGridCommandEventArgs e)
+        {
+            var objSortColumns = default (ArrayList);
+            var objSortColumnToDelete = new DocumentsSortColumnInfo ();
+
+            objSortColumns = RetrieveSortColumnSettings ();
+
+            foreach (DocumentsSortColumnInfo objSortColumnToDelete_loopVariable in objSortColumns) {
+                objSortColumnToDelete = objSortColumnToDelete_loopVariable;
+                if (objSortColumnToDelete.ColumnName == grdSortColumns.DataKeys [e.Item.ItemIndex].ToString ()) {
+                    objSortColumns.Remove (objSortColumnToDelete);
+                    break;
+                }
+            }
+
+            BindSortSettings (objSortColumns);
+        }
+
+        #endregion
 
         /// <summary>
         /// LoadSettings loads the settings from the Databas and displays them
@@ -190,110 +316,6 @@ namespace R7.Documents
         {
             return Localization.GetString (key, LocalResourceFile);
         }
-
-        protected void grdSortColumns_ItemCreated (object sender, DataGridItemEventArgs e)
-        {
-            switch (e.Item.ItemType) {
-            case ListItemType.AlternatingItem:
-            case ListItemType.Item:
-            case ListItemType.SelectedItem:
-
-                // Localize the delete button and set image
-                var deleteButton = (ImageButton)e.Item.FindControl ("buttonDeleteSortOrder");
-                deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("buttonDeleteSortOrder.Text");
-                deleteButton.ImageUrl = IconController.IconURL ("Delete");
-
-                break;
-            }
-        }
-
-        protected void grdDisplayColumns_ItemCreated (object sender, DataGridItemEventArgs e)
-        {
-            var objUpImage = default (ImageButton);
-            var objDownImage = default (ImageButton);
-
-            switch (e.Item.ItemType) {
-            case ListItemType.AlternatingItem:
-            case ListItemType.Item:
-            case ListItemType.SelectedItem:
-
-                // Center the "visible" checkbox in its cell
-                e.Item.Cells [1].Style.Add ("text-align", "center");
-
-                // imgUp
-                objUpImage = (ImageButton)e.Item.Cells [2].FindControl ("imgUp");
-                objUpImage.Visible = (e.Item.ItemIndex != 0);
-                objUpImage.ImageUrl = IconController.IconURL ("Up", "16X16");
-
-                // imgDown
-                objDownImage = (ImageButton)e.Item.Cells [2].FindControl ("imgDown");
-                objDownImage.ImageUrl = IconController.IconURL ("Dn", "16X16");
-                if (objUpImage.Visible == false) {
-                    objDownImage.Style.Add ("margin-left", "19px");
-                }
-
-                e.Item.CssClass = "Normal";
-                break;
-
-            case ListItemType.Header:
-                e.Item.CssClass = "SubHead";
-                break;
-            }
-        }
-
-        protected void grdDisplayColumns_ItemCommand (object source, DataGridCommandEventArgs e)
-        {
-            switch (e.CommandName) {
-                case "DisplayOrderDown":
-                    // swap e.CommandArgument and the one after it
-                    SwapColumn (e.CommandArgument.ToString (), ListSortDirection.Descending);
-                    break;
-                case "DisplayOrderUp":
-                    // swap e.CommandArgument and the one before it
-                    SwapColumn (e.CommandArgument.ToString (), ListSortDirection.Ascending);
-                    break;
-            }
-        }
-
-        protected void lnkAddSortColumn_Click (object sender, EventArgs e)
-        {
-            var objSortColumns = default (ArrayList);
-            var objNewSortColumn = new DocumentsSortColumnInfo ();
-
-            objSortColumns = RetrieveSortColumnSettings ();
-            objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
-            objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Column");
-            if (comboSortOrderDirection.SelectedValue == "ASC") {
-                objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
-            } else {
-                objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Descending;
-            }
-
-            objSortColumns.Add (objNewSortColumn);
-            BindSortSettings (objSortColumns);
-        }
-
-        protected void grdSortColumns_DeleteCommand (object source, DataGridCommandEventArgs e)
-        {
-            var objSortColumns = default (ArrayList);
-            var objSortColumnToDelete = new DocumentsSortColumnInfo ();
-
-            objSortColumns = RetrieveSortColumnSettings ();
-
-            foreach (DocumentsSortColumnInfo objSortColumnToDelete_loopVariable in objSortColumns) {
-                objSortColumnToDelete = objSortColumnToDelete_loopVariable;
-                if (objSortColumnToDelete.ColumnName == grdSortColumns.DataKeys [e.Item.ItemIndex].ToString ()) {
-                    objSortColumns.Remove (objSortColumnToDelete);
-                    break;
-                }
-            }
-
-            BindSortSettings (objSortColumns);
-        }
-
-        #endregion
-
-        #region Control Handling/Utility Functions
 
         void BindSortSettings (ArrayList objSortColumns)
         {
@@ -437,8 +459,6 @@ namespace R7.Documents
             BindColumnSettings (objColumnSettings);
         }
 
-        #endregion
-
         void SaveSortColumnSettings (ArrayList objSettings)
         {
             // custom viewstate implementation to avoid reflection
@@ -519,30 +539,6 @@ namespace R7.Documents
             }
 
             return objDisplayColumnSettings;
-        }
-
-        protected override void OnLoad (EventArgs e)
-        {
-            base.OnLoad (e);
-
-            if (UserInfo.IsSuperUser) {
-                lnkEditLists.Text = Localization.GetString ("lnkEditLists", LocalResourceFile);
-
-                try {
-                    var tabController = new TabController ();
-                    lnkEditLists.NavigateUrl = tabController.GetTabByName ("Lists", Null.NullInteger).FullUrl;
-                } catch {
-                    // unable to locate "Lists" tab
-                    lblCannotEditLists.Text = Localization.GetString ("UnableToFindLists", LocalResourceFile);
-                    lblCannotEditLists.Visible = true;
-                    lnkEditLists.Visible = false;
-                }
-            } else {
-                // show error, then hide the "Edit" link
-                lblCannotEditLists.Text = Localization.GetString ("NoListAccess", LocalResourceFile);
-                lblCannotEditLists.Visible = true;
-                lnkEditLists.Visible = false;
-            }
         }
     }
 }
