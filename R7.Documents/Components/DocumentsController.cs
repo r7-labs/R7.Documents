@@ -137,21 +137,7 @@ namespace R7.Documents
                     }
                 }
 
-                var settings = new DocumentsSettingsRepository ().GetSettings (module);
-                strXml.Append ("<settings>");
-                strXml.AppendFormat ("<allowusersort>{0}</allowusersort>", XmlUtils.XMLEncode (settings.AllowUserSort.ToString ()));
-                strXml.AppendFormat ("<showtitlelink>{0}</showtitlelink>", XmlUtils.XMLEncode (settings.ShowTitleLink.ToString ()));
-                strXml.AppendFormat (
-                    "<usecategorieslist>{0}</usecategorieslist>",
-                    XmlUtils.XMLEncode (settings.UseCategoriesList.ToString ()));
-                strXml.AppendFormat (
-                    "<categorieslistname>{0}</categorieslistname>",
-                    XmlUtils.XMLEncode (settings.CategoriesListName));
-                strXml.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder.ToString ()));
-                strXml.AppendFormat ("<displaycolumns>{0}</displaycolumns>", XmlUtils.XMLEncode (settings.DisplayColumns));
-                strXml.AppendFormat ("<sortorder>{0}</sortorder>", XmlUtils.XMLEncode (settings.SortOrder));
-                strXml.AppendFormat ("<dateTimeFormat>{0}</dateTimeFormat>", XmlUtils.XMLEncode (settings.DateTimeFormat));
-                strXml.Append ("</settings>");
+                ExportSettings (module, strXml);
             }
             catch (Exception ex) {
                 Exceptions.LogException (ex);
@@ -162,6 +148,25 @@ namespace R7.Documents
             }
 
             return strXml.ToString ();
+        }
+
+        void ExportSettings (ModuleInfo module, StringBuilder strXml)
+        {
+            var settings = new DocumentsSettingsRepository ().GetSettings (module);
+            strXml.Append ("<settings>");
+            strXml.AppendFormat ("<allowusersort>{0}</allowusersort>", XmlUtils.XMLEncode (settings.AllowUserSort.ToString ()));
+            strXml.AppendFormat ("<showtitlelink>{0}</showtitlelink>", XmlUtils.XMLEncode (settings.ShowTitleLink.ToString ()));
+            strXml.AppendFormat (
+                "<usecategorieslist>{0}</usecategorieslist>",
+                XmlUtils.XMLEncode (settings.UseCategoriesList.ToString ()));
+            strXml.AppendFormat (
+                "<categorieslistname>{0}</categorieslistname>",
+                XmlUtils.XMLEncode (settings.CategoriesListName));
+            strXml.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder.ToString ()));
+            strXml.AppendFormat ("<displaycolumns>{0}</displaycolumns>", XmlUtils.XMLEncode (settings.DisplayColumns));
+            strXml.AppendFormat ("<sortorder>{0}</sortorder>", XmlUtils.XMLEncode (settings.SortOrder));
+            strXml.AppendFormat ("<dateTimeFormat>{0}</dateTimeFormat>", XmlUtils.XMLEncode (settings.DateTimeFormat));
+            strXml.Append ("</settings>");
         }
 
         /// <summary>
@@ -234,11 +239,18 @@ namespace R7.Documents
                         "newwindow"));
             }
 
+            ImportSettings (module, content);
+
+            // TODO: Need module synchronization?
+        }
+
+        void ImportSettings (ModuleInfo module, string content)
+        {
             var xmlSettings = Globals.GetContent (content, "documents/settings");
             if (xmlSettings != null) {
                 var settingsRepository = new DocumentsSettingsRepository ();
                 var settings = settingsRepository.GetSettings (module);
-			
+
                 settings.AllowUserSort = XmlUtils.GetNodeValueBoolean (xmlSettings, "allowusersort");
                 settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlSettings, "showtitlelink");
                 settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlSettings, "usecategorieslist");
@@ -251,7 +263,6 @@ namespace R7.Documents
                 settings.DateTimeFormat = XmlUtils.GetNodeValue (xmlSettings, "dateTimeFormat");
 
                 settingsRepository.SaveSettings (module, settings);
-                // TODO: Need module synchronization?
             }
         }
 
