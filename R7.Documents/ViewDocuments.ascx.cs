@@ -182,9 +182,6 @@ namespace R7.Documents
         /// </history>
         protected void grdDocuments_RowCreated (object sender, GridViewRowEventArgs e)
         {
-            var count = 0;
-            var document = default (DocumentInfo);
-
             try {
                 e.Row.Cells [0].Visible = IsEditable;  
 
@@ -196,7 +193,7 @@ namespace R7.Documents
                         // TODO: Doesn't UseAccessibleHeader=true does same thing?
 						// setting "scope" to "col" indicates to for text-to-speech
 						// or braille readers that this row containes headings
-                        for (count = 1; count <= e.Row.Cells.Count - 1; count++) {
+                        for (var count = 1; count <= e.Row.Cells.Count - 1; count++) {
                             e.Row.Cells [count].Attributes.Add ("scope", "col");
                         }
                         break;
@@ -205,7 +202,7 @@ namespace R7.Documents
                     	// if ShowTitleLink is true, the title column is generated dynamically
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
-                        document = documentList [e.Row.RowIndex];
+                        var document = documentList [e.Row.RowIndex];
                         
 						// set CSS class for edit column cells
                         e.Row.Cells [0].CssClass = "EditCell";
