@@ -110,6 +110,8 @@ namespace R7.Documents
             buttonDeleteWithResource.Attributes.Add ("onClick", 
                 "javascript:return confirm('" + LocalizeString ("DeleteWithResource.Text") + "');");
 
+            cmdUpdateOverride.Text = LocalizeString ("Proceed.Text");
+            cmdUpdateOverride.ToolTip = LocalizeString ("Proceed.ToolTip");
             linkAddMore.Text = LocalizeString ("AddMoreDocuments.Text");
             linkAddMore.ToolTip = LocalizeString ("AddMoreDocuments.Text");
 

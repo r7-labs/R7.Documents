@@ -109,7 +109,7 @@
     	</div>		
         <ul class="dnnActions dnnClear">
             <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" OnClick="cmdUpdate_Click" /></li>
-            <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdateOverride" Visible="False" OnClick="cmdUpdateOverride_Click" /></li>
+            <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" Visible="false" OnClick="cmdUpdateOverride_Click" /></li>
             <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 			<li>&nbsp;</li>
             <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
