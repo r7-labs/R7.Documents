@@ -332,69 +332,39 @@ namespace R7.Documents
 
         void LoadColumns ()
         {
-            DocumentsDisplayColumnInfo objDisplayColumn = null;
+            var dateTimeFormat = Settings.GetDateTimeFormat ();
 
             // add columns dynamically
-            foreach (var objDisplayColumn_loopVariable in Settings.GetDisplayColumnList (LocalResourceFile)) {
-                objDisplayColumn = objDisplayColumn_loopVariable;
-                var dateTimeFormat = Settings.GetDateTimeFormat ();
-
-                if (objDisplayColumn.Visible) {
-                    switch (objDisplayColumn.ColumnName) {
+            foreach (var column in Settings.GetDisplayColumnList (LocalResourceFile)) {
+                if (column.Visible) {
+                    switch (column.ColumnName) {
                         case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
+                        case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
+                        case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
                             AddDocumentColumn (Localization.GetString ("Category.Column", LocalResourceFile), "Category", "Category");
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
-                            AddDocumentColumn (Localization.GetString ("CreatedBy.Column", LocalResourceFile), "CreatedBy", "CreatedByUser", "");
+                        case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
+                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName + "User");
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
-                            AddDocumentColumn (
-                                Localization.GetString ("CreatedDate.Column", LocalResourceFile),
-                                "CreatedDate",
-                                "CreatedDate",
-                                dateTimeFormat);
-                            break;
-
+                        case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
                         case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
-                            AddDocumentColumn (
-								Localization.GetString ("PublishedOnDate.Column", LocalResourceFile),
-                                "PublishedOnDate",
-                                "PublishedOnDate",
-                                dateTimeFormat);
-                            break;
-
-                        case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
-                            AddDocumentColumn (Localization.GetString ("Description.Column", LocalResourceFile), "Description", "Description");
+                            AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName, dateTimeFormat);
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
                             AddDownloadLink ("DownloadLink.Column", "DownloadLink", "DownloadLink", "ctlDownloadLink");
                             break;
 
-                        case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
-                            AddDocumentColumn (Localization.GetString ("ModifiedBy.Column", LocalResourceFile), "ModifiedBy", "ModifiedByUser");
-                            break;
-
-                        case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
-                            AddDocumentColumn (
-                                Localization.GetString ("ModifiedDate.Column", LocalResourceFile),
-                                "ModifiedDate",
-                                "ModifiedDate",
-                                dateTimeFormat);
-                            break;
-
                         case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
-                            AddDocumentColumn (Localization.GetString ("Owner.Column", LocalResourceFile), "Owner", "OwnedByUser");
+                            AddDocumentColumn (LocalizeString ("Owner.Column"), "Owner", "OwnedByUser");
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_SIZE:
-                            AddDocumentColumn (Localization.GetString ("Size.Column", LocalResourceFile), "Size", "FormatSize");
-                            break;
-
-                        case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
-                            AddDocumentColumn (Localization.GetString ("Clicks.Column", LocalResourceFile), "Clicks", "Clicks");
+                            AddDocumentColumn (LocalizeString ("Size.Column"), "Size", "FormatSize");
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_ICON:
