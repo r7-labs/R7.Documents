@@ -182,8 +182,8 @@ namespace R7.Documents
         /// </history>
         protected void grdDocuments_RowCreated (object sender, GridViewRowEventArgs e)
         {
-            int intCount = 0;
-            DocumentInfo objDocument = null;
+            var count = 0;
+            var document = default (DocumentInfo);
 
             try {
                 e.Row.Cells [0].Visible = IsEditable;  
@@ -196,8 +196,8 @@ namespace R7.Documents
                         // TODO: Doesn't UseAccessibleHeader=true does same thing?
 						// setting "scope" to "col" indicates to for text-to-speech
 						// or braille readers that this row containes headings
-                        for (intCount = 1; intCount <= e.Row.Cells.Count - 1; intCount++) {
-                            e.Row.Cells [intCount].Attributes.Add ("scope", "col");
+                        for (count = 1; count <= e.Row.Cells.Count - 1; count++) {
+                            e.Row.Cells [count].Attributes.Add ("scope", "col");
                         }
                         break;
 
@@ -205,13 +205,13 @@ namespace R7.Documents
                     	// if ShowTitleLink is true, the title column is generated dynamically
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
-                        objDocument = documentList [e.Row.RowIndex];
-
+                        document = documentList [e.Row.RowIndex];
+                        
 						// set CSS class for edit column cells
                         e.Row.Cells [0].CssClass = "EditCell";
 
 						// decorate unpublished items
-                        if (!objDocument.IsPublished (HttpContext.Current.Timestamp)) {
+                        if (!document.IsPublished (HttpContext.Current.Timestamp)) {
                             e.Row.CssClass = ((e.Row.RowIndex % 2 == 0) ? grdDocuments.RowStyle.CssClass
                                 : grdDocuments.AlternatingRowStyle.CssClass) + " _nonpublished";
                         }
@@ -227,25 +227,15 @@ namespace R7.Documents
                             if (mintTitleColumnIndex >= 0) {
                                 // dynamically set the title link URL
                                 var linkTitle = (HyperLink) e.Row.Controls [mintTitleColumnIndex + 1].FindControl ("ctlTitle");
-                                linkTitle.Text = objDocument.Title;
+                                linkTitle.Text = document.Title;
 								
                                 // set link title to display document description
-                                linkTitle.ToolTip = objDocument.Description;
+                                linkTitle.ToolTip = document.Description;
 
-                                // Note: The title link should display inline if possible, so set
-                                // ForceDownload=False
-                                linkTitle.NavigateUrl = Globals.LinkClick (
-                                    objDocument.Url,
-                                    TabId,
-                                    ModuleId,
-                                    objDocument.TrackClicks,
-                                    objDocument.ForceDownload);
-                                if (objDocument.NewWindow) {
-                                    linkTitle.Target = "_blank";
-                                }
-
+                                SetupHyperLink (linkTitle, document);
+                                
                                 // set HTML attributes for the link
-                                var docFormatter = new DocumentInfoFormatter (objDocument);
+                                var docFormatter = new DocumentInfoFormatter (document);
                                 foreach (var htmlAttr in docFormatter.LinkAttributesCollection) {
                                     linkTitle.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
                                 }
@@ -256,34 +246,19 @@ namespace R7.Documents
                         if (mintDownloadLinkColumnIndex == NOT_READ) {
                             mintDownloadLinkColumnIndex = DocumentsSettings.FindGridColumn (
                                 DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK,
-                                Settings.GetDisplayColumnList (LocalResourceFile),
-                            true);
+                                Settings.GetDisplayColumnList (LocalResourceFile), true);
                         }
                         if (mintDownloadLinkColumnIndex >= 0) {
                             var linkDownload = (HyperLink) e.Row.Controls [mintDownloadLinkColumnIndex].FindControl ("ctlDownloadLink");
-							
-                            // the title link should display open/save dialog if possible, so set ForceDownload=True
-                            linkDownload.NavigateUrl = Globals.LinkClick (
-                                objDocument.Url,
-                                TabId,
-                                ModuleId,
-                                objDocument.TrackClicks,
-                                objDocument.ForceDownload);
-                            if (objDocument.NewWindow) {
-                                linkDownload.Target = "_blank";
-                            }
+                            SetupHyperLink (linkDownload, document);
 
                             // display clicks in the tooltip
-                            if (objDocument.Clicks >= 0) {
-                                linkDownload.ToolTip = string.Format (
-                                    LocalizeString ("Clicks.Format"),
-                                    objDocument.Clicks);
+                            if (document.Clicks >= 0) {
+                                linkDownload.ToolTip = string.Format (LocalizeString ("Clicks.Format"), document.Clicks);
                             }
                         }
                         break;
                 }
-
-				
             }
             catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);
@@ -291,6 +266,15 @@ namespace R7.Documents
         }
 
         #endregion
+
+        void SetupHyperLink (HyperLink link, DocumentInfo document)
+        {
+            link.NavigateUrl = Globals.LinkClick (document.Url, TabId, ModuleId,
+                                                  document.TrackClicks, document.ForceDownload);
+            if (document.NewWindow) {
+                link.Target = "_blank";
+            }
+        }
 
         #region IActionable implementation
 
