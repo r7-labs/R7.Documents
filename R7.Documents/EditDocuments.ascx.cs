@@ -565,82 +565,38 @@ namespace R7.Documents
 
                     // get existing document record
                     var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
-
                     if (document == null) {
                         // new record
                         document = new DocumentInfo ();
                         document.ItemId = itemId;
                         document.ModuleId = ModuleId;
-						
                         document.CreatedByUserId = UserInfo.UserID;
-						
-                        // default ownerid value for new documents is current user, may be changed
-                        // by the value of the dropdown list (below)
                         document.OwnedByUserId = UserId;
                     }
 
-                    document.StartDate = datetimeStartDate.SelectedDate;
-                    document.EndDate = datetimeEndDate.SelectedDate;
-                    document.ModifiedByUserId = UserInfo.UserID;
+                    var oldDocument = document.Clone ();
 
                     document.Title = txtName.Text;
                     document.Description = txtDescription.Text;
                     document.ForceDownload = chkForceDownload.Checked;
-
-                    var oldUrl = document.Url;
                     document.Url = ctlUrl.Url;
                     document.LinkAttributes = textLinkAttributes.Text;
-					
-                    if (lstOwner.Visible) {
-                        if (lstOwner.SelectedValue != string.Empty) {
-                            document.OwnedByUserId = Convert.ToInt32 (lstOwner.SelectedValue);
-                        }
-                        else {
-                            document.OwnedByUserId = Null.NullInteger;
-                        }
-                    }
+                    document.ModifiedByUserId = UserInfo.UserID;
 
-                    if (txtCategory.Visible) {
-                        document.Category = txtCategory.Text;
-                    }
-                    else {
-                        if (lstCategory.SelectedItem.Text == Localization.GetString ("None_Specified")) {
-                            document.Category = "";
-                        }
-                        else {
-                            document.Category = lstCategory.SelectedItem.Value;
-                        }
-                    }
+                    UpdateDateTime (document, oldDocument);
+                    UpdateOwner (document);
+                    UpdateCategory (document);
 
                     int sortIndex;
                     document.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 0;
 
-                    #region Update date & time
-
-                    var now = DateTime.Now;
-
-                    if (pickerCreatedDate.SelectedDate == null) {
-                        document.CreatedDate = now;
-                    } else {
-                        document.CreatedDate = pickerCreatedDate.SelectedDate.Value;
-                    }
-
-                    if (pickerLastModifiedDate.SelectedDate == null || oldUrl != ctlUrl.Url) {
-                        document.ModifiedDate = now;
-                    } else {
-                        document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
-                    }
-
-                    #endregion
-
                     if (Null.IsNull (itemId)) {
                         DocumentsDataProvider.Instance.Add (document);
-                    }
-                    else {
+                    } else {
                         DocumentsDataProvider.Instance.Update (document);
-                        if (document.Url != oldUrl) {
+                        if (document.Url != oldDocument.Url) {
                             // delete old URL tracking data
-                            DocumentsDataProvider.Instance.DeleteDocumentUrl (oldUrl, PortalId, ModuleId);
+                            DocumentsDataProvider.Instance.DeleteDocumentUrl (oldDocument.Url, PortalId, ModuleId);
                         }
                     }
 
@@ -653,17 +609,61 @@ namespace R7.Documents
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 
-			        if (Null.IsNull (itemId)) {
+                    if (Null.IsNull (itemId)) {
                         this.Message ("DocumentAdded.Success", MessageType.Success, true);
                         multiView.ActiveViewIndex = 1;
                     } else {
                         Response.Redirect (Globals.NavigateURL (), true);
                     }
                 }
-            }
-            catch (Exception exc) {
+            } catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
+        }
+
+        #endregion
+
+        void UpdateOwner (DocumentInfo document)
+        {
+            if (lstOwner.Visible) {
+                if (lstOwner.SelectedValue != string.Empty) {
+                    document.OwnedByUserId = Convert.ToInt32 (lstOwner.SelectedValue);
+                } else {
+                    document.OwnedByUserId = Null.NullInteger;
+                }
+            }
+        }
+
+        void UpdateCategory (DocumentInfo document)
+        {
+            if (txtCategory.Visible) {
+                document.Category = txtCategory.Text;
+            } else {
+                if (lstCategory.SelectedItem.Text == Localization.GetString ("None_Specified")) {
+                    document.Category = "";
+                } else {
+                    document.Category = lstCategory.SelectedItem.Value;
+                }
+            }
+        }
+
+        void UpdateDateTime (DocumentInfo document, DocumentInfo oldDocument)
+        {
+            var now = DateTime.Now;
+
+            document.StartDate = datetimeStartDate.SelectedDate;
+            document.EndDate = datetimeEndDate.SelectedDate;
+
+            if (pickerCreatedDate.SelectedDate == null) {
+                document.CreatedDate = now;
+            } else {
+                document.CreatedDate = pickerCreatedDate.SelectedDate.Value;
+            }
+
+            if (pickerLastModifiedDate.SelectedDate == null || oldDocument.Url != ctlUrl.Url) {
+                document.ModifiedDate = now;
+            } else {
+                document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Valu    }
         }
 
         #endregion
