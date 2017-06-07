@@ -36,30 +36,22 @@ namespace R7.Documents
         static readonly char [] attributeQuotes = { '\"', '\'' };
         static readonly char [] attributeSeparators = { ';', ',' };
 
-        public DocumentInfo Document { get; protected set; }
-
-        public DocumentInfoFormatter (DocumentInfo document) {
-            Document = document;
-        }
-
-        public IEnumerable<Tuple<string,string>> LinkAttributesCollection
+        public IEnumerable<Tuple<string,string>> GetLinkAttributesCollection (DocumentInfo document)
         {
-            get {
-                var attrs = new List<Tuple<string,string>> ();
+            var attrs = new List<Tuple<string,string>> ();
 
-                if (!string.IsNullOrWhiteSpace (Document.LinkAttributes)) {
-                    // for earch attribute name / value pair
-                    foreach (var attr in Document.LinkAttributes.Split (attributeSeparators, StringSplitOptions.RemoveEmptyEntries)) {
-                        var attrPair = attr.Split ('=');
-                        if (attrPair.Length == 2)
-                            attrs.Add (new Tuple<string, string> (attrPair [0], attrPair [1].Trim (attributeQuotes)));
-                        else if (attrPair.Length == 1)
-                            attrs.Add (new Tuple<string, string> (attrPair [0], string.Empty));
-                    }
+            if (!string.IsNullOrWhiteSpace (document.LinkAttributes)) {
+                // for earch attribute name / value pair
+                foreach (var attr in document.LinkAttributes.Split (attributeSeparators, StringSplitOptions.RemoveEmptyEntries)) {
+                    var attrPair = attr.Split ('=');
+                    if (attrPair.Length == 2)
+                        attrs.Add (new Tuple<string, string> (attrPair [0], attrPair [1].Trim (attributeQuotes)));
+                    else if (attrPair.Length == 1)
+                        attrs.Add (new Tuple<string, string> (attrPair [0], string.Empty));
                 }
-
-                return attrs;
             }
+
+            return attrs;
         }
     }
 }

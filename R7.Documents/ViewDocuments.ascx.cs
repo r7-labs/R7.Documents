@@ -170,6 +170,11 @@ namespace R7.Documents
             Localization.LocalizeGridView (ref grdDocuments, LocalResourceFile);
         }
 
+        DocumentInfoFormatter _documentFormatter;
+        DocumentInfoFormatter DocumentFormatter {
+            get { return _documentFormatter ?? (_documentFormatter = new DocumentInfoFormatter ()); }
+        }
+
         /// <summary>
         /// grdDocuments_ItemCreated runs when an item in the grid is created
         /// </summary>
@@ -217,8 +222,7 @@ namespace R7.Documents
                             if (mintTitleColumnIndex == NOT_READ) {
                                 mintTitleColumnIndex = DocumentsSettings.FindGridColumn (
                                     DocumentsDisplayColumnInfo.COLUMN_TITLE,
-                                    Settings.GetDisplayColumnList (LocalResourceFile),
-                                    true);
+                                    Settings.GetDisplayColumnList (LocalResourceFile), true);
                             }
 
                             if (mintTitleColumnIndex >= 0) {
@@ -232,8 +236,7 @@ namespace R7.Documents
                                 SetupHyperLink (linkTitle, document);
                                 
                                 // set HTML attributes for the link
-                                var docFormatter = new DocumentInfoFormatter (document);
-                                foreach (var htmlAttr in docFormatter.LinkAttributesCollection) {
+                                foreach (var htmlAttr in DocumentFormatter.GetLinkAttributesCollection (document)) {
                                     linkTitle.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
                                 }
                             }
