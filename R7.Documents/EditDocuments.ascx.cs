@@ -326,19 +326,14 @@ namespace R7.Documents
         {
             switch (Globals.GetURLType (url)) {
                 case TabType.File:
-                    if (!url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)) {
-                        // to handle legacy scenarios before the introduction of the FileServerHandler
-                        url = "FileID=" + FileManager.Instance.GetFile (PortalId, url).FileId;
-                    }
-
+                    url = FixLegacyFileUrl (url);
                     var fileId = int.Parse (UrlUtils.GetParameterValue (url));
                     var file = FileManager.Instance.GetFile (fileId);
-					
-                    if (file != null) {
+				    if (file != null) {
                         return CheckRolesMatch (
-							// old code: this.ModuleConfiguration.AuthorizedViewRoles,
+							// TODO review old code: this.ModuleConfiguration.AuthorizedViewRoles,
                             GetModuleViewRoles (),
-							// old code: FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
+							// TODO reviewold code: FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
                             GetFolderViewRoles (file.FolderId)
                         );
                     }
@@ -428,6 +423,19 @@ namespace R7.Documents
         }
 
         /// <summary>
+        /// Handle legacy scenarios before the introduction of the FileServerHandler
+        /// </summary>
+        /// <returns>The legacy file URL.</returns>
+        /// <param name="url">Fixed file URL.</param>
+        string FixLegacyFileUrl (string url)
+        {
+            if (!url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)) {
+                return "FileID=" + FileManager.Instance.GetFile (PortalId, url).FileId;
+            }
+            return url;
+        }
+
+        /// <summary>
         /// Tests whether the file exists.  If it does not, add a warning message.
         /// </summary>
         /// <history>
@@ -446,14 +454,8 @@ namespace R7.Documents
 
             switch (Globals.GetURLType (url)) {
                 case TabType.File:
-                    if (!url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)) {
-                        // to handle legacy scenarios before the introduction of the FileServerHandler
-                        url = "FileID=" + FileManager.Instance.GetFile (PortalId, url).FileId;
-                        // Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
-                    }
-
+                    url = FixLegacyFileUrl (url);
                     fileId = int.Parse (UrlUtils.GetParameterValue (url));
-
                     var objFile = FileManager.Instance.GetFile (fileId);
 
                     blnAddWarning = false;
