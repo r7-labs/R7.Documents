@@ -24,6 +24,7 @@ using DotNetNuke.Common;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Models;
 using R7.DotNetNuke.Extensions.Modules;
@@ -54,7 +55,7 @@ namespace R7.Documents
                 if (folder != null) {
                     var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
                     var files = FolderManager.Instance.GetFiles (folder);
-
+                    var urlHistory = new UrlHistory (Session);
                     foreach (var document in documents) {
                         // only for files
                         if (Globals.GetURLType (document.Url) == TabType.File) {
@@ -94,6 +95,9 @@ namespace R7.Documents
                                                 PortalId);
                                         }
                                     }
+
+                                    // update URL history
+                                    urlHistory.StoreUrl (document.Url);
 
                                     // update document & URL tracking data
                                     DocumentsDataProvider.Instance.Update (document);
