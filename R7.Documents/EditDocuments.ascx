@@ -8,6 +8,8 @@
 
 <dnn:DnnCssInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents/admin.css" Priority="200" />
 <div class="dnnForm dnnEditDocs dnnClear" id="dnnEditDocs">
+	<asp:MultiView id="multiView" runat="server" ActiveViewIndex="0">
+	<asp:View runat="server">
 	<div id="document-tabs" class="dnnForm dnnClear">
         <ul class="dnnAdminTabNav dnnClear">
             <li><a href="#document-common-tab"><%= LocalizeString ("Common.Tab") %></a></li>
@@ -106,7 +108,7 @@
         	</fieldset>
     	</div>		
         <ul class="dnnActions dnnClear">
-            <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" OnClick="cmdUpdate_Click" /></li>
+            <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" OnClick="cmdUpdate_Click" /></li>
             <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdateOverride" Visible="False" OnClick="cmdUpdateOverride_Click" /></li>
             <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 			<li>&nbsp;</li>
@@ -114,6 +116,14 @@
 			<li><asp:LinkButton id="buttonDeleteWithResource" runat="server" CssClass="dnnSecondaryAction" resourcekey="buttonDeleteWithResource.Text" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
         </ul>
 	</div>	
+    </asp:View>
+	<asp:View runat="server">
+		<ul class="dnnActions dnnClear">
+            <li><asp:LinkButton id="linkAddMore" runat="server" CssClass="dnnPrimaryAction" OnClick="linkAddMore_Click" /></li>
+		    <li><asp:HyperLink id="linkCancelAdd" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
+		</ul>
+	</asp:View>
+	</asp:MultiView>	
 </div>
 <input id="hiddenSelectedTab" type="hidden" value="<%= (int) SelectedTab %>" />
 <script type="text/javascript">

@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
 // Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
@@ -100,14 +100,18 @@ namespace R7.Documents
         {
             base.OnInit (e);
 			
-            // set URL for cancel button
+            // set URLs for cancel links
             linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlHelper.IsInPopup (Request));
+            linkCancelAdd.NavigateUrl = Globals.NavigateURL ();
 
             cmdDelete.Attributes.Add ("onClick", 
                 "javascript:return confirm('" + LocalizeString ("Delete.Text")  + "');");
             
             buttonDeleteWithResource.Attributes.Add ("onClick", 
                 "javascript:return confirm('" + LocalizeString ("DeleteWithResource.Text") + "');");
+
+            linkAddMore.Text = LocalizeString ("AddMoreDocuments.Text");
+            linkAddMore.ToolTip = LocalizeString ("AddMoreDocuments.Text");
 
             // Configure categories entry as a list or textbox, based on user settings
             if (Settings.UseCategoriesList) {
@@ -176,15 +180,6 @@ namespace R7.Documents
             try {
                 lstOwner.SelectedValue = UserId.ToString ();
                 lblOwner.Text = UserInfo.DisplayName;
-
-                // HACK: Calculate sortindex for new documents
-                var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
-                if (documents != null && documents.Any ()) {
-                    var maxSortIndex = documents.Max (d => d.SortOrderIndex);
-
-                    // TODO: Move to portal settings
-                    txtSortIndex.Text = (maxSortIndex + 10).ToString ();
-                }
             } catch (Exception ex) {
                 // defensive code only, would only happen if the owner user has been deleted
                 Exceptions.LogException (ex);
@@ -195,11 +190,28 @@ namespace R7.Documents
 
             ctlUrl.NewWindow = true;
 
+            CalculateSortIndex ();
+
             if (Settings.DefaultFolder != null) {
                 var folderSelected = SelectFolder (ctlUrl, Settings.DefaultFolder.Value);
                 if (!folderSelected) {
                     this.Message ("CurrentFolder.Warning", MessageType.Warning, true);
                 }
+            }
+
+            cmdUpdate.Text = LocalizeString ("AddDocument.Text");
+            cmdUpdate.ToolTip = LocalizeString ("AddDocument.ToolTip");
+        }
+
+        void CalculateSortIndex ()
+        {
+        	// HACK: Calculate sortindex for new documents
+        	var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
+        	if (documents != null && documents.Any ()) {
+        		var maxSortIndex = documents.Max (d => d.SortOrderIndex);
+
+        		// TODO: Move to portal settings
+        		txtSortIndex.Text = (maxSortIndex + 10).ToString ();
             }
         }
 
@@ -263,6 +275,9 @@ namespace R7.Documents
                 AddLog ("Security violation: Attempt to access document not related to the module.", EventLogController.EventLogType.ADMIN_ALERT);
                 Response.Redirect (Globals.NavigateURL (), true);
             }
+
+            cmdUpdate.Text = LocalizeString ("UpdateDocument.Text");
+            cmdUpdate.ToolTip = LocalizeString ("UpdateDocument.ToolTip");
         }
 
         // TODO: Implement as extension method, move to the base library
@@ -599,15 +614,16 @@ namespace R7.Documents
                     var now = DateTime.Now;
 
                     if (pickerCreatedDate.SelectedDate == null) {
-                        pickerCreatedDate.SelectedDate = now;
+                        document.CreatedDate = now;
+                    } else {
+                        document.CreatedDate = pickerCreatedDate.SelectedDate.Value;
                     }
 
                     if (pickerLastModifiedDate.SelectedDate == null || oldUrl != ctlUrl.Url) {
-                        pickerLastModifiedDate.SelectedDate = now;
+                        document.ModifiedDate = now;
+                    } else {
+                        document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
                     }
-
-                    document.CreatedDate = pickerCreatedDate.SelectedDate.Value;
-                    document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
 
                     #endregion
 
@@ -630,7 +646,13 @@ namespace R7.Documents
                     urlHistory.StoreUrl (document.Url);
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-			        Response.Redirect (Globals.NavigateURL (), true);
+
+			        if (Null.IsNull (itemId)) {
+                        this.Message ("DocumentAdded.Success", MessageType.Success, true);
+                        multiView.ActiveViewIndex = 1;
+                    } else {
+                        Response.Redirect (Globals.NavigateURL (), true);
+                    }
                 }
             }
             catch (Exception exc) {
@@ -639,6 +661,15 @@ namespace R7.Documents
         }
 
         #endregion
+
+        protected void linkAddMore_Click (object sender, EventArgs e)
+        {
+            multiView.ActiveViewIndex = 0;
+            CalculateSortIndex ();
+
+            // document was added before, so we need to reload page
+            linkCancel.NavigateUrl = Globals.NavigateURL ();
+        }
 
         protected void lnkChange_Click (object sender, EventArgs e)
         {

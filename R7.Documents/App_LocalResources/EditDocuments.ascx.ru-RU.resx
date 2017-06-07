@@ -156,4 +156,25 @@
     <data name="linkSelectUrl.Text" xml:space="preserve">
         <value>Выбрать ссылку</value>
     </data>
+    <data name="AddMoreDocuments.Text" xml:space="preserve">
+        <value>Добавить еще</value>
+    </data>
+	<data name="AddMoreDocuments.ToolTip" xml:space="preserve">
+        <value>Добавить еще документы</value>
+    </data>
+    <data name="AddDocument.Text" xml:space="preserve">
+        <value>Добавить</value>
+    </data>
+	<data name="AddDocument.ToolTip" xml:space="preserve">
+        <value>Добавить документ</value>
+    </data>
+	<data name="UpdateDocument.Text" xml:space="preserve">
+        <value>Сохранить</value>
+    </data>
+    <data name="UpdateDocument.ToolTip" xml:space="preserve">
+        <value>Сохранить документ</value>
+    </data>
+    <data name="DocumentAdded.Success" xml:space="preserve">
+        <value>Документ успешно добавлен.</value>
+    </data>
 </root>
