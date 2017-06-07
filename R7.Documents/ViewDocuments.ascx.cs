@@ -234,11 +234,7 @@ namespace R7.Documents
                                 linkTitle.ToolTip = document.Description;
 
                                 SetupHyperLink (linkTitle, document);
-                                
-                                // set HTML attributes for the link
-                                foreach (var htmlAttr in DocumentFormatter.GetLinkAttributesCollection (document)) {
-                                    linkTitle.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
-                                }
+                                SetHyperLinkAttributes (linkTitle, document);
                             }
                         }
 
@@ -273,6 +269,13 @@ namespace R7.Documents
                                                   document.TrackClicks, document.ForceDownload);
             if (document.NewWindow) {
                 link.Target = "_blank";
+            }
+        }
+
+        void SetHyperLinkAttributes (HyperLink link, DocumentInfo document)
+        {
+            foreach (var htmlAttr in DocumentFormatter.GetLinkAttributesCollection (document)) {
+                link.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
             }
         }
 
