@@ -84,79 +84,44 @@ namespace R7.Documents
             return intResult;
         }
 
-        int CompareValues (string columnName, DocumentInfo objX, DocumentInfo objY)
+        int CompareValues (string columnName, DocumentInfo x, DocumentInfo y)
         {
             switch (columnName) {
                 case DocumentsDisplayColumnInfo.COLUMN_SORTORDER:
-                    if (objX.SortOrderIndex.CompareTo (objY.SortOrderIndex) != 0) {
-                        return objX.SortOrderIndex.CompareTo (objY.SortOrderIndex);
-                    }
-                    break;
+                    return x.SortOrderIndex.CompareTo (y.SortOrderIndex);
 
                 case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
-                    if (objX.Category.CompareTo (objY.Category) != 0) {
-                        return objX.Category.CompareTo (objY.Category);
-                    }
-                    break;
-
+                    return x.Category.CompareTo (y.Category);
+                    
                 case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
-                    if (objX.CreatedByUser.CompareTo (objY.CreatedByUser) != 0) {
-                        return objX.CreatedByUser.CompareTo (objY.CreatedByUser);
-                    }
-                    break;
+                    return x.CreatedByUser.CompareTo (y.CreatedByUser);
 
                 case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
-                    if (objX.CreatedDate.CompareTo (objY.CreatedDate) != 0) {
-                        return objX.CreatedDate.CompareTo (objY.CreatedDate);
-                    }
-                    break;
+                    return x.CreatedDate.CompareTo (y.CreatedDate);
 
                 case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
-                    if (objX.PublishedOnDate.CompareTo (objY.PublishedOnDate) != 0) {
-                        return objX.PublishedOnDate.CompareTo (objY.PublishedOnDate);
-                    }
-                    break;
+                    return x.PublishedOnDate.CompareTo (y.PublishedOnDate);
 
                 case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
-                    if (objX.Description.CompareTo (objY.Description) != 0) {
-                        return objX.Description.CompareTo (objY.Description);
-                    }
-                    break;
+                    return x.Description.CompareTo (y.Description);
+
                 case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
-                    if (objX.ModifiedByUser.CompareTo (objY.ModifiedByUser) != 0) {
-                        return objX.ModifiedByUser.CompareTo (objY.ModifiedByUser);
-                    }
-                    break;
+                    return x.ModifiedByUser.CompareTo (y.ModifiedByUser);
 
                 case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
-                    if (objX.ModifiedDate.CompareTo (objY.ModifiedDate) != 0) {
-                        return objX.ModifiedDate.CompareTo (objY.ModifiedDate);
-                    }
-                    break;
+                    return x.ModifiedDate.CompareTo (y.ModifiedDate);
 
                 case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
-                    if (objX.OwnedByUser.CompareTo (objY.OwnedByUser) != 0) {
-                        return objX.OwnedByUser.CompareTo (objY.OwnedByUser);
-                    }
-                    break;
+                    return x.OwnedByUser.CompareTo (y.OwnedByUser);
 
                 case DocumentsDisplayColumnInfo.COLUMN_SIZE:
-                    if (objX.Size.CompareTo (objY.Size) != 0) {
-                        return objX.Size.CompareTo (objY.Size);
-                    }
-                    break;
+                    return x.Size.CompareTo (y.Size);
 
                 case DocumentsDisplayColumnInfo.COLUMN_TITLE:
-                    if (objX.Title.CompareTo (objY.Title) != 0) {
-                    return objX.Title.CompareTo (objY.Title);
-                    }
-                    break;
+                    return x.Title.CompareTo (y.Title);
 
                 case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
-                    if (objX.Clicks.CompareTo (objY.Clicks) != 0) {
-                        return objX.Clicks.CompareTo (objY.Clicks);
-                    }
-                    break;
+                    return x.Clicks.CompareTo (y.Clicks);
             }
 
             return 0;
