@@ -11,13 +11,14 @@
 
 ## End-user changes
 
-- Popup-enabled, multi-tab document editing UI.
+- Multi-tabbed, popup-enabled document editing UI.
 - Icon column to display file extension or document type.
 - Ability to edit document dates.
 - Ability to publish/unpublish documents by setting start and end publication dates.
 - Publication date column (calculated from start publication date with fallback to creation date).
 - If no published documents available, module hides from reqular view.
 - Page-specific module presentation settings (column set / order, sorting, etc.)
+- Ability to import selected documents from any other R7.Documents or DNN Documents module.
 - New DNN search integration.
 
 ## Developer changes
