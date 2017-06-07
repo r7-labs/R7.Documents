@@ -443,50 +443,46 @@ namespace R7.Documents
                 this.Message ("msgNoFileSelected.Text", MessageType.Warning, true);
                 return false;
             }
-            else {
-                switch (Globals.GetURLType (url)) {
-                    case TabType.File:
-                        if (!url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)) {
-                            // to handle legacy scenarios before the introduction of the FileServerHandler
-                            url = "FileID=" + FileManager.Instance.GetFile (PortalId, url).FileId;
-                            // Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
+
+            switch (Globals.GetURLType (url)) {
+                case TabType.File:
+                    if (!url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)) {
+                        // to handle legacy scenarios before the introduction of the FileServerHandler
+                        url = "FileID=" + FileManager.Instance.GetFile (PortalId, url).FileId;
+                        // Url = "FileID=" + objFiles.ConvertFilePathToFileId(Url, PortalSettings.PortalId);
+                    }
+
+                    fileId = int.Parse (UrlUtils.GetParameterValue (url));
+
+                    var objFile = FileManager.Instance.GetFile (fileId);
+
+                    blnAddWarning = false;
+                    if (objFile == null) {
+                        blnAddWarning = true;
+                    }
+                    else {
+                        switch ((FolderController.StorageLocationTypes) objFile.StorageLocation) {
+                            case FolderController.StorageLocationTypes.InsecureFileSystem:
+                                blnAddWarning = !File.Exists (objFile.PhysicalPath);
+                                break;
+                            case FolderController.StorageLocationTypes.SecureFileSystem:
+                                blnAddWarning = !File.Exists (objFile.PhysicalPath + Globals.glbProtectedExtension);
+                                break;
+                            case FolderController.StorageLocationTypes.DatabaseSecure:
+                                blnAddWarning = false;
+								// Database-stored files cannot be deleted seperately
+                                break;
                         }
+                    }
 
-                        fileId = int.Parse (UrlUtils.GetParameterValue (url));
-
-                        var objFile = FileManager.Instance.GetFile (fileId);
-
-                        blnAddWarning = false;
-                        if (objFile == null) {
-                            blnAddWarning = true;
-                        }
-                        else {
-                            switch ((FolderController.StorageLocationTypes) objFile.StorageLocation) {
-                                case FolderController.StorageLocationTypes.InsecureFileSystem:
-                                    blnAddWarning = !File.Exists (objFile.PhysicalPath);
-                                    break;
-                                case FolderController.StorageLocationTypes.SecureFileSystem:
-                                    blnAddWarning = !File.Exists (objFile.PhysicalPath + Globals.glbProtectedExtension);
-                                    break;
-                                case FolderController.StorageLocationTypes.DatabaseSecure:
-                                    blnAddWarning = false;
-									// Database-stored files cannot be deleted seperately
-                                    break;
-                            }
-                        }
-
-                        if (blnAddWarning) {
-                            // display a "file not found" warning
-                            this.Message ("msgFileDeleted.Text", MessageType.Warning, true);
-                            return false;
-                        }
-
-                        break;
-                    case TabType.Url:
-                        // cannot validate "Url" link types
-                        break;
-                }
+                    if (blnAddWarning) {
+                        // display a "file not found" warning
+                        this.Message ("msgFileDeleted.Text", MessageType.Warning, true);
+                        return false;
+                    }
+                    break;
             }
+
             return true;
         }
 
