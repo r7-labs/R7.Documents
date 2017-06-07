@@ -418,7 +418,7 @@ namespace R7.Documents
                 if (strSortColumnList != string.Empty) {
                     strSortColumnList = strSortColumnList + ",";
                 }
-                strSortColumnList = strSortColumnList + (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Descending ? "-" : "").ToString () + objSortColumn.ColumnName;
+                strSortColumnList = strSortColumnList + (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Descending ? "-" : "") + objSortColumn.ColumnName;
             }
             Settings.SortOrder = strSortColumnList;
             Settings.GridStyle = comboGridStyle.SelectedValue;

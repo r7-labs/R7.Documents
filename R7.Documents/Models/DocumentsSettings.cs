@@ -73,7 +73,7 @@ namespace R7.Documents.Models
                     var strColumnName = strColumnData [0];
 
                     if (DocumentsDisplayColumnInfo.AvailableDisplayColumns.Contains (strColumnName)) {
-                        var objColumnInfo = new DocumentsDisplayColumnInfo () {
+                        var objColumnInfo = new DocumentsDisplayColumnInfo {
                             ColumnName = strColumnName,
                             DisplayOrder = objColumnSettings.Count + 1,
                             Visible = bool.Parse (strColumnData [1]),
