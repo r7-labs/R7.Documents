@@ -337,39 +337,47 @@ namespace R7.Documents
                     var file = FileManager.Instance.GetFile (fileId);
 					
                     if (file != null) {
-                        // module view roles
-                        var moduleViewRoles = new StringBuilder ();
-                        foreach (ModulePermissionInfo modulePerm in ModuleConfiguration.ModulePermissions) {
-                            if (modulePerm.PermissionKey == "VIEW" && modulePerm.AllowAccess) {
-                                if (moduleViewRoles.Length > 0)
-                                    moduleViewRoles.Append (';');
-	
-                                moduleViewRoles.Append (modulePerm.RoleName);
-                            }
-                        }
-	
-                        // folder view roles
-                        var folder = FolderManager.Instance.GetFolder (file.FolderId);
-                        var folderViewRoles = new StringBuilder ();
-                        foreach (FolderPermissionInfo folderPerm in folder.FolderPermissions) {
-                            if (folderPerm.PermissionKey == "READ" && folderPerm.AllowAccess) {
-                                if (folderViewRoles.Length > 0)
-                                    folderViewRoles.Append (';');
-	
-                                folderViewRoles.Append (folderPerm.RoleName);
-                            }
-                        }
-					
                         return CheckRolesMatch (
 							// old code: this.ModuleConfiguration.AuthorizedViewRoles,
-                            moduleViewRoles.ToString (),
+                            GetModuleViewRoles (),
 							// old code: FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
-                            folderViewRoles.ToString ()
+                            GetFolderViewRoles (file.FolderId)
                         );
                     }
                     break;
             }
             return true;
+        }
+
+        string GetModuleViewRoles ()
+        {
+            var moduleViewRoles = new StringBuilder ();
+            foreach (ModulePermissionInfo modulePerm in ModuleConfiguration.ModulePermissions) {
+                if (modulePerm.PermissionKey == "VIEW" && modulePerm.AllowAccess) {
+                    if (moduleViewRoles.Length > 0)
+                        moduleViewRoles.Append (';');
+
+                    moduleViewRoles.Append (modulePerm.RoleName);
+                }
+            }
+
+            return moduleViewRoles.ToString ();
+        }
+
+        string GetFolderViewRoles (int folderId)
+        {
+            var folder = FolderManager.Instance.GetFolder (folderId);
+            var folderViewRoles = new StringBuilder ();
+            foreach (FolderPermissionInfo folderPerm in folder.FolderPermissions) {
+                if (folderPerm.PermissionKey == "READ" && folderPerm.AllowAccess) {
+                    if (folderViewRoles.Length > 0) {
+                        folderViewRoles.Append (';');
+                    }
+                    folderViewRoles.Append (folderPerm.RoleName);
+                }
+            }
+
+            return folderViewRoles.ToString ();
         }
 
         /// <summary>
