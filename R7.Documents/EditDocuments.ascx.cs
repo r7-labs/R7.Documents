@@ -324,8 +324,6 @@ namespace R7.Documents
         /// </history>
         bool CheckFileSecurity (string url)
         {
-            var fileId = 0;
-					
             switch (Globals.GetURLType (url)) {
                 case TabType.File:
                     if (!url.StartsWith ("fileid=", StringComparison.InvariantCultureIgnoreCase)) {
@@ -333,7 +331,7 @@ namespace R7.Documents
                         url = "FileID=" + FileManager.Instance.GetFile (PortalId, url).FileId;
                     }
 
-                    fileId = int.Parse (UrlUtils.GetParameterValue (url));
+                    var fileId = int.Parse (UrlUtils.GetParameterValue (url));
                     var file = FileManager.Instance.GetFile (fileId);
 					
                     if (file != null) {
