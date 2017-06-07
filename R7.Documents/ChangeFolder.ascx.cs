@@ -20,6 +20,8 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
@@ -35,6 +37,11 @@ namespace R7.Documents
     public partial class ChangeFolder : PortalModuleBase<DocumentsSettings>
     {
         #region Event Handlers
+
+        UrlHistory _urlHistory;
+        protected UrlHistory UrlHistory {
+            get { return _urlHistory ?? (_urlHistory = new UrlHistory (Session)); }
+        } 
 
         protected override void OnInit (EventArgs e)
         {
@@ -55,7 +62,6 @@ namespace R7.Documents
                 if (folder != null) {
                     var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
                     var files = FolderManager.Instance.GetFiles (folder);
-                    var urlHistory = new UrlHistory (Session);
                     foreach (var document in documents) {
                         // only for files
                         if (Globals.GetURLType (document.Url) == TabType.File) {
@@ -66,57 +72,20 @@ namespace R7.Documents
                                 var updated = false; 
                                 var oldDocument = document.Clone ();
 
-                                foreach (var file in files) {
-                                    // case-insensitive comparison
-                                    if (0 == string.Compare (file.FileName, docFile.FileName, StringComparison.InvariantCultureIgnoreCase)) {
-                                        document.Url = "FileID=" + file.FileId;
-                                        document.CreatedDate = DateTime.Now;
-                                        document.ModifiedDate = document.CreatedDate;
-                                        document.CreatedByUserId = UserId;
-                                        document.ModifiedByUserId = UserId;
-
-                                        updated = true;
-                                        break;
-                                    }
-                                } // foreach 
-
-                                if (updated) {
-                                    // publish updated documents
-                                    if (checkPublishUpdated.Checked) {
-                                        document.Publish ();
-                                    }
-
-                                    // safe remove old files, if needed.
-                                    // need to do this before update!
-                                    if (checkDeleteOldFiles.Checked) {
-                                        if (oldDocument.Url != document.Url) {
-                                            DocumentsDataProvider.Instance.DeleteDocumentResource (
-                                                oldDocument,
-                                                PortalId);
-                                        }
-                                    }
-
-                                    // update URL history
-                                    urlHistory.StoreUrl (document.Url);
-
-                                    // update document & URL tracking data
-                                    DocumentsDataProvider.Instance.Update (document);
-                                    DocumentsDataProvider.Instance.UpdateDocumentUrl (
-                                        document,
-                                        oldDocument.Url,
-                                        PortalId,
-                                        ModuleId);
+                                var matchedFile = FindMatchedFile (docFile, files);
+                                if (matchedFile != null) {
+                                    document.Url = "FileID=" + matchedFile.FileId;
+                                    document.CreatedDate = DateTime.Now;
+                                    document.ModifiedDate = document.CreatedDate;
+                                    document.CreatedByUserId = UserId;
+                                    document.ModifiedByUserId = UserId;
+                                    updated = true;
                                 }
-                                else {
-                                    if (checkUnpublishSkipped.Checked) {
-                                        // unpublish not updated documents & update them
-                                        document.UnPublish ();
-                                        DocumentsDataProvider.Instance.Update (document);
-                                    }
-                                } // if (updated)
+
+                                PostUpdateDocument (document, oldDocument, updated);
                             }
                         }
-                    } // foreach
+                    }
 
                     // update module's default folder setting
                     if (checkUpdateDefaultFolder.Checked) {
@@ -132,6 +101,48 @@ namespace R7.Documents
             catch (Exception ex) {
                 Exceptions.ProcessModuleLoadException (this, ex);
             }
+        }
+
+        IFileInfo FindMatchedFile (IFileInfo docFile, IEnumerable<IFileInfo> files)
+        {
+            return files.FirstOrDefault (f => 0 == string.Compare (f.FileName, docFile.FileName, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        void PostUpdateDocument (DocumentInfo document, DocumentInfo oldDocument, bool updated)
+        {
+            if (updated) {
+                if (checkPublishUpdated.Checked) {
+                    document.Publish ();
+                }
+
+                // safe remove old files, if needed.
+                // need to do this before update!
+                if (checkDeleteOldFiles.Checked) {
+                    if (oldDocument.Url != document.Url) {
+                        DocumentsDataProvider.Instance.DeleteDocumentResource (
+                            oldDocument,
+                            PortalId);
+                    }
+                }
+
+                // update URL history
+                UrlHistory.StoreUrl (document.Url);
+
+                // update document & URL tracking data
+                DocumentsDataProvider.Instance.Update (document);
+                DocumentsDataProvider.Instance.UpdateDocumentUrl (
+                    document,
+                    oldDocument.Url,
+                    PortalId,
+                    ModuleId);
+            }
+            else {
+                if (checkUnpublishSkipped.Checked) {
+                    // unpublish not updated documents & update them
+                    document.UnPublish ();
+                    DocumentsDataProvider.Instance.Update (document);
+                }
+            } 
         }
 
         #endregion
