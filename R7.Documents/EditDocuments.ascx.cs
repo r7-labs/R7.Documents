@@ -549,11 +549,11 @@ namespace R7.Documents
             Update (true);
         }
 
-        void Update (bool Override)
+        void Update (bool ignoreWarnings)
         {
             try {
                 if (Page.IsValid) {
-                    if (!Override) {
+                    if (!ignoreWarnings) {
                         if (!CheckFileExists (ctlUrl.Url) || !CheckFileSecurity (ctlUrl.Url)) {
                             cmdUpdateOverride.Visible = true;
                             cmdUpdate.Visible = false;
