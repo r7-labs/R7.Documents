@@ -31,7 +31,7 @@
         <value>Отметьте все документы, которые требуется импортировать.</value>
     </data>
     <data name="NotSelected.Text" xml:space="preserve">
-        <value>-- Не выбрано --</value>
+        <value>&lt;Не выбрано&gt;</value>
     </data>
     <data name="buttonImport.Text" xml:space="preserve">
         <value>Импорт</value>

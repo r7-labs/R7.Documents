@@ -31,7 +31,7 @@
         <value>Check all documents you want to import.</value>
     </data>
     <data name="NotSelected.Text" xml:space="preserve">
-        <value>-- Not Selected --</value>
+        <value>&lt;Not Selected&gt;</value>
     </data>
     <data name="buttonImport.Text" xml:space="preserve">
         <value>Import</value>
