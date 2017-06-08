@@ -57,9 +57,9 @@ namespace R7.Documents
     {
         const int NOT_READ = -2;
 
-        int mintTitleColumnIndex = NOT_READ;
+        int titleColumnIndex = NOT_READ;
 		
-        int mintDownloadLinkColumnIndex = NOT_READ;
+        int downloadLinkColumnIndex = NOT_READ;
 
         List<DocumentViewModel> _documents;
         protected List<DocumentViewModel> Documents {
@@ -209,15 +209,15 @@ namespace R7.Documents
                         }
 
                         if (Settings.ShowTitleLink) {
-                            if (mintTitleColumnIndex == NOT_READ) {
-                                mintTitleColumnIndex = DocumentsSettings.FindGridColumn (
+                            if (titleColumnIndex == NOT_READ) {
+                                titleColumnIndex = DocumentsSettings.FindGridColumn (
                                     DocumentsDisplayColumnInfo.COLUMN_TITLE,
                                     Settings.GetDisplayColumnList (LocalResourceFile), true);
                             }
 
-                            if (mintTitleColumnIndex >= 0) {
+                            if (titleColumnIndex >= 0) {
                                 // dynamically set the title link URL
-                                var linkTitle = (HyperLink) e.Row.Controls [mintTitleColumnIndex + 1].FindControl ("ctlTitle");
+                                var linkTitle = (HyperLink) e.Row.Controls [titleColumnIndex + 1].FindControl ("ctlTitle");
                                 linkTitle.Text = document.Title;
 								
                                 // set link title to display document description
@@ -229,13 +229,13 @@ namespace R7.Documents
                         }
 
 						// if there's a "download" link, set the NavigateUrl 
-                        if (mintDownloadLinkColumnIndex == NOT_READ) {
-                            mintDownloadLinkColumnIndex = DocumentsSettings.FindGridColumn (
+                        if (downloadLinkColumnIndex == NOT_READ) {
+                            downloadLinkColumnIndex = DocumentsSettings.FindGridColumn (
                                 DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK,
                                 Settings.GetDisplayColumnList (LocalResourceFile), true);
                         }
-                        if (mintDownloadLinkColumnIndex >= 0) {
-                            var linkDownload = (HyperLink) e.Row.Controls [mintDownloadLinkColumnIndex].FindControl ("ctlDownloadLink");
+                        if (downloadLinkColumnIndex >= 0) {
+                            var linkDownload = (HyperLink) e.Row.Controls [downloadLinkColumnIndex].FindControl ("ctlDownloadLink");
                             SetupHyperLink (linkDownload, document);
 
                             // display clicks in the tooltip
