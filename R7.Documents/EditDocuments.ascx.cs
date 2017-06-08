@@ -643,6 +643,7 @@ namespace R7.Documents
                     if (Null.IsNull (itemId)) {
                         this.Message (string.Format (LocalizeString ("DocumentAdded.Format"), document.Title), MessageType.Success);
                         multiView.ActiveViewIndex = 1;
+                        BindUrlHistory ();
                     } else {
                         Response.Redirect (Globals.NavigateURL (), true);
                     }
