@@ -231,7 +231,7 @@ namespace R7.Documents
 
             ImportSettings (module, content);
 
-            // TODO: Need module synchronization?
+            ModuleSynchronizer.Synchronize (module.ModuleID, module.TabModuleID);
         }
 
         void ImportSettings (ModuleInfo module, string content)
