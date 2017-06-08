@@ -177,7 +177,7 @@
     <data name="UpdateDocument.ToolTip" xml:space="preserve">
         <value>Сохранить документ</value>
     </data>
-    <data name="DocumentAdded.Success" xml:space="preserve">
-        <value>Документ успешно добавлен.</value>
+    <data name="DocumentAdded.Format" xml:space="preserve">
+        <value>Документ &quot;{0}&quot; успешно добавлен.</value>
     </data>
 </root>

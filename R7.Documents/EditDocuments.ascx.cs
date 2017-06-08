@@ -641,7 +641,7 @@ namespace R7.Documents
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 
                     if (Null.IsNull (itemId)) {
-                        this.Message ("DocumentAdded.Success", MessageType.Success, true);
+                        this.Message (string.Format (LocalizeString ("DocumentAdded.Format"), document.Title), MessageType.Success);
                         multiView.ActiveViewIndex = 1;
                     } else {
                         Response.Redirect (Globals.NavigateURL (), true);
