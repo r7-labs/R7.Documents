@@ -57,13 +57,14 @@ namespace R7.Documents
     {
         const int NOT_READ = -2;
 
-        List<DocumentViewModel> documentList;
-		
         int mintTitleColumnIndex = NOT_READ;
 		
         int mintDownloadLinkColumnIndex = NOT_READ;
 
-        bool readComplete;
+        List<DocumentViewModel> _documents;
+        protected List<DocumentViewModel> Documents {
+            get { return _documents ?? (_documents = LoadDocuments ()); }
+        }
 
         #region Event Handlers
 
@@ -85,11 +86,7 @@ namespace R7.Documents
             base.OnLoad (e);
 
             try {
-                if (!readComplete) {
-                    documentList = LoadData ();
-                }
-
-                if (documentList.Count == 0) {
+                if (Documents.Count == 0) {
                     if (IsEditable) {
                         this.Message ("NothingToDisplay.Text", MessageType.Info, true);
                     }
@@ -99,7 +96,7 @@ namespace R7.Documents
                 }
                 else {
                     LoadColumns ();
-                    grdDocuments.DataSource = documentList;
+                    grdDocuments.DataSource = Documents;
                     grdDocuments.DataBind ();
                 }
             }
@@ -139,15 +136,12 @@ namespace R7.Documents
             objCustomSortList.Add (objCustomSortColumn);
 
             var docComparer = new DocumentComparer (objCustomSortList);
-            documentList.Sort (docComparer.Compare);
-            grdDocuments.DataSource = documentList;
+            Documents.Sort (docComparer.Compare);
+            grdDocuments.DataSource = Documents;
             grdDocuments.DataBind ();
 
             // Save the sort to viewstate
             ViewState ["CurrentSortOrder"] = e.SortExpression + " " + strSortDirectionString;
-
-            // Mark as a user selected sort
-            readComplete = true;
         }
 
         /// <summary>
@@ -159,15 +153,12 @@ namespace R7.Documents
             base.OnPreRender (e);
 			
             // only bind if not a user selected sort
-            if (!readComplete) {
-                
-                documentList = LoadData ();
-
-                // use DocumentComparer to do sort based on the default sort order (mobjSettings.SortOrder)
+            if (_documents == null) {
+                // use DocumentComparer to do sort based on the default sort order
                 var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
-                documentList.Sort (docComparer.Compare);
+                Documents.Sort (docComparer.Compare);
 
-                grdDocuments.DataSource = documentList;
+                grdDocuments.DataSource = Documents;
                 grdDocuments.DataBind ();
             }
 
@@ -206,7 +197,7 @@ namespace R7.Documents
                     	// if ShowTitleLink is true, the title column is generated dynamically
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
-                        var document = documentList [e.Row.RowIndex];
+                        var document = Documents [e.Row.RowIndex];
                         
 						// set CSS class for edit column cells
                         e.Row.Cells [0].CssClass = "EditCell";
@@ -381,13 +372,13 @@ namespace R7.Documents
             }
         }
 
-        List<DocumentViewModel> LoadData ()
+        List<DocumentViewModel> LoadDocuments ()
         {
             var isAdmin = UserInfo.IsSuperUser || UserInfo.IsInRole ("Administrators");
             var cacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
             var documents = DataCache.GetCachedData<IEnumerable<DocumentViewModel>> (
                 new CacheItemArgs (cacheKey, 1200, CacheItemPriority.Normal),
-                c => LoadData_Internal ()
+                c => LoadDocuments_Internal ()
             );
 
             // remove unpublished and inaccessible documents from the list
@@ -402,13 +393,10 @@ namespace R7.Documents
             var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
             filteredDocuments.Sort (docComparer.Compare);
 
-            // TODO: Move outside method or implement as 'out' argument
-            readComplete = true;
-
             return filteredDocuments;
         }
 
-        IEnumerable<DocumentViewModel> LoadData_Internal ()
+        IEnumerable<DocumentViewModel> LoadDocuments_Internal ()
         {
             var viewModelContext = new ViewModelContext<DocumentsSettings> (this, Settings);
             return DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId)
