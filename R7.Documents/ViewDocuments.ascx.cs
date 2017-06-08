@@ -32,6 +32,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Icons;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
+using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Security;
 using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
@@ -39,10 +40,10 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using R7.Documents.Data;
 using R7.Documents.Models;
+using R7.Documents.ViewModels;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
 using R7.DotNetNuke.Extensions.Modules;
 using R7.DotNetNuke.Extensions.ViewModels;
-using R7.Documents.ViewModels;
 
 namespace R7.Documents
 {
@@ -416,20 +417,25 @@ namespace R7.Documents
 
         bool CanView (string url)
         {
-            if (url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0) {
-                // document is a file, check security
-                var file = FileManager.Instance.GetFile (int.Parse (url.Split ('=') [1]));
-                if (file != null) {
-                    var folder = FolderManager.Instance.GetFolder (file.FolderId);
-                    if (folder != null && FolderPermissionController.CanViewFolder ((FolderInfo) folder)) {
-                        return true;
+            switch (Globals.GetURLType (url)) {
+                case TabType.File:
+                    if (url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0) {
+                        var file = FileManager.Instance.GetFile (int.Parse (url.Split ('=') [1]));
+                        if (file != null) {
+                            var folder = FolderManager.Instance.GetFolder (file.FolderId);
+                            if (folder != null && FolderPermissionController.CanViewFolder ((FolderInfo) folder)) {
+                                return true;
+                            }
+                        }
                     }
+                break;
+
+            case TabType.Tab:
+                var tab = TabController.Instance.GetTab (int.Parse (url), PortalId);
+                if (tab != null && TabPermissionController.CanViewPage (tab)) {
+                    return true;
                 }
-            }
-            else {
-                // not a file
-                // TODO: Implement security check also for pages
-                return true;
+                break;
             }
 
             return false;
