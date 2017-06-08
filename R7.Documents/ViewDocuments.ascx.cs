@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
 // Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
@@ -41,6 +41,8 @@ using R7.Documents.Data;
 using R7.Documents.Models;
 using R7.DotNetNuke.Extensions.ModuleExtensions;
 using R7.DotNetNuke.Extensions.Modules;
+using R7.DotNetNuke.Extensions.ViewModels;
+using R7.Documents.ViewModels;
 
 namespace R7.Documents
 {
@@ -54,18 +56,13 @@ namespace R7.Documents
     {
         const int NOT_READ = -2;
 
-        List<DocumentInfo> documentList;
+        List<DocumentViewModel> documentList;
 		
         int mintTitleColumnIndex = NOT_READ;
 		
         int mintDownloadLinkColumnIndex = NOT_READ;
 
         bool readComplete;
-
-        DocumentInfoFormatter _documentFormatter;
-        DocumentInfoFormatter DocumentFormatter {
-            get { return _documentFormatter ?? (_documentFormatter = new DocumentInfoFormatter ()); }
-        }
 
         #region Event Handlers
 
@@ -91,12 +88,13 @@ namespace R7.Documents
                     documentList = LoadData ();
                 }
 
-                var now = HttpContext.Current.Timestamp;
-                if (IsEditable && documentList.Count == 0) {
-                    this.Message ("NothingToDisplay.Text", MessageType.Info, true);
-                }
-                else if (!IsEditable && documentList.Count (d => d.IsPublished (now)) == 0) {
-                    ContainerControl.Visible = false;
+                if (documentList.Count == 0) {
+                    if (IsEditable) {
+                        this.Message ("NothingToDisplay.Text", MessageType.Info, true);
+                    }
+                    else {
+                        ContainerControl.Visible = false;
+                    }
                 }
                 else {
                     LoadColumns ();
@@ -312,7 +310,7 @@ namespace R7.Documents
 
         #endregion
 
-        void SetupHyperLink (HyperLink link, DocumentInfo document)
+        void SetupHyperLink (HyperLink link, IDocument document)
         {
             link.NavigateUrl = Globals.LinkClick (document.Url, TabId, ModuleId,
                                                   document.TrackClicks, document.ForceDownload);
@@ -321,9 +319,9 @@ namespace R7.Documents
             }
         }
 
-        void SetHyperLinkAttributes (HyperLink link, DocumentInfo document)
+        void SetHyperLinkAttributes (HyperLink link, IDocument document)
         {
-            foreach (var htmlAttr in DocumentFormatter.GetLinkAttributesCollection (document)) {
+            foreach (var htmlAttr in document.GetLinkAttributesCollection ()) {
                 link.Attributes.Add (htmlAttr.Item1, htmlAttr.Item2);
             }
         }
@@ -382,72 +380,59 @@ namespace R7.Documents
             }
         }
 
-        List<DocumentInfo> LoadData ()
+        List<DocumentViewModel> LoadData ()
         {
-            List<DocumentInfo> documents = null;
+            var isAdmin = UserInfo.IsSuperUser || UserInfo.IsInRole ("Administrators");
+            var cacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
+            var documents = DataCache.GetCachedData<IEnumerable<DocumentViewModel>> (
+                new CacheItemArgs (cacheKey, 1200, CacheItemPriority.Normal),
+                c => LoadData_Internal ()
+            );
 
-            // only read from the cache if the users is not logged in
-            if (!Request.IsAuthenticated) {
-                var cacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
-                documents = DataCache.GetCachedData<List<DocumentInfo>> (
-                    new CacheItemArgs (cacheKey, 1200, CacheItemPriority.Normal),
-                    c => LoadData_Internal (false, false)
-                );
-            }
-            else {
-                documents = LoadData_Internal (IsEditable, UserInfo.IsSuperUser || UserInfo.IsInRole ("Administrators"));
-            }
+            // remove unpublished and inaccessible documents from the list
+            // TODO: Add test to check filtering logic
+            var filteredDocuments = documents
+                .Where (d =>
+                        (IsEditable || d.IsPublished (HttpContext.Current.Timestamp)) &&
+                        (isAdmin || CanView (d.Url)))
+                .ToList ();
 
             // sort documents
             var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
-            documents.Sort (docComparer.Compare);
+            filteredDocuments.Sort (docComparer.Compare);
 
             // TODO: Move outside method or implement as 'out' argument
             readComplete = true;
 
-            return documents;
+            return filteredDocuments;
         }
 
-        List<DocumentInfo> LoadData_Internal (bool isEditable, bool userIsAdmin)
+        IEnumerable<DocumentViewModel> LoadData_Internal ()
         {
-            var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId).ToList ();
+            var viewModelContext = new ViewModelContext<DocumentsSettings> (this, Settings);
+            return DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId)
+                                        .Select (d => new DocumentViewModel (d, viewModelContext));
+        }
 
-            DocumentInfo objDocument = null;
-
-            for (var intCount = documents.Count - 1; intCount >= 0; intCount--) {
-                objDocument = documents [intCount];
-
-                // no need to check security for superusers and admins
-                if (!userIsAdmin) {
-                    if (objDocument.Url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0) {
-                        // document is a file, check security
-                        var objFile = FileManager.Instance.GetFile (int.Parse (objDocument.Url.Split ('=') [1]));
-
-                        if (objFile != null) {
-                            var folder = FolderManager.Instance.GetFolder (objFile.FolderId);
-                            if (folder != null && !FolderPermissionController.CanViewFolder ((FolderInfo)folder)) {
-                                documents.Remove (objDocument);
-                                continue;
-                            }
-                        }
+        bool CanView (string url)
+        {
+            if (url.IndexOf ("fileid=", StringComparison.InvariantCultureIgnoreCase) >= 0) {
+                // document is a file, check security
+                var file = FileManager.Instance.GetFile (int.Parse (url.Split ('=') [1]));
+                if (file != null) {
+                    var folder = FolderManager.Instance.GetFolder (file.FolderId);
+                    if (folder != null && FolderPermissionController.CanViewFolder ((FolderInfo) folder)) {
+                        return true;
                     }
                 }
-
-                // remove unpublished documents from the list
-                if (!isEditable && !objDocument.IsPublished (HttpContext.Current.Timestamp)) {
-                    documents.Remove (objDocument);
-                    continue;
-                }
-
-                objDocument.OnLocalize += OnLocalize;
+            }
+            else {
+                // not a file
+                // TODO: Implement security check also for pages
+                return true;
             }
 
-            return documents;
-        }
-
-        string OnLocalize (string text)
-        {
-            return Localization.GetString (text, LocalResourceFile);
+            return false;
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ namespace R7.Documents
         /// </summary>
         /// <param name="x">First document.</param>
         /// <param name="y">Second document.</param>
-        public int Compare (DocumentInfo x, DocumentInfo y)
+        public int Compare (IDocument x, IDocument y)
         {
             if (mobjSortColumns.Count == 0) {
                 return 0;
@@ -55,10 +55,10 @@ namespace R7.Documents
                 return 0;
             }
 
-            return Compare (0, (DocumentInfo) x, (DocumentInfo) y);
+            return Compare (0, (IDocument) x, (IDocument) y);
         }
 
-        int Compare (int sortColumnIndex, DocumentInfo objX, DocumentInfo objY)
+        int Compare (int sortColumnIndex, IDocument objX, IDocument objY)
         {
             var objSortColumn = default(DocumentsSortColumnInfo);
             int intResult = 0;
@@ -84,7 +84,7 @@ namespace R7.Documents
             return intResult;
         }
 
-        int CompareValues (string columnName, DocumentInfo x, DocumentInfo y)
+        int CompareValues (string columnName, IDocument x, IDocument y)
         {
             switch (columnName) {
                 case DocumentsDisplayColumnInfo.COLUMN_SORTORDER:

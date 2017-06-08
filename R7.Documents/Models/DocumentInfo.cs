@@ -21,38 +21,25 @@
 // THE SOFTWARE.
 
 using System;
-using DotNetNuke.Common.Utilities;
-using DotNetNuke.Entities.Icons;
-using DotNetNuke.ComponentModel.DataAnnotations;
-using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.ComponentModel.DataAnnotations;
 using DotNetNuke.Entities.Tabs;
+using DotNetNuke.Services.FileSystem;
 using R7.DotNetNuke.Extensions.Utilities;
 using R7.MiniGallery.Models;
 
 namespace R7.Documents.Models
 {
-    public delegate string LocalizeHandler (string text);
-
     /// <summary>
     /// Holds the information about a single document
     /// </summary>
     [TableName ("Documents_Documents")]
     [PrimaryKey ("ItemId", AutoIncrement = true)]
     [Scope ("ModuleId")]
-    public class DocumentInfo
+    public class DocumentInfo: IDocument
     {
-        #region Private fields
-
-        int _clicks;
-
-        string _formatIcon;
-
-        string _formatUrl;
-
-        #endregion
-
-        #region Properties
+        #region IDocument implementation
 
         public int ItemId { get; set; }
 
@@ -86,10 +73,6 @@ namespace R7.Documents.Models
 
         public string LinkAttributes { get; set; }
 
-        #endregion
-
-        #region External properties
-
         [ReadOnlyColumn]
         public bool TrackClicks { get; set; }
 
@@ -108,150 +91,17 @@ namespace R7.Documents.Models
         [ReadOnlyColumn]
         public string ModifiedByUser { get; set; }
 
+        int _clicks;
         [ReadOnlyColumn]
         public int Clicks {
             get { return (_clicks < 0) ? 0 : _clicks; }
             set { _clicks = value; }
         }
 
-        #endregion
-
-        #region Custom properties
-
-        [IgnoreColumn]
-        public string FormatUrl {
-            get {
-                if (_formatUrl == null) {
-                    _formatUrl = "";
-
-                    switch (Globals.GetURLType (Url)) {
-                    case TabType.File:
-
-                        var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
-                        if (fileId != null) {
-                            var fileInfo = FileManager.Instance.GetFile (fileId.Value);
-                            if (fileInfo != null) {
-                                _formatUrl = fileInfo.RelativePath;
-                            }
-                        }
-                        break;
-
-                    case TabType.Tab:
-
-                        var tabId = TypeUtils.ParseToNullable<int> (Url);
-                        if (tabId != null) {
-                            var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
-                            if (tabInfo != null) {
-                                // TODO: Show LocalizedTabName instead?
-                                _formatUrl = tabInfo.TabName;
-                            }
-                        }
-                        break;
-
-                    default:
-                        _formatUrl = Url;
-                        break;
-                    }
-                }
-
-                return _formatUrl;
-            }
-        }
-
-        /// <summary>
-        /// Formats document's type icon image.
-        /// </summary>
-        /// <value>Document's type icon image HTML code.</value>
-        [IgnoreColumn]
-        public string FormatIcon {
-            get {
-                if (_formatIcon == null) {
-                    _formatIcon = "";
-
-                    switch (Globals.GetURLType (Url)) {
-                    case TabType.File:
-
-                        var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
-                        if (fileId != null) {
-                            var fileInfo = FileManager.Instance.GetFile (fileId.Value);
-                            if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension)) {
-                                // Optimistic way 
-                                _formatIcon = string.Format (
-                                    "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                    IconController.IconURL ("Ext" + fileInfo.Extension),
-                                    fileInfo.Extension.ToUpperInvariant ());
-
-                                /* 
-                            // Less optimistic way
-                            var iconFile = IconController.IconURL ("Ext" + file.Extension);
-
-                            if (File.Exists (PortalSettings.Current.HomeDirectoryMapPath + "../.." + iconFile))
-                            {
-
-                                _icon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                    iconFile, file.Extension.ToLowerInvariant ());
-                            }*/
-                            }
-                        }
-                        break;
-
-                    case TabType.Tab:
-                        _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                            IconController.IconURL ("Tabs", "16X16"), Localize ("Page.Text"));
-                        break;
-
-                    default:
-                        _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                            IconController.IconURL ("Link", "16X16", "Gray"), "URL");
-                        break;
-                    }
-                }
-
-                return _formatIcon;
-            }
-        }
-
-        [IgnoreColumn]
-        public string Info {
-            get { return FormatUrl; }
-        }
-
-        public event LocalizeHandler OnLocalize;
-
-        string Localize (string text)
-        {
-            if (OnLocalize != null) {
-                return OnLocalize (text);
-            }
-
-            return text;
-        }
-
-        /// <summary>
-        /// Gets the size of the format.
-        /// </summary>
-        /// <value>The size of the format.</value>
-        [IgnoreColumn]
-        public string FormatSize {
-            get {
-                try {
-                    if (Size > 0) {
-                        if (Size > (1024 * 1024)) {
-                            return string.Format ("{0:#,##0.00} {1}", Size / 1024f / 1024f, Localize ("Megabytes.Text"));
-                        }
-                        return string.Format ("{0:#,##0.00} {1}", Size / 1024f, Localize ("Kilobytes.Text"));
-                    }
-                    return Localize ("Unknown.Text");
-                } catch {
-                    return Localize ("Unknown.Text");
-                }
-            }
-        }
-
         [IgnoreColumn]
         public DateTime PublishedOnDate {
-	        get {
-		        return ModelHelper.PublishedOnDate (StartDate, CreatedDate);
+            get {
+                return ModelHelper.PublishedOnDate (StartDate, CreatedDate);
             }
         }
 
@@ -262,11 +112,6 @@ namespace R7.Documents.Models
         public DocumentInfo Clone ()
         {
             return (DocumentInfo) MemberwiseClone ();
-        }
-
-        public bool IsPublished (DateTime now)
-        {
-            return ModelHelper.IsPublished (now, StartDate, EndDate);
         }
 
         public void Publish ()
