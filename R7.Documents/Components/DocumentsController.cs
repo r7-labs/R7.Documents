@@ -56,7 +56,7 @@ namespace R7.Documents
                         ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
                         UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
                         IsActive = document.IsPublished (now),
-                        Url = string.Format ("/Default.aspx?tabid={0}#{1}", moduleInfo.TabID, moduleInfo.ModuleID)
+                        Url = string.Format ("/Default.aspx?tabid={0}&mid={1}", moduleInfo.TabID, moduleInfo.ModuleID)
 
                         // FIXME: This one produce null reference exception
                         // Url = Globals.LinkClick (document.Url, moduleInfo.TabID, moduleInfo.ModuleID, document.TrackClicks, document.ForceDownload)
