@@ -1,5 +1,13 @@
 ﻿.dnnEditDocs {}
 
+.dnnEditDocs .control-group-start {
+    margin-top:1em;
+}
+
+.dnnEditDocs .control-group-end {
+    margin-bottom:.5em;
+}
+
 .dnnEditDocs .dnnFormItem input[type=checkbox], 
 .dnnTabsModule .dnnFormItem input[type=radio] { width:auto }
 

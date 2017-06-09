@@ -51,19 +51,19 @@
                     <asp:TextBox id="txtCategory" runat="server" maxlength="50" />
                     <asp:DropDownList id="lstCategory" runat="server" />
                 </div>
-				<div class="dnnFormItem">
+				<div class="dnnFormItem control-group-start" >
                     <dnn:Label id="labelStartDate" runat="server" ControlName="datetimeStartDate" />
                     <dnn:DnnDateTimePicker id="datetimeStartDate" runat="server" />
                 </div>
-                <div class="dnnFormItem">
+                <div class="dnnFormItem control-group-end">
                     <dnn:Label id="labelEndDate" runat="server" ControlName="datetimeEndDate" />
                     <dnn:DnnDateTimePicker id="datetimeEndDate" runat="server" />
                 </div>
-				<div class="dnnFormItem">
+				<div class="dnnFormItem control-group-start" >
                     <dnn:Label id="labelCreatedDate" runat="server" ControlName="textCreatedDate" />
                     <dnn:DnnDateTimePicker id="pickerCreatedDate" runat="server" />
                 </div>
-                <div class="dnnFormItem">
+                <div class="dnnFormItem control-group-end">
                     <dnn:Label id="labelLastModifiedDate" runat="server" ControlName="textLastModifiedDate" />
                     <dnn:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
                 </div>
