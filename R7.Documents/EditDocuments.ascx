@@ -38,6 +38,14 @@
                     <asp:DropDownList id="comboUrlHistory" runat="server" DataTextField="Text" DataValueField="Value" />
 					<asp:LinkButton id="linkSelectUrl" runat="server" resourcekey="linkSelectUrl" OnClick="linkSelectUrl_Click" CssClass="dnnSecondaryAction" />
                 </asp:Panel>
+				<div class="dnnFormItem control-group-start">
+                    <dnn:Label id="labelStartDate" runat="server" ControlName="datetimeStartDate" />
+                    <dnn:DnnDateTimePicker id="datetimeStartDate" runat="server" />
+                </div>
+                <div class="dnnFormItem">
+                    <dnn:Label id="labelEndDate" runat="server" ControlName="datetimeEndDate" />
+                    <dnn:DnnDateTimePicker id="datetimeEndDate" runat="server" />
+                </div>		
             </fieldset>
     	</div>
     	<div id="document-advanced-tab">
@@ -50,14 +58,6 @@
                     <dnn:Label id="plCategory" runat="server" ControlName="txtCategory" />
                     <asp:TextBox id="txtCategory" runat="server" maxlength="50" />
                     <asp:DropDownList id="lstCategory" runat="server" />
-                </div>
-				<div class="dnnFormItem control-group-start" >
-                    <dnn:Label id="labelStartDate" runat="server" ControlName="datetimeStartDate" />
-                    <dnn:DnnDateTimePicker id="datetimeStartDate" runat="server" />
-                </div>
-                <div class="dnnFormItem control-group-end">
-                    <dnn:Label id="labelEndDate" runat="server" ControlName="datetimeEndDate" />
-                    <dnn:DnnDateTimePicker id="datetimeEndDate" runat="server" />
                 </div>
 				<div class="dnnFormItem control-group-start" >
                     <dnn:Label id="labelCreatedDate" runat="server" ControlName="textCreatedDate" />
