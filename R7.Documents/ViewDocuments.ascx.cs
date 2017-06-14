@@ -329,12 +329,12 @@ namespace R7.Documents
                         case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
                         case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
                         case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
-                            AddDocumentColumn (Localization.GetString ("Category.Column", LocalResourceFile), "Category", "Category");
+                            AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName);
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
                         case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
-                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName + "User");
+                            AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName + "User");
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
