@@ -43,11 +43,9 @@ namespace R7.Documents
         {
             base.OnInit (e);
 
-            var mctrl = new ModuleController ();
-            var docModules = new List<ModuleInfo> ();
-
             // get all document modules (R7.Documents and DNN Documents)
-            foreach (var module in mctrl.GetTabModules (TabId).Values) {
+            var docModules = new List<ModuleInfo> ();
+            foreach (var module in ModuleController.Instance.GetTabModules (TabId).Values) {
                 var mdef = module.ModuleDefinition.DefinitionName;
                 if (module.ModuleID != ModuleId && !module.IsDeleted && (mdef == ModuleDefinitions.R7_DOCUMENTS || mdef == ModuleDefinitions.DNN_DOCUMENTS)) {
                     docModules.Add (module);
@@ -67,42 +65,27 @@ namespace R7.Documents
         protected void buttonImport_Click (object sender, EventArgs e)
         {
             try {
-                var mctrl = new ModuleController ();
-                var module = mctrl.GetModule (int.Parse (comboModule.SelectedValue), TabId);
-                var mdef = module.ModuleDefinition.DefinitionName;
-
+                var fromModule = ModuleController.Instance.GetModule (int.Parse (comboModule.SelectedValue), TabId, false);
                 foreach (ListItem item in listDocuments.Items) {
                     if (item.Selected) {
-                        DocumentInfo document = null;
-
-                        if (mdef == ModuleDefinitions.R7_DOCUMENTS) {
-                            document = DocumentsDataProvider.Instance.GetDocument (
-                                int.Parse (item.Value),
-                                module.ModuleID);
-                        }
-                        else if (mdef == ModuleDefinitions.DNN_DOCUMENTS) {
-                            document = DocumentsDataProvider.Instance.GetDNNDocument (
-                                int.Parse (item.Value),
-                                module.ModuleID);
-                        }
-
+                        var document = GetDocument (int.Parse (item.Value), fromModule);
                         if (document != null) {
-                            var ctrlUrl = new UrlController ();
-
                             // get original document tracking data
-                            var url = ctrlUrl.GetUrlTracking (PortalId, document.Url, document.ModuleId);
+                            var ctrlUrl = new UrlController ();
+                            var urlTracking = ctrlUrl.GetUrlTracking (PortalId, document.Url, document.ModuleId);
 
+                            // import document
                             document.ItemId = Null.NullInteger;
                             document.ModuleId = ModuleId;
-
-                            // add new document
                             DocumentsDataProvider.Instance.Add (document);
 
                             // add new url tracking data
-                            ctrlUrl.UpdateUrl (PortalId, document.Url, url.UrlType, 
-                                url.LogActivity, url.TrackClicks, ModuleId, url.NewWindow);
-
-                            // WTF: using url.Clicks, url.LastClick, url.CreatedDate not working
+                            if (urlTracking != null) {
+                                // WTF: using url.Clicks, url.LastClick, url.CreatedDate overload not working?
+                                ctrlUrl.UpdateUrl (PortalId, document.Url, urlTracking.UrlType,
+                                                   urlTracking.LogActivity, urlTracking.TrackClicks,
+                                                   ModuleId, urlTracking.NewWindow);
+                            }
                         }
                     }
                 }
@@ -115,24 +98,30 @@ namespace R7.Documents
             }
         }
 
+        DocumentInfo GetDocument (int documentId, ModuleInfo module)
+        {
+            if (module.ModuleDefinition.DefinitionName == ModuleDefinitions.DNN_DOCUMENTS) {
+                return DocumentsDataProvider.Instance.GetDNNDocument (documentId, module.ModuleID);
+            }
+
+            return DocumentsDataProvider.Instance.GetDocument (documentId, module.ModuleID);
+        }
+
+        IEnumerable<DocumentInfo> GetDocuments (ModuleInfo module)
+        {
+            if (module.ModuleDefinition.DefinitionName == ModuleDefinitions.DNN_DOCUMENTS) {
+                return DocumentsDataProvider.Instance.GetDNNDocuments (module.ModuleID, module.PortalID);
+            }
+
+            return DocumentsDataProvider.Instance.GetDocuments (module.ModuleID, module.PortalID);
+        }
+
         protected void comboModule_SelectedIndexChanged (object sender, EventArgs e)
         {
             try {
-                var mctrl = new ModuleController ();
-                var module = mctrl.GetModule (int.Parse (((ListControl) sender).SelectedValue), TabId);
-
+                var module = ModuleController.Instance.GetModule (int.Parse (((ListControl) sender).SelectedValue), TabId, false);
                 if (module != null) {
-                    IEnumerable<DocumentInfo> documents = null;
-
-                    var mdef = module.ModuleDefinition.DefinitionName;
-
-                    if (mdef == ModuleDefinitions.R7_DOCUMENTS) {
-                        documents = DocumentsDataProvider.Instance.GetDocuments (module.ModuleID, module.PortalID);
-                    }
-                    else if (mdef == ModuleDefinitions.DNN_DOCUMENTS) {
-                        documents = DocumentsDataProvider.Instance.GetDNNDocuments (module.ModuleID, module.PortalID);
-                    }
-				
+                    var  documents = GetDocuments (module);
                     if (documents != null && documents.Any ()) {
                         panelDocuments.Visible = true;
                         buttonImport.Visible = true;
