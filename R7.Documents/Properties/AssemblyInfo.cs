@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle ("R7.Documents")]
 [assembly: AssemblyDescription ("")]
 [assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("R7.Solutions")]
+[assembly: AssemblyCompany ("R7.Labs")]
 [assembly: AssemblyProduct ("R7.Documents")]
 [assembly: AssemblyCopyright ("Roman M. Yagodin")]
 [assembly: AssemblyTrademark ("")]

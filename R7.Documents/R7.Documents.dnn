@@ -5,7 +5,7 @@
 			<description>This module renders a list of documents, including links to browse or download the document. Documents includes an edit page, which allows authorized users to edit the information about the Documents (for example, a friendly title) stored in the SQL database. Module based on the classic DNN Documents module.</description>
 			<owner>
 				<name>Roman M. Yagodin</name>
-				<organization>R7.Solutions</organization>
+				<organization>R7.Labs</organization>
 				<url>https://github.com/roman-yagodin/R7.Documents</url>
 				<email>roman.yagodin@gmail.com</email>
 			</owner>
