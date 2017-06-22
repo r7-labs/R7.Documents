@@ -117,10 +117,9 @@ namespace R7.Documents
                     document.Publish ();
                 }
 
-                // safe remove old files, if needed.
-                // need to do this before update!
+                // safe remove old resources, if needed - need to do this before update!
                 if (checkDeleteOldFiles.Checked) {
-                    if (oldDocument.Url != document.Url) {
+                    if (oldDocument.Url != document.Url && !string.IsNullOrEmpty (oldDocument.Url)) {
                         DocumentsDataProvider.Instance.DeleteDocumentResource (
                             oldDocument,
                             PortalId);
@@ -136,7 +135,8 @@ namespace R7.Documents
                     document,
                     oldDocument.Url,
                     PortalId,
-                    ModuleId);
+                    ModuleId
+                );
             }
             else {
                 if (checkUnpublishSkipped.Checked) {

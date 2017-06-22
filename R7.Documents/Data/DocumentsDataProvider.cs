@@ -150,20 +150,21 @@ namespace R7.Documents.Data
                 var ctrlUrl = new UrlController ();
 
                 // get tracking data for the old URL
-                var url = ctrlUrl.GetUrlTracking (portalId, oldUrl, moduleId);
+                var urlTracking = ctrlUrl.GetUrlTracking (portalId, oldUrl, moduleId);
+                if (urlTracking != null) {
+                    // delete old URL tracking data
+                    DataProvider.Instance ().DeleteUrlTracking (portalId, oldUrl, moduleId);
 
-                // delete old URL tracking data
-                DataProvider.Instance ().DeleteUrlTracking (portalId, oldUrl, moduleId);
-
-                // create new URL tracking data
-                ctrlUrl.UpdateUrl (
-                    portalId,
-                    document.Url,
-                    url.UrlType,
-                    url.LogActivity,
-                    url.TrackClicks,
-                    moduleId,
-                    url.NewWindow);
+                    // create new URL tracking data
+                    ctrlUrl.UpdateUrl (
+                        portalId,
+                        document.Url,
+                        urlTracking.UrlType,
+                        urlTracking.LogActivity,
+                        urlTracking.TrackClicks,
+                        moduleId,
+                        urlTracking.NewWindow);
+                }
             }
         }
     }
