@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <GridStyle Name="bootstrap">
-    <GridCssClass>table table-bordered table-stripped table-hover</GridCssClass>
+    <GridCssClass>table table-bordered table-striped table-hover</GridCssClass>
     <HeaderCssClass></HeaderCssClass>
     <FooterCssClass></FooterCssClass>
     <ItemCssClass></ItemCssClass>
