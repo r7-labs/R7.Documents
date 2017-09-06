@@ -30,8 +30,8 @@
 .ViewDocuments .EditHeader,
 .ViewDocuments .IconHeader { width:1px }
 
-.ViewDocuments ._nonpublished { background-color:#ffc }
-.ViewDocuments ._nonpublished:hover { background-color:#fefe97 }
+.ViewDocuments ._nonpublished { background-color:#ffc!important }
+.ViewDocuments ._nonpublished:hover { background-color:#fefe97!important }
     
 /* dnnGridHeader fix */
 .ViewDocuments .dnnGridHeader th {
