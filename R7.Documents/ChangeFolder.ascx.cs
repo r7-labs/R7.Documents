@@ -23,14 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using R7.Dnn.Extensions.Modules;
+using R7.Dnn.Extensions.Utilities;
 using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Models;
-using R7.Dnn.Extensions.Modules;
-using R7.Dnn.Extensions.Utilities;
 
 namespace R7.Documents
 {
@@ -51,7 +52,7 @@ namespace R7.Documents
             if (Settings.DefaultFolder != null)
                 ddlFolder.SelectedFolder = FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
 
-            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlHelper.IsInPopup (Request));
+            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
         }
 
         protected void buttonApply_Click (object sender, EventArgs e)

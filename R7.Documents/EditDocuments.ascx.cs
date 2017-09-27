@@ -37,12 +37,12 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Web.UI.WebControls;
-using R7.Documents.Components;
-using R7.Documents.Data;
-using R7.Documents.Models;
 using R7.Dnn.Extensions.ModuleExtensions;
 using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.Utilities;
+using R7.Documents.Components;
+using R7.Documents.Data;
+using R7.Documents.Models;
 
 namespace R7.Documents
 {
@@ -97,7 +97,7 @@ namespace R7.Documents
             base.OnInit (e);
 			
             // set URLs for cancel links
-            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlHelper.IsInPopup (Request));
+            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
             linkCancelAdd.NavigateUrl = Globals.NavigateURL ();
 
             cmdDelete.Attributes.Add ("onClick", 

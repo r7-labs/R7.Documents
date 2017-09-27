@@ -27,11 +27,11 @@ using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
+using R7.Dnn.Extensions.ControlExtensions;
+using R7.Dnn.Extensions.Utilities;
 using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Models;
-using R7.Dnn.Extensions.ControlExtensions;
-using R7.Dnn.Extensions.Utilities;
 
 namespace R7.Documents
 {
@@ -59,7 +59,7 @@ namespace R7.Documents
             }
 
             // set Cancel button link
-            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlHelper.IsInPopup (Request));
+            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
         }
 
         protected void buttonImport_Click (object sender, EventArgs e)
