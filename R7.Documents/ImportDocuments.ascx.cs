@@ -30,8 +30,8 @@ using DotNetNuke.Services.Exceptions;
 using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Models;
-using R7.DotNetNuke.Extensions.ControlExtensions;
-using R7.DotNetNuke.Extensions.Utilities;
+using R7.Dnn.Extensions.ControlExtensions;
+using R7.Dnn.Extensions.Utilities;
 
 namespace R7.Documents
 {

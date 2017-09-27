@@ -41,9 +41,9 @@ using DotNetNuke.Services.Localization;
 using R7.Documents.Data;
 using R7.Documents.Models;
 using R7.Documents.ViewModels;
-using R7.DotNetNuke.Extensions.ModuleExtensions;
-using R7.DotNetNuke.Extensions.Modules;
-using R7.DotNetNuke.Extensions.ViewModels;
+using R7.Dnn.Extensions.ModuleExtensions;
+using R7.Dnn.Extensions.Modules;
+using R7.Dnn.Extensions.ViewModels;
 
 namespace R7.Documents
 {

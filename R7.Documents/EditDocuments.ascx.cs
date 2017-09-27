@@ -40,9 +40,9 @@ using DotNetNuke.Web.UI.WebControls;
 using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Models;
-using R7.DotNetNuke.Extensions.ModuleExtensions;
-using R7.DotNetNuke.Extensions.Modules;
-using R7.DotNetNuke.Extensions.Utilities;
+using R7.Dnn.Extensions.ModuleExtensions;
+using R7.Dnn.Extensions.Modules;
+using R7.Dnn.Extensions.Utilities;
 
 namespace R7.Documents
 {

@@ -33,8 +33,8 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using R7.Documents.Models;
-using R7.DotNetNuke.Extensions.ControlExtensions;
-using R7.DotNetNuke.Extensions.Modules;
+using R7.Dnn.Extensions.ControlExtensions;
+using R7.Dnn.Extensions.Modules;
 
 namespace R7.Documents
 {

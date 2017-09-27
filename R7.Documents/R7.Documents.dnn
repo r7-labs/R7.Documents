@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
 	<packages>
-		<package name="R7.Documents" type="Module" version="01.09.02">
+		<package name="R7.Documents" type="Module" version="01.10.00">
 			<friendlyName>R7.Documents</friendlyName>
 			<description>This module renders a list of documents, including links to browse or download the document. Documents includes an edit page, which allows authorized users to edit the information about the Documents (for example, a friendly title) stored in the SQL database. Module based on the classic DNN Documents module.</description>
 			<owner>
@@ -16,7 +16,7 @@
                 <dependency type="CoreVersion">08.00.04</dependency>
                 <!-- .NET 4.5 -->
                 <dependency type="type">System.Reflection.ReflectionContext</dependency>
-                <dependency type="managedPackage" version="0.10.0">R7.DotNetNuke.Extensions</dependency>
+                <dependency type="managedPackage" version="0.12.0">R7.Dnn.Extensions</dependency>
             </dependencies>
             <components>
 				<component type="Module">

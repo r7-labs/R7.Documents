@@ -32,7 +32,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Common;
 using DotNetNuke.Services.FileSystem;
-using R7.DotNetNuke.Extensions.Data;
+using R7.Dnn.Extensions.Data;
 using R7.Documents.Models;
 
 namespace R7.Documents.Data

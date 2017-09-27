@@ -26,7 +26,7 @@
 
 using System.Globalization;
 using DotNetNuke.Entities.Modules;
-using R7.DotNetNuke.Extensions.Utilities;
+using R7.Dnn.Extensions.Utilities;
 
 namespace R7.Documents
 {

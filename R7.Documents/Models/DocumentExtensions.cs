@@ -26,7 +26,7 @@
 
 using System;
 using System.Collections.Generic;
-using R7.MiniGallery.Models;
+using R7.Dnn.Extensions.Models;
 
 namespace R7.Documents.Models
 {

@@ -32,10 +32,10 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
+using R7.Dnn.Extensions.Models;
+using R7.Dnn.Extensions.Utilities;
+using R7.Dnn.Extensions.ViewModels;
 using R7.Documents.Models;
-using R7.DotNetNuke.Extensions.Utilities;
-using R7.DotNetNuke.Extensions.ViewModels;
-using R7.MiniGallery.Models;
 
 namespace R7.Documents.ViewModels
 {
