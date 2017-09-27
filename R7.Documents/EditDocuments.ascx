@@ -36,7 +36,7 @@
 				<asp:Panel id="panelUrlHistory" runat="server" class="dnnFormItem">
 					<dnn:Label id="labelUrlHistory" runat="server" ControlName="comboUrlHistory" />
                     <asp:DropDownList id="comboUrlHistory" runat="server" DataTextField="Text" DataValueField="Value" />
-					<asp:LinkButton id="linkSelectUrl" runat="server" resourcekey="linkSelectUrl" OnClick="linkSelectUrl_Click" CssClass="dnnSecondaryAction" />
+					<asp:LinkButton id="linkSelectUrl" runat="server" resourcekey="linkSelectUrl" OnClick="linkSelectUrl_Click" CssClass="dnnSecondaryAction" CausesValidation="false" />
                 </asp:Panel>
 				<div class="dnnFormItem control-group-start">
                     <dnn:Label id="labelStartDate" runat="server" ControlName="datetimeStartDate" />
