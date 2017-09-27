@@ -5,7 +5,7 @@
 
 *R7.Documents* is a redesigned version of the classic [DNN Documents](https://github.com/mitchelsellers/dnnDocuments) module.
 
-![Screenshot](https://raw.githubusercontent.com/roman-yagodin/R7.Documents/master/images/r7_documents.png "Main module view in the edit mode")
+![Screenshot](https://raw.githubusercontent.com/roman-yagodin/R7.Documents/master/images/r7_documents_bootstrap.png "Main module in the edit mode")
 
 # Changes from the original module
 
