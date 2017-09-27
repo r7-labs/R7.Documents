@@ -328,9 +328,7 @@ namespace R7.Documents
                 }
 
                 // test to see if the document has been removed/deleted
-                if (!CheckFileExists (document.Url)) {
-                    ctlUrl.UrlType = "N";
-                } else {
+                if (CheckFileExists (document.Url)) {
                     CheckFileSecurity (document.Url);
                 }
 
@@ -384,12 +382,6 @@ namespace R7.Documents
                     urlControl.Url = "fileid=" + file.FileId;
                     return true;
                 }
-
-                // TODO: Need to review if following still actual
-                // Select folder => postback => root folder is always selected.
-                // Setting link type to "None" provide a way to mask this behavior,
-                // as user can select folder only after manually changing link type (i.e. after postback).
-                urlControl.UrlType = "N";
             }
             return false;
         }
