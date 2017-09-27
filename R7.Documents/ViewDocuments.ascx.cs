@@ -182,15 +182,8 @@ namespace R7.Documents
 
                 switch (e.Row.RowType) {
                     case DataControlRowType.Header:
-						// set CSS class for edit column header
+                        e.Row.TableSection = TableRowSection.TableHeader;
                         e.Row.Cells [0].CssClass = "EditHeader";
-
-                        // TODO: Doesn't UseAccessibleHeader=true does same thing?
-						// setting "scope" to "col" indicates to for text-to-speech
-						// or braille readers that this row containes headings
-                        for (var count = 1; count <= e.Row.Cells.Count - 1; count++) {
-                            e.Row.Cells [count].Attributes.Add ("scope", "col");
-                        }
                         break;
 
                     case DataControlRowType.DataRow:
