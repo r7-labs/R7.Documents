@@ -191,7 +191,6 @@
     <Compile Include="Models\DocumentsSettings.cs" />
     <Compile Include="Models\DocumentSortColumnInfo.cs" />
     <Compile Include="Models\DocumentDisplayColumnInfo.cs" />
-    <Compile Include="Components\UrlHistory.cs" />
     <Compile Include="Models\IDocument.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="Models\DocumentExtensions.cs" />

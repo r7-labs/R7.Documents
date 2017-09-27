@@ -39,8 +39,8 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Web.UI.WebControls;
 using R7.Dnn.Extensions.ModuleExtensions;
 using R7.Dnn.Extensions.Modules;
+using R7.Dnn.Extensions.UrlHistory;
 using R7.Dnn.Extensions.Utilities;
-using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Models;
 
