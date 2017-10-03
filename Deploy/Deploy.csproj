@@ -27,8 +27,13 @@
             </Command>
             <Command>
               <type>Custom</type>
-              <name>Do Local Deploy</name>
+              <name>Build &amp; Deploy</name>
               <command>msbuild /t:Build /p:Configuration=${ProjectConfigName} /p:EnableTests=false /p:EnableInstallPackage=false /p:EnableLocalDeploy=true ../R7.Documents.sln</command>
+            </Command>
+			<Command>
+              <type>Custom</type>
+              <name>Re-deploy</name>
+              <command>msbuild /p:Configuration=${ProjectConfigName} /p:EnableTests=false LocalDeploy.targets</command>
             </Command>
             <Command>
               <type>Custom</type>
@@ -39,11 +44,6 @@
               <type>Custom</type>
               <name>Run Tests</name>
               <command>msbuild /t:Build /p:Configuration=${ProjectConfigName} /p:EnableTests=true /p:EnableInstallPackage=false /p:EnableLocalDeploy=false ../R7.Documents.sln</command>
-            </Command>
-            <Command>
-              <type>Custom</type>
-              <name>Re-deploy Assets</name>
-              <command>msbuild /p:Configuration=${ProjectConfigName} /p:LocalDeployIncludeBinaries=false /p:EnableTests=false LocalDeploy.targets</command>
             </Command>
           </CustomCommands>
         </CustomCommands>
