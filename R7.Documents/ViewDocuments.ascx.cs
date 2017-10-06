@@ -135,7 +135,7 @@ namespace R7.Documents
             objCustomSortColumn.Direction = objCustomSortDirecton;
             objCustomSortList.Add (objCustomSortColumn);
 
-            var docComparer = new DocumentComparer (objCustomSortList);
+            var docComparer = new DocumentViewModelComparer (objCustomSortList);
             Documents.Sort (docComparer.Compare);
             grdDocuments.DataSource = Documents;
             grdDocuments.DataBind ();
@@ -155,7 +155,7 @@ namespace R7.Documents
             // only bind if not a user selected sort
             if (_documents == null) {
                 // use DocumentComparer to do sort based on the default sort order
-                var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
+                var docComparer = new DocumentViewModelComparer (Settings.GetSortColumnList (LocalResourceFile));
                 Documents.Sort (docComparer.Compare);
 
                 grdDocuments.DataSource = Documents;
@@ -383,7 +383,7 @@ namespace R7.Documents
                 .ToList ();
 
             // sort documents
-            var docComparer = new DocumentComparer (Settings.GetSortColumnList (LocalResourceFile));
+            var docComparer = new DocumentViewModelComparer (Settings.GetSortColumnList (LocalResourceFile));
             filteredDocuments.Sort (docComparer.Compare);
 
             return filteredDocuments;

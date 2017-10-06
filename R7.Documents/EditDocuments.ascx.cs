@@ -43,6 +43,7 @@ using R7.Dnn.Extensions.UrlHistory;
 using R7.Dnn.Extensions.Utilities;
 using R7.Documents.Data;
 using R7.Documents.Models;
+using R7.Documents.Helpers;
 
 namespace R7.Documents
 {
@@ -332,10 +333,11 @@ namespace R7.Documents
                     CheckFileSecurity (document.Url);
                 }
 
-                if (string.IsNullOrEmpty (document.OwnedByUser)) {
+                var ownerUserName = UserHelper.GetUserDisplayName (PortalId, document.OwnedByUserId);
+                if (string.IsNullOrEmpty (ownerUserName)) {
                     lblOwner.Text = Localization.GetString ("None_Specified");
                 } else {
-                    lblOwner.Text = document.OwnedByUser;
+                    lblOwner.Text = ownerUserName;
                 }
 
                 if (txtCategory.Visible) {
@@ -355,9 +357,9 @@ namespace R7.Documents
                 }
 
                 // FIXME: Audit data not preserved between postbacks
-                ctlAudit.CreatedByUser = document.CreatedByUser;
+                ctlAudit.CreatedByUser = UserHelper.GetUserDisplayName (PortalId, document.CreatedByUserId);
                 ctlAudit.CreatedDate = document.CreatedDate.ToString ();
-                ctlAudit.LastModifiedByUser = document.ModifiedByUser;
+                ctlAudit.LastModifiedByUser = UserHelper.GetUserDisplayName (PortalId, document.ModifiedByUserId);
                 ctlAudit.LastModifiedDate = document.ModifiedDate.ToString ();
 
                 ctlUrlTracking.URL = document.Url;

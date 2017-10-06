@@ -35,11 +35,12 @@ using DotNetNuke.Services.Localization;
 using R7.Dnn.Extensions.Models;
 using R7.Dnn.Extensions.Utilities;
 using R7.Dnn.Extensions.ViewModels;
+using R7.Documents.Helpers;
 using R7.Documents.Models;
 
 namespace R7.Documents.ViewModels
 {
-    public class DocumentViewModel : IDocument
+    public class DocumentViewModel : IDocumentViewModel
     {
         protected IDocument Model;
 
@@ -51,13 +52,11 @@ namespace R7.Documents.ViewModels
             Context = context;
         }
 
-        #region IDocument implementation
+        #region IDocumentViewModel implementation
 
         public string Category => Model.Category;
 
         public int Clicks => Model.Clicks;
-
-        public string CreatedByUser => Model.CreatedByUser;
 
         public int CreatedByUserId => Model.CreatedByUserId;
 
@@ -73,8 +72,6 @@ namespace R7.Documents.ViewModels
 
         public string LinkAttributes => Model.LinkAttributes;
 
-        public string ModifiedByUser => Model.ModifiedByUser;
-
         public int ModifiedByUserId => Model.ModifiedByUserId;
 
         public DateTime ModifiedDate => Model.ModifiedDate;
@@ -82,8 +79,6 @@ namespace R7.Documents.ViewModels
         public int ModuleId => Model.ModuleId;
 
         public bool NewWindow => Model.NewWindow;
-
-        public string OwnedByUser => Model.OwnedByUser;
 
         public int OwnedByUserId => Model.OwnedByUserId;
 
@@ -104,6 +99,15 @@ namespace R7.Documents.ViewModels
                 return ModelHelper.PublishedOnDate (StartDate, CreatedDate);
             }
         }
+
+        string _createdByUser;
+        public string CreatedByUser => _createdByUser ?? (_createdByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.CreatedByUserId));
+
+        string _modifiedByUser;
+        public string ModifiedByUser => _modifiedByUser ?? (_modifiedByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.ModifiedByUserId));
+
+        string _ownedByUser;
+        public string OwnedByUser => _ownedByUser ?? (_ownedByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.OwnedByUserId));
 
         #endregion
 

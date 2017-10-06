@@ -21,13 +21,8 @@
 // THE SOFTWARE.
 
 using System;
-using DotNetNuke.Common;
-using DotNetNuke.Common.Utilities;
 using DotNetNuke.ComponentModel.DataAnnotations;
-using DotNetNuke.Entities.Tabs;
-using DotNetNuke.Services.FileSystem;
 using R7.Dnn.Extensions.Models;
-using R7.Dnn.Extensions.Utilities;
 
 namespace R7.Documents.Models
 {
@@ -81,15 +76,6 @@ namespace R7.Documents.Models
 
         [ReadOnlyColumn]
         public int Size { get; set; }
-
-        [ReadOnlyColumn]
-        public string CreatedByUser { get; set; }
-
-        [ReadOnlyColumn]
-        public string OwnedByUser { get; set; }
-
-        [ReadOnlyColumn]
-        public string ModifiedByUser { get; set; }
 
         int _clicks;
         [ReadOnlyColumn]

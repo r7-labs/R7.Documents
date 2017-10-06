@@ -1,5 +1,5 @@
 ﻿//
-// IDocument.cs
+// UserHelper.cs
 //
 // Author:
 //       Roman M. Yagodin <roman.yagodin@gmail.com>
@@ -24,52 +24,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System;
+using DotNetNuke.Entities.Users;
 
-namespace R7.Documents.Models
+namespace R7.Documents.Helpers
 {
-    public interface IDocument
+    public static class UserHelper
     {
-        int ItemId { get; }
+        // TODO: Sync with R7.Dnn.Extensions.Utilities.UserUtils.GetUserDisplayName
+        public static string GetUserDisplayName (int portalId, int userId)
+        {
+            var user = UserController.Instance.GetUserById (portalId, userId);
+            if (user != null) {
+                return user.DisplayName;
+            }
 
-        int ModuleId { get; }
-
-        int CreatedByUserId { get; }
-
-        int ModifiedByUserId { get; }
-
-        DateTime CreatedDate { get; }
-
-        DateTime ModifiedDate { get; }
-
-        DateTime? StartDate { get; }
-
-        DateTime? EndDate { get; }
-
-        string Url { get; }
-
-        string Title { get; }
-
-        string Category { get; }
-
-        int OwnedByUserId { get; }
-
-        int SortOrderIndex { get; }
-
-        string Description { get; }
-
-        bool ForceDownload { get; }
-
-        string LinkAttributes { get; }
-
-        bool TrackClicks { get; }
-
-        bool NewWindow { get; }
-
-        int Size { get; }
-
-        int Clicks { get; }
-
-        DateTime PublishedOnDate { get; }
+            return string.Empty;
+        }
     }
 }

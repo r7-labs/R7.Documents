@@ -1,5 +1,5 @@
 ﻿//
-// IDocument.cs
+// IDocumentViewModel.cs
 //
 // Author:
 //       Roman M. Yagodin <roman.yagodin@gmail.com>
@@ -24,52 +24,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System;
+using R7.Documents.Models;
 
-namespace R7.Documents.Models
+namespace R7.Documents.ViewModels
 {
-    public interface IDocument
+    public interface IDocumentViewModel: IDocument
     {
-        int ItemId { get; }
+        string CreatedByUser { get; }
 
-        int ModuleId { get; }
+        string ModifiedByUser { get; }
 
-        int CreatedByUserId { get; }
-
-        int ModifiedByUserId { get; }
-
-        DateTime CreatedDate { get; }
-
-        DateTime ModifiedDate { get; }
-
-        DateTime? StartDate { get; }
-
-        DateTime? EndDate { get; }
-
-        string Url { get; }
-
-        string Title { get; }
-
-        string Category { get; }
-
-        int OwnedByUserId { get; }
-
-        int SortOrderIndex { get; }
-
-        string Description { get; }
-
-        bool ForceDownload { get; }
-
-        string LinkAttributes { get; }
-
-        bool TrackClicks { get; }
-
-        bool NewWindow { get; }
-
-        int Size { get; }
-
-        int Clicks { get; }
-
-        DateTime PublishedOnDate { get; }
+        string OwnedByUser { get; }
     }
 }

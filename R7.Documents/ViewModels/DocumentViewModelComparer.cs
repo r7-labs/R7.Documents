@@ -23,13 +23,13 @@
 using System.Collections;
 using R7.Documents.Models;
 
-namespace R7.Documents
+namespace R7.Documents.ViewModels
 {
-    public class DocumentComparer : IComparer
+    public class DocumentViewModelComparer : IComparer
     {
         ArrayList mobjSortColumns;
 
-        public DocumentComparer (ArrayList sortColumns)
+        public DocumentViewModelComparer (ArrayList sortColumns)
         {
             mobjSortColumns = sortColumns;
         }
@@ -40,7 +40,7 @@ namespace R7.Documents
         /// </summary>
         /// <param name="x">First document.</param>
         /// <param name="y">Second document.</param>
-        public int Compare (IDocument x, IDocument y)
+        public int Compare (IDocumentViewModel x, IDocumentViewModel y)
         {
             if (mobjSortColumns.Count == 0) {
                 return 0;
@@ -55,10 +55,10 @@ namespace R7.Documents
                 return 0;
             }
 
-            return Compare (0, (IDocument) x, (IDocument) y);
+            return Compare (0, (IDocumentViewModel) x, (IDocumentViewModel) y);
         }
 
-        int Compare (int sortColumnIndex, IDocument objX, IDocument objY)
+        int Compare (int sortColumnIndex, IDocumentViewModel objX, IDocumentViewModel objY)
         {
             var objSortColumn = default(DocumentsSortColumnInfo);
             int intResult = 0;
@@ -84,7 +84,7 @@ namespace R7.Documents
             return intResult;
         }
 
-        int CompareValues (string columnName, IDocument x, IDocument y)
+        int CompareValues (string columnName, IDocumentViewModel x, IDocumentViewModel y)
         {
             switch (columnName) {
                 case DocumentsDisplayColumnInfo.COLUMN_SORTORDER:

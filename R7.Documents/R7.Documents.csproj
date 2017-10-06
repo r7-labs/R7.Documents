@@ -109,6 +109,7 @@
     <Folder Include="Models\" />
     <Folder Include="Data\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="module.css" />
@@ -145,6 +146,7 @@
     <None Include="SqlDataProvider\01.09.00.SqlDataProvider" />
     <None Include="App_LocalResources\SharedResources.resx" />
     <None Include="App_LocalResources\SharedResources.ru-RU.resx" />
+    <None Include="SqlDataProvider\01.10.00.SqlDataProvider" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DocumentsController.cs" />
@@ -166,7 +168,6 @@
     <Compile Include="EditDocuments.ascx.controls.cs">
       <DependentUpon>EditDocuments.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Components\DocumentComparer.cs" />
     <Compile Include="Components\DownloadColumnTemplate.cs" />
     <Compile Include="ChangeFolder.ascx.cs">
       <DependentUpon>ChangeFolder.ascx</DependentUpon>
@@ -194,6 +195,9 @@
     <Compile Include="Models\IDocument.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="Models\DocumentExtensions.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
+    <Compile Include="ViewModels\IDocumentViewModel.cs" />
+    <Compile Include="ViewModels\DocumentViewModelComparer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
