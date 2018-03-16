@@ -30,7 +30,7 @@
               <name>Build &amp; Deploy</name>
               <command>msbuild /t:Build /p:Configuration=${ProjectConfigName} /p:EnableTests=false /p:EnableInstallPackage=false /p:EnableLocalDeploy=true ../R7.Documents.sln</command>
             </Command>
-			<Command>
+            <Command>
               <type>Custom</type>
               <name>Re-deploy</name>
               <command>msbuild /p:Configuration=${ProjectConfigName} /p:EnableTests=false LocalDeploy.targets</command>
@@ -64,7 +64,6 @@
         <None Include="LocalDeploy.targets" />
         <None Include="Preprocess.targets" />
         <None Include="Tests.targets" />
-        <None Include="SETUP.md" />
         <None Include="Deploy.csproj" />
         <None Include="packages.config" />
     </ItemGroup>
