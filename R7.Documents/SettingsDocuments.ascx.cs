@@ -312,11 +312,6 @@ namespace R7.Documents
             }
         }
 
-        public string GetLocalizedText (string key)
-        {
-            return Localization.GetString (key, LocalResourceFile);
-        }
-
         void BindSortSettings (ArrayList objSortColumns)
         {
             SaveSortColumnSettings (objSortColumns);

@@ -57,8 +57,8 @@
 	                <asp:TemplateColumn>
 	                    <HeaderStyle Width="60px"></HeaderStyle>
 	                    <ItemTemplate>
-	                        <asp:ImageButton id=imgUp runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ColumnName") %>' CommandName="DisplayOrderUp" AlternateText='<%# GetLocalizedText("cmdUp.Text")%>' />
-	                        <asp:ImageButton id=imgDown runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ColumnName") %>' CommandName="DisplayOrderDown" AlternateText='<%# GetLocalizedText("cmdDown.Text")%>' />
+	                        <asp:ImageButton id=imgUp runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ColumnName") %>' CommandName="DisplayOrderUp" AlternateText='<%# LocalizeString("cmdUp.Text")%>' />
+	                        <asp:ImageButton id=imgDown runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ColumnName") %>' CommandName="DisplayOrderDown" AlternateText='<%# LocalizeString("cmdDown.Text")%>' />
 	                    </ItemTemplate>
 	                </asp:TemplateColumn>
 	            </Columns>
