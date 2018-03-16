@@ -120,7 +120,7 @@
 	<asp:View runat="server">
 		<ul class="dnnActions dnnClear">
             <li><asp:LinkButton id="linkAddMore" runat="server" CssClass="dnnPrimaryAction" OnClick="linkAddMore_Click" /></li>
-		    <li><asp:HyperLink id="linkCancelAdd" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
+		    <li><asp:HyperLink id="linkClose" runat="server" CssClass="dnnSecondaryAction" resourcekey="Close" /></li>
 		</ul>
 	</asp:View>
 	</asp:MultiView>	

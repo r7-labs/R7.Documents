@@ -34,6 +34,6 @@ namespace R7.Documents
         protected DropDownList comboUrlHistory;
         protected MultiView multiView;
         protected LinkButton linkAddMore;
-        protected HyperLink linkCancelAdd;
+        protected HyperLink linkClose;
 	}
 }

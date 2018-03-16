@@ -99,7 +99,7 @@ namespace R7.Documents
 			
             // set URLs for cancel links
             linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
-            linkCancelAdd.NavigateUrl = Globals.NavigateURL ();
+            linkClose.NavigateUrl = Globals.NavigateURL ();
 
             cmdDelete.Attributes.Add ("onClick", 
                 "javascript:return confirm('" + LocalizeString ("Delete.Text")  + "');");
