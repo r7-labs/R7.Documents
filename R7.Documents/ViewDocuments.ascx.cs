@@ -409,14 +409,17 @@ namespace R7.Documents
                             }
                         }
                     }
-                break;
+                    break;
+            
+                case TabType.Tab:
+                    var tab = TabController.Instance.GetTab (int.Parse (url), PortalId);
+                    if (tab != null && TabPermissionController.CanViewPage (tab)) {
+                        return true;
+                    }
+                    break;
 
-            case TabType.Tab:
-                var tab = TabController.Instance.GetTab (int.Parse (url), PortalId);
-                if (tab != null && TabPermissionController.CanViewPage (tab)) {
+                default:
                     return true;
-                }
-                break;
             }
 
             return false;
