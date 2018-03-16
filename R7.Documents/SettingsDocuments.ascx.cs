@@ -335,8 +335,7 @@ namespace R7.Documents
             grdDisplayColumns.DataKeyField = "ColumnName";
 
             if (!IsPostBack) {
-                // TODO: Original: Localization.LocalizeDataGrid(ref grdDisplayColumns, this.LocalResourceFile);
-                Localization.LocalizeDataGrid (ref grdSortColumns, LocalResourceFile);
+                Localization.LocalizeDataGrid (ref grdDisplayColumns, LocalResourceFile);
             }
 
             grdDisplayColumns.DataBind ();
