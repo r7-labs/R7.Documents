@@ -51,10 +51,7 @@
     <data name="Clicks.Column" xml:space="preserve">
         <value>Clicks</value>
     </data>
-    <data name="Clicks.Format" xml:space="preserve">
-        <value>Downloaded {0} times</value>
-    </data>
-   	<data name="ModuleHelp.Text" xml:space="preserve">
+	<data name="ModuleHelp.Text" xml:space="preserve">
         <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
 &lt;p&gt;The Documents Module produces a list of documents with links to view or 
   download the document (depending on the user's browser settings). Documents can 
