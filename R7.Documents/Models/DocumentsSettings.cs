@@ -108,7 +108,7 @@ namespace R7.Documents.Models
                     }
 
                     objSortColumn.LocalizedColumnName = Localization.GetString (
-                        objSortColumn.ColumnName + ".Header",
+                        objSortColumn.ColumnName + ".Column",
                         localResourceFile);
 
                     objSortColumns.Add (objSortColumn);
