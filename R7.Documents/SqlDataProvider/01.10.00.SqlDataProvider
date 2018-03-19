@@ -48,3 +48,8 @@ BEGIN
     ORDER BY D.Title
 END
 GO
+
+DELETE FROM {databaseOwner}[{objectQualifier}PackageDependencies]
+	WHERE PackageID = (select PackageID from {databaseOwner}[{objectQualifier}Packages] where Name = N'R7.Documents')
+	AND PackageName = N'R7.DotNetNuke.Extensions'
+GO
