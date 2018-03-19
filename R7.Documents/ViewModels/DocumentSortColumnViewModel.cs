@@ -35,7 +35,7 @@ namespace R7.Documents.ViewModels
 
         protected readonly ViewModelContext Context;
 
-        public DocumentSortColumnViewModel (IDocumentsSortColumn documentSortColumn, ViewModelContext context)
+        public DocumentSortColumnViewModel(IDocumentsSortColumn documentSortColumn, ViewModelContext context)
         {
             DocumentSortColumn = documentSortColumn;
             Context = context;
@@ -57,6 +57,8 @@ namespace R7.Documents.ViewModels
 
         #endregion
 
-        public string LocalizedColumnName => Context.LocalizeString (ColumnName + ".Column");
+        public string LocalizedColumnName => Context.LocalizeString ($"{ColumnName}.Column");
+
+        public string LocalizedDirection => Context.LocalizeString ($"SortOrder{Direction}.Text");
     }
 }

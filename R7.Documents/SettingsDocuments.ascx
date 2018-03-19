@@ -87,7 +87,7 @@
 	            <PagerStyle CssClass="dnnGridPager" />
 	            <Columns>
 	                <asp:BoundColumn DataField="LocalizedColumnName" HeaderText="Name" />
-	                <asp:BoundColumn DataField="Direction" HeaderText="DirectionString" />
+	                <asp:BoundColumn DataField="LocalizedDirection" HeaderText="DirectionString" />
 	            	<asp:TemplateColumn>
 						<ItemTemplate>
 							<asp:ImageButton id="buttonDeleteSortOrder" runat="server" CommandName="Delete" />
