@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,11 +27,12 @@ using System.Xml;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Search.Entities;
+using R7.Dnn.Extensions.Utilities;
 using R7.Documents.Data;
 using R7.Documents.Models;
-using R7.Dnn.Extensions.Utilities;
 
 namespace R7.Documents
 {
@@ -43,6 +44,9 @@ namespace R7.Documents
         {
             var searchDocs = new List<SearchDocument> ();
 			
+            var portalAlias = PortalAliasController.Instance.GetPortalAliasesByPortalId (moduleInfo.PortalID).First (pa => pa.IsPrimary);
+            var portalSettings = new PortalSettings (moduleInfo.TabID, portalAlias);
+
             var documents = DocumentsDataProvider.Instance.GetDocuments (moduleInfo.ModuleID, moduleInfo.PortalID);
 
             var now = DateTime.Now;
@@ -55,16 +59,14 @@ namespace R7.Documents
                         Description = document.Description,
                         ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
                         UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
-                        IsActive = document.IsPublished (now),
-                        Url = string.Format ("/Default.aspx?tabid={0}&mid={1}", moduleInfo.TabID, moduleInfo.ModuleID)
-
-                        // FIXME: This one produce null reference exception
-                        // Url = Globals.LinkClick (document.Url, moduleInfo.TabID, moduleInfo.ModuleID, document.TrackClicks, document.ForceDownload)
+                        Url = Globals.NavigateURL (moduleInfo.TabID, portalSettings, "", "mid", moduleInfo.ModuleID.ToString ()),
+                        IsActive = document.IsPublished (now)
                     };
 					
                     searchDocs.Add (sd);
                 }
             }
+
             return searchDocs;
         }
 
