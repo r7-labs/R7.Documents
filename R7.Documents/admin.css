@@ -1,6 +1,4 @@
-﻿.dnnEditDocs {}
-
-.dnnEditDocs .control-group-start {
+﻿.dnnEditDocs .control-group-start {
     margin-top:1em;
 }
 
@@ -48,5 +46,3 @@
 .dnnDocSettings .comboSortFields { margin-bottom:1em }
 
 .dnnDocSettings .comboSortOrderDirection { float:left;margin-right:1em }
-
-
