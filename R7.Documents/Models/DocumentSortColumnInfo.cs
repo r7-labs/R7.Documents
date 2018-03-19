@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2015 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,19 +27,13 @@ namespace R7.Documents.Models
     [Serializable]
     public class DocumentsSortColumnInfo
     {
-        SortDirection _direction = SortDirection.Ascending;
-
         public enum SortDirection
         {
             Ascending,
             Descending
         }
 
-        public SortDirection Direction
-        {
-            get { return _direction; }
-            set { _direction = value; }
-        }
+        public SortDirection Direction { get; set; } = SortDirection.Ascending;
 
         public string ColumnName { get; set; }
 
