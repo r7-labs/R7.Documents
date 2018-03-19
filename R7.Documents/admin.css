@@ -36,6 +36,12 @@
     margin-bottom:0
 }
 
+.dnnEditDocs .dnnFormItem .wide-textbox {
+    width:97%;
+    max-width:inherit;
+    margin-top:8px
+}
+
 .dnnDocSettings .comboSortFields, 
 .dnnDocSettings .comboSortOrderDirection { width:290px }
 

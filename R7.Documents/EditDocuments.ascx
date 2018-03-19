@@ -20,7 +20,7 @@
         	<fieldset>
         	    <div class="dnnFormItem">
         	        <dnn:Label id="plName" runat="server" ControlName="txtName" CssClass="dnnFormRequired" />
-        	        <asp:TextBox id="txtName" runat="server" MaxLength="255" CssClass="dnnFormRequired" />
+        	        <asp:TextBox id="txtName" runat="server" MaxLength="255" CssClass="dnnFormRequired wide-textbox" />
         	        <asp:RequiredFieldValidator id="valName" runat="server" ControlToValidate="txtName"
                         resourcekey="Name.Required" CssClass="dnnFormMessage dnnFormError" Display="Dynamic" />
         	    </div>
