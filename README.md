@@ -19,7 +19,7 @@
 - If no published documents available, module hides from reqular view.
 - Page-specific module presentation settings (column set / order, sorting, etc.)
 - Ability to import selected documents from any other R7.Documents or DNN Documents module.
-- Bootstrap and DNN grid styles.
+- Customizable styles - Bootstrap and DNN grid styles included.
 - DNN 7.1+ search integration.
 
 ## Developer changes
