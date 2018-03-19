@@ -38,6 +38,13 @@
                     <asp:DropDownList id="comboUrlHistory" runat="server" DataTextField="Text" DataValueField="Value" />
 					<asp:LinkButton id="linkSelectUrl" runat="server" resourcekey="linkSelectUrl" OnClick="linkSelectUrl_Click" CssClass="dnnSecondaryAction" CausesValidation="false" />
                 </asp:Panel>
+				<div class="dnnFormItem">
+                    <dnn:Label id="plSortIndex" runat="server" ControlName="txtSortIndex" />
+                    <asp:TextBox id="txtSortIndex" runat="server" />
+                    <asp:RangeValidator id="valSortIndex" runat="server" ControlToValidate="txtSortIndex"
+                        Type="Integer" MaximumValue="2147483647" MinimumValue="-2147483648"
+						resourcekey="SortIndex.Invalid" CssClass="dnnFormMessage dnnFormError" Display="Dynamic" />
+                </div>
 				<div class="dnnFormItem control-group-start">
                     <dnn:Label id="labelStartDate" runat="server" ControlName="datetimeStartDate" />
                     <dnn:DnnDateTimePicker id="datetimeStartDate" runat="server" />
@@ -66,13 +73,6 @@
                 <div class="dnnFormItem control-group-end">
                     <dnn:Label id="labelLastModifiedDate" runat="server" ControlName="textLastModifiedDate" />
                     <dnn:DnnDateTimePicker id="pickerLastModifiedDate" runat="server" />
-                </div>
-				<div class="dnnFormItem">
-                    <dnn:Label id="plSortIndex" runat="server" ControlName="txtSortIndex" />
-                    <asp:TextBox id="txtSortIndex" runat="server" CssClass="dnnFormRequired" />
-                    <asp:RangeValidator id="valSortIndex" runat="server" ControlToValidate="txtSortIndex"
-                        Type="Integer" MaximumValue="2147483647" MinimumValue="-2147483648"
-						resourcekey="SortIndex.Invalid" CssClass="dnnFormMessage dnnFormError" Display="Dynamic" />
                 </div>
 				<div class="dnnFormItem">
                     <dnn:Label id="labelLinkAttributes" runat="server" ControlName="textLinkAttributes" />
