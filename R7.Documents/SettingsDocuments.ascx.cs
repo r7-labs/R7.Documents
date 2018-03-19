@@ -439,17 +439,17 @@ namespace R7.Documents
                 case ListSortDirection.Ascending:
                     // swap up
                     if (intIndex > 0) {
-                        intDisplayOrderTemp = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder;
-                        ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex - 1]).DisplayOrder;
-                        ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex - 1]).DisplayOrder = intDisplayOrderTemp;
+                        intDisplayOrderTemp = objColumnSettings [intIndex].DisplayOrder;
+                        objColumnSettings [intIndex].DisplayOrder = objColumnSettings [intIndex - 1].DisplayOrder;
+                        objColumnSettings [intIndex - 1].DisplayOrder = intDisplayOrderTemp;
                     }
                     break;
                 case ListSortDirection.Descending:
                     // swap down
                     if (intIndex < objColumnSettings.Count) {
-                        intDisplayOrderTemp = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder;
-                        ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex]).DisplayOrder = ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex + 1]).DisplayOrder;
-                        ((DocumentsDisplayColumnInfo)objColumnSettings [intIndex + 1]).DisplayOrder = intDisplayOrderTemp;
+                        intDisplayOrderTemp = objColumnSettings[intIndex].DisplayOrder;
+                            objColumnSettings[intIndex].DisplayOrder = objColumnSettings[intIndex + 1].DisplayOrder;
+                            objColumnSettings[intIndex + 1].DisplayOrder = intDisplayOrderTemp;
                     }
                     break;
                 }
