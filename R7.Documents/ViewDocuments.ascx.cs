@@ -155,7 +155,7 @@ namespace R7.Documents
             // only bind if not a user selected sort
             if (_documents == null) {
                 // use DocumentComparer to do sort based on the default sort order
-                var docComparer = new DocumentViewModelComparer (Settings.GetSortColumnList (LocalResourceFile));
+                var docComparer = new DocumentViewModelComparer (Settings.GetSortColumnList ());
                 Documents.Sort (docComparer.Compare);
 
                 grdDocuments.DataSource = Documents;
@@ -383,7 +383,7 @@ namespace R7.Documents
                 .ToList ();
 
             // sort documents
-            var docComparer = new DocumentViewModelComparer (Settings.GetSortColumnList (LocalResourceFile));
+            var docComparer = new DocumentViewModelComparer (Settings.GetSortColumnList ());
             filteredDocuments.Sort (docComparer.Compare);
 
             return filteredDocuments;

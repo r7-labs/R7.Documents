@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -88,7 +88,7 @@ namespace R7.Documents.Models
             return objColumnSettings;
         }
 
-        public ArrayList GetSortColumnList (string localResourceFile)
+        public ArrayList GetSortColumnList ()
         {
             var objSortColumn = default (DocumentsSortColumnInfo);
             string strSortColumn = null;
@@ -106,10 +106,6 @@ namespace R7.Documents.Models
                         objSortColumn.Direction = Models.SortDirection.Ascending;
                         objSortColumn.ColumnName = strSortColumn;
                     }
-
-                    objSortColumn.LocalizedColumnName = Localization.GetString (
-                        objSortColumn.ColumnName + ".Column",
-                        localResourceFile);
 
                     objSortColumns.Add (objSortColumn);
                 }

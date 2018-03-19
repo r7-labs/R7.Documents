@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Web.UI.WebControls;
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
@@ -32,9 +33,11 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
-using R7.Documents.Models;
 using R7.Dnn.Extensions.ControlExtensions;
 using R7.Dnn.Extensions.Modules;
+using R7.Dnn.Extensions.ViewModels;
+using R7.Documents.Models;
+using R7.Documents.ViewModels;
 
 namespace R7.Documents
 {
@@ -49,6 +52,9 @@ namespace R7.Documents
         const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
 
         const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
+
+        ViewModelContext _viewModelContext;
+        protected ViewModelContext ViewModelContext => _viewModelContext ?? (_viewModelContext = new ViewModelContext (this));
 
         #region Event handlers
 
@@ -160,7 +166,6 @@ namespace R7.Documents
 
             objSortColumns = RetrieveSortColumnSettings ();
             objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
-            objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Column");
             if (comboSortOrderDirection.SelectedValue == "ASC") {
                 objNewSortColumn.Direction = Models.SortDirection.Ascending;
             } else {
@@ -264,7 +269,7 @@ namespace R7.Documents
                         comboSortFields.AddItem (LocalizeString (strSortColumn + ".Column"), strSortColumn);
                     }
 
-                    BindSortSettings (Settings.GetSortColumnList (LocalResourceFile));
+                    BindSortSettings (Settings.GetSortColumnList ());
 
                     // load grid style
                     comboGridStyle.SelectByValue (Settings.GridStyle);
@@ -315,7 +320,8 @@ namespace R7.Documents
         void BindSortSettings (ArrayList objSortColumns)
         {
             SaveSortColumnSettings (objSortColumns);
-            grdSortColumns.DataSource = objSortColumns;
+            grdSortColumns.DataSource = objSortColumns.Cast<IDocumentsSortColumn> ()
+                .Select (sc => new DocumentSortColumnViewModel (sc, ViewModelContext));
             grdSortColumns.DataKeyField = "ColumnName";
 
             Localization.LocalizeDataGrid (ref grdSortColumns, LocalResourceFile);
@@ -465,7 +471,7 @@ namespace R7.Documents
                     strValues = strValues + "#";
                 }
 
-                strValues = strValues + objSortColumnInfo.ColumnName + "," + objSortColumnInfo.LocalizedColumnName + "," + objSortColumnInfo.Direction.ToString ();
+                strValues = strValues + objSortColumnInfo.ColumnName + "," + objSortColumnInfo.Direction.ToString ();
             }
             ViewState [VIEWSTATE_SORTCOLUMNSETTINGS] = strValues;
         }
@@ -483,10 +489,9 @@ namespace R7.Documents
                 foreach (string strSortColumnSetting in strValues.Split ('#')) {
                     objSortColumnInfo = new DocumentsSortColumnInfo ();
                     objSortColumnInfo.ColumnName = strSortColumnSetting.Split (',') [0];
-                    objSortColumnInfo.LocalizedColumnName = strSortColumnSetting.Split (',') [1];
                     objSortColumnInfo.Direction = (Models.SortDirection) Enum.Parse (
                         typeof (Models.SortDirection),
-                        strSortColumnSetting.Split (',') [2]);
+                        strSortColumnSetting.Split (',') [1]);
 
                     objSortColumnSettings.Add (objSortColumnInfo);
                 }

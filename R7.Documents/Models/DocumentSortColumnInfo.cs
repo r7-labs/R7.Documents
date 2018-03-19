@@ -30,7 +30,5 @@ namespace R7.Documents.Models
         public SortDirection Direction { get; set; } = SortDirection.Ascending;
 
         public string ColumnName { get; set; }
-
-        public string LocalizedColumnName { get; set; }
     }
 }

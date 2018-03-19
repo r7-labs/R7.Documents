@@ -200,6 +200,7 @@
     <Compile Include="ViewModels\DocumentViewModelComparer.cs" />
     <Compile Include="Models\IDocumentsSortColumn.cs" />
     <Compile Include="Models\SortDirection.cs" />
+    <Compile Include="ViewModels\DocumentSortColumnViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
