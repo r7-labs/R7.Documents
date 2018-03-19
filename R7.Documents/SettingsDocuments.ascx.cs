@@ -162,9 +162,9 @@ namespace R7.Documents
             objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
             objNewSortColumn.LocalizedColumnName = LocalizeString (objNewSortColumn.ColumnName + ".Column");
             if (comboSortOrderDirection.SelectedValue == "ASC") {
-                objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
+                objNewSortColumn.Direction = Models.SortDirection.Ascending;
             } else {
-                objNewSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Descending;
+                objNewSortColumn.Direction = Models.SortDirection.Descending;
             }
 
             objSortColumns.Add (objNewSortColumn);
@@ -412,7 +412,7 @@ namespace R7.Documents
                 if (strSortColumnList != string.Empty) {
                     strSortColumnList = strSortColumnList + ",";
                 }
-                strSortColumnList = strSortColumnList + (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Descending ? "-" : "") + objSortColumn.ColumnName;
+                strSortColumnList = strSortColumnList + (objSortColumn.Direction == Models.SortDirection.Descending ? "-" : "") + objSortColumn.ColumnName;
             }
             Settings.SortOrder = strSortColumnList;
             Settings.GridStyle = comboGridStyle.SelectedValue;
@@ -484,8 +484,8 @@ namespace R7.Documents
                     objSortColumnInfo = new DocumentsSortColumnInfo ();
                     objSortColumnInfo.ColumnName = strSortColumnSetting.Split (',') [0];
                     objSortColumnInfo.LocalizedColumnName = strSortColumnSetting.Split (',') [1];
-                    objSortColumnInfo.Direction = (DocumentsSortColumnInfo.SortDirection) Enum.Parse (
-                        typeof (DocumentsSortColumnInfo.SortDirection),
+                    objSortColumnInfo.Direction = (Models.SortDirection) Enum.Parse (
+                        typeof (Models.SortDirection),
                         strSortColumnSetting.Split (',') [2]);
 
                     objSortColumnSettings.Add (objSortColumnInfo);

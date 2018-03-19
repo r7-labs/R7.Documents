@@ -25,14 +25,8 @@ using System;
 namespace R7.Documents.Models
 {
     [Serializable]
-    public class DocumentsSortColumnInfo
+    public class DocumentsSortColumnInfo : IDocumentsSortColumn
     {
-        public enum SortDirection
-        {
-            Ascending,
-            Descending
-        }
-
         public SortDirection Direction { get; set; } = SortDirection.Ascending;
 
         public string ColumnName { get; set; }

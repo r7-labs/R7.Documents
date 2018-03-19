@@ -99,11 +99,11 @@ namespace R7.Documents.Models
                     strSortColumn = strSortColumn_loopVariable;
                     objSortColumn = new DocumentsSortColumnInfo ();
                     if (strSortColumn.StartsWith ("-", StringComparison.InvariantCulture)) {
-                        objSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Descending;
+                        objSortColumn.Direction = Models.SortDirection.Descending;
                         objSortColumn.ColumnName = strSortColumn.Substring (1);
                     }
                     else {
-                        objSortColumn.Direction = DocumentsSortColumnInfo.SortDirection.Ascending;
+                        objSortColumn.Direction = Models.SortDirection.Ascending;
                         objSortColumn.ColumnName = strSortColumn;
                     }
 

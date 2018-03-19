@@ -69,7 +69,7 @@ namespace R7.Documents.ViewModels
 
             objSortColumn = (DocumentsSortColumnInfo) mobjSortColumns [sortColumnIndex];
 
-            if (objSortColumn.Direction == DocumentsSortColumnInfo.SortDirection.Ascending) {
+            if (objSortColumn.Direction == SortDirection.Ascending) {
                 intResult = CompareValues (objSortColumn.ColumnName, objX, objY);
             }
             else {

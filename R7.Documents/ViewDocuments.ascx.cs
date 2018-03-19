@@ -115,7 +115,7 @@ namespace R7.Documents
         {
             var objCustomSortList = new ArrayList ();
             var objCustomSortColumn = new DocumentsSortColumnInfo ();
-            var objCustomSortDirecton = DocumentsSortColumnInfo.SortDirection.Ascending;
+            var objCustomSortDirecton = Models.SortDirection.Ascending;
             var strSortDirectionString = "ASC";
 
             // Set the sort column name
@@ -126,7 +126,7 @@ namespace R7.Documents
                 var existingSort = ViewState ["CurrentSortOrder"].ToString ();
                 if (existingSort.StartsWith (e.SortExpression, StringComparison.InvariantCulture) 
                     && existingSort.EndsWith ("ASC", StringComparison.InvariantCulture)) {
-                    objCustomSortDirecton = DocumentsSortColumnInfo.SortDirection.Descending;
+                    objCustomSortDirecton = Models.SortDirection.Descending;
                     strSortDirectionString = "DESC";
                 }
             }
