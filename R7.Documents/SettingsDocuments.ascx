@@ -26,6 +26,9 @@
 		<div class="dnnFormItem">
             <dnn:label id="labelFileFilter" runat="server" ControlName="textFileFilter" />
             <asp:TextBox id="textFileFilter" runat="server" />
+			<asp:CustomValidator id="valFileFilter" runat="server" ControlToValidate="textFileFilter"
+								 ValidateEmptyText="false" OnServerValidate="valFileFilter_ServerValidate"
+								 Display="Dynamic" CssClass="dnnFormMessage dnnFormError" />
         </div>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" />

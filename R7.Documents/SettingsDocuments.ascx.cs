@@ -25,6 +25,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
@@ -69,6 +70,8 @@ namespace R7.Documents
             // bind grid styles
             comboGridStyle.DataSource = GridStyle.Styles.Values;
             comboGridStyle.DataBind ();
+
+            valFileFilter.ErrorMessage = LocalizeString ("FileFilter.Invalid");
         }
 
         protected override void OnLoad (EventArgs e)
@@ -380,7 +383,7 @@ namespace R7.Documents
             Settings.ShowTitleLink = chkShowTitleLink.Checked;
             Settings.AllowUserSort = chkAllowUserSort.Checked;
             Settings.GridStyle = comboGridStyle.SelectedItem.Value;
-            Settings.FileFilter = textFileFilter.Text;
+            Settings.FileFilter = textFileFilter.Text.Trim ();
 
             try {
                 DateTime.Now.ToString (textDateTimeFormat.Text);
@@ -540,6 +543,19 @@ namespace R7.Documents
             }
 
             return objDisplayColumnSettings;
+        }
+
+        protected void valFileFilter_ServerValidate (object sender, ServerValidateEventArgs e)
+        {
+            try {
+                Regex.IsMatch (Guid.NewGuid ().ToString (), textFileFilter.Text.Trim ());
+            }
+            catch {
+                e.IsValid = false;
+                return;
+            }
+
+            e.IsValid = true;
         }
     }
 }

@@ -21,5 +21,6 @@ namespace R7.Documents
 		protected Label lblCannotEditLists;
         protected TextBox textDateTimeFormat;
         protected TextBox textFileFilter;
+        protected CustomValidator valFileFilter;
 	}
 }
