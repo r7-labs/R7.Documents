@@ -212,6 +212,7 @@ namespace R7.Documents
                     chkAllowUserSort.Checked = Settings.AllowUserSort;
                     comboGridStyle.SelectByValue (Settings.GridStyle);
                     textDateTimeFormat.Text = Settings.DateTimeFormat;
+                    textFileFilter.Text = Settings.FileFilter;
 
                     try {
                         if (Settings.DefaultFolder != null) {
@@ -379,6 +380,7 @@ namespace R7.Documents
             Settings.ShowTitleLink = chkShowTitleLink.Checked;
             Settings.AllowUserSort = chkAllowUserSort.Checked;
             Settings.GridStyle = comboGridStyle.SelectedItem.Value;
+            Settings.FileFilter = textFileFilter.Text;
 
             try {
                 DateTime.Now.ToString (textDateTimeFormat.Text);

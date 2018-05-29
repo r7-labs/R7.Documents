@@ -165,6 +165,7 @@ namespace R7.Documents
                 "<categorieslistname>{0}</categorieslistname>",
                 XmlUtils.XMLEncode (settings.CategoriesListName));
             strXml.AppendFormat ("<defaultfolder>{0}</defaultfolder>", XmlUtils.XMLEncode (settings.DefaultFolder.ToString ()));
+            strXml.AppendFormat ("<filefilter>{0}</filefilter>", XmlUtils.XMLEncode (settings.FileFilter));
             strXml.AppendFormat ("<displaycolumns>{0}</displaycolumns>", XmlUtils.XMLEncode (settings.DisplayColumns));
             strXml.AppendFormat ("<sortorder>{0}</sortorder>", XmlUtils.XMLEncode (settings.SortOrder));
             strXml.AppendFormat ("<dateTimeFormat>{0}</dateTimeFormat>", XmlUtils.XMLEncode (settings.DateTimeFormat));
@@ -247,9 +248,8 @@ namespace R7.Documents
                 settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlSettings, "showtitlelink");
                 settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlSettings, "usecategorieslist");
                 settings.CategoriesListName = XmlUtils.GetNodeValue (xmlSettings, "categorieslistname");
-                settings.DefaultFolder = TypeUtils.ParseToNullable<int> (XmlUtils.GetNodeValue (
-                    xmlSettings,
-                    "defaultfolder"));
+                settings.DefaultFolder = TypeUtils.ParseToNullable<int> (XmlUtils.GetNodeValue (xmlSettings, "defaultfolder"));
+                settings.FileFilter = XmlUtils.GetNodeValue (xmlSettings, "filefilter");
                 settings.DisplayColumns = XmlUtils.GetNodeValue (xmlSettings, "displaycolumns");
                 settings.SortOrder = XmlUtils.GetNodeValue (xmlSettings, "sortorder");
                 settings.DateTimeFormat = XmlUtils.GetNodeValue (xmlSettings, "dateTimeFormat");

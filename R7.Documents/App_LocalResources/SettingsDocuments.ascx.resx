@@ -76,10 +76,19 @@
         <value>Move Down</value>
     </data>
     <data name="plDefaultFolder.Help" xml:space="preserve">
-        <value>Select a folder to serve as the default location for new documents</value>
+        <value>Select a folder to serve as the default location for new documents
+		and also to display files from it (then file filter is specified).</value>
     </data>
     <data name="plDefaultFolder.Text" xml:space="preserve">
         <value>Default Folder:</value>
+    </data>
+	<data name="labelFileFilter.Text" xml:space="preserve">
+        <value>File Filter:</value>
+    </data>
+    <data name="labelFileFilter.Help" xml:space="preserve">
+        <value>Enter file filter regex.
+		If specified, module will try to display files
+		from the default folder that names will match provided regex.</value>
     </data>
     <data name="Root.Text" xml:space="preserve">
         <value>Root</value>

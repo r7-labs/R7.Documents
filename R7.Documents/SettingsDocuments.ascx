@@ -23,6 +23,10 @@
 	        <dnn:Label id="plDefaultFolder" runat="server" ControlName="folderDefaultFolder" />
 	        <dnn:DnnFolderDropDownList id="folderDefaultFolder" runat="server" />
 	    </div>
+		<div class="dnnFormItem">
+            <dnn:label id="labelFileFilter" runat="server" ControlName="textFileFilter" />
+            <asp:TextBox id="textFileFilter" runat="server" />
+        </div>
 	    <div class="dnnFormItem">
 	        <dnn:label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" />
 	        <asp:CheckBox id="chkShowTitleLink" runat="server" />

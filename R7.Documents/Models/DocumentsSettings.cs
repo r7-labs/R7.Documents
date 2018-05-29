@@ -62,6 +62,11 @@ namespace R7.Documents.Models
         [ModuleSetting (Prefix = "Documents_")]
         public int? DefaultFolder { get; set; }
 
+        [ModuleSetting (Prefix = "Documents_")]
+        public string FileFilter { get; set; }
+
+        public bool FolderMode => DefaultFolder != null && !string.IsNullOrEmpty (FileFilter);
+
         public List<DocumentsDisplayColumnInfo> GetDisplayColumnList (string localResourceFile)
         {
             var objColumnSettings = new List<DocumentsDisplayColumnInfo> ();
