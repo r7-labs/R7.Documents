@@ -24,22 +24,29 @@
 	        <dnn:DnnFolderDropDownList id="folderDefaultFolder" runat="server" />
 	    </div>
 		<div class="dnnFormItem">
-            <dnn:label id="labelFileFilter" runat="server" ControlName="textFileFilter" />
+            <dnn:Label id="labelFileFilter" runat="server" ControlName="textFileFilter" />
             <asp:TextBox id="textFileFilter" runat="server" />
 			<asp:CustomValidator id="valFileFilter" runat="server" ControlToValidate="textFileFilter"
 								 ValidateEmptyText="false" OnServerValidate="valFileFilter_ServerValidate"
 								 Display="Dynamic" CssClass="dnnFormMessage dnnFormError" />
         </div>
+		<div class="dnnFormItem">
+            <dnn:Label id="labelFilenameToTitleRules" runat="server" ControlName="textFilenameToTitleRules" />
+            <asp:TextBox id="textFilenameToTitleRules" runat="server" TextMode="MultiLine" />
+			<asp:CustomValidator id="valFilenameToTitleRules" runat="server" ControlToValidate="textFilenameToTitleRules"
+								 ValidateEmptyText="false" OnServerValidate="valFilenameToTitleRules_ServerValidate"
+								 Display="Dynamic" CssClass="dnnFormMessage dnnFormError" />
+		</div>
 	    <div class="dnnFormItem">
-	        <dnn:label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" />
+	        <dnn:Label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" />
 	        <asp:CheckBox id="chkShowTitleLink" runat="server" />
 	    </div>
         <div class="dnnFormItem">
-            <dnn:label id="labelGridStyle" runat="server" controlname="comboGridStyle" />
+            <dnn:Label id="labelGridStyle" runat="server" controlname="comboGridStyle" />
             <asp:DropDownList id="comboGridStyle" runat="server" DataTextField="Name" DataValueField="Name" />
         </div>
 		<div class="dnnFormItem">
-            <dnn:label id="labelDateTimeFormat" runat="server" ControlName="textDateTimeFormat" />
+            <dnn:Label id="labelDateTimeFormat" runat="server" ControlName="textDateTimeFormat" />
             <asp:TextBox id="textDateTimeFormat" runat="server" />
         </div>
 	    <div class="dnnFormItem">

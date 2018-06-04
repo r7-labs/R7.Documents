@@ -86,14 +86,25 @@
         <value>File Filter:</value>
     </data>
     <data name="labelFileFilter.Help" xml:space="preserve">
-        <value>Enter file filter regex.
-		If specified, module will try to display files
+        <value>Enter file filter regex.  If specified, module will try to display files
 		from the default folder that names will match provided regex.</value>
     </data>
 	<data name="FileFilter.Invalid" xml:space="preserve">
         <value>File filter must be valid .NET regex.</value>
     </data>
-    <data name="Root.Text" xml:space="preserve">
+    <data name="labelFilenameToTitleRules.Text" xml:space="preserve">
+        <value>Filename to Document Title:</value>
+    </data>
+    <data name="labelFilenameToTitleRules.Help" xml:space="preserve">
+        <value>With this setting you can control generation of the titles of documents from the names of corresponding files.
+			Each line represents single rule which consists of two parts:
+			a valid .NET regex and a replacement string separated by mandatory &quot;/&quot; sign.
+			By example, the &quot;(?i)\.pdf$/&quot; rule will remove PDF extension (replacement string is empty).</value>
+	</data>
+	<data name="FilenameToTitleRules.Invalid" xml:space="preserve">
+        <value>Each rule must consists of two parts: a valid .NET regex and a replacement string separated by mandatory &quot;/&quot; sign.</value>
+    </data>
+	<data name="Root.Text" xml:space="preserve">
         <value>Root</value>
     </data>
     <data name="plCategoriesListName.Help" xml:space="preserve">

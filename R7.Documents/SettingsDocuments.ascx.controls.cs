@@ -22,5 +22,7 @@ namespace R7.Documents
         protected TextBox textDateTimeFormat;
         protected TextBox textFileFilter;
         protected CustomValidator valFileFilter;
+        protected TextBox textFilenameToTitleRules;
+        protected CustomValidator valFilenameToTitleRules;
 	}
 }

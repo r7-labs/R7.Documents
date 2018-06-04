@@ -72,6 +72,7 @@ namespace R7.Documents
             comboGridStyle.DataBind ();
 
             valFileFilter.ErrorMessage = LocalizeString ("FileFilter.Invalid");
+            valFilenameToTitleRules.ErrorMessage = LocalizeString ("FilenameToTitleRules.Invalid");
         }
 
         protected override void OnLoad (EventArgs e)
@@ -216,6 +217,7 @@ namespace R7.Documents
                     comboGridStyle.SelectByValue (Settings.GridStyle);
                     textDateTimeFormat.Text = Settings.DateTimeFormat;
                     textFileFilter.Text = Settings.FileFilter;
+                    textFilenameToTitleRules.Text = Settings.FilenameToTitleRules;
 
                     try {
                         if (Settings.DefaultFolder != null) {
@@ -384,6 +386,7 @@ namespace R7.Documents
             Settings.AllowUserSort = chkAllowUserSort.Checked;
             Settings.GridStyle = comboGridStyle.SelectedItem.Value;
             Settings.FileFilter = textFileFilter.Text.Trim ();
+            Settings.FilenameToTitleRules = textFilenameToTitleRules.Text;
 
             try {
                 DateTime.Now.ToString (textDateTimeFormat.Text);
@@ -548,7 +551,23 @@ namespace R7.Documents
         protected void valFileFilter_ServerValidate (object sender, ServerValidateEventArgs e)
         {
             try {
-                Regex.IsMatch (Guid.NewGuid ().ToString (), textFileFilter.Text.Trim ());
+                Regex.IsMatch ("Any", textFileFilter.Text.Trim ());
+            }
+            catch {
+                e.IsValid = false;
+                return;
+            }
+
+            e.IsValid = true;
+        }
+
+        protected void valFilenameToTitleRules_ServerValidate (object sender, ServerValidateEventArgs e)
+        {
+            try {
+                var rules = DocumentsSettings.ParseFilenameToTitleRules (textFilenameToTitleRules.Text);
+                foreach (var rule in rules) {
+                    Regex.Replace ("Any", rule [0], rule [1]);
+                }
             }
             catch {
                 e.IsValid = false;
