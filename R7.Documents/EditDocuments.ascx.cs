@@ -613,7 +613,7 @@ namespace R7.Documents
                     UpdateCategory (document);
 
                     int sortIndex;
-                    document.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 0;
+                    document.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 10;
 
                     if (Null.IsNull (itemId)) {
                         DocumentsDataProvider.Instance.Add (document);
