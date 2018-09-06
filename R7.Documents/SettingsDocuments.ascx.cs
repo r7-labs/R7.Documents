@@ -34,7 +34,7 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
-using R7.Dnn.Extensions.ControlExtensions;
+using R7.Dnn.Extensions.Controls;
 using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.ViewModels;
 using R7.Documents.Models;

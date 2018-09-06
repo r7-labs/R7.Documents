@@ -29,7 +29,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.UrlHistory;
-using R7.Dnn.Extensions.Utilities;
+using R7.Dnn.Extensions.Urls;
 using R7.Documents.Data;
 using R7.Documents.Models;
 

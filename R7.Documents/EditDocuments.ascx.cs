@@ -37,13 +37,13 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Web.UI.WebControls;
-using R7.Dnn.Extensions.ModuleExtensions;
 using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.UrlHistory;
 using R7.Dnn.Extensions.Utilities;
 using R7.Documents.Data;
 using R7.Documents.Models;
 using R7.Documents.Helpers;
+using R7.Dnn.Extensions.Urls;
 
 namespace R7.Documents
 {

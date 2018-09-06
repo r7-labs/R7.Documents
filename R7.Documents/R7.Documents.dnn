@@ -16,7 +16,7 @@
                 <dependency type="CoreVersion">08.00.04</dependency>
                 <!-- .NET 4.5 -->
                 <dependency type="type">System.Reflection.ReflectionContext</dependency>
-                <dependency type="managedPackage" version="0.12.0">R7.Dnn.Extensions</dependency>
+                <dependency type="managedPackage" version="0.13.0">R7.Dnn.Extensions</dependency>
             </dependencies>
             <components>
 				<component type="Module">

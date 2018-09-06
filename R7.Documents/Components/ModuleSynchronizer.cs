@@ -26,7 +26,7 @@
 
 using System.Globalization;
 using DotNetNuke.Entities.Modules;
-using R7.Dnn.Extensions.Utilities;
+using R7.Dnn.Extensions.Caching;
 
 namespace R7.Documents
 {
