@@ -1,6 +1,6 @@
 //
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Caching;
 using System.Web.UI.WebControls;
@@ -38,12 +39,12 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
-using R7.Documents.Data;
-using R7.Documents.Models;
-using R7.Documents.ViewModels;
 using R7.Dnn.Extensions.ModuleExtensions;
 using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.ViewModels;
+using R7.Documents.Data;
+using R7.Documents.Models;
+using R7.Documents.ViewModels;
 
 namespace R7.Documents
 {
@@ -178,7 +179,7 @@ namespace R7.Documents
         protected void grdDocuments_RowCreated (object sender, GridViewRowEventArgs e)
         {
             try {
-                e.Row.Cells [0].Visible = IsEditable;  
+                e.Row.Cells [0].Visible = IsEditable && !Settings.FolderMode;  
 
                 switch (e.Row.RowType) {
                     case DataControlRowType.Header:
@@ -254,19 +255,19 @@ namespace R7.Documents
                 var actions = new ModuleActionCollection ();
 
                 actions.Add (
-                    GetNextActionID (), 
-                    Localization.GetString (ModuleActionType.AddContent, LocalResourceFile), 
+                    GetNextActionID (),
+                    Localization.GetString (ModuleActionType.AddContent, LocalResourceFile),
                     ModuleActionType.AddContent,
                     "",
                     IconController.IconURL ("Add"),
                     EditUrl (),
                     false,
                     SecurityAccessLevel.Edit,
-                    true,
+                    !Settings.FolderMode,
                     false);
 
                 actions.Add (
-                    GetNextActionID (), 
+                    GetNextActionID (),
                     Localization.GetString ("ImportDocuments.Action", LocalResourceFile),
                     "ImportDocuments.Action",
                     "",
@@ -274,11 +275,11 @@ namespace R7.Documents
                     EditUrl ("ImportDocuments"),
                     false,
                     SecurityAccessLevel.Edit,
-                    true,
+                    !Settings.FolderMode,
                     false);
 
                 actions.Add (
-                    GetNextActionID (), 
+                    GetNextActionID (),
                     Localization.GetString ("ChangeFolder.Action", LocalResourceFile),
                     "ChangeFolder.Action",
                     "",
@@ -286,9 +287,9 @@ namespace R7.Documents
                     EditUrl ("ChangeFolder"),
                     false,
                     SecurityAccessLevel.Edit,
-                    true,
+                    !Settings.FolderMode,
                     false);
-
+                
                 return actions;
             }
         }
@@ -367,13 +368,19 @@ namespace R7.Documents
 
         List<DocumentViewModel> LoadDocuments ()
         {
-            var isAdmin = UserInfo.IsSuperUser || UserInfo.IsInRole ("Administrators");
-            var cacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
-            var documents = DataCache.GetCachedData<IEnumerable<DocumentViewModel>> (
-                new CacheItemArgs (cacheKey, 1200, CacheItemPriority.Normal),
-                c => LoadDocuments_Internal ()
-            );
+            IEnumerable<DocumentViewModel> documents;
+            if (!Settings.FolderMode) {
+                var cacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
+                documents = DataCache.GetCachedData<IEnumerable<DocumentViewModel>> (
+                    new CacheItemArgs (cacheKey, 1200, CacheItemPriority.Normal),
+                    c => LoadDocuments_Internal ()
+                );
+            }
+            else {
+                documents = LoadDocuments_Internal ();
+            }
 
+            var isAdmin = UserInfo.IsSuperUser || UserInfo.IsInRole ("Administrators");
             // remove unpublished and inaccessible documents from the list
             // TODO: Add test to check filtering logic
             var filteredDocuments = documents
@@ -392,8 +399,55 @@ namespace R7.Documents
         IEnumerable<DocumentViewModel> LoadDocuments_Internal ()
         {
             var viewModelContext = new ViewModelContext<DocumentsSettings> (this, Settings);
-            return DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId)
-                                        .Select (d => new DocumentViewModel (d, viewModelContext));
+            return GetDocuments ().Select (d => new DocumentViewModel (d, viewModelContext));
+        }
+
+        IEnumerable<DocumentInfo> GetDocuments ()
+        {
+            if (Settings.FolderMode) {
+                return GetDocumentsFromFolder (Settings.DefaultFolder.Value);
+            }
+
+            return DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
+        }
+
+        IEnumerable<DocumentInfo> GetDocumentsFromFolder (int folderId)
+        {
+            var folder = FolderManager.Instance.GetFolder (folderId);
+            if (folder != null) {
+                var urlController = new UrlController ();
+                var files = FolderManager.Instance.GetFiles (folder);
+                var rules = Settings.FilenameToTitleRulesParsed;
+                return files.Where (f => Regex.IsMatch (f.FileName, Settings.FileFilter))
+                            .Select (f => new DocumentInfo {
+                                ItemId = 0,
+                                Url = "FileID=" + f.FileId,
+                                Title = FilenameToTitle (f.FileName, rules),
+                                Size = f.Size,
+                                CreatedByUserId = f.CreatedByUserID,
+                                CreatedDate = f.CreatedOnDate,
+                                ModifiedByUserId = f.LastModifiedByUserID,
+                                ModifiedDate = f.LastModifiedOnDate,
+                                OwnedByUserId = f.CreatedByUserID,
+                                Clicks = urlController.GetUrlTracking (PortalId, "FileID=" + f.FileId, ModuleId)?.Clicks ?? 0,
+                                ModuleId = ModuleId,
+                                TrackClicks = true,
+                                NewWindow = true
+                            });
+            }
+
+            return Enumerable.Empty<DocumentInfo> ();
+        }
+
+        string FilenameToTitle (string filename, IEnumerable<string []> rules)
+        {
+            if (rules != null) {
+                foreach (var rule in rules) {
+                    filename = Regex.Replace (filename, rule [0], rule [1]);
+                }
+            }
+
+            return filename;
         }
 
         bool CanView (string url)

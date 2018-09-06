@@ -61,10 +61,34 @@
         <value>Имя списка категорий:</value>
     </data>
     <data name="plDefaultFolder.Help" xml:space="preserve">
-        <value>Укажите папку, которая будет использована по умолчанию для новых файлов.</value>
+        <value>Укажите папку, которая будет использована по умолчанию для новых файлов,
+		а также для показа находящихся в ней файлов (если задан фильтр файлов).</value>
     </data>
     <data name="plDefaultFolder.Text" xml:space="preserve">
         <value>Папка по умолчанию:</value>
+    </data>
+	<data name="labelFileFilter.Text" xml:space="preserve">
+        <value>Фильтр файлов:</value>
+    </data>
+    <data name="labelFileFilter.Help" xml:space="preserve">
+        <value>Введите регулярное выражения для фильтра файлов.
+		Если выражение задано, модуль будет пытаться отобразить файлы из папки по умолчанию,
+		имена которых соответствуют заданному регулярному выражению.</value>
+    </data>
+	<data name="FileFilter.Invalid" xml:space="preserve">
+        <value>Фильтр файлов должен быть корректным регулярным выражением .NET.</value>
+    </data>
+	<data name="labelFilenameToTitleRules.Text" xml:space="preserve">
+        <value>Имя файла в название документа:</value>
+    </data>
+    <data name="labelFilenameToTitleRules.Help" xml:space="preserve">
+		<value>С помощью этой настройки вы можете контролировать генерацию названий документов из имен соответствующих файлов.
+			Каждая строка представляет собой одно правило, состоящее из двух частей:
+			корректное регулярное выражение .NET для поиска соответствия и строка замены, разделенные обязательным знаком &quot;/&quot;.
+			Например, с помощью правила &quot;(?i)\.pdf$/&quot; можно удалить расширение PDF (строка замены пуста).</value>
+    </data>
+	<data name="FilenameToTitleRules.Invalid" xml:space="preserve">
+        <value>Каждое правило должно состоять из двух частей: корректное регулярное выражение .NET для поиска соответствия и строка замены, разделенные обязательным знаком &quot;/&quot;.</value>
     </data>
     <data name="plDisplayColumns.Help" xml:space="preserve">
         <value>Используйте флаги для выбора отображаемых колонок. Порядок следования колонок можно изменить, используя стрелки.</value>

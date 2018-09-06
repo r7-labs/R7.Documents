@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DotNetNuke.Entities.Modules.Settings;
 using DotNetNuke.Services.Localization;
 
@@ -61,6 +62,26 @@ namespace R7.Documents.Models
 
         [ModuleSetting (Prefix = "Documents_")]
         public int? DefaultFolder { get; set; }
+
+        [ModuleSetting (Prefix = "Documents_")]
+        public string FileFilter { get; set; }
+
+        [ModuleSetting (Prefix = "Documents_")]
+        public string FilenameToTitleRules { get; set; }
+
+        public IEnumerable<string []> FilenameToTitleRulesParsed => ParseFilenameToTitleRules (FilenameToTitleRules);
+
+        public static IEnumerable<string []> ParseFilenameToTitleRules (string rules)
+        {
+            if (!string.IsNullOrWhiteSpace (rules)) {
+                return rules.Split (new char [] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select (t => t.Split ('/'));
+            }
+
+            return Enumerable.Empty<string []> ();
+        }
+
+        public bool FolderMode => DefaultFolder != null && !string.IsNullOrEmpty (FileFilter);
 
         public List<DocumentsDisplayColumnInfo> GetDisplayColumnList (string localResourceFile)
         {

@@ -1,14 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ViewDocuments.ascx.cs" Inherits="R7.Documents.ViewDocuments" %>
 <div class="ViewDocuments">
-  <asp:GridView id="grdDocuments" runat="server" DataKeyField="ItemID" EnableViewState="false" AutoGenerateColumns="false"
-        UseAccessibleHeader="true" OnSorting="grdDocuments_Sorting" OnRowCreated="grdDocuments_RowCreated">
+  <asp:GridView id="grdDocuments" runat="server" EnableViewState="false"
+				AutoGenerateColumns="false" UseAccessibleHeader="true"
+				ItemType="R7.Documents.ViewModels.DocumentViewModel" DataKeyField="ItemId"
+				OnSorting="grdDocuments_Sorting" OnRowCreated="grdDocuments_RowCreated">
     <Columns>
       <asp:TemplateField>
         <ItemTemplate>
-          <asp:HyperLink id="linkEdit" runat="server" Visible="<%# IsEditable %>" 
-				NavigateUrl='<%# EditUrl("ItemID",DataBinder.Eval(Container.DataItem,"ItemID").ToString()) %>' >
-            <asp:Image id="imageEdit" runat="server" IconKey="Edit" IconStyle="Gray"
-				ToolTip='<%# DataBinder.Eval(Container.DataItem,"ToolTip").ToString() %>' />
+          <asp:HyperLink id="linkEdit" runat="server" Visible="<%# IsEditable && Item.ItemId > 0 %>"
+						 NavigateUrl='<%# EditUrl ("ItemID", Item.ItemId.ToString ()) %>'>
+            <asp:Image id="imageEdit" runat="server" IconKey="Edit" IconStyle="Gray" ToolTip='<%# Item.ToolTip %>' />
           </asp:HyperLink>
       	</ItemTemplate>
       </asp:TemplateField>

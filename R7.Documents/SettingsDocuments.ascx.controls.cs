@@ -20,5 +20,9 @@ namespace R7.Documents
 		protected CheckBox chkAllowUserSort;
 		protected Label lblCannotEditLists;
         protected TextBox textDateTimeFormat;
+        protected TextBox textFileFilter;
+        protected CustomValidator valFileFilter;
+        protected TextBox textFilenameToTitleRules;
+        protected CustomValidator valFilenameToTitleRules;
 	}
 }
