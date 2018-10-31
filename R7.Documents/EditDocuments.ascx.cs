@@ -56,9 +56,14 @@ namespace R7.Documents
     /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
     ///   [ag]  11 March 2007 Migrated to VS2005
     /// </history>
-    public partial class EditDocuments : PortalModuleBase<DocumentsSettings>
+    public partial class EditDocuments: PortalModuleBase<DocumentsSettings>
     {
         int itemId;
+
+        protected bool RefreshEnabled {
+            get { var obj = ViewState ["RefreshEnabled"]; return (obj != null) ? (bool) obj : false; }
+            set { ViewState ["RefreshEnabled"] = value; }
+        }
 
         protected enum EditDocumentTab
         {
@@ -638,6 +643,7 @@ namespace R7.Documents
                         this.Message (string.Format (LocalizeString ("DocumentAdded.Format"), document.Title), MessageType.Success);
                         multiView.ActiveViewIndex = 1;
                         BindUrlHistory ();
+                        RefreshEnabled = true;
                     } else {
                         Response.Redirect (Globals.NavigateURL (), true);
                     }

@@ -7,6 +7,8 @@
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
 <dnn:DnnCssInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents/admin.css" Priority="200" />
+<dnn:DnnJsInclude runat="server" FilePath="~/js/test_dnnModalHelper.js" />
+
 <div class="dnnForm dnnEditDocs dnnClear" id="dnnEditDocs">
 	<asp:MultiView id="multiView" runat="server" ActiveViewIndex="0">
 	<asp:View runat="server">
@@ -126,13 +128,21 @@
 	</asp:MultiView>	
 </div>
 <input id="hiddenSelectedTab" type="hidden" value="<%= (int) SelectedTab %>" />
+<input id="hiddenRefreshEnabled" type="hidden" value="<%= RefreshEnabled %>" />
 <script type="text/javascript">
 (function($, Sys) {
     function setupModule() {
         var selectedTab = document.getElementById("hiddenSelectedTab").value;
         $("#document-tabs").dnnTabs({selected: selectedTab});
-    };
+	
+		if (document.getElementById("hiddenRefreshEnabled").value === "True") {
+			window.dnnModalHelper.reEnableRefresh();
+		}
+	};
     $(document).ready(function() {
+	
+		window.dnnModalHelper.disableRefresh();
+	
         setupModule();
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
             setupModule();
