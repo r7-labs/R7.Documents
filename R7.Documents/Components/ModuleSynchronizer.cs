@@ -4,7 +4,7 @@
 // Author:
 //       Roman M. Yagodin <roman.yagodin@gmail.com>
 //
-// Copyright (c) 2016-2017 Roman M. Yagodin
+// Copyright (c) 2016-2018 Roman M. Yagodin
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +25,8 @@
 // THE SOFTWARE.
 
 using System.Globalization;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
-using R7.Dnn.Extensions.Caching;
 
 namespace R7.Documents
 {
@@ -39,7 +39,7 @@ namespace R7.Documents
 
         public static void Synchronize (int moduleId, int tabModuleId)
         {
-            CacheHelper.RemoveCacheByPrefix ("//r7_Documents?ModuleId=" + moduleId);
+            DataCache.ClearCache ($"//r7_Documents?ModuleId={moduleId}");
             ModuleController.SynchronizeModule (moduleId);
         }
     }

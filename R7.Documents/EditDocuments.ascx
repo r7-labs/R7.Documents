@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
+<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
 <%@ Register TagPrefix="dnn" TagName="URL" Src="~/controls/DnnUrlControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Tracking" Src="~/controls/URLTrackingControl.ascx" %>
@@ -33,11 +33,6 @@
     						ShowSecure="True" ShowDatabase="True" />
         	        </div>
 				</div>
-				<asp:Panel id="panelUrlHistory" runat="server" class="dnnFormItem">
-					<dnn:Label id="labelUrlHistory" runat="server" ControlName="comboUrlHistory" />
-                    <asp:DropDownList id="comboUrlHistory" runat="server" DataTextField="Text" DataValueField="Value" />
-					<asp:LinkButton id="linkSelectUrl" runat="server" resourcekey="linkSelectUrl" OnClick="linkSelectUrl_Click" CssClass="dnnSecondaryAction" CausesValidation="false" />
-                </asp:Panel>
 				<div class="dnnFormItem">
                     <dnn:Label id="plSortIndex" runat="server" ControlName="txtSortIndex" />
                     <asp:TextBox id="txtSortIndex" runat="server">10</asp:TextBox>
@@ -52,7 +47,7 @@
                 <div class="dnnFormItem">
                     <dnn:Label id="labelEndDate" runat="server" ControlName="datetimeEndDate" />
                     <dnn:DnnDateTimePicker id="datetimeEndDate" runat="server" />
-                </div>		
+                </div>
             </fieldset>
     	</div>
     	<div id="document-advanced-tab">
@@ -85,7 +80,7 @@
 				<div class="dnnFormItem">
                     <dnn:Label id="plOwner" runat="server" ControlName="lstOwner" />
                     <asp:Label id="lblOwner" runat="server" />
-                    <asp:DropDownList id="lstOwner" runat="server" Visible="False" 
+                    <asp:DropDownList id="lstOwner" runat="server" Visible="False"
                         DataTextField="DisplayName"
                         DataValueField="UserID" />
                 </div>
@@ -98,15 +93,15 @@
        	<div id="document-audit-tab">
     		<fieldset>
 				<div class="dnnFormItem">
-                    <dnn:Label id="labelAudit" runat="server" ControlName="ctlAudit" /> 
+                    <dnn:Label id="labelAudit" runat="server" ControlName="ctlAudit" />
                     <dnn:Audit id="ctlAudit" runat="server" />
                 </div>
     			<div class="dnnFormItem">
                     <dnn:Label id="labelUrlTracking" runat="server" ControlName="ctlUrlTracking" />
                     <dnn:Tracking id="ctlUrlTracking" runat="server" />
-    			</div>		
+    			</div>
         	</fieldset>
-    	</div>		
+    	</div>
         <ul class="dnnActions dnnClear">
             <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" OnClick="cmdUpdate_Click" /></li>
             <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" Visible="false" OnClick="cmdUpdateOverride_Click" /></li>
@@ -115,7 +110,7 @@
             <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
 			<li><asp:LinkButton id="buttonDeleteWithResource" runat="server" CssClass="dnnSecondaryAction" resourcekey="buttonDeleteWithResource.Text" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
         </ul>
-	</div>	
+	</div>
     </asp:View>
 	<asp:View runat="server">
 		<ul class="dnnActions dnnClear">
@@ -123,7 +118,7 @@
 		    <li><asp:HyperLink id="linkClose" runat="server" CssClass="dnnSecondaryAction" resourcekey="Close" /></li>
 		</ul>
 	</asp:View>
-	</asp:MultiView>	
+	</asp:MultiView>
 </div>
 <input id="hiddenSelectedTab" type="hidden" value="<%= (int) SelectedTab %>" />
 <script type="text/javascript">

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -111,9 +111,9 @@
     <data name="labelLastModifiedDate.Text" xml:space="preserve">
         <value>Изменен:</value>
     </data>
-    <data name="CurrentFolder.Warning" xml:space="preserve">
-        <value>Не удалось установить ссылку на файл папку по-умолчанию, так как в ней нет файлов.</value>
-    </data>	
+    <data name="DefaultFolder.Warning" xml:space="preserve">
+        <value>Не удалось выбрать папку &quot;{0}&quot; - вы можете попробовать выбрать ее вручную.</value>
+    </data>
     <data name="labelStartDate.Text" xml:space="preserve">
         <value>Начало публикации:</value>
     </data>
@@ -149,15 +149,6 @@
     </data>
 	<data name="DeleteWithResource.Text" xml:space="preserve">
         <value>Уверены, что хотите удалить этот документ вместе со связанным с ним ресурсом (файлом или ссылкой)? Обратите внимание, что ресурс будет удален только в том случае, если на него не ссылаются другие документы.</value>
-    </data>
-    <data name="labelUrlHistory.Text" xml:space="preserve">
-        <value>История ссылок:</value>
-    </data>
-    <data name="labelUrlHistory.Help" xml:space="preserve">
-        <value>В этом выпадающем списке содержатся все ссылки, с которыми вы работали в текущем сеансе. Выберите одну из ссылок, а затем нажмите "Выбрать ссылку".</value>
-    </data>
-    <data name="linkSelectUrl.Text" xml:space="preserve">
-        <value>Выбрать ссылку</value>
     </data>
     <data name="AddMoreDocuments.Text" xml:space="preserve">
         <value>Добавить еще</value>

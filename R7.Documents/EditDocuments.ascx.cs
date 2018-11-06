@@ -1,6 +1,6 @@
 //
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,14 +36,14 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
-using DotNetNuke.Web.UI.WebControls;
 using R7.Dnn.Extensions.Modules;
-using R7.Dnn.Extensions.UrlHistory;
-using R7.Dnn.Extensions.Utilities;
+using R7.Dnn.Extensions.Controls;
+using R7.Dnn.Extensions.Users;
 using R7.Documents.Data;
 using R7.Documents.Models;
-using R7.Documents.Helpers;
 using R7.Dnn.Extensions.Urls;
+using R7.Dnn.Extensions.Text;
+using R7.Dnn.Extensions.FileSystem;
 
 namespace R7.Documents
 {
@@ -133,8 +133,6 @@ namespace R7.Documents
                 lstCategory.Visible = false;
                 txtCategory.Visible = true;
             }
-
-            BindUrlHistory ();
         }
 
         /// <summary>
@@ -146,7 +144,7 @@ namespace R7.Documents
 
             try {
                 // determine ItemId of Document to Update
-                itemId = TypeUtils.ParseToNullable<int> (Request.QueryString ["ItemId"]) ?? Null.NullInteger;
+                itemId = ParseHelper.ParseToNullable<int> (Request.QueryString ["ItemId"]) ?? Null.NullInteger;
 
                 if (!IsPostBack) {
                     if (!Null.IsNull (itemId)) {
@@ -263,11 +261,6 @@ namespace R7.Documents
             }
         }
 
-        protected void linkSelectUrl_Click (object sender, EventArgs e)
-        {
-            ctlUrl.Url = comboUrlHistory.SelectedValue;
-        }
-
         #endregion
 
         void LoadNewDocument ()
@@ -286,16 +279,25 @@ namespace R7.Documents
             ctlUrl.NewWindow = true;
 
             CalculateSortIndex ();
-
-            if (Settings.DefaultFolder != null) {
-                var folderSelected = SelectFolder (ctlUrl, Settings.DefaultFolder.Value);
-                if (!folderSelected) {
-                    this.Message ("CurrentFolder.Warning", MessageType.Warning, true);
-                }
-            }
+            SelectDefaultFolder ();
 
             cmdUpdate.Text = LocalizeString ("AddDocument.Text");
             cmdUpdate.ToolTip = LocalizeString ("AddDocument.ToolTip");
+        }
+
+        void SelectDefaultFolder ()
+        {
+            var defaultFolder = Settings.DefaultFolder ?? FolderHistory.GetLastFolderId (Request, PortalId);
+            if (defaultFolder != null) {
+                var folderSelected = ctlUrl.SelectFolder (defaultFolder.Value, true);
+                if (!folderSelected) {
+                    var folder = FolderManager.Instance.GetFolder (defaultFolder.Value);
+                    if (folder != null) {
+                        this.Message (string.Format (LocalizeString ("DefaultFolder.Warning"), folder.FolderName),
+                                      MessageType.Warning, false);
+                    }
+                }
+            }
         }
 
         void CalculateSortIndex ()
@@ -333,12 +335,7 @@ namespace R7.Documents
                     CheckFileSecurity (document.Url);
                 }
 
-                var ownerUserName = UserHelper.GetUserDisplayName (PortalId, document.OwnedByUserId);
-                if (string.IsNullOrEmpty (ownerUserName)) {
-                    lblOwner.Text = Localization.GetString ("None_Specified");
-                } else {
-                    lblOwner.Text = ownerUserName;
-                }
+                lblOwner.Text = UserHelper.GetUserDisplayName (PortalId, document.OwnedByUserId) ?? LocalizeString ("None_Specified");
 
                 if (txtCategory.Visible) {
                     txtCategory.Text = document.Category;
@@ -357,9 +354,9 @@ namespace R7.Documents
                 }
 
                 // FIXME: Audit data not preserved between postbacks
-                ctlAudit.CreatedByUser = UserHelper.GetUserDisplayName (PortalId, document.CreatedByUserId);
+                ctlAudit.CreatedByUser = UserHelper.GetUserDisplayName (PortalId, document.CreatedByUserId) ?? LocalizeString ("None_Specified");
                 ctlAudit.CreatedDate = document.CreatedDate.ToString ();
-                ctlAudit.LastModifiedByUser = UserHelper.GetUserDisplayName (PortalId, document.ModifiedByUserId);
+                ctlAudit.LastModifiedByUser = UserHelper.GetUserDisplayName (PortalId, document.ModifiedByUserId) ?? LocalizeString ("None_Specified");
                 ctlAudit.LastModifiedDate = document.ModifiedDate.ToString ();
 
                 ctlUrlTracking.URL = document.Url;
@@ -372,20 +369,6 @@ namespace R7.Documents
 
             cmdUpdate.Text = LocalizeString ("UpdateDocument.Text");
             cmdUpdate.ToolTip = LocalizeString ("UpdateDocument.ToolTip");
-        }
-
-        // TODO: Implement as extension method, move to the base library
-        bool SelectFolder (DnnUrlControl urlControl, int folderId)
-        {
-            var folder = FolderManager.Instance.GetFolder (folderId);
-            if (folder != null) {
-                var file = FolderManager.Instance.GetFiles (folder).FirstOrDefault ();
-                if (file != null) {
-                    urlControl.Url = "fileid=" + file.FileId;
-                    return true;
-                }
-            }
-            return false;
         }
 
         void AddLog (string message, EventLogController.EventLogType logType)
@@ -629,15 +612,13 @@ namespace R7.Documents
                     var ctrlUrl = new UrlController ();
                     ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
-                    var urlHistory = new UrlHistory (Session);
-                    urlHistory.StoreUrl (document.Url);
+                    FolderHistory.RememberFolderByFileUrl (Request, Response, document.Url, PortalId);
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 
                     if (Null.IsNull (itemId)) {
                         this.Message (string.Format (LocalizeString ("DocumentAdded.Format"), document.Title), MessageType.Success);
                         multiView.ActiveViewIndex = 1;
-                        BindUrlHistory ();
                     } else {
                         Response.Redirect (Globals.NavigateURL (), true);
                     }
@@ -710,18 +691,6 @@ namespace R7.Documents
                 lstOwner.Items.Insert (0, new ListItem (
                     superUsers.DisplayName + " (" + superUsers.Username + ")", superUsers.UserID.ToString ())
                 );
-            }
-        }
-
-        void BindUrlHistory ()
-        {
-            var urlHistory = new UrlHistory (Session);
-            var urls = urlHistory.GetBindableUrls ();
-            if (urls.Count > 0) {
-                comboUrlHistory.DataSource = urls;
-                comboUrlHistory.DataBind ();
-            } else {
-                panelUrlHistory.Visible = false;
             }
         }
     }

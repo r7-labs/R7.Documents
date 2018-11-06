@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -111,8 +111,8 @@
     <data name="labelLastModifiedDate.Text" xml:space="preserve">
         <value>Last Modified Date:</value>
     </data>
-    <data name="CurrentFolder.Warning" xml:space="preserve">
-        <value>Cannot set link to a file in the current folder, as there are no files in it.</value>
+    <data name="DefaultFolder.Warning" xml:space="preserve">
+        <value>Cannot select folder &quot;{0}&quot; - you could still try to select it manually.</value>
     </data>
 	<data name="labelStartDate.Text" xml:space="preserve">
         <value>Start Publication:</value>
@@ -149,15 +149,6 @@
     </data>
 	<data name="DeleteWithResource.Text" xml:space="preserve">
         <value>Are you sure you want to delete this document with the accociated resource (file or URL)? Note that resource will be deleted only if it's not referenced by other documents.</value>
-    </data>
-	<data name="labelUrlHistory.Text" xml:space="preserve">
-        <value>Links History:</value>
-    </data>
-    <data name="labelUrlHistory.Help" xml:space="preserve">
-        <value>This dropdown contains all links you have worked with during current session. Select one of the links, then click "Select Link".</value>
-    </data>
-	<data name="linkSelectUrl.Text" xml:space="preserve">
-        <value>Select Link</value>
     </data>
 	<data name="AddMoreDocuments.Text" xml:space="preserve">
         <value>Add more</value>

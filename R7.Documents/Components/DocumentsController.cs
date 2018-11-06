@@ -30,7 +30,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Search.Entities;
-using R7.Dnn.Extensions.Utilities;
+using R7.Dnn.Extensions.Text;
 using R7.Documents.Data;
 using R7.Documents.Models;
 
@@ -249,7 +249,7 @@ namespace R7.Documents
                 settings.ShowTitleLink = XmlUtils.GetNodeValueBoolean (xmlSettings, "showtitlelink");
                 settings.UseCategoriesList = XmlUtils.GetNodeValueBoolean (xmlSettings, "usecategorieslist");
                 settings.CategoriesListName = XmlUtils.GetNodeValue (xmlSettings, "categorieslistname");
-                settings.DefaultFolder = TypeUtils.ParseToNullable<int> (XmlUtils.GetNodeValue (xmlSettings, "defaultfolder"));
+                settings.DefaultFolder = ParseHelper.ParseToNullable<int> (XmlUtils.GetNodeValue (xmlSettings, "defaultfolder"));
                 settings.FileFilter = XmlUtils.GetNodeValue (xmlSettings, "filefilter");
                 settings.FilenameToTitleRules = XmlUtils.GetNodeValue (xmlSettings, "filenametotitlerules");
                 settings.DisplayColumns = XmlUtils.GetNodeValue (xmlSettings, "displaycolumns");

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2017 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,8 +27,8 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
+using R7.Dnn.Extensions.FileSystem;
 using R7.Dnn.Extensions.Modules;
-using R7.Dnn.Extensions.UrlHistory;
 using R7.Dnn.Extensions.Urls;
 using R7.Documents.Data;
 using R7.Documents.Models;
@@ -37,12 +37,7 @@ namespace R7.Documents
 {
     public partial class ChangeFolder : PortalModuleBase<DocumentsSettings>
     {
-        UrlHistory _urlHistory;
-        protected UrlHistory UrlHistory {
-            get { return _urlHistory ?? (_urlHistory = new UrlHistory (Session)); }
-        } 
-
-        #region Event Handlers
+       #region Event Handlers
 
         protected override void OnInit (EventArgs e)
         {
@@ -127,8 +122,7 @@ namespace R7.Documents
                     }
                 }
 
-                // update URL history
-                UrlHistory.StoreUrl (document.Url);
+                FolderHistory.RememberFolderByFileUrl (Request, Response, document.Url, PortalId);
 
                 // update document & URL tracking data
                 DocumentsDataProvider.Instance.Update (document);

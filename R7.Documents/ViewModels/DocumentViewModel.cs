@@ -4,7 +4,7 @@
 // Author:
 //       Roman M. Yagodin <roman.yagodin@gmail.com>
 //
-// Copyright (c) 2017 Roman M. Yagodin
+// Copyright (c) 2017-2018 Roman M. Yagodin
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,9 +33,9 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using R7.Dnn.Extensions.Models;
-using R7.Dnn.Extensions.Utilities;
+using R7.Dnn.Extensions.Text;
+using R7.Dnn.Extensions.Users;
 using R7.Dnn.Extensions.ViewModels;
-using R7.Documents.Helpers;
 using R7.Documents.Models;
 
 namespace R7.Documents.ViewModels
@@ -101,13 +101,13 @@ namespace R7.Documents.ViewModels
         }
 
         string _createdByUser;
-        public string CreatedByUser => _createdByUser ?? (_createdByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.CreatedByUserId));
+        public string CreatedByUser => _createdByUser ?? (_createdByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.CreatedByUserId) ?? Context.LocalizeString ("None_Specified"));
 
         string _modifiedByUser;
-        public string ModifiedByUser => _modifiedByUser ?? (_modifiedByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.ModifiedByUserId));
+        public string ModifiedByUser => _modifiedByUser ?? (_modifiedByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.ModifiedByUserId) ?? Context.LocalizeString ("None_Specified"));
 
         string _ownedByUser;
-        public string OwnedByUser => _ownedByUser ?? (_ownedByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.OwnedByUserId));
+        public string OwnedByUser => _ownedByUser ?? (_ownedByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.OwnedByUserId) ?? Context.LocalizeString ("None_Specified"));
 
         #endregion
 
@@ -143,7 +143,7 @@ namespace R7.Documents.ViewModels
                     switch (Globals.GetURLType (Url)) {
                     case TabType.File:
 
-                        var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+                        var fileId = ParseHelper.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
                         if (fileId != null) {
                             var fileInfo = FileManager.Instance.GetFile (fileId.Value);
                             if (fileInfo != null && !string.IsNullOrWhiteSpace (fileInfo.Extension)) {
@@ -180,7 +180,7 @@ namespace R7.Documents.ViewModels
 
                     switch (Globals.GetURLType (Url)) {
                         case TabType.File:
-                            var fileId = TypeUtils.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+                            var fileId = ParseHelper.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
                             if (fileId != null) {
                                 var fileInfo = FileManager.Instance.GetFile (fileId.Value);
                                 if (fileInfo != null) {
@@ -190,7 +190,7 @@ namespace R7.Documents.ViewModels
                             break;
 
                         case TabType.Tab:
-                            var tabId = TypeUtils.ParseToNullable<int> (Url);
+                            var tabId = ParseHelper.ParseToNullable<int> (Url);
                             if (tabId != null) {
                                 var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
                                 if (tabInfo != null) {

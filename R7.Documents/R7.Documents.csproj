@@ -96,10 +96,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="YamlDotNet">
-      <HintPath>..\packages\YamlDotNet.4.3.1\lib\net45\YamlDotNet.dll</HintPath>
+      <HintPath>..\packages\YamlDotNet.5.2.1\lib\net45\YamlDotNet.dll</HintPath>
     </Reference>
     <Reference Include="R7.Dnn.Extensions">
-      <HintPath>..\packages\R7.Dnn.Extensions.0.13.0-alpha4\lib\net45\R7.Dnn.Extensions.dll</HintPath>
+      <HintPath>..\packages\R7.Dnn.Extensions.0.13.0-beta3\lib\net45\R7.Dnn.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -195,7 +195,6 @@
     <Compile Include="Models\IDocument.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="Models\DocumentExtensions.cs" />
-    <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="ViewModels\IDocumentViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModelComparer.cs" />
     <Compile Include="Models\IDocumentsSortColumn.cs" />
