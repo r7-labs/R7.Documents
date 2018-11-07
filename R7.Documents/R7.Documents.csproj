@@ -187,7 +187,6 @@
     <Compile Include="Models\DocumentInfo.cs" />
     <Compile Include="Data\DocumentsDataProvider.cs" />
     <Compile Include="Components\ModuleSynchronizer.cs" />
-    <Compile Include="Components\DocumentsSettingsRepository.cs" />
     <Compile Include="Components\ModuleDefinitions.cs" />
     <Compile Include="Models\GridStyle.cs" />
     <Compile Include="Models\DocumentsSettings.cs" />
@@ -202,6 +201,7 @@
     <Compile Include="Models\SortDirection.cs" />
     <Compile Include="ViewModels\DocumentSortColumnViewModel.cs" />
     <Compile Include="Logic\DocumentBulkActions.cs" />
+    <Compile Include="Models\DocumentsSettingsRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

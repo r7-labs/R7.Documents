@@ -4,7 +4,7 @@
 // Author:
 //       Roman M. Yagodin <roman.yagodin@gmail.com>
 //
-// Copyright (c) 2017 Roman M. Yagodin
+// Copyright (c) 2017-2018 Roman M. Yagodin
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,9 +25,8 @@
 // THE SOFTWARE.
 
 using DotNetNuke.Entities.Modules.Settings;
-using R7.Documents.Models;
 
-namespace R7.Documents
+namespace R7.Documents.Models
 {
     public class DocumentsSettingsRepository : SettingsRepository<DocumentsSettings>
     {
