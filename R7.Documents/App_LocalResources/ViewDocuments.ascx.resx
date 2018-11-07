@@ -42,4 +42,16 @@
     <data name="Page.Text" xml:space="preserve">
         <value>Page</value>
     </data>
+	<data name="SelectUnselectAllDocuments.Text" xml:space="preserve">
+        <value>Select All/Unselect All Documents</value>
+    </data>
+	<data name="SelectUnselectDocument.Text" xml:space="preserve">
+        <value>Select/Unselect Document</value>
+    </data>
+	<data name="DeleteDocuments.Action" xml:space="preserve">
+        <value>Delete Documents</value>
+    </data>
+	<data name="DeleteDocumentsWithAssets.Action" xml:space="preserve">
+        <value>Delete Documents with Assets</value>
+    </data>
 </root>

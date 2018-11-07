@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
 <%@ Register TagPrefix="dnn" TagName="URL" Src="~/controls/DnnUrlControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Tracking" Src="~/controls/URLTrackingControl.ascx" %>
@@ -108,7 +108,7 @@
             <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 			<li>&nbsp;</li>
             <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
-			<li><asp:LinkButton id="buttonDeleteWithResource" runat="server" CssClass="dnnSecondaryAction" resourcekey="buttonDeleteWithResource.Text" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
+			<li><asp:LinkButton id="buttonDeleteWithAsset" runat="server" CssClass="dnnSecondaryAction" resourcekey="buttonDeleteWithAsset.Text" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
         </ul>
 	</div>
     </asp:View>

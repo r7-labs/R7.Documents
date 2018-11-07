@@ -6,6 +6,5 @@ namespace R7.Documents
 	{
         protected GridView grdDocuments;
         protected HiddenField hiddenSelectedDocuments;
-        protected Label labelTest;
 	}
 }

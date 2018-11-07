@@ -1,4 +1,4 @@
-//
+﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
 // Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
@@ -40,9 +40,11 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
+using R7.Dnn.Extensions.Collections;
 using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.ViewModels;
 using R7.Documents.Data;
+using R7.Documents.Logic;
 using R7.Documents.Models;
 using R7.Documents.ViewModels;
 
@@ -83,8 +85,28 @@ namespace R7.Documents
 
         void DocumentsActionEventHandler (object sender, ActionEventArgs e)
         {
-            if (e.Action.CommandName == "CopySelected.Action") {
-                labelTest.Text = hiddenSelectedDocuments.Value;
+            try {
+                var documentIds = hiddenSelectedDocuments.Value.Substring (1, hiddenSelectedDocuments.Value.Length - 2)
+                                                         .Split (new char [] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                                         .Select (d => int.Parse (d));
+
+                if (!documentIds.IsNullOrEmpty ()) {
+                    var bulkActions = new DocumentBulkActions ();
+                    switch (e.Action.CommandName) {
+                        case "DeleteDocuments.Action":
+                            bulkActions.Delete (documentIds, PortalId, ModuleId);
+                            break;
+                        case "DeleteDocumentsWithAssets.Action":
+                            bulkActions.DeleteWithAsset (documentIds, PortalId, ModuleId);
+                            break;
+                    }
+
+                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
+                    Response.Redirect (Globals.NavigateURL (), true);
+                }
+            }
+            catch (Exception ex) {
+                Exceptions.ProcessModuleLoadException (this, ex);
             }
         }
 
@@ -175,11 +197,11 @@ namespace R7.Documents
             Localization.LocalizeGridView (ref grdDocuments, LocalResourceFile);
         }
 
-        HtmlInputCheckBox CreateAllCheckBox ()
+        HtmlInputCheckBox CreateSelectUnselectAllDocumentsCheckBox ()
         {
             var allCheckBox = new HtmlInputCheckBox ();
             allCheckBox.Checked = false;
-            allCheckBox.Attributes.Add ("title", "Select/Unselect All Documents");
+            allCheckBox.Attributes.Add ("title", LocalizeString ("SelectUnselectAllDocuments.Text"));
             allCheckBox.Attributes.Add ("onchange", "r7d_selectDeselectAll(this)");
 
             return allCheckBox;
@@ -204,7 +226,7 @@ namespace R7.Documents
                     case DataControlRowType.Header:
                         e.Row.TableSection = TableRowSection.TableHeader;
                         e.Row.Cells [0].CssClass = "EditHeader";
-                        e.Row.Cells [0].Controls.Add (CreateAllCheckBox ());
+                        e.Row.Cells [0].Controls.Add (CreateSelectUnselectAllDocumentsCheckBox ());
                         break;
 
                     case DataControlRowType.DataRow:
@@ -311,16 +333,28 @@ namespace R7.Documents
                     false);
 
                 actions.Add (
-                  GetNextActionID (),
-                  "CopySelected",
-                  "CopySelected.Action",
-                  "",
-                  IconController.IconURL ("Edit"),
-                  "",
-                  true,
-                  SecurityAccessLevel.Edit,
-                  true,
-                  false);
+                    GetNextActionID (),
+                    LocalizeString ("DeleteDocuments.Action"),
+                    "DeleteDocuments.Action",
+                    "",
+                    IconController.IconURL ("Delete"),
+                    "",
+                    true,
+                    SecurityAccessLevel.Edit,
+                    true,
+                    false);
+
+                actions.Add (
+                    GetNextActionID (),
+                    LocalizeString ("DeleteDocumentsWithAssets.Action"),
+                    "DeleteDocumentsWithAssets.Action",
+                    "",
+                    IconController.IconURL ("Delete", "16X16", "Standard_2"),
+                    "",
+                    true,
+                    SecurityAccessLevel.Edit,
+                    true,
+                    false);
 
                 return actions;
             }

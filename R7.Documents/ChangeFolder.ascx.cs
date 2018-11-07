@@ -116,7 +116,7 @@ namespace R7.Documents
                 // safe remove old resources, if needed - need to do this before update!
                 if (checkDeleteOldFiles.Checked) {
                     if (oldDocument.Url != document.Url && !string.IsNullOrEmpty (oldDocument.Url)) {
-                        DocumentsDataProvider.Instance.DeleteDocumentResource (
+                        DocumentsDataProvider.Instance.DeleteDocumentAsset (
                             oldDocument,
                             PortalId);
                     }

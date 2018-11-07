@@ -13,12 +13,11 @@
 						 NavigateUrl='<%# EditUrl ("ItemID", Item.ItemId.ToString ()) %>'>
             <asp:Image id="imageEdit" runat="server" IconKey="Edit" IconStyle="Gray" ToolTip='<%# Item.ToolTip %>' />
 			</asp:HyperLink>
-			<input type="checkbox" runat="server" title="Select/Unselect Document"
+			<input type="checkbox" runat="server" title='<%# LocalizeString("SelectUnselectDocument.Text") %>'
 				data-document-id="<%# Item.ItemId %>" onchange="r7d_selectDocument2(this)" />
         </ItemTemplate>
       </asp:TemplateField>
     </Columns>
   </asp:GridView>
   <asp:HiddenField id="hiddenSelectedDocuments" runat="server" Value="[]" />
-  <asp:Label id="labelTest" runat="server" />
 </div>

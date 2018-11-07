@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -41,5 +41,17 @@
     </data>
     <data name="Page.Text" xml:space="preserve">
         <value>Страница</value>
+    </data>
+	<data name="SelectUnselectAllDocuments.Text" xml:space="preserve">
+        <value>Отметить все документы/Снять отметку</value>
+    </data>
+	<data name="SelectUnselectDocument.Text" xml:space="preserve">
+        <value>Отметить документ/Снять отметку</value>
+    </data>
+	<data name="DeleteDocuments.Action" xml:space="preserve">
+        <value>Удалить документы</value>
+    </data>
+	<data name="DeleteDocumentsWithAssets.Action" xml:space="preserve">
+        <value>Удалить вместе с ресурсами</value>
     </data>
 </root>

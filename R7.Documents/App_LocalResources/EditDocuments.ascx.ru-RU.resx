@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -141,13 +141,13 @@
     <data name="Audit.Tab" xml:space="preserve">
         <value>Аудит</value>
     </data>
-	<data name="buttonDeleteWithResource.Text" xml:space="preserve">
+	<data name="buttonDeleteWithAsset.Text" xml:space="preserve">
         <value>Удалить вместе с ресурсом</value>
     </data>
 	<data name="Delete.Text" xml:space="preserve">
         <value>Уверены, что хотите удалить этот документ?</value>
     </data>
-	<data name="DeleteWithResource.Text" xml:space="preserve">
+	<data name="DeleteWithAsset.Text" xml:space="preserve">
         <value>Уверены, что хотите удалить этот документ вместе со связанным с ним ресурсом (файлом или ссылкой)? Обратите внимание, что ресурс будет удален только в том случае, если на него не ссылаются другие документы.</value>
     </data>
     <data name="AddMoreDocuments.Text" xml:space="preserve">

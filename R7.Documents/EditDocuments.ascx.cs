@@ -1,4 +1,4 @@
-//
+﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
 // Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
@@ -104,8 +104,8 @@ namespace R7.Documents
             cmdDelete.Attributes.Add ("onClick", 
                 "javascript:return confirm('" + LocalizeString ("Delete.Text")  + "');");
             
-            buttonDeleteWithResource.Attributes.Add ("onClick", 
-                "javascript:return confirm('" + LocalizeString ("DeleteWithResource.Text") + "');");
+            buttonDeleteWithAsset.Attributes.Add ("onClick", 
+                "javascript:return confirm('" + LocalizeString ("DeleteWithAsset.Text") + "');");
 
             cmdUpdateOverride.Text = LocalizeString ("Proceed.Text");
             cmdUpdateOverride.ToolTip = LocalizeString ("Proceed.ToolTip");
@@ -171,15 +171,7 @@ namespace R7.Documents
         {
             try {
                 if (!Null.IsNull (itemId)) {
-                    var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
-                    if (document != null) {
-                        DocumentsDataProvider.Instance.Delete (document);
-                        DocumentsDataProvider.Instance.DeleteDocumentUrl (document.Url, PortalId, ModuleId);
-
-                        if (sender == buttonDeleteWithResource) {
-                            DocumentsDataProvider.Instance.DeleteDocumentResource (document, PortalId);
-                        }
-                    }
+                    DocumentsDataProvider.Instance.DeleteDocument (itemId, sender == buttonDeleteWithAsset, PortalId, ModuleId);
                 }
 
                 ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
@@ -274,7 +266,7 @@ namespace R7.Documents
             }
 
             cmdDelete.Visible = false;
-            buttonDeleteWithResource.Visible = false;
+            buttonDeleteWithAsset.Visible = false;
 
             ctlUrl.NewWindow = true;
 

@@ -4,7 +4,7 @@
 // Author:
 //       Roman M. Yagodin <roman.yagodin@gmail.com>
 //
-// Copyright (c) 2016 Roman M. Yagodin
+// Copyright (c) 2016-2018 Roman M. Yagodin
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -43,8 +43,7 @@ namespace R7.Documents.Data
 
         static readonly Lazy<DocumentsDataProvider> instance = new Lazy<DocumentsDataProvider> ();
 
-        public static DocumentsDataProvider Instance
-        {
+        public static DocumentsDataProvider Instance {
             get { return instance.Value; }
         }
 
@@ -109,7 +108,7 @@ namespace R7.Documents.Data
         /// </summary>
         /// <param name="document">Document.</param>
         /// <param name="portalId">Portal identifier.</param>
-        public int DeleteDocumentResource (DocumentInfo document, int portalId)
+        public int DeleteDocumentAsset (DocumentInfo document, int portalId)
         {
             // count resource references
             var count = GetObjects<DocumentInfo> ("WHERE [ItemID] <> @0 AND [Url] = @1", document.ItemId, document.Url).Count ();
@@ -117,7 +116,7 @@ namespace R7.Documents.Data
             // if no other document references it
             if (count == 0) {
                 switch (Globals.GetURLType (document.Url)) {
-                // delete file
+                    // delete file
                     case TabType.File:
                         var file = FileManager.Instance.GetFile (Utils.GetResourceId (document.Url));
                         if (file != null) {
@@ -125,7 +124,7 @@ namespace R7.Documents.Data
                         }
                         break;
 
-                // delete URL
+                    // delete URL
                     case TabType.Url:
                         new UrlController ().DeleteUrl (portalId, document.Url);
                         break;
@@ -144,6 +143,18 @@ namespace R7.Documents.Data
             DataProvider.Instance ().DeleteUrlTracking (portalId, oldUrl, moduleId);
         }
 
+        public void DeleteDocument (int documentId, bool withAsset, int portalId, int moduleId)
+        {
+            var document = GetDocument (documentId, moduleId);
+            if (document != null) {
+                Delete (document);
+                DeleteDocumentUrl (document.Url, portalId, moduleId);
+                if (withAsset) {
+                    DeleteDocumentAsset (document, portalId);
+                }
+            }
+        }
+    
         public void UpdateDocumentUrl (DocumentInfo document, string oldUrl, int portalId, int moduleId)
         {
             if (document.Url != oldUrl) {
