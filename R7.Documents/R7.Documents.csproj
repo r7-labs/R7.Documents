@@ -110,6 +110,7 @@
     <Folder Include="Data\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Helpers\" />
+    <Folder Include="js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="module.css" />
@@ -123,6 +124,7 @@
     <Content Include="license.htm" />
     <Content Include="releaseNotes.htm" />
     <Content Include="packages.config" />
+    <Content Include="js\selectDocuments.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />

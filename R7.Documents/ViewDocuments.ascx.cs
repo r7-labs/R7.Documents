@@ -27,6 +27,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Caching;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
@@ -76,6 +77,15 @@ namespace R7.Documents
 
             var gridStyle = GridStyle.Styles [Settings.GridStyle];
             gridStyle.ApplyToGrid (grdDocuments);
+
+            AddActionHandler (new ActionEventHandler (DocumentsActionEventHandler));
+        }
+
+        void DocumentsActionEventHandler (object sender, ActionEventArgs e)
+        {
+            if (e.Action.CommandName == "CopySelected.Action") {
+                labelTest.Text = hiddenSelectedDocuments.Value;
+            }
         }
 
         /// <summary>
@@ -165,6 +175,16 @@ namespace R7.Documents
             Localization.LocalizeGridView (ref grdDocuments, LocalResourceFile);
         }
 
+        HtmlInputCheckBox CreateAllCheckBox ()
+        {
+            var allCheckBox = new HtmlInputCheckBox ();
+            allCheckBox.Checked = false;
+            allCheckBox.Attributes.Add ("title", "Select/Unselect All Documents");
+            allCheckBox.Attributes.Add ("onchange", "r7d_selectDeselectAll(this)");
+
+            return allCheckBox;
+        }
+
         /// <summary>
         /// grdDocuments_ItemCreated runs when an item in the grid is created
         /// </summary>
@@ -184,6 +204,7 @@ namespace R7.Documents
                     case DataControlRowType.Header:
                         e.Row.TableSection = TableRowSection.TableHeader;
                         e.Row.Cells [0].CssClass = "EditHeader";
+                        e.Row.Cells [0].Controls.Add (CreateAllCheckBox ());
                         break;
 
                     case DataControlRowType.DataRow:
@@ -288,7 +309,19 @@ namespace R7.Documents
                     SecurityAccessLevel.Edit,
                     !Settings.FolderMode,
                     false);
-                
+
+                actions.Add (
+                  GetNextActionID (),
+                  "CopySelected",
+                  "CopySelected.Action",
+                  "",
+                  IconController.IconURL ("Edit"),
+                  "",
+                  true,
+                  SecurityAccessLevel.Edit,
+                  true,
+                  false);
+
                 return actions;
             }
         }

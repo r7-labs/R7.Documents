@@ -16,6 +16,8 @@
 
 .ViewDocuments .IconCell,
 .ViewDocuments .EditCell { text-align:center }
+.ViewDocuments .EditCell img { vertical-align:baseline }
+.ViewDocuments .EditCell input[type='checkbox'] { margin-left:.3rem }
 
 .ViewDocuments .ClicksHeader, 
 .ViewDocuments .SizeHeader,  
@@ -29,6 +31,8 @@
 .ViewDocuments .CategoryHeader,
 .ViewDocuments .EditHeader,
 .ViewDocuments .IconHeader { width:1px }
+
+.ViewDocuments .EditHeader { text-align:right }
 
 .ViewDocuments ._nonpublished { background-color:#ffc!important }
 .ViewDocuments ._nonpublished:hover { background-color:#fefe97!important }

@@ -5,5 +5,7 @@ namespace R7.Documents
     public partial class ViewDocuments
 	{
         protected GridView grdDocuments;
+        protected HiddenField hiddenSelectedDocuments;
+        protected Label labelTest;
 	}
 }
