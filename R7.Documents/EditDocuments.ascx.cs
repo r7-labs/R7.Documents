@@ -394,7 +394,7 @@ namespace R7.Documents
                     return CheckRolesMatch (
                         // TODO review old code: this.ModuleConfiguration.AuthorizedViewRoles,
                         GetModuleViewRoles (),
-                        // TODO reviewold code: FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
+                        // TODO review old code: FileSystemUtils.GetRoles(objFile.Folder, PortalId, "READ")
                         GetFolderViewRoles (file.FolderId)
                     );
                 }
