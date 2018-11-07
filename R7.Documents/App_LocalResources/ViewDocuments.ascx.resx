@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -47,6 +47,12 @@
     </data>
 	<data name="SelectUnselectDocument.Text" xml:space="preserve">
         <value>Select/Unselect Document</value>
+    </data>
+	<data name="CopyDocuments.Action" xml:space="preserve">
+        <value>Copy Documents</value>
+    </data>
+	<data name="CopySuffix.Text" xml:space="preserve">
+        <value> (Copy)</value>
     </data>
 	<data name="DeleteDocuments.Action" xml:space="preserve">
         <value>Delete Documents</value>

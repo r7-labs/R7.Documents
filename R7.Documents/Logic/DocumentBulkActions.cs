@@ -31,6 +31,18 @@ namespace R7.Documents.Logic
 {
     public class DocumentBulkActions
     {
+        public void Copy (IEnumerable<int> documentIds, int moduleId, string copySuffix)
+        {
+            foreach (var documentId in documentIds) {
+                var document = DocumentsDataProvider.Instance.GetDocument (documentId, moduleId);
+                if (document != null) {
+                    document.ItemId = 0;
+                    document.Title += copySuffix;
+                    DocumentsDataProvider.Instance.Add (document);
+                }
+            }
+        }
+
         public void Delete (IEnumerable<int> documentIds, int portalId, int moduleId)
         {
             foreach (var documentId in documentIds) {

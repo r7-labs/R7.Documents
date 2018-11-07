@@ -48,6 +48,12 @@
 	<data name="SelectUnselectDocument.Text" xml:space="preserve">
         <value>Отметить документ/Снять отметку</value>
     </data>
+	<data name="CopyDocuments.Action" xml:space="preserve">
+        <value>Копировать документы</value>
+    </data>
+	<data name="CopySuffix.Text" xml:space="preserve">
+        <value> (Копия)</value>
+    </data>
 	<data name="DeleteDocuments.Action" xml:space="preserve">
         <value>Удалить документы</value>
     </data>

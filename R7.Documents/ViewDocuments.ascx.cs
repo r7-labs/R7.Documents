@@ -93,6 +93,9 @@ namespace R7.Documents
                 if (!documentIds.IsNullOrEmpty ()) {
                     var bulkActions = new DocumentBulkActions ();
                     switch (e.Action.CommandName) {
+                        case "CopyDocuments.Action":
+                            bulkActions.Copy (documentIds, ModuleId, LocalizeString ("CopySuffix.Text"));
+                            break;
                         case "DeleteDocuments.Action":
                             bulkActions.Delete (documentIds, PortalId, ModuleId);
                             break;
@@ -330,6 +333,18 @@ namespace R7.Documents
                     false,
                     SecurityAccessLevel.Edit,
                     !Settings.FolderMode,
+                    false);
+
+                actions.Add (
+                    GetNextActionID (),
+                    LocalizeString ("CopyDocuments.Action"),
+                    "CopyDocuments.Action",
+                    "",
+                    IconController.IconURL ("CopyFile"),
+                    "",
+                    true,
+                    SecurityAccessLevel.Edit,
+                    true,
                     false);
 
                 actions.Add (
