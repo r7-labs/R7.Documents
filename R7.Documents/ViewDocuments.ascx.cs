@@ -340,7 +340,7 @@ namespace R7.Documents
                     LocalizeString ("CopyDocuments.Action"),
                     "CopyDocuments.Action",
                     "",
-                    IconController.IconURL ("CopyFile"),
+                    IconController.IconURL ("FileCopy", "16X16", "Gray"),
                     "",
                     true,
                     SecurityAccessLevel.Edit,
