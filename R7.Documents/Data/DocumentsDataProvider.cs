@@ -25,14 +25,15 @@
 // THE SOFTWARE.
 
 using System;
-using System.Linq;
-using DotNetNuke.Data;
 using System.Collections.Generic;
-using DotNetNuke.Common.Utilities;
-using DotNetNuke.Entities.Tabs;
+using System.Linq;
 using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Data;
+using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.FileSystem;
 using R7.Dnn.Extensions.Data;
+using R7.Dnn.Extensions.Urls;
 using R7.Documents.Models;
 
 namespace R7.Documents.Data
@@ -118,7 +119,7 @@ namespace R7.Documents.Data
                 switch (Globals.GetURLType (document.Url)) {
                     // delete file
                     case TabType.File:
-                        var file = FileManager.Instance.GetFile (Utils.GetResourceId (document.Url));
+                        var file = FileManager.Instance.GetFile (UrlHelper.GetResourceId (document.Url).Value);
                         if (file != null) {
                             FileManager.Instance.DeleteFile (file);
                         }

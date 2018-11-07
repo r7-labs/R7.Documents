@@ -61,8 +61,8 @@ namespace R7.Documents
                     foreach (var document in documents) {
                         // only for files
                         if (Globals.GetURLType (document.Url) == TabType.File) {
-                            var docFileId = Utils.GetResourceId (document.Url);
-                            var docFile = FileManager.Instance.GetFile (docFileId);
+                            var docFileId = UrlHelper.GetResourceId (document.Url);
+                            var docFile = FileManager.Instance.GetFile (docFileId.Value);
 							
                             if (docFile != null) {
                                 var updated = false; 

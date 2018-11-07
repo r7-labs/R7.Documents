@@ -184,7 +184,6 @@
       <DependentUpon>ImportDocuments.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\Utils.cs" />
     <Compile Include="Models\DocumentInfo.cs" />
     <Compile Include="Data\DocumentsDataProvider.cs" />
     <Compile Include="Components\ModuleSynchronizer.cs" />
