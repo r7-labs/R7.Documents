@@ -194,8 +194,7 @@ namespace R7.Documents.ViewModels
                             if (tabId != null) {
                                 var tabInfo = TabController.Instance.GetTab (tabId.Value, Null.NullInteger);
                                 if (tabInfo != null) {
-                                    // TODO: Show LocalizedTabName instead?
-                                    _toolTip = tabInfo.TabName;
+                                    _toolTip = tabInfo.LocalizedTabName;
                                 }
                             }
                             break;
