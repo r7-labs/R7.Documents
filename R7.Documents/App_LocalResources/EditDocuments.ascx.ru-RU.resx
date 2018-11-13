@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -15,29 +15,16 @@
 	<data name="ControlTitle_edit.Text">
         <value>Редактирование документа</value>
     </data>
-	<data name="Proceed.Text" xml:space="preserve">
-        <value>Продолжить</value>
-    </data>
-    <data name="Proceed.ToolTip">
-        <value>Игнорировать предупреждения и продолжить добавление/сохранение документа</value>
-    </data>
-    <data name="lnkChangeOwner.Text">
+	<data name="lnkChangeOwner.Text">
         <value>Сменить владельца</value>
     </data>
-    <data name="msgFileDeleted.Text">
-        <value>Связанный с этим документом файл был удален.</value>
+    <data name="DocumentLinkWarning.Text">
+        <value>Вы указали пустую ссылку, либо обнаружена потенциальная проблема с разрешениями целевого ресурса.
+		Это может происходить, например, тогда, когда модуль доступен на просмотр для определенных ролей безопасности, тогда как целевой файл документа - нет.
+		Нажмите кнопку &quot;Редактировать&quot;, чтобы исправить это.</value>
     </data>
-    <data name="msgFileSecurityWarning.Text">
-        <value>Предупреждение: Настройки безопасности для выбранного файла конфликтуют с настройками безопасности модуля. Модуль виден для роли (ролей) [$ROLELIST], но файл - нет. Для пользователей, не имеющих данной роли, строка документа на будет отображена. Вы можете измегнить настройки безопасности в Управлении файлами меню администратора сайта.</value>
-    </data>
-    <data name="msgFileWarning.Text">
-        <value>Выбранный файл можен не отображаться для некоторых пользователей (см. сообщение выше). Нажмите &quot;Продожить&quot;, чтобы игнорировать предупреждения.</value>
-    </data>
-    <data name="msgFileWarningHeading.Text">
-        <value>Предупреждение о выбранном файле:</value>
-    </data>
-    <data name="msgNoFileSelected.Text">
-        <value>Предупреждение: не выбран файл</value>
+    <data name="DocumentLinkWarningHeading.Text">
+        <value>Предупреждение:</value>
     </data>
     <data name="Name.Required">
         <value>Название документа обязательно.</value>
@@ -151,24 +138,27 @@
         <value>Уверены, что хотите удалить этот документ вместе со связанным с ним ресурсом (файлом или ссылкой)? Обратите внимание, что ресурс будет удален только в том случае, если на него не ссылаются другие документы.</value>
     </data>
     <data name="AddMoreDocuments.Text" xml:space="preserve">
-        <value>Добавить еще</value>
-    </data>
-	<data name="AddMoreDocuments.ToolTip" xml:space="preserve">
-        <value>Добавить еще документы</value>
-    </data>
-    <data name="AddDocument.Text" xml:space="preserve">
         <value>Добавить</value>
     </data>
-	<data name="AddDocument.ToolTip" xml:space="preserve">
-        <value>Добавить документ</value>
+	<data name="AddDocument.Text" xml:space="preserve">
+        <value>Добавить</value>
     </data>
 	<data name="UpdateDocument.Text" xml:space="preserve">
         <value>Сохранить</value>
     </data>
-    <data name="UpdateDocument.ToolTip" xml:space="preserve">
-        <value>Сохранить документ</value>
+	<data name="EditDocument.Text" xml:space="preserve">
+        <value>Изменить</value>
     </data>
     <data name="DocumentAdded.Format" xml:space="preserve">
         <value>Документ &quot;{0}&quot; успешно добавлен.</value>
+    </data>
+	<data name="DocumentUpdated.Format" xml:space="preserve">
+        <value>Документ &quot;{0}&quot; успешно сохранён.</value>
+    </data>
+	<data name="DocumentDeleted.Format" xml:space="preserve">
+        <value>Документ &quot;{0}&quot; удалён. Вы можете восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
+    </data>
+	<data name="DocumentDeletedWithAsset.Format" xml:space="preserve">
+        <value>Документ &quot;{0}&quot; удалён вместе со связанным ресурсом (файлом). Вы можете попробовать восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
     </data>
 </root>

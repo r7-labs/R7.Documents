@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
+<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
 <%@ Register TagPrefix="dnn" TagName="URL" Src="~/controls/DnnUrlControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Tracking" Src="~/controls/URLTrackingControl.ascx" %>
@@ -103,18 +103,21 @@
         	</fieldset>
     	</div>
         <ul class="dnnActions dnnClear">
-            <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" OnClick="cmdUpdate_Click" /></li>
-            <li><asp:LinkButton id="cmdUpdateOverride" runat="server" CssClass="dnnPrimaryAction" Visible="false" OnClick="cmdUpdateOverride_Click" /></li>
+			<li><asp:LinkButton id="cmdAdd" runat="server" CssClass="dnnPrimaryAction" resourcekey="AddDocument.Text" OnClick="cmdAdd_Click" /></li>
+            <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="UpdateDocument.Text" OnClick="cmdUpdate_Click" /></li>
+            <li>&nbsp;</li>
             <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 			<li>&nbsp;</li>
-            <li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
+			<li><asp:LinkButton id="cmdDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDelete" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
 			<li><asp:LinkButton id="buttonDeleteWithAsset" runat="server" CssClass="dnnSecondaryAction" resourcekey="buttonDeleteWithAsset.Text" CausesValidation="False" OnClick="cmdDelete_Click" /></li>
-        </ul>
+		</ul>
 	</div>
     </asp:View>
 	<asp:View runat="server">
 		<ul class="dnnActions dnnClear">
-            <li><asp:LinkButton id="linkAddMore" runat="server" CssClass="dnnPrimaryAction" OnClick="linkAddMore_Click" /></li>
+            <li><asp:LinkButton id="linkAddMore" runat="server" CssClass="dnnPrimaryAction" resourcekey="AddMoreDocuments.Text" OnClick="linkAddMore_Click" /></li>
+			<li><asp:LinkButton id="linkEdit" runat="server" CssClass="dnnSecondaryAction" resourcekey="EditDocument.Text" OnClick="linkEdit_Click" /></li>
+			<li>&nbsp;</li>
 		    <li><asp:HyperLink id="linkClose" runat="server" CssClass="dnnSecondaryAction" resourcekey="Close" /></li>
 		</ul>
 	</asp:View>

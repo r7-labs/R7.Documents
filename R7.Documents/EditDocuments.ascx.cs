@@ -56,9 +56,12 @@ namespace R7.Documents
     /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
     ///   [ag]  11 March 2007 Migrated to VS2005
     /// </history>
-    public partial class EditDocuments : PortalModuleBase<DocumentsSettings>
+    public partial class EditDocuments: PortalModuleBase<DocumentsSettings>
     {
-        int itemId;
+        protected int? ItemId {
+            get { return (int?) ViewState ["ItemId"] ?? null; }
+            set { ViewState ["ItemId"] = value; }
+        }
 
         protected enum EditDocumentTab
         {
@@ -107,11 +110,6 @@ namespace R7.Documents
             buttonDeleteWithAsset.Attributes.Add ("onClick", 
                 "javascript:return confirm('" + LocalizeString ("DeleteWithAsset.Text") + "');");
 
-            cmdUpdateOverride.Text = LocalizeString ("Proceed.Text");
-            cmdUpdateOverride.ToolTip = LocalizeString ("Proceed.ToolTip");
-            linkAddMore.Text = LocalizeString ("AddMoreDocuments.Text");
-            linkAddMore.ToolTip = LocalizeString ("AddMoreDocuments.Text");
-
             // Configure categories entry as a list or textbox, based on user settings
             if (Settings.UseCategoriesList) {
                 // Configure category entry as a list
@@ -143,20 +141,27 @@ namespace R7.Documents
             base.OnLoad (e);
 
             try {
-                // determine ItemId of Document to Update
-                itemId = ParseHelper.ParseToNullable<int> (Request.QueryString ["ItemId"]) ?? Null.NullInteger;
+                if (ItemId == null) {
+                    // determine ItemId of document to update
+                    ItemId = ParseHelper.ParseToNullable<int> (Request.QueryString ["ItemId"]);
+                }
 
                 if (!IsPostBack) {
-                    if (!Null.IsNull (itemId)) {
-                        LoadExistingDocument (itemId);
-                    }
-                    else {
-                        LoadNewDocument ();
-                    }
+                    LoadDocument ();
                 }
             }
             catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);
+            }
+        }
+
+        void LoadDocument ()
+        {
+            if (ItemId != null) {
+                LoadExistingDocument (ItemId.Value);
+            }
+            else {
+                LoadNewDocument ();
             }
         }
 
@@ -170,56 +175,43 @@ namespace R7.Documents
         protected void cmdDelete_Click (object sender, EventArgs e)
         {
             try {
-                if (!Null.IsNull (itemId)) {
-                    DocumentsDataProvider.Instance.DeleteDocument (itemId, sender == buttonDeleteWithAsset, PortalId, ModuleId);
-                }
+                // TODO: Duplicate calls
+                var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
+                if (document != null) {
+                    DocumentsDataProvider.Instance.DeleteDocument (ItemId.Value, sender == buttonDeleteWithAsset, PortalId, ModuleId);
+                    this.Message (string.Format (LocalizeString ("DocumentDeleted.Format"), document.Title), MessageType.Warning);
+        
+                    multiView.ActiveViewIndex = 1;
+                    linkEdit.Visible = false;
+                    ItemId = null;
 
-                ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-			    Response.Redirect (Globals.NavigateURL (), true);
+                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
+                }
 		    }
             catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// cmdUpdate_Click runs when the update button is clicked
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/22/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void cmdUpdate_Click (object sender, EventArgs e)
-        {
-            Update (false);
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// cmdUpdate_Click runs when the update "override" button is clicked
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[ag]	11 March 2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void cmdUpdateOverride_Click (object sender, EventArgs e)
-        {
-            Update (true);
-        }
-
         protected void linkAddMore_Click (object sender, EventArgs e)
         {
             multiView.ActiveViewIndex = 0;
-            CalculateSortIndex ();
 
             // document was added before, so we need to reload page
             linkCancel.NavigateUrl = Globals.NavigateURL ();
+
+            ItemId = null;
+            LoadDocument ();
+        }
+
+        protected void linkEdit_Click (object sender, EventArgs e)
+        {
+            multiView.ActiveViewIndex = 0;
+
+            // document was added before, so we need to reload page
+            linkCancel.NavigateUrl = Globals.NavigateURL ();
+
+            LoadDocument ();
         }
 
         protected void lnkChange_Click (object sender, EventArgs e)
@@ -232,7 +224,7 @@ namespace R7.Documents
 
             try {
                 // get existing document record
-                var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
+                var document = DocumentsDataProvider.Instance.GetDocument ((ItemId != null) ? ItemId.Value : -1, ModuleId);
 
                 try {
                     if (document == null) {
@@ -265,16 +257,15 @@ namespace R7.Documents
                 Exceptions.LogException (ex);
             }
 
+            cmdAdd.Visible = true;
+            cmdUpdate.Visible = false;
             cmdDelete.Visible = false;
             buttonDeleteWithAsset.Visible = false;
 
             ctlUrl.NewWindow = true;
 
-            CalculateSortIndex ();
+            txtSortIndex.Text = ((CalculateSortIndex () ?? 0) + 10).ToString ();
             SelectDefaultFolder ();
-
-            cmdUpdate.Text = LocalizeString ("AddDocument.Text");
-            cmdUpdate.ToolTip = LocalizeString ("AddDocument.ToolTip");
         }
 
         void SelectDefaultFolder ()
@@ -292,16 +283,15 @@ namespace R7.Documents
             }
         }
 
-        void CalculateSortIndex ()
+        int? CalculateSortIndex ()
         {
             // HACK: Calculate sortindex for new documents
             var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
             if (documents != null && documents.Any ()) {
-                var maxSortIndex = documents.Max (d => d.SortOrderIndex);
-
-                // TODO: Move to portal settings
-                txtSortIndex.Text = (maxSortIndex + 10).ToString ();
+                return documents.Max (d => d.SortOrderIndex);
             }
+
+            return null;
         }
 
         void LoadExistingDocument (int documentId)
@@ -359,8 +349,10 @@ namespace R7.Documents
                 Response.Redirect (Globals.NavigateURL (), true);
             }
 
-            cmdUpdate.Text = LocalizeString ("UpdateDocument.Text");
-            cmdUpdate.ToolTip = LocalizeString ("UpdateDocument.ToolTip");
+            cmdAdd.Visible = false;
+            cmdUpdate.Visible = true;
+            cmdDelete.Visible = true;
+            buttonDeleteWithAsset.Visible = true;
         }
 
         void AddLog (string message, EventLogController.EventLogType logType)
@@ -385,6 +377,8 @@ namespace R7.Documents
         /// </history>
         bool CheckFileSecurity (string url)
         {
+            // TODO: Add support for other link types
+
             switch (Globals.GetURLType (url)) {
             case TabType.File:
                 url = FixLegacyFileUrl (url);
@@ -467,20 +461,7 @@ namespace R7.Documents
                 }
             }
 
-            if (notMatching) {
-                // if no roles selected for message, assume it "All users"
-                if (string.IsNullOrWhiteSpace (strRolesForMessage)) {
-                    strRolesForMessage = Globals.glbRoleAllUsersName;
-                }
-
-                // warn user that roles do not match
-                this.Message (LocalizeString ("msgFileSecurityWarning.Text")
-                              .Replace ("[$ROLELIST]", strRolesForMessage), MessageType.Warning);
-
-                return false;
-            }
-
-            return true;
+            return notMatching;
         }
 
         /// <summary>
@@ -504,12 +485,13 @@ namespace R7.Documents
         /// </history>
         bool CheckFileExists (string url)
         {
+            // TODO: Add support for other link types
+
             var fileId = 0;
             var blnAddWarning = false;
 
             if (url == string.Empty) {
                 // file not selected
-                this.Message ("msgNoFileSelected.Text", MessageType.Warning, true);
                 return false;
             }
 
@@ -539,8 +521,7 @@ namespace R7.Documents
                 }
 
                 if (blnAddWarning) {
-                    // display a "file not found" warning
-                    this.Message ("msgFileDeleted.Text", MessageType.Warning, true);
+                    // file was deleted
                     return false;
                 }
                 break;
@@ -549,31 +530,39 @@ namespace R7.Documents
             return true;
         }
 
-        void Update (bool ignoreWarnings)
+        protected void cmdAdd_Click (object sender, EventArgs e)
+        {
+            var document = new DocumentInfo {
+                ItemId = 0,
+                ModuleId = ModuleId,
+                CreatedByUserId = UserId,
+                OwnedByUserId = UserId
+            };
+         
+            Update (document, true);
+        }
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// cmdUpdate_Click runs when the update button is clicked
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <history>
+        ///     [cnurse]    9/22/2004   Updated to reflect design changes for Help, 508 support
+        ///                       and localisation
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        protected void cmdUpdate_Click (object sender, EventArgs e)
+        {
+            var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
+            Update (document, false);
+        }
+
+        void Update (DocumentInfo document, bool isNew)
         {
             try {
                 if (Page.IsValid) {
-                    if (!ignoreWarnings) {
-                        if (!CheckFileExists (ctlUrl.Url) || !CheckFileSecurity (ctlUrl.Url)) {
-                            cmdUpdateOverride.Visible = true;
-                            cmdUpdate.Visible = false;
-                            // display warning instructing users to click update again if they want to ignore the warning
-                            this.Message ("msgFileWarningHeading.Text", "msgFileWarning.Text", MessageType.Warning, true);
-                            return;
-                        }
-                    }
-
-                    // get existing document record
-                    var document = DocumentsDataProvider.Instance.GetDocument (itemId, ModuleId);
-                    if (document == null) {
-                        document = new DocumentInfo {
-                            ItemId = itemId,
-                            ModuleId = ModuleId,
-                            CreatedByUserId = UserInfo.UserID,
-                            OwnedByUserId = UserId
-                        };
-                    }
-
                     var oldDocument = document.Clone ();
 
                     document.Title = txtName.Text;
@@ -590,7 +579,7 @@ namespace R7.Documents
                     int sortIndex;
                     document.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 10;
 
-                    if (Null.IsNull (itemId)) {
+                    if (isNew) {
                         DocumentsDataProvider.Instance.Add (document);
                     } else {
                         DocumentsDataProvider.Instance.Update (document);
@@ -600,20 +589,23 @@ namespace R7.Documents
                         }
                     }
 
+                    multiView.ActiveViewIndex = 1;
+                    linkEdit.Visible = true;
+                    ItemId = document.ItemId;
+
                     // add or update URL tracking
                     var ctrlUrl = new UrlController ();
                     ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
 
-                    FolderHistory.RememberFolderByFileUrl (Request, Response, document.Url, PortalId);
+                    this.Message (string.Format (LocalizeString (isNew ? "DocumentAdded.Format" : "DocumentUpdated.Format"), document.Title), MessageType.Success);
 
-                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-
-                    if (Null.IsNull (itemId)) {
-                        this.Message (string.Format (LocalizeString ("DocumentAdded.Format"), document.Title), MessageType.Success);
-                        multiView.ActiveViewIndex = 1;
-                    } else {
-                        Response.Redirect (Globals.NavigateURL (), true);
+                    if (!CheckFileExists (ctlUrl.Url) || !CheckFileSecurity (ctlUrl.Url)) {
+                        // display warning
+                        this.Message ("DocumentLinkWarningHeading.Text", "DocumentLinkWarning.Text", MessageType.Warning, true);
                     }
+
+                    FolderHistory.RememberFolderByFileUrl (Request, Response, document.Url, PortalId);
+                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
                 }
             } catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);

@@ -15,7 +15,8 @@ namespace R7.Documents
         protected TextBox textLinkAttributes;
 		protected DropDownList lstCategory;
 		protected DropDownList lstOwner;
-		protected LinkButton cmdUpdate;
+        protected LinkButton cmdAdd;
+        protected LinkButton cmdUpdate;
 		protected HyperLink linkCancel;
 		protected LinkButton cmdDelete;
         protected LinkButton buttonDeleteWithAsset;
@@ -32,6 +33,7 @@ namespace R7.Documents
         protected DnnDateTimePicker datetimeEndDate;
         protected MultiView multiView;
         protected LinkButton linkAddMore;
+        protected LinkButton linkEdit;
         protected HyperLink linkClose;
 	}
 }

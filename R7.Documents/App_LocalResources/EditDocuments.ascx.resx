@@ -60,26 +60,13 @@
     <data name="lnkChangeOwner.Text" xml:space="preserve">
         <value>Change Owner</value>
     </data>
-    <data name="msgFileDeleted.Text" xml:space="preserve">
-        <value>The file that was selected for this document has been deleted.</value>
+    <data name="DocumentLinkWarning.Text" xml:space="preserve">
+        <value>You specifу an empty document link, or detected potential permission issue with the target asset.
+		This could happen e.g. then the module is configured to allow viewing by certain role(s), while the document's target file doesn't.
+		Press the &quot;Edit&quot; button to fix it.</value>
     </data>
-    <data name="msgFileSecurityWarning.Text" xml:space="preserve">
-        <value>Warning: The security permissions for the selected file do not match this module's configured view roles. The module is configured to allow viewing by role(s) "[$ROLELIST]", but the file does not.  For users who are not members of a role that can view the file, this document row will not be displayed.  You can adjust security settings using the File Manager in the admin menu.</value>
-    </data>
-    <data name="msgFileWarning.Text" xml:space="preserve">
-        <value>Your file selection may not work for all users (see message above).  Click &quot;Proceed&quot; to ignore the warning messages.</value>
-    </data>
-    <data name="msgFileWarningHeading.Text" xml:space="preserve">
-        <value>File Selection Warning:</value>
-    </data>
-    <data name="msgNoFileSelected.Text" xml:space="preserve">
-        <value>Warning: No file has been selected.</value>
-    </data>
-    <data name="Proceed.Text" xml:space="preserve">
-        <value>Proceed</value>
-    </data>
-	<data name="Proceed.ToolTip">
-        <value>Ignore warnings and proceed add/update operation anyway</value>
+    <data name="DocumentLinkWarningHeading.Text" xml:space="preserve">
+        <value>Document Link Warning:</value>
     </data>
     <data name="plForceDownload.Help" xml:space="preserve">
         <value>If selected this will force the file to be downloaded by the client.  Helpful to prevent documents from opening in the users' browser.</value>
@@ -151,24 +138,27 @@
         <value>Are you sure you want to delete this document with the associated asset (file or URL)? Note that resource will be deleted only if it's not referenced by other documents.</value>
     </data>
 	<data name="AddMoreDocuments.Text" xml:space="preserve">
-        <value>Add more</value>
-    </data>
-	<data name="AddMoreDocuments.ToolTip" xml:space="preserve">
-        <value>Add more Documents</value>
+        <value>Add</value>
     </data>
 	<data name="AddDocument.Text" xml:space="preserve">
         <value>Add</value>
     </data>
-	<data name="AddDocument.ToolTip" xml:space="preserve">
-        <value>Add Document</value>
-    </data>
 	<data name="UpdateDocument.Text" xml:space="preserve">
         <value>Update</value>
     </data>
-    <data name="UpdateDocument.ToolTip" xml:space="preserve">
-        <value>Update Document</value>
+	<data name="EditDocument.Text" xml:space="preserve">
+        <value>Edit</value>
     </data>
-	<data name="DocumentAdded.Format" xml:space="preserve">
+    <data name="DocumentAdded.Format" xml:space="preserve">
         <value>Document &quot;{0}&quot; was added successfully.</value>
+    </data>
+	<data name="DocumentUpdated.Format" xml:space="preserve">
+        <value>Document &quot;{0}&quot; was updated successfully.</value>
+    </data>
+	<data name="DocumentDeleted.Format" xml:space="preserve">
+        <value>Document &quot;{0}&quot; was deleted. You can restore it by pressing &quot;Add&quot; button.</value>
+    </data>
+	<data name="DocumentDeletedWithAsset.Format" xml:space="preserve">
+        <value>Document &quot;{0}&quot; was deleted with related asset (file). You can try to restore it by pressing &quot;Add&quot; button.</value>
     </data>
 </root>
