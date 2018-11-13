@@ -31,6 +31,7 @@
         </div>
 		<ul class="dnnActions dnnClear">
 	        <li><asp:LinkButton id="btnApply" runat="server" CssClass="dnnPrimaryAction" resourcekey="btnApply" OnClick="btnApply_Click" /></li>
+			<li>&nbsp;</li>
 	        <li><asp:HyperLink id="lnkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 	    </ul>
 	</fieldset>

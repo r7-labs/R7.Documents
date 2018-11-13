@@ -15,6 +15,7 @@
 		</asp:Panel>
 		<ul class="dnnActions dnnClear">
 	        <li><asp:LinkButton id="btnImport" runat="server" CssClass="dnnPrimaryAction" resourcekey="btnImport.Text" Visible="false" OnClick="btnImport_Click" /></li>
+			<li>&nbsp;</li>
 	        <li><asp:HyperLink id="lnkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 	    </ul>
 	</fieldset>
