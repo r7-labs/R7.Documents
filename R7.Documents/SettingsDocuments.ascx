@@ -7,50 +7,50 @@
 <div class="dnnForm dnnDocSettings" id="dnnDocSettings">
 	<fieldset>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plUseCategoriesList" runat="server" ControlName="chkUseCategoriesList" />
+	        <dnn:Label id="lblUseCategoriesList" runat="server" ControlName="chkUseCategoriesList" />
 	        <asp:CheckBox id="chkUseCategoriesList" runat="server" />
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plCategoriesListName" runat="server" Controlname="cboCategoriesList" />
+	        <dnn:Label id="lblCategoriesListName" runat="server" Controlname="ddlCategoriesList" />
 	        <div style="float:left">
-	        	<asp:DropDownList ID="cboCategoriesList" runat="server" Style="width:340px;margin-right:0.5em" />
+	        	<asp:DropDownList ID="ddlCategoriesList" runat="server" Style="width:340px;margin-right:0.5em" />
 	       		<asp:Hyperlink ID="lnkEditLists" runat="server" CssClass="dnnSecondaryAction" />
-	        	<asp:Label ID="lstNoListsAvailable" runat="server" CssClass="dnnFormMessage dnnFormInfo" Style="max-width:400px" Visible="false" />
+	        	<asp:Label ID="lblNoListsAvailable" runat="server" CssClass="dnnFormMessage dnnFormInfo" Style="max-width:400px" Visible="false" />
 	        	<asp:Label ID="lblCannotEditLists" runat="server" CssClass="dnnFormMessage dnnFormError" Style="max-width:400px" Visible="false" />
 	    	</div>
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plDefaultFolder" runat="server" ControlName="folderDefaultFolder" />
-	        <dnn:DnnFolderDropDownList id="folderDefaultFolder" runat="server" />
+	        <dnn:Label id="lblDefaultFolder" runat="server" ControlName="ddlDefaultFolder" />
+	        <dnn:DnnFolderDropDownList id="ddlDefaultFolder" runat="server" />
 	    </div>
 		<div class="dnnFormItem">
-            <dnn:Label id="labelFileFilter" runat="server" ControlName="textFileFilter" />
-            <asp:TextBox id="textFileFilter" runat="server" />
-			<asp:CustomValidator id="valFileFilter" runat="server" ControlToValidate="textFileFilter"
+            <dnn:Label id="lblFileFilter" runat="server" ControlName="txtFileFilter" />
+            <asp:TextBox id="txtFileFilter" runat="server" />
+			<asp:CustomValidator id="valFileFilter" runat="server" ControlToValidate="txtFileFilter"
 								 ValidateEmptyText="false" OnServerValidate="valFileFilter_ServerValidate"
 								 Display="Dynamic" CssClass="dnnFormMessage dnnFormError" />
         </div>
 		<div class="dnnFormItem">
-            <dnn:Label id="labelFilenameToTitleRules" runat="server" ControlName="textFilenameToTitleRules" />
-            <asp:TextBox id="textFilenameToTitleRules" runat="server" TextMode="MultiLine" />
-			<asp:CustomValidator id="valFilenameToTitleRules" runat="server" ControlToValidate="textFilenameToTitleRules"
+            <dnn:Label id="lblFilenameToTitleRules" runat="server" ControlName="txtFilenameToTitleRules" />
+            <asp:TextBox id="txtFilenameToTitleRules" runat="server" TextMode="MultiLine" />
+			<asp:CustomValidator id="valFilenameToTitleRules" runat="server" ControlToValidate="txtFilenameToTitleRules"
 								 ValidateEmptyText="false" OnServerValidate="valFilenameToTitleRules_ServerValidate"
 								 Display="Dynamic" CssClass="dnnFormMessage dnnFormError" />
 		</div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plShowTitleLink" runat="server" controlname="chkShowTitleLink" />
-	        <asp:CheckBox id="chkShowTitleLink" runat="server" />
+	        <dnn:Label id="lblShowTitleAsLink" runat="server" controlname="chkShowTitleAsLink" />
+	        <asp:CheckBox id="chkShowTitleAsLink" runat="server" />
 	    </div>
         <div class="dnnFormItem">
-            <dnn:Label id="labelGridStyle" runat="server" controlname="comboGridStyle" />
-            <asp:DropDownList id="comboGridStyle" runat="server" DataTextField="Name" DataValueField="Name" />
+            <dnn:Label id="lblGridStyle" runat="server" controlname="ddlGridStyle" />
+            <asp:DropDownList id="ddlGridStyle" runat="server" DataTextField="Name" DataValueField="Name" />
         </div>
 		<div class="dnnFormItem">
-            <dnn:Label id="labelDateTimeFormat" runat="server" ControlName="textDateTimeFormat" />
-            <asp:TextBox id="textDateTimeFormat" runat="server" />
+            <dnn:Label id="lblDateTimeFormat" runat="server" ControlName="txtDateTimeFormat" />
+            <asp:TextBox id="txtDateTimeFormat" runat="server" />
         </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plDisplayColumns" runat="server" controlname="grdColumns" />
+	        <dnn:Label id="lblDisplayColumns" runat="server" controlname="grdColumns" />
 	        <asp:DataGrid id="grdDisplayColumns" runat="server" AutoGenerateColumns="False" GridLines="None" Width="350px" CssClass="dnnGrid"
                 OnItemCreated="grdDisplayColumns_ItemCreated" OnItemCommand="grdDisplayColumns_ItemCommand">
 	            <HeaderStyle CssClass="dnnGridHeader" VerticalAlign="Top" />
@@ -71,21 +71,21 @@
 	                <asp:TemplateColumn>
 	                    <HeaderStyle Width="60px"></HeaderStyle>
 	                    <ItemTemplate>
-	                        <asp:ImageButton id=imgUp runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ColumnName") %>' CommandName="DisplayOrderUp" AlternateText='<%# LocalizeString("cmdUp.Text")%>' />
-	                        <asp:ImageButton id=imgDown runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ColumnName") %>' CommandName="DisplayOrderDown" AlternateText='<%# LocalizeString("cmdDown.Text")%>' />
+	                        <asp:ImageButton id="imgUp" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ColumnName") %>' CommandName="DisplayOrderUp" AlternateText='<%# LocalizeString("cmdUp.Text")%>' />
+	                        <asp:ImageButton id="imgDown" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ColumnName") %>' CommandName="DisplayOrderDown" AlternateText='<%# LocalizeString("cmdDown.Text")%>' />
 	                    </ItemTemplate>
 	                </asp:TemplateColumn>
 	            </Columns>
 	      </asp:DataGrid>
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plSorting" runat="server" ControlName="comboSortFields" />
-	        <asp:DropDownList id="comboSortFields" runat="server" CssClass="comboSortFields" />
+	        <dnn:Label id="lblSorting" runat="server" ControlName="ddlSortFields" />
+	        <asp:DropDownList id="ddlSortFields" runat="server" CssClass="ddlSortFields" />
 		</div>
 	    <div class="dnnFormItem">
 	        <label class="dnnLabel"></label>
-	        <asp:DropDownList id="comboSortOrderDirection" runat="server" CssClass="comboSortOrderDirection" />
-	        <asp:LinkButton id="lnkAddSortColumn" runat="server" resourcekey="cmdAdd" CssClass="dnnSecondaryAction" 
+	        <asp:DropDownList id="ddlSortOrderDirection" runat="server" CssClass="ddlSortOrderDirection" />
+	        <asp:LinkButton id="lnkAddSortColumn" runat="server" resourcekey="cmdAdd" CssClass="dnnSecondaryAction"
                 OnClick="lnkAddSortColumn_Click" />
 	    </div>
 	    <div class="dnnFormItem">
@@ -104,14 +104,14 @@
 	                <asp:BoundColumn DataField="LocalizedDirection" HeaderText="DirectionString" />
 	            	<asp:TemplateColumn>
 						<ItemTemplate>
-							<asp:ImageButton id="buttonDeleteSortOrder" runat="server" CommandName="Delete" />
+							<asp:ImageButton id="btnDeleteSortOrder" runat="server" CommandName="Delete" />
 						</ItemTemplate>
 	                </asp:TemplateColumn>
 	            </Columns>
 	      </asp:DataGrid>
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="plAllowUserSort" runat="server" ControlName="chkAllowUserSort" />
+	        <dnn:Label id="lblAllowUserSort" runat="server" ControlName="chkAllowUserSort" />
 	        <asp:CheckBox id="chkAllowUserSort" runat="server" />
 	    </div>
 	</fieldset>

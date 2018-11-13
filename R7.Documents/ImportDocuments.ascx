@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ImportDocuments.ascx.cs" Inherits="R7.Documents.ImportDocuments" %>
+<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ImportDocuments.ascx.cs" Inherits="R7.Documents.ImportDocuments" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
@@ -6,16 +6,16 @@
 <div class="dnnForm dnnClear">
 	<fieldset>
 		<div class="dnnFormItem">
-			<dnn:Label id="labelModule" runat="server" ControlName="comboModule" />
-			<asp:DropDownList id="comboModule" runat="server" AutoPostBack="true" OnSelectedIndexChanged="comboModule_SelectedIndexChanged" /> 
+			<dnn:Label id="lblModule" runat="server" ControlName="ddlModule" />
+			<asp:DropDownList id="ddlModule" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlModule_SelectedIndexChanged" />
 		</div>
-		<asp:Panel id="panelDocuments" runat="server" CssClass="dnnFormItem" Visible="false">
-			<dnn:Label id="labelDocuments" runat="server" ControlName="listDocuments" />
-			<asp:CheckBoxList id="listDocuments" runat="server" DataTextField="Title" DataValueField="ItemID" />
-		</asp:Panel>	
+		<asp:Panel id="plDocuments" runat="server" CssClass="dnnFormItem" Visible="false">
+			<dnn:Label id="lblDocuments" runat="server" ControlName="lstDocuments" />
+			<asp:CheckBoxList id="lstDocuments" runat="server" DataTextField="Title" DataValueField="ItemID" />
+		</asp:Panel>
 		<ul class="dnnActions dnnClear">
-	        <li><asp:LinkButton id="buttonImport" runat="server" CssClass="dnnPrimaryAction" resourcekey="buttonImport.Text" Visible="false" Text="Import" OnClick="buttonImport_Click" /></li>
-	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
+	        <li><asp:LinkButton id="btnImport" runat="server" CssClass="dnnPrimaryAction" resourcekey="btnImport.Text" Visible="false" OnClick="btnImport_Click" /></li>
+	        <li><asp:HyperLink id="lnkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 	    </ul>
 	</fieldset>
 </div>

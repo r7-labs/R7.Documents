@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -26,97 +26,97 @@
     <data name="DocumentLinkWarningHeading.Text">
         <value>Предупреждение:</value>
     </data>
-    <data name="Name.Required">
+    <data name="Title.Required">
         <value>Название документа обязательно.</value>
     </data>
-    <data name="plCategory.Help">
+    <data name="lblCategory.Help">
         <value>Укажите категорию для документа</value>
     </data>
-    <data name="plCategory.Text">
+    <data name="lblCategory.Text">
         <value>Категория:</value>
     </data>
-    <data name="plDescription.Help">
+    <data name="lblDescription.Help">
         <value>Укажите описание документа</value>
     </data>
-    <data name="plDescription.Text">
+    <data name="lblDescription.Text">
         <value>Описание:</value>
     </data>
-    <data name="plForceDownload.Help">
+    <data name="lblForceDownload.Help">
         <value>При установке этого флага форсируется скачивание файла при переходе по ссылке. Полезно в тех случаях, когда нужно исключить открытие документов непосредственно в браузере пользователя.</value>
     </data>
-    <data name="plForceDownload.Text">
+    <data name="lblForceDownload.Text">
         <value>Скачивание?</value>
     </data>
-    <data name="labelLinkAttributes.Text" xml:space="preserve">
+    <data name="lblLinkAttributes.Text" xml:space="preserve">
         <value>Атрибуты ссылки:</value>
     </data>
-    <data name="labelLinkAttributes.Help" xml:space="preserve">
+    <data name="lblLinkAttributes.Help" xml:space="preserve">
         <value>Используйте это поле для задания HTML атрибутов (например, микроданных) для ссылки на документ в формате attr1;attr2=&quot;value&quot;.</value>
     </data>
-    <data name="plName.Help">
+    <data name="lblTitle.Help">
         <value>Введите название документа</value>
     </data>
-    <data name="plName.Text">
+    <data name="lblTitle.Text">
         <value>Название:</value>
     </data>
-    <data name="plOwner.Help">
+    <data name="lblOwner.Help">
         <value>Укажите владельца документа</value>
     </data>
-    <data name="plOwner.Text">
+    <data name="lblOwner.Text">
         <value>Владелец:</value>
     </data>
-    <data name="plSortIndex.Help">
+    <data name="lblSortIndex.Help">
         <value>Укажите индекс сортировки для документа. Это значение можно указать как один из критериев сортировки на странице настроек модуля.</value>
     </data>
-    <data name="plSortIndex.Text">
+    <data name="lblSortIndex.Text">
         <value>Индекс сортировки:</value>
     </data>
 	<data name="SortIndex.Invalid" xml:space="preserve">
         <value>Индекс сортировки должен быть целым числом.</value>
     </data>
-    <data name="labelUrlTracking.Help">
+    <data name="lblUrlTracking.Help">
         <value>Отображает сведения, собранные в результате отслеживания URL документа.</value>
     </data>
-    <data name="labelUrlTracking.Text">
+    <data name="lblUrlTracking.Text">
         <value>Данные отслеживания ссылки:</value>
     </data>
-    <data name="plUrl.Help">
+    <data name="lblUrl.Help">
         <value>Выберите URL, связанный с этим документом.</value>
     </data>
-    <data name="plUrl.Text">
+    <data name="lblUrl.Text">
         <value>Ссылка:</value>
     </data>
-    <data name="labelCreatedDate.Help" xml:space="preserve">
+    <data name="lblCreatedDate.Help" xml:space="preserve">
         <value>Введите дату и время создания документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
     </data>
-    <data name="labelCreatedDate.Text" xml:space="preserve">
+    <data name="lblCreatedDate.Text" xml:space="preserve">
         <value>Создан:</value>
     </data>
-    <data name="labelLastModifiedDate.Help" xml:space="preserve">
+    <data name="lblLastModifiedDate.Help" xml:space="preserve">
         <value>Введите дату и время последних изменений в документе. Это значение будет обновлено автоматически при изменении ссылки документа. Оставьте поле пустым, чтобы выбрать текущие дату и время.</value>
     </data>
-    <data name="labelLastModifiedDate.Text" xml:space="preserve">
+    <data name="lblLastModifiedDate.Text" xml:space="preserve">
         <value>Изменен:</value>
     </data>
     <data name="DefaultFolder.Warning" xml:space="preserve">
         <value>Не удалось выбрать папку &quot;{0}&quot; - вы можете попробовать выбрать ее вручную.</value>
     </data>
-    <data name="labelStartDate.Text" xml:space="preserve">
+    <data name="lblStartDate.Text" xml:space="preserve">
         <value>Начало публикации:</value>
     </data>
-    <data name="labelStartDate.Help" xml:space="preserve">
+    <data name="lblStartDate.Help" xml:space="preserve">
         <value>Введите дату, начиная с которой изображение должно быть опубликовано на сайте.</value>
     </data>
-    <data name="labelEndDate.Text" xml:space="preserve">
+    <data name="lblEndDate.Text" xml:space="preserve">
         <value>Окончание публикации:</value>
     </data>
-    <data name="labelEndDate.Help" xml:space="preserve">
+    <data name="lblEndDate.Help" xml:space="preserve">
         <value>Введите дату, при наступлении которой изображение должно быть снято с публикации на сайте.</value>
     </data>
-    <data name="labelAudit.Text" xml:space="preserve">
+    <data name="lblAudit.Text" xml:space="preserve">
         <value>Аудит:</value>
     </data>
-    <data name="labelAudit.Help" xml:space="preserve">
+    <data name="lblAudit.Help" xml:space="preserve">
         <value>Данные аудита текущего документа.</value>
     </data>
 	<data name="Common.Tab" xml:space="preserve">
@@ -128,7 +128,10 @@
     <data name="Audit.Tab" xml:space="preserve">
         <value>Аудит</value>
     </data>
-	<data name="buttonDeleteWithAsset.Text" xml:space="preserve">
+	<data name="btnDelete.Text" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+	<data name="btnDeleteWithAsset.Text" xml:space="preserve">
         <value>Удалить вместе с ресурсом</value>
     </data>
 	<data name="Delete.Text" xml:space="preserve">
@@ -137,16 +140,16 @@
 	<data name="DeleteWithAsset.Text" xml:space="preserve">
         <value>Уверены, что хотите удалить этот документ вместе со связанным с ним ресурсом (файлом или ссылкой)? Обратите внимание, что ресурс будет удален только в том случае, если на него не ссылаются другие документы.</value>
     </data>
-    <data name="AddMoreDocuments.Text" xml:space="preserve">
+    <data name="btnAddMore.Text" xml:space="preserve">
         <value>Добавить</value>
     </data>
-	<data name="AddDocument.Text" xml:space="preserve">
+	<data name="btnAdd.Text" xml:space="preserve">
         <value>Добавить</value>
     </data>
-	<data name="UpdateDocument.Text" xml:space="preserve">
+	<data name="btnUpdate.Text" xml:space="preserve">
         <value>Сохранить</value>
     </data>
-	<data name="EditDocument.Text" xml:space="preserve">
+	<data name="btnEdit.Text" xml:space="preserve">
         <value>Изменить</value>
     </data>
     <data name="DocumentAdded.Format" xml:space="preserve">

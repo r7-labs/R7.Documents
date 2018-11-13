@@ -9,7 +9,7 @@
     <Columns>
       <asp:TemplateField>
         <ItemTemplate>
-          <asp:HyperLink id="linkEdit" runat="server" Visible="<%# IsEditable && Item.ItemId >= 0 %>"
+          <asp:HyperLink runat="server" Visible="<%# IsEditable && Item.ItemId >= 0 %>"
 						 NavigateUrl='<%# EditUrl ("ItemID", Item.ItemId.ToString ()) %>'>
             <asp:Image id="imageEdit" runat="server" IconKey="Edit" IconStyle="Gray" ToolTip='<%# Item.ToolTip %>' />
 			</asp:HyperLink>

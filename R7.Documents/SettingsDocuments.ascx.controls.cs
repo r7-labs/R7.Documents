@@ -5,24 +5,24 @@ namespace R7.Documents
 {
     public partial class SettingsDocuments
 	{
-		protected CheckBox chkShowTitleLink;
-        protected DropDownList comboGridStyle;
+		protected CheckBox chkShowTitleAsLink;
+        protected DropDownList ddlGridStyle;
 		protected CheckBox chkUseCategoriesList;
-		protected DropDownList comboSortFields;
+		protected DropDownList ddlSortFields;
 		protected DataGrid grdSortColumns;
 		protected LinkButton lnkAddSortColumn;
 		protected DataGrid grdDisplayColumns;
-		protected DropDownList cboCategoriesList;
-		protected DnnFolderDropDownList folderDefaultFolder;
+		protected DropDownList ddlCategoriesList;
+		protected DnnFolderDropDownList ddlDefaultFolder;
 		protected HyperLink lnkEditLists;
-		protected Label lstNoListsAvailable;
-		protected DropDownList comboSortOrderDirection;
+		protected Label lblNoListsAvailable;
+		protected DropDownList ddlSortOrderDirection;
 		protected CheckBox chkAllowUserSort;
 		protected Label lblCannotEditLists;
-        protected TextBox textDateTimeFormat;
-        protected TextBox textFileFilter;
+        protected TextBox txtDateTimeFormat;
+        protected TextBox txtFileFilter;
         protected CustomValidator valFileFilter;
-        protected TextBox textFilenameToTitleRules;
+        protected TextBox txtFilenameToTitleRules;
         protected CustomValidator valFilenameToTitleRules;
 	}
 }

@@ -53,20 +53,20 @@ namespace R7.Documents
             }
 
             // fill modules combo
-            comboModule.AddItem (LocalizeString ("NotSelected.Text"), Null.NullInteger.ToString ());
+            ddlModule.AddItem (LocalizeString ("NotSelected.Text"), Null.NullInteger.ToString ());
             foreach (var docModule in docModules) {
-                comboModule.AddItem (docModule.ModuleTitle, docModule.ModuleID.ToString ());
+                ddlModule.AddItem (docModule.ModuleTitle, docModule.ModuleID.ToString ());
             }
 
             // set Cancel button link
-            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
+            lnkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
         }
 
-        protected void buttonImport_Click (object sender, EventArgs e)
+        protected void btnImport_Click (object sender, EventArgs e)
         {
             try {
-                var fromModule = ModuleController.Instance.GetModule (int.Parse (comboModule.SelectedValue), TabId, false);
-                foreach (ListItem item in listDocuments.Items) {
+                var fromModule = ModuleController.Instance.GetModule (int.Parse (ddlModule.SelectedValue), TabId, false);
+                foreach (ListItem item in lstDocuments.Items) {
                     if (item.Selected) {
                         var document = GetDocument (int.Parse (item.Value), fromModule);
                         if (document != null) {
@@ -116,28 +116,28 @@ namespace R7.Documents
             return DocumentsDataProvider.Instance.GetDocuments (module.ModuleID, module.PortalID);
         }
 
-        protected void comboModule_SelectedIndexChanged (object sender, EventArgs e)
+        protected void ddlModule_SelectedIndexChanged (object sender, EventArgs e)
         {
             try {
                 var module = ModuleController.Instance.GetModule (int.Parse (((ListControl) sender).SelectedValue), TabId, false);
                 if (module != null) {
                     var  documents = GetDocuments (module);
                     if (documents != null && documents.Any ()) {
-                        panelDocuments.Visible = true;
-                        buttonImport.Visible = true;
+                        plDocuments.Visible = true;
+                        btnImport.Visible = true;
 
-                        listDocuments.DataSource = documents;
-                        listDocuments.DataBind ();
+                        lstDocuments.DataSource = documents;
+                        lstDocuments.DataBind ();
 
-                        foreach (ListItem item in listDocuments.Items) {
+                        foreach (ListItem item in lstDocuments.Items) {
                             item.Selected = true;
                         }
                     }
                     else {
-                        panelDocuments.Visible = false;
-                        buttonImport.Visible = false;
+                        plDocuments.Visible = false;
+                        btnImport.Visible = false;
 
-                        listDocuments.Items.Clear ();
+                        lstDocuments.Items.Clear ();
                     }
                 }
             }

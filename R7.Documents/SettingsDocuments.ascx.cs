@@ -64,12 +64,12 @@ namespace R7.Documents
             base.OnInit (e);
 
             // fill sort order direction combobox
-            comboSortOrderDirection.AddItem (LocalizeString ("SortOrderAscending.Text"), "ASC");
-            comboSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
+            ddlSortOrderDirection.AddItem (LocalizeString ("SortOrderAscending.Text"), "ASC");
+            ddlSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
 
             // bind grid styles
-            comboGridStyle.DataSource = GridStyle.Styles.Values;
-            comboGridStyle.DataBind ();
+            ddlGridStyle.DataSource = GridStyle.Styles.Values;
+            ddlGridStyle.DataBind ();
 
             valFileFilter.ErrorMessage = LocalizeString ("FileFilter.Invalid");
             valFilenameToTitleRules.ErrorMessage = LocalizeString ("FilenameToTitleRules.Invalid");
@@ -107,8 +107,8 @@ namespace R7.Documents
             case ListItemType.SelectedItem:
 
                 // Localize the delete button and set image
-                var deleteButton = (ImageButton)e.Item.FindControl ("buttonDeleteSortOrder");
-                deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("buttonDeleteSortOrder.Text");
+                var deleteButton = (ImageButton)e.Item.FindControl ("btnDeleteSortOrder");
+                deleteButton.ToolTip = deleteButton.AlternateText = LocalizeString ("btnDeleteSortOrder.Text");
                 deleteButton.ImageUrl = IconController.IconURL ("Delete");
 
                 break;
@@ -169,8 +169,8 @@ namespace R7.Documents
             var objNewSortColumn = new DocumentsSortColumnInfo ();
 
             objSortColumns = RetrieveSortColumnSettings ();
-            objNewSortColumn.ColumnName = comboSortFields.SelectedValue;
-            if (comboSortOrderDirection.SelectedValue == "ASC") {
+            objNewSortColumn.ColumnName = ddlSortFields.SelectedValue;
+            if (ddlSortOrderDirection.SelectedValue == "ASC") {
                 objNewSortColumn.Direction = Models.SortDirection.Ascending;
             } else {
                 objNewSortColumn.Direction = Models.SortDirection.Descending;
@@ -211,17 +211,17 @@ namespace R7.Documents
                 if (!IsPostBack) {
                     LoadLists ();
 
-                    chkShowTitleLink.Checked = Settings.ShowTitleLink;
+                    chkShowTitleAsLink.Checked = Settings.ShowTitleLink;
                     chkUseCategoriesList.Checked = Settings.UseCategoriesList;
                     chkAllowUserSort.Checked = Settings.AllowUserSort;
-                    comboGridStyle.SelectByValue (Settings.GridStyle);
-                    textDateTimeFormat.Text = Settings.DateTimeFormat;
-                    textFileFilter.Text = Settings.FileFilter;
-                    textFilenameToTitleRules.Text = Settings.FilenameToTitleRules;
+                    ddlGridStyle.SelectByValue (Settings.GridStyle);
+                    txtDateTimeFormat.Text = Settings.DateTimeFormat;
+                    txtFileFilter.Text = Settings.FileFilter;
+                    txtFilenameToTitleRules.Text = Settings.FilenameToTitleRules;
 
                     try {
                         if (Settings.DefaultFolder != null) {
-                            folderDefaultFolder.SelectedFolder =
+                            ddlDefaultFolder.SelectedFolder =
                                 FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
                         }
                     }
@@ -231,7 +231,7 @@ namespace R7.Documents
                     }
                    
                     try {
-                        cboCategoriesList.SelectedValue = Settings.CategoriesListName;
+                        ddlCategoriesList.SelectedValue = Settings.CategoriesListName;
                     }
                     catch (Exception ex) {
                         // can be caused if the selected list has been deleted
@@ -272,13 +272,13 @@ namespace R7.Documents
                     string strSortColumn = null;
                     foreach (string strSortColumn_loopVariable in DocumentsDisplayColumnInfo.AvailableSortColumns) {
                         strSortColumn = strSortColumn_loopVariable;
-                        comboSortFields.AddItem (LocalizeString (strSortColumn + ".Column"), strSortColumn);
+                        ddlSortFields.AddItem (LocalizeString (strSortColumn + ".Column"), strSortColumn);
                     }
 
                     BindSortSettings (Settings.GetSortColumnList ());
 
                     // load grid style
-                    comboGridStyle.SelectByValue (Settings.GridStyle);
+                    ddlGridStyle.SelectByValue (Settings.GridStyle);
                 }
 
             } catch (Exception exc) {
@@ -293,14 +293,14 @@ namespace R7.Documents
                 if (!objList.SystemList) {
                     // for some reason, the "DataType" is not marked as a system list, but we want to exclude that one too
                     if (objList.DisplayName != "DataType") {
-                        cboCategoriesList.Items.Add (new ListItem (objList.DisplayName, objList.DisplayName));
+                        ddlCategoriesList.Items.Add (new ListItem (objList.DisplayName, objList.DisplayName));
                     }
                 }
             }
 
-            if (cboCategoriesList.Items.Count == 0) {
-                lstNoListsAvailable.Text = Localization.GetString ("msgNoListsAvailable.Text", LocalResourceFile);
-                lstNoListsAvailable.Visible = true;
+            if (ddlCategoriesList.Items.Count == 0) {
+                lblNoListsAvailable.Text = Localization.GetString ("msgNoListsAvailable.Text", LocalResourceFile);
+                lblNoListsAvailable.Visible = true;
             }
         }
 
@@ -372,33 +372,33 @@ namespace R7.Documents
             DocumentsSortColumnInfo objSortColumn = null;
 
             // ensure that if categories list is checked that we did have an available category
-            if ((chkUseCategoriesList.Checked && !lstNoListsAvailable.Visible)) {
+            if ((chkUseCategoriesList.Checked && !lblNoListsAvailable.Visible)) {
                 // if so, set normally
                 Settings.UseCategoriesList = chkUseCategoriesList.Checked;
-                Settings.CategoriesListName = cboCategoriesList.SelectedValue;
+                Settings.CategoriesListName = ddlCategoriesList.SelectedValue;
             } else {
                 // otherwise default values
                 Settings.UseCategoriesList = false;
                 Settings.CategoriesListName = "";
             }
 
-            Settings.ShowTitleLink = chkShowTitleLink.Checked;
+            Settings.ShowTitleLink = chkShowTitleAsLink.Checked;
             Settings.AllowUserSort = chkAllowUserSort.Checked;
-            Settings.GridStyle = comboGridStyle.SelectedItem.Value;
-            Settings.FileFilter = textFileFilter.Text.Trim ();
-            Settings.FilenameToTitleRules = textFilenameToTitleRules.Text;
+            Settings.GridStyle = ddlGridStyle.SelectedItem.Value;
+            Settings.FileFilter = txtFileFilter.Text.Trim ();
+            Settings.FilenameToTitleRules = txtFilenameToTitleRules.Text;
 
             try {
-                DateTime.Now.ToString (textDateTimeFormat.Text);
-                Settings.DateTimeFormat = textDateTimeFormat.Text;
+                DateTime.Now.ToString (txtDateTimeFormat.Text);
+                Settings.DateTimeFormat = txtDateTimeFormat.Text;
             }
             catch (Exception ex) {
                 Exceptions.LogException (ex);
                 Settings.DateTimeFormat = null;
             }
 
-            if (folderDefaultFolder.SelectedFolder != null) {
-                Settings.DefaultFolder = folderDefaultFolder.SelectedFolder.FolderID;
+            if (ddlDefaultFolder.SelectedFolder != null) {
+                Settings.DefaultFolder = ddlDefaultFolder.SelectedFolder.FolderID;
             } else {
                 Settings.DefaultFolder = null;
             }
@@ -429,7 +429,7 @@ namespace R7.Documents
                 strSortColumnList = strSortColumnList + (objSortColumn.Direction == Models.SortDirection.Descending ? "-" : "") + objSortColumn.ColumnName;
             }
             Settings.SortOrder = strSortColumnList;
-            Settings.GridStyle = comboGridStyle.SelectedValue;
+            Settings.GridStyle = ddlGridStyle.SelectedValue;
         }
 
         void SwapColumn (string columnName, ListSortDirection direction)
@@ -551,7 +551,7 @@ namespace R7.Documents
         protected void valFileFilter_ServerValidate (object sender, ServerValidateEventArgs e)
         {
             try {
-                Regex.IsMatch ("Any", textFileFilter.Text.Trim ());
+                Regex.IsMatch ("Any", txtFileFilter.Text.Trim ());
             }
             catch {
                 e.IsValid = false;
@@ -564,7 +564,7 @@ namespace R7.Documents
         protected void valFilenameToTitleRules_ServerValidate (object sender, ServerValidateEventArgs e)
         {
             try {
-                var rules = DocumentsSettings.ParseFilenameToTitleRules (textFilenameToTitleRules.Text);
+                var rules = DocumentsSettings.ParseFilenameToTitleRules (txtFilenameToTitleRules.Text);
                 foreach (var rule in rules) {
                     Regex.Replace ("Any", rule [0], rule [1]);
                 }

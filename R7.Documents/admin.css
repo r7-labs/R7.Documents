@@ -40,9 +40,9 @@
     margin-top:8px
 }
 
-.dnnDocSettings .comboSortFields, 
-.dnnDocSettings .comboSortOrderDirection { width:290px }
+.dnnDocSettings .ddlSortFields, 
+.dnnDocSettings .ddlSortOrderDirection { width:290px }
 
-.dnnDocSettings .comboSortFields { margin-bottom:1em }
+.dnnDocSettings .ddlSortFields { margin-bottom:1em }
 
-.dnnDocSettings .comboSortOrderDirection { float:left;margin-right:1em }
+.dnnDocSettings .ddlSortOrderDirection { float:left;margin-right:1em }

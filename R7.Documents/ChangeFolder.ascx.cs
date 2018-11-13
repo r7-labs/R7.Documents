@@ -47,10 +47,10 @@ namespace R7.Documents
             if (Settings.DefaultFolder != null)
                 ddlFolder.SelectedFolder = FolderManager.Instance.GetFolder (Settings.DefaultFolder.Value);
 
-            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
+            lnkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
         }
 
-        protected void buttonApply_Click (object sender, EventArgs e)
+        protected void btnApply_Click (object sender, EventArgs e)
         {
             try {
                 var folder = ddlFolder.SelectedFolder;
@@ -84,7 +84,7 @@ namespace R7.Documents
                     }
 
                     // update module's default folder setting
-                    if (checkUpdateDefaultFolder.Checked) {
+                    if (chkUpdateDefaultFolder.Checked) {
                         Settings.DefaultFolder = ddlFolder.SelectedFolder.FolderID;
                         SettingsRepository.SaveSettings (ModuleConfiguration, Settings);
                     }
@@ -109,12 +109,12 @@ namespace R7.Documents
         void PostUpdateDocument (DocumentInfo document, DocumentInfo oldDocument, bool updated)
         {
             if (updated) {
-                if (checkPublishUpdated.Checked) {
+                if (chkPublishUpdated.Checked) {
                     document.Publish ();
                 }
 
                 // safe remove old resources, if needed - need to do this before update!
-                if (checkDeleteOldFiles.Checked) {
+                if (chkDeleteOldFiles.Checked) {
                     if (oldDocument.Url != document.Url && !string.IsNullOrEmpty (oldDocument.Url)) {
                         DocumentsDataProvider.Instance.DeleteDocumentAsset (
                             oldDocument,
@@ -134,7 +134,7 @@ namespace R7.Documents
                 );
             }
             else {
-                if (checkUnpublishSkipped.Checked) {
+                if (chkUnpublishSkipped.Checked) {
                     // unpublish not updated documents & update them
                     document.UnPublish ();
                     DocumentsDataProvider.Instance.Update (document);

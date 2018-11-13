@@ -18,22 +18,22 @@
     <data name="ControlTitle_importdocuments.Text" xml:space="preserve">
         <value>Импорт документов</value>
     </data>
-    <data name="labelModule.Text" xml:space="preserve">
+    <data name="lblModule.Text" xml:space="preserve">
         <value>Модуль документов:</value>
     </data>
-    <data name="labelModule.Help" xml:space="preserve">
+    <data name="lblModule.Help" xml:space="preserve">
         <value>Select document module from which you want to import documents.</value>
     </data>
-    <data name="labelDocuments.Text" xml:space="preserve">
+    <data name="lblDocuments.Text" xml:space="preserve">
         <value>Документы:</value>
     </data>
-    <data name="labelDocuments.Help" xml:space="preserve">
+    <data name="lblDocuments.Help" xml:space="preserve">
         <value>Отметьте все документы, которые требуется импортировать.</value>
     </data>
     <data name="NotSelected.Text" xml:space="preserve">
         <value>&lt;Не выбрано&gt;</value>
     </data>
-    <data name="buttonImport.Text" xml:space="preserve">
+    <data name="btnImport.Text" xml:space="preserve">
         <value>Импорт</value>
     </data>
 </root>

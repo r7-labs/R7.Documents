@@ -77,7 +77,7 @@ namespace R7.Documents
 
         		if (!string.IsNullOrEmpty (eventTarget)) {
         			// check if postback initiator is on Owner tab
-        			if (eventTarget.Contains ("$" + lnkChange.ID)) {
+        			if (eventTarget.Contains ("$" + btnChangeOwner.ID)) {
                         ViewState ["SelectedTab"] = EditDocumentTab.Advanced;
         				return EditDocumentTab.Advanced;
         			}
@@ -101,13 +101,13 @@ namespace R7.Documents
             base.OnInit (e);
 			
             // set URLs for cancel links
-            linkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
-            linkClose.NavigateUrl = Globals.NavigateURL ();
+            lnkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
+            lnkClose.NavigateUrl = Globals.NavigateURL ();
 
-            cmdDelete.Attributes.Add ("onClick", 
+            btnDelete.Attributes.Add ("onClick", 
                 "javascript:return confirm('" + LocalizeString ("Delete.Text")  + "');");
             
-            buttonDeleteWithAsset.Attributes.Add ("onClick", 
+            btnDeleteWithAsset.Attributes.Add ("onClick", 
                 "javascript:return confirm('" + LocalizeString ("DeleteWithAsset.Text") + "');");
 
             // Configure categories entry as a list or textbox, based on user settings
@@ -166,23 +166,23 @@ namespace R7.Documents
         }
 
         /// <summary>
-        /// cmdDelete_Click runs when the delete button is clicked
+        /// btnDelete_Click runs when the delete button is clicked
         /// </summary>
         /// <history>
         /// 	[cnurse]	9/22/2004	Updated to reflect design changes for Help, 508 support
         ///                       and localisation
         /// </history>
-        protected void cmdDelete_Click (object sender, EventArgs e)
+        protected void btnDelete_Click (object sender, EventArgs e)
         {
             try {
                 // TODO: Duplicate calls
                 var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
                 if (document != null) {
-                    DocumentsDataProvider.Instance.DeleteDocument (ItemId.Value, sender == buttonDeleteWithAsset, PortalId, ModuleId);
+                    DocumentsDataProvider.Instance.DeleteDocument (ItemId.Value, sender == btnDeleteWithAsset, PortalId, ModuleId);
                     this.Message (string.Format (LocalizeString ("DocumentDeleted.Format"), document.Title), MessageType.Warning);
         
-                    multiView.ActiveViewIndex = 1;
-                    linkEdit.Visible = false;
+                    mvEditDocument.ActiveViewIndex = 1;
+                    btnEdit.Visible = false;
                     ItemId = null;
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
@@ -193,31 +193,31 @@ namespace R7.Documents
             }
         }
 
-        protected void linkAddMore_Click (object sender, EventArgs e)
+        protected void btnAddMore_Click (object sender, EventArgs e)
         {
-            multiView.ActiveViewIndex = 0;
+            mvEditDocument.ActiveViewIndex = 0;
 
             // document was added before, so we need to reload page
-            linkCancel.NavigateUrl = Globals.NavigateURL ();
+            lnkCancel.NavigateUrl = Globals.NavigateURL ();
 
             ItemId = null;
             LoadDocument ();
         }
 
-        protected void linkEdit_Click (object sender, EventArgs e)
+        protected void btnEdit_Click (object sender, EventArgs e)
         {
-            multiView.ActiveViewIndex = 0;
+            mvEditDocument.ActiveViewIndex = 0;
 
             // document was added before, so we need to reload page
-            linkCancel.NavigateUrl = Globals.NavigateURL ();
+            lnkCancel.NavigateUrl = Globals.NavigateURL ();
 
             LoadDocument ();
         }
 
-        protected void lnkChange_Click (object sender, EventArgs e)
+        protected void lnkChangeOwner_Click (object sender, EventArgs e)
         {
-            lblOwner.Visible = false;
-            lnkChange.Visible = false;
+            txtOwner.Visible = false;
+            btnChangeOwner.Visible = false;
             lstOwner.Visible = true;
 
             PopulateOwnerList ();
@@ -251,16 +251,16 @@ namespace R7.Documents
         {
             try {
                 lstOwner.SelectedValue = UserId.ToString ();
-                lblOwner.Text = UserInfo.DisplayName;
+                txtOwner.Text = UserInfo.DisplayName;
             } catch (Exception ex) {
                 // defensive code only, would only happen if the owner user has been deleted
                 Exceptions.LogException (ex);
             }
 
-            cmdAdd.Visible = true;
-            cmdUpdate.Visible = false;
-            cmdDelete.Visible = false;
-            buttonDeleteWithAsset.Visible = false;
+            btnAdd.Visible = true;
+            btnUpdate.Visible = false;
+            btnDelete.Visible = false;
+            btnDeleteWithAsset.Visible = false;
 
             ctlUrl.NewWindow = true;
 
@@ -298,14 +298,14 @@ namespace R7.Documents
         {
             var document = DocumentsDataProvider.Instance.GetDocument (documentId, ModuleId);
             if (document != null) {
-                txtName.Text = document.Title;
+                txtTitle.Text = document.Title;
                 txtDescription.Text = document.Description;
                 chkForceDownload.Checked = document.ForceDownload;
-                datetimeStartDate.SelectedDate = document.StartDate;
-                datetimeEndDate.SelectedDate = document.EndDate;
-                textLinkAttributes.Text = document.LinkAttributes;
-                pickerCreatedDate.SelectedDate = document.CreatedDate;
-                pickerLastModifiedDate.SelectedDate = document.ModifiedDate;
+                dtStartDate.SelectedDate = document.StartDate;
+                dtEndDate.SelectedDate = document.EndDate;
+                txtLinkAttributes.Text = document.LinkAttributes;
+                dtCreatedDate.SelectedDate = document.CreatedDate;
+                dtLastModifiedDate.SelectedDate = document.ModifiedDate;
                 txtSortIndex.Text = document.SortOrderIndex.ToString ();
 
                 if (!string.IsNullOrEmpty (document.Url)) {
@@ -317,7 +317,7 @@ namespace R7.Documents
                     CheckFileSecurity (document.Url);
                 }
 
-                lblOwner.Text = UserHelper.GetUserDisplayName (PortalId, document.OwnedByUserId) ?? LocalizeString ("None_Specified");
+                txtOwner.Text = UserHelper.GetUserDisplayName (PortalId, document.OwnedByUserId) ?? LocalizeString ("None_Specified");
 
                 if (txtCategory.Visible) {
                     txtCategory.Text = document.Category;
@@ -349,10 +349,10 @@ namespace R7.Documents
                 Response.Redirect (Globals.NavigateURL (), true);
             }
 
-            cmdAdd.Visible = false;
-            cmdUpdate.Visible = true;
-            cmdDelete.Visible = true;
-            buttonDeleteWithAsset.Visible = true;
+            btnAdd.Visible = false;
+            btnUpdate.Visible = true;
+            btnDelete.Visible = true;
+            btnDeleteWithAsset.Visible = true;
         }
 
         void AddLog (string message, EventLogController.EventLogType logType)
@@ -530,7 +530,7 @@ namespace R7.Documents
             return true;
         }
 
-        protected void cmdAdd_Click (object sender, EventArgs e)
+        protected void btnAdd_Click (object sender, EventArgs e)
         {
             var document = new DocumentInfo {
                 ItemId = 0,
@@ -544,7 +544,7 @@ namespace R7.Documents
 
         /// -----------------------------------------------------------------------------
         /// <summary>
-        /// cmdUpdate_Click runs when the update button is clicked
+        /// btnUpdate_Click runs when the update button is clicked
         /// </summary>
         /// <remarks>
         /// </remarks>
@@ -553,7 +553,7 @@ namespace R7.Documents
         ///                       and localisation
         /// </history>
         /// -----------------------------------------------------------------------------
-        protected void cmdUpdate_Click (object sender, EventArgs e)
+        protected void btnUpdate_Click (object sender, EventArgs e)
         {
             var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
             Update (document, false);
@@ -565,11 +565,11 @@ namespace R7.Documents
                 if (Page.IsValid) {
                     var oldDocument = document.Clone ();
 
-                    document.Title = txtName.Text;
+                    document.Title = txtTitle.Text;
                     document.Description = txtDescription.Text;
                     document.ForceDownload = chkForceDownload.Checked;
                     document.Url = ctlUrl.Url;
-                    document.LinkAttributes = textLinkAttributes.Text;
+                    document.LinkAttributes = txtLinkAttributes.Text;
                     document.ModifiedByUserId = UserInfo.UserID;
 
                     UpdateDateTime (document, oldDocument);
@@ -589,8 +589,8 @@ namespace R7.Documents
                         }
                     }
 
-                    multiView.ActiveViewIndex = 1;
-                    linkEdit.Visible = true;
+                    mvEditDocument.ActiveViewIndex = 1;
+                    btnEdit.Visible = true;
                     ItemId = document.ItemId;
 
                     // add or update URL tracking
@@ -640,19 +640,19 @@ namespace R7.Documents
         {
             var now = DateTime.Now;
 
-            document.StartDate = datetimeStartDate.SelectedDate;
-            document.EndDate = datetimeEndDate.SelectedDate;
+            document.StartDate = dtStartDate.SelectedDate;
+            document.EndDate = dtEndDate.SelectedDate;
 
-            if (pickerCreatedDate.SelectedDate == null) {
+            if (dtCreatedDate.SelectedDate == null) {
                 document.CreatedDate = now;
             } else {
-                document.CreatedDate = pickerCreatedDate.SelectedDate.Value;
+                document.CreatedDate = dtCreatedDate.SelectedDate.Value;
             }
 
-            if (pickerLastModifiedDate.SelectedDate == null || oldDocument.Url != ctlUrl.Url) {
+            if (dtLastModifiedDate.SelectedDate == null || oldDocument.Url != ctlUrl.Url) {
                 document.ModifiedDate = now;
             } else {
-                document.ModifiedDate = pickerLastModifiedDate.SelectedDate.Value;
+                document.ModifiedDate = dtLastModifiedDate.SelectedDate.Value;
             }
         }
 

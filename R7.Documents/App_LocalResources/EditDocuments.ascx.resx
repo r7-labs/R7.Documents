@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -15,43 +15,43 @@
 	<data name="ControlTitle_edit.Text" xml:space="preserve">
         <value>Edit Document</value>
     </data>
-    <data name="plName.Text" xml:space="preserve">
+    <data name="lblTitle.Text" xml:space="preserve">
         <value>Title:</value>
     </data>
-    <data name="plName.Help" xml:space="preserve">
+    <data name="lblTitle.Help" xml:space="preserve">
         <value>Enter a name for the Document</value>
     </data>
-    <data name="Name.Required" xml:space="preserve">
+    <data name="Title.Required" xml:space="preserve">
         <value>Title is required.</value>
     </data>
-    <data name="plUrl.Text" xml:space="preserve">
+    <data name="lblUrl.Text" xml:space="preserve">
         <value>Link:</value>
     </data>
-    <data name="plUrl.Help" xml:space="preserve">
+    <data name="lblUrl.Help" xml:space="preserve">
         <value>Select the Url for the Document</value>
     </data>
-    <data name="plDescription.Text" xml:space="preserve">
+    <data name="lblDescription.Text" xml:space="preserve">
         <value>Description:</value>
     </data>
-    <data name="plDescription.Help" xml:space="preserve">
+    <data name="lblDescription.Help" xml:space="preserve">
         <value>Enter a description for the Document</value>
     </data>
-    <data name="plCategory.Text" xml:space="preserve">
+    <data name="lblCategory.Text" xml:space="preserve">
         <value>Category:</value>
     </data>
-    <data name="plCategory.Help" xml:space="preserve">
+    <data name="lblCategory.Help" xml:space="preserve">
         <value>Enter a category for the Document</value>
     </data>
-    <data name="plOwner.Text" xml:space="preserve">
+    <data name="lblOwner.Text" xml:space="preserve">
         <value>Owner:</value>
     </data>
-    <data name="plOwner.Help" xml:space="preserve">
+    <data name="lblOwner.Help" xml:space="preserve">
         <value>Select the owner of the Document</value>
     </data>
-    <data name="plSortIndex.Text" xml:space="preserve">
+    <data name="lblSortIndex.Text" xml:space="preserve">
         <value>Sort Index:</value>
     </data>
-    <data name="plSortIndex.Help" xml:space="preserve">
+    <data name="lblSortIndex.Help" xml:space="preserve">
         <value>Enter a sort index for the document.  You can use sort index as a sort criteria in the module settings page.</value>
     </data>
 	<data name="SortIndex.Invalid" xml:space="preserve">
@@ -68,55 +68,55 @@
     <data name="DocumentLinkWarningHeading.Text" xml:space="preserve">
         <value>Document Link Warning:</value>
     </data>
-    <data name="plForceDownload.Help" xml:space="preserve">
+    <data name="lblForceDownload.Help" xml:space="preserve">
         <value>If selected this will force the file to be downloaded by the client.  Helpful to prevent documents from opening in the users' browser.</value>
     </data>
-    <data name="plForceDownload.Text" xml:space="preserve">
+    <data name="lblForceDownload.Text" xml:space="preserve">
         <value>Force Download?</value>
     </data>
-    <data name="labelLinkAttributes.Text" xml:space="preserve">
+    <data name="lblLinkAttributes.Text" xml:space="preserve">
         <value>Link Attributes:</value>
     </data>
-    <data name="labelLinkAttributes.Help" xml:space="preserve">
+    <data name="lblLinkAttributes.Help" xml:space="preserve">
         <value>Use this to define custom HTML attributes (e.g. microdata) for document link in the attr1;attr2=&quot;value&quot; format.</value>
     </data>
-    <data name="labelUrlTracking.Help" xml:space="preserve">
+    <data name="lblUrlTracking.Help" xml:space="preserve">
         <value>Displays URL tracking (audit) data for this document.</value>
     </data>
-    <data name="labelUrlTracking.Text" xml:space="preserve">
+    <data name="lblUrlTracking.Text" xml:space="preserve">
         <value>URL Tracking:</value>
     </data>
-    <data name="labelCreatedDate.Help" xml:space="preserve">
+    <data name="lblCreatedDate.Help" xml:space="preserve">
         <value>Enter date and time of document creation or leave empty to select current date and time.</value>
     </data>
-    <data name="labelCreatedDate.Text" xml:space="preserve">
+    <data name="lblCreatedDate.Text" xml:space="preserve">
         <value>Created Date:</value>
     </data>
-    <data name="labelLastModifiedDate.Help" xml:space="preserve">
+    <data name="lblLastModifiedDate.Help" xml:space="preserve">
         <value>Enter date and time of last modification of the document. This value will be updated automatically when document link is changed. Leave empty to select current date and time.</value>
     </data>
-    <data name="labelLastModifiedDate.Text" xml:space="preserve">
+    <data name="lblLastModifiedDate.Text" xml:space="preserve">
         <value>Last Modified Date:</value>
     </data>
     <data name="DefaultFolder.Warning" xml:space="preserve">
         <value>Cannot select folder &quot;{0}&quot; - you could still try to select it manually.</value>
     </data>
-	<data name="labelStartDate.Text" xml:space="preserve">
+	<data name="lblStartDate.Text" xml:space="preserve">
         <value>Start Publication:</value>
     </data>
-    <data name="labelStartDate.Help" xml:space="preserve">
+    <data name="lblStartDate.Help" xml:space="preserve">
         <value>Enter the date from current document should be published on the site.</value>
     </data>
-    <data name="labelEndDate.Text" xml:space="preserve">
+    <data name="lblEndDate.Text" xml:space="preserve">
         <value>End Publication:</value>
     </data>
-    <data name="labelEndDate.Help" xml:space="preserve">
+    <data name="lblEndDate.Help" xml:space="preserve">
         <value>Enter the date from current document should be removed from publication on the site.</value>
     </data>
-	<data name="labelAudit.Text" xml:space="preserve">
+	<data name="lblAudit.Text" xml:space="preserve">
         <value>Audit:</value>
     </data>
-    <data name="labelAudit.Help" xml:space="preserve">
+    <data name="lblAudit.Help" xml:space="preserve">
         <value>Audit data for current document.</value>
     </data>
 	<data name="Common.Tab" xml:space="preserve">
@@ -128,7 +128,10 @@
 	<data name="Audit.Tab" xml:space="preserve">
         <value>Audit</value>
     </data>
-	<data name="buttonDeleteWithAsset.Text" xml:space="preserve">
+	<data name="btnDelete.Text" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+	<data name="btnDeleteWithAsset.Text" xml:space="preserve">
         <value>Delete with Asset</value>
     </data>
 	<data name="Delete.Text" xml:space="preserve">
@@ -137,16 +140,16 @@
 	<data name="DeleteWithAsset.Text" xml:space="preserve">
         <value>Are you sure you want to delete this document with the associated asset (file or URL)? Note that resource will be deleted only if it's not referenced by other documents.</value>
     </data>
-	<data name="AddMoreDocuments.Text" xml:space="preserve">
+	<data name="btnAddMore.Text" xml:space="preserve">
         <value>Add</value>
     </data>
-	<data name="AddDocument.Text" xml:space="preserve">
+	<data name="btnAdd.Text" xml:space="preserve">
         <value>Add</value>
     </data>
-	<data name="UpdateDocument.Text" xml:space="preserve">
+	<data name="btnUpdate.Text" xml:space="preserve">
         <value>Update</value>
     </data>
-	<data name="EditDocument.Text" xml:space="preserve">
+	<data name="btnEdit.Text" xml:space="preserve">
         <value>Edit</value>
     </data>
     <data name="DocumentAdded.Format" xml:space="preserve">

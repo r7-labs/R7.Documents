@@ -15,40 +15,40 @@
 	<data name="ControlTitle_settings.Text" xml:space="preserve">
         <value>Documents Settings</value>
     </data>
-    <data name="plUseCategoriesList.Text" xml:space="preserve">
+    <data name="lblUseCategoriesList.Text" xml:space="preserve">
         <value>Use Categories List?</value>
     </data>
-    <data name="plUseCategoriesList.Help" xml:space="preserve">
+    <data name="lblUseCategoriesList.Help" xml:space="preserve">
         <value>Controls whether to allow free-text entry of the document category, or to use the 'Document Categories' list defined in the host lists page.</value>
     </data>
-    <data name="plShowTitleLink.Text" xml:space="preserve">
+    <data name="lblShowTitleAsLink.Text" xml:space="preserve">
         <value>Show Title as Link?</value>
     </data>
-    <data name="plShowTitleLink.Help" xml:space="preserve">
+    <data name="lblShowTitleAsLink.Help" xml:space="preserve">
         <value>Controls whether to display the title as a download link, or as plain text.</value>
     </data>
-    <data name="labelGridStyle.Text" xml:space="preserve">
+    <data name="lblGridStyle.Text" xml:space="preserve">
         <value>Grid Style:</value>
     </data>
     <data name="labelGrid Style.Help" xml:space="preserve">
         <value>Select one of the available styles for the documents grid.</value>
     </data>
-    <data name="plDisplayColumns.Text" xml:space="preserve">
+    <data name="lblDisplayColumns.Text" xml:space="preserve">
         <value>Display Columns:</value>
     </data>
-    <data name="plDisplayColumns.Help" xml:space="preserve">
+    <data name="lblDisplayColumns.Help" xml:space="preserve">
         <value>Use the visible checkboxes to switch display of columns on and off.  You can set the display order of columns using the up and down arrows.</value>
     </data>
-    <data name="plAllowUserSort.Text" xml:space="preserve">
+    <data name="lblAllowUserSort.Text" xml:space="preserve">
         <value>Allow users to sort?</value>
     </data>
-    <data name="plAllowUserSort.Help" xml:space="preserve">
+    <data name="lblAllowUserSort.Help" xml:space="preserve">
         <value>Controls whether to allow users to sort by clicking column headers.</value>
     </data>
-    <data name="plSorting.Text" xml:space="preserve">
+    <data name="lblSorting.Text" xml:space="preserve">
         <value>Sorting:</value>
     </data>
-    <data name="plSorting.Help" xml:space="preserve">
+    <data name="lblSorting.Help" xml:space="preserve">
         <value>Add/remove sort columns to the list to sort the documents module by the selected columns.</value>
     </data>
     <data name="Name.Header" xml:space="preserve">
@@ -63,10 +63,10 @@
     <data name="Icon.Column" xml:space="preserve">
         <value>Icon</value>
     </data>
-    <data name="cmdAdd.Text" xml:space="preserve">
+    <data name="btnAdd.Text" xml:space="preserve">
         <value>Add Sort Order</value>
     </data>
-    <data name="buttonDeleteSortOrder.Text" xml:space="preserve">
+    <data name="btnDeleteSortOrder.Text" xml:space="preserve">
         <value>Delete Sort Order</value>
     </data>
     <data name="cmdUp.Text" xml:space="preserve">
@@ -75,27 +75,27 @@
     <data name="cmdDown.Text" xml:space="preserve">
         <value>Move Down</value>
     </data>
-    <data name="plDefaultFolder.Help" xml:space="preserve">
+    <data name="lblDefaultFolder.Help" xml:space="preserve">
         <value>Select a folder to serve as the default location for new documents
 		and also to display files from it (then file filter is specified).</value>
     </data>
-    <data name="plDefaultFolder.Text" xml:space="preserve">
+    <data name="lblDefaultFolder.Text" xml:space="preserve">
         <value>Default Folder:</value>
     </data>
-	<data name="labelFileFilter.Text" xml:space="preserve">
+	<data name="lblFileFilter.Text" xml:space="preserve">
         <value>File Filter:</value>
     </data>
-    <data name="labelFileFilter.Help" xml:space="preserve">
+    <data name="lblFileFilter.Help" xml:space="preserve">
         <value>Enter file filter regex.  If specified, module will try to display files
 		from the default folder that names will match provided regex.</value>
     </data>
 	<data name="FileFilter.Invalid" xml:space="preserve">
         <value>File filter must be valid .NET regex.</value>
     </data>
-    <data name="labelFilenameToTitleRules.Text" xml:space="preserve">
+    <data name="lblFilenameToTitleRules.Text" xml:space="preserve">
         <value>Filename to Document Title:</value>
     </data>
-    <data name="labelFilenameToTitleRules.Help" xml:space="preserve">
+    <data name="lblFilenameToTitleRules.Help" xml:space="preserve">
         <value>With this setting you can control generation of the titles of documents from the names of corresponding files.
 			Each line represents single rule which consists of two parts:
 			a valid .NET regex and a replacement string separated by mandatory &quot;/&quot; sign.
@@ -107,10 +107,10 @@
 	<data name="Root.Text" xml:space="preserve">
         <value>Root</value>
     </data>
-    <data name="plCategoriesListName.Help" xml:space="preserve">
+    <data name="lblCategoriesListName.Help" xml:space="preserve">
         <value>Select the name of the list you want to use for document categories</value>
     </data>
-    <data name="plCategoriesListName.Text" xml:space="preserve">
+    <data name="lblCategoriesListName.Text" xml:space="preserve">
         <value>Categories List Name:</value>
     </data>
     <data name="lnkEditLists.Text" xml:space="preserve">
@@ -131,10 +131,10 @@
     <data name="UnableToFindLists.Text" xml:space="preserve">
         <value>You can manage lists under "Host" -&gt; "Lists"</value>
     </data>
-	<data name="labelDateTimeFormat.Text" xml:space="preserve">
+	<data name="lblDateTimeFormat.Text" xml:space="preserve">
         <value>Date and Time Format:</value>
     </data>
-    <data name="labelDateTimeFormat.Help" xml:space="preserve">
+    <data name="lblDateTimeFormat.Help" xml:space="preserve">
         <value>Enter .NET format string for date and time values (e.g. "ddd, dd MMM yyyy") or leave empty to use default format. More info here: https://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx</value>
     </data>
 </root>

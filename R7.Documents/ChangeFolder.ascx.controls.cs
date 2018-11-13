@@ -6,10 +6,10 @@ namespace R7.Documents
     public partial class ChangeFolder
 	{
 		protected DnnFolderDropDownList ddlFolder;
-        protected CheckBox checkPublishUpdated;
-        protected CheckBox checkDeleteOldFiles;
-        protected CheckBox checkUnpublishSkipped;
-		protected CheckBox checkUpdateDefaultFolder;
-		protected HyperLink linkCancel;
+        protected CheckBox chkPublishUpdated;
+        protected CheckBox chkDeleteOldFiles;
+        protected CheckBox chkUnpublishSkipped;
+		protected CheckBox chkUpdateDefaultFolder;
+		protected HyperLink lnkCancel;
 	}
 }

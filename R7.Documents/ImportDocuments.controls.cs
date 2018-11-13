@@ -5,12 +5,12 @@ namespace R7.Documents
 {
     public partial class ImportDocuments
 	{
-		protected LabelControl labelModule;
-        protected DropDownList comboModule;
-		protected Panel panelDocuments;
-		protected LabelControl labelDocuments;
-		protected CheckBoxList listDocuments;
-		protected LinkButton buttonImport;
-		protected HyperLink linkCancel;
+		protected LabelControl lblModule;
+        protected DropDownList ddlModule;
+		protected Panel plDocuments;
+		protected LabelControl lblDocuments;
+		protected CheckBoxList lstDocuments;
+		protected LinkButton btnImport;
+		protected HyperLink lnkCancel;
 	}
 }

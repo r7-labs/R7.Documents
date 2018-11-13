@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ChangeFolder.ascx.cs" Inherits="R7.Documents.ChangeFolder" %>
+<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ChangeFolder.ascx.cs" Inherits="R7.Documents.ChangeFolder" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
@@ -10,28 +10,28 @@
 			<asp:label id="labelInfo" runat="server" resourcekey="labelInfo.Text" CssClass="dnnFormMessage dnnFormWarning" />
 	    </div>
 	    <div class="dnnFormItem">
-	        <dnn:Label id="labelFolder" runat="server" ControlName="ddlFolder" />
+	        <dnn:Label id="lblFolder" runat="server" ControlName="ddlFolder" />
 			<dnn:DnnFolderDropDownList id="ddlFolder" runat="server" AutoPostBack="true" />
 	    </div>
 		 <div class="dnnFormItem">
-	        <dnn:Label id="labelUpdateDefaultFolder" runat="server" ControlName="checkUpdateDefaultFolder" />
-			<asp:CheckBox id="checkUpdateDefaultFolder" runat="server" Checked="true" />
+	        <dnn:Label id="lblUpdateDefaultFolder" runat="server" ControlName="chkUpdateDefaultFolder" />
+			<asp:CheckBox id="chkUpdateDefaultFolder" runat="server" Checked="true" />
 	    </div>
         <div class="dnnFormItem">
-            <dnn:Label id="labelPublishUpdated" runat="server" ControlName="checkPublishUpdated" />
-            <asp:CheckBox id="checkPublishUpdated" runat="server" Checked="true" />
+            <dnn:Label id="labelPublishUpdated" runat="server" ControlName="chkPublishUpdated" />
+            <asp:CheckBox id="chkPublishUpdated" runat="server" Checked="true" />
         </div>
         <div class="dnnFormItem">
-            <dnn:Label id="labelUnpublishSkipped" runat="server" ControlName="checkUnpublishSkipped" />
-            <asp:CheckBox id="checkUnpublishSkipped" runat="server" Checked="true" />
+            <dnn:Label id="lblUnpublishSkipped" runat="server" ControlName="chkUnpublishSkipped" />
+            <asp:CheckBox id="chkUnpublishSkipped" runat="server" Checked="true" />
         </div>
         <div class="dnnFormItem">
-            <dnn:Label id="labelDeleteOldFiles" runat="server" ControlName="checkDeleteOldFiles" />
-            <asp:CheckBox id="checkDeleteOldFiles" runat="server" Checked="false" />
+            <dnn:Label id="lblDeleteOldFiles" runat="server" ControlName="chkDeleteOldFiles" />
+            <asp:CheckBox id="chkDeleteOldFiles" runat="server" Checked="false" />
         </div>
 		<ul class="dnnActions dnnClear">
-	        <li><asp:LinkButton id="buttonApply" runat="server" CssClass="dnnPrimaryAction" resourcekey="buttonApply" Text="Update" OnClick="buttonApply_Click" /></li>
-	        <li><asp:HyperLink id="linkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" Text="Cancel" /></li>
+	        <li><asp:LinkButton id="btnApply" runat="server" CssClass="dnnPrimaryAction" resourcekey="btnApply" OnClick="btnApply_Click" /></li>
+	        <li><asp:HyperLink id="lnkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 	    </ul>
 	</fieldset>
 </div>
