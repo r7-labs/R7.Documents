@@ -345,7 +345,7 @@ namespace R7.Documents
                     "",
                     true,
                     SecurityAccessLevel.Edit,
-                    true,
+                    !Settings.FolderMode,
                     false);
 
                 actions.Add (
@@ -357,7 +357,7 @@ namespace R7.Documents
                     "",
                     true,
                     SecurityAccessLevel.Edit,
-                    true,
+                    !Settings.FolderMode,
                     false);
 
                 actions.Add (
@@ -369,7 +369,7 @@ namespace R7.Documents
                     "",
                     true,
                     SecurityAccessLevel.Edit,
-                    true,
+                    !Settings.FolderMode,
                     false);
 
                 return actions;
