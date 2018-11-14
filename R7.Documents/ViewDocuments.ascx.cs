@@ -487,49 +487,14 @@ namespace R7.Documents
         IEnumerable<DocumentInfo> GetDocuments ()
         {
             if (Settings.FolderMode) {
-                return GetDocumentsFromFolder (Settings.DefaultFolder.Value);
+                return DocumentsDataProvider.Instance.CreateDocumentsFromFolder (Settings.DefaultFolder.Value,
+                                                                                 PortalId,
+                                                                                 ModuleId,
+                                                                                 Settings.FileFilter,
+                                                                                 Settings.FilenameToTitleRulesParsed);
             }
 
             return DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
-        }
-
-        IEnumerable<DocumentInfo> GetDocumentsFromFolder (int folderId)
-        {
-            var folder = FolderManager.Instance.GetFolder (folderId);
-            if (folder != null) {
-                var urlController = new UrlController ();
-                var files = FolderManager.Instance.GetFiles (folder);
-                var rules = Settings.FilenameToTitleRulesParsed;
-                return files.Where (f => Regex.IsMatch (f.FileName, Settings.FileFilter))
-                            .Select (f => new DocumentInfo {
-                                ItemId = 0,
-                                Url = "FileID=" + f.FileId,
-                                Title = FilenameToTitle (f.FileName, rules),
-                                Size = f.Size,
-                                CreatedByUserId = f.CreatedByUserID,
-                                CreatedDate = f.CreatedOnDate,
-                                ModifiedByUserId = f.LastModifiedByUserID,
-                                ModifiedDate = f.LastModifiedOnDate,
-                                OwnedByUserId = f.CreatedByUserID,
-                                Clicks = urlController.GetUrlTracking (PortalId, "FileID=" + f.FileId, ModuleId)?.Clicks ?? 0,
-                                ModuleId = ModuleId,
-                                TrackClicks = true,
-                                NewWindow = true
-                            });
-            }
-
-            return Enumerable.Empty<DocumentInfo> ();
-        }
-
-        string FilenameToTitle (string filename, IEnumerable<string []> rules)
-        {
-            if (rules != null) {
-                foreach (var rule in rules) {
-                    filename = Regex.Replace (filename, rule [0], rule [1]);
-                }
-            }
-
-            return filename;
         }
 
         bool CanView (string url)

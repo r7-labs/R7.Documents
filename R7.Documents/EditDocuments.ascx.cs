@@ -44,6 +44,7 @@ using R7.Documents.Models;
 using R7.Dnn.Extensions.Urls;
 using R7.Dnn.Extensions.Text;
 using R7.Dnn.Extensions.FileSystem;
+using R7.University.Components;
 
 namespace R7.Documents
 {
@@ -262,7 +263,7 @@ namespace R7.Documents
             btnDelete.Visible = false;
             btnDeleteWithAsset.Visible = false;
 
-            ctlUrl.NewWindow = true;
+            ctlUrl.NewWindow = DocumentsConfig.Instance.NewWindow;
 
             txtSortIndex.Text = ((CalculateSortIndex () ?? 0) + 10).ToString ();
             SelectDefaultFolder ();
@@ -589,10 +590,6 @@ namespace R7.Documents
                         }
                     }
 
-                    mvEditDocument.ActiveViewIndex = 1;
-                    btnEdit.Visible = true;
-                    ItemId = document.ItemId;
-
                     // add or update URL tracking
                     var ctrlUrl = new UrlController ();
                     ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
@@ -606,6 +603,11 @@ namespace R7.Documents
 
                     FolderHistory.RememberFolderByFileUrl (Request, Response, document.Url, PortalId);
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
+
+                    // WTF: should do this after UpdateUrl, or DnnUrlControl loose its flags 
+                    mvEditDocument.ActiveViewIndex = 1;
+                    btnEdit.Visible = true;
+                    ItemId = document.ItemId;
                 }
             } catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);
