@@ -9,20 +9,24 @@
 
 # Changes from the original module
 
-## End-user changes
+## End-user differences
 
 - Multi-tabbed, popup-enabled document editing UI.
 - Icon column to display file extension or document type.
-- Ability to edit document dates.
-- Ability to publish/unpublish documents by setting start and end publication dates.
+- Display files from specific folder as documents.
+- Editable document dates.
+- Publish/unpublish documents by setting start and end publication dates.
 - Publication date column (calculated from start publication date with fallback to creation date).
 - If no published documents available, module hides from reqular view.
 - Page-specific module presentation settings (column set / order, sorting, etc.)
-- Ability to import selected documents from any other R7.Documents or DNN Documents module.
+- Import selected documents from any other R7.Documents or DNN Documents module.
+- Delete documents along with linked files.
+- Bulk copy and delete operations within a module.
 - Customizable styles - Bootstrap and DNN grid styles included.
+- YAML-based portal-level configuration (see `R7.Documents.default.yml`)
 - DNN 7.1+ search integration.
 
-## Developer changes
+## Developer differences
 
 - Module code converted from VB.NET to C#.
 - New DAL 2 used instead of DAL.

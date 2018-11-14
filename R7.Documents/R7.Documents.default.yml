@@ -1,0 +1,6 @@
+# This is sample config file for R7.Documents module filled with default values.
+# Module will look for the "R7.Documents.yml" config file in portal root folder.
+# and if no config file provided, it will use these default values.
+
+data-cache-time: 3600  # cache time in seconds
+new-window: true       # default "open link in new window" for new documents
