@@ -263,10 +263,10 @@ namespace R7.Documents
             btnDelete.Visible = false;
             btnDeleteWithAsset.Visible = false;
 
-            ctlUrl.NewWindow = DocumentsConfig.Instance.NewWindow;
-
             txtSortIndex.Text = ((CalculateSortIndex () ?? 0) + 10).ToString ();
             SelectDefaultFolder ();
+
+            ctlUrl.NewWindow = DocumentsConfig.Instance.NewWindow;
         }
 
         void SelectDefaultFolder ()
