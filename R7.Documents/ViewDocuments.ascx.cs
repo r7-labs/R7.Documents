@@ -47,6 +47,7 @@ using R7.Documents.Data;
 using R7.Documents.Logic;
 using R7.Documents.Models;
 using R7.Documents.ViewModels;
+using R7.University.Components;
 
 namespace R7.Documents
 {
@@ -453,7 +454,7 @@ namespace R7.Documents
             if (!Settings.FolderMode) {
                 var cacheKey = ModuleSynchronizer.GetDataCacheKey (ModuleId, TabModuleId);
                 documents = DataCache.GetCachedData<IEnumerable<DocumentViewModel>> (
-                    new CacheItemArgs (cacheKey, 1200, CacheItemPriority.Normal),
+                    new CacheItemArgs (cacheKey, DocumentsConfig.Instance.DataCacheTime, CacheItemPriority.Normal),
                     c => LoadDocuments_Internal ()
                 );
             }
