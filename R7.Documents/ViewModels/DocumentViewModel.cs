@@ -158,12 +158,12 @@ namespace R7.Documents.ViewModels
 
                     case TabType.Tab:
                         _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                                     IconController.IconURL ("Tabs", "16X16"), Localization.GetString ("Page.Text", Context.LocalResourceFile));
+                                                     IconController.IconURL ("FileLink", "16X16", "Black"), Localization.GetString ("Page.Text", Context.LocalResourceFile));
                         break;
 
                     default:
                         _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                                     IconController.IconURL ("Link", "16X16", "Gray"), "URL");
+                                                     IconController.IconURL ("FileLink", "16X16", "Black"), "URL");
                         break;
                     }
                 }
