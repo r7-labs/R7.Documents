@@ -49,15 +49,21 @@
         <value>Отметить документ/Снять отметку</value>
     </data>
 	<data name="CopyDocuments.Action" xml:space="preserve">
-        <value>Копировать документы</value>
+        <value>Копировать отмеченные</value>
     </data>
 	<data name="CopySuffix.Text" xml:space="preserve">
         <value> (Копия)</value>
     </data>
+	<data name="PublishDocuments.Action" xml:space="preserve">
+        <value>Опубликовать отмеченные</value>
+    </data>
+	<data name="UnPublishDocuments.Action" xml:space="preserve">
+        <value>Снять отмеченные с публикации</value>
+    </data>
 	<data name="DeleteDocuments.Action" xml:space="preserve">
-        <value>Удалить документы</value>
+        <value>Удалить отмеченные</value>
     </data>
 	<data name="DeleteDocumentsWithAssets.Action" xml:space="preserve">
-        <value>Удалить вместе с ресурсами</value>
+        <value>Удалить отмеченные с ресурсами</value>
     </data>
 </root>

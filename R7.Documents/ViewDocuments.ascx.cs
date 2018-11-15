@@ -103,6 +103,12 @@ namespace R7.Documents
                         case "DeleteDocumentsWithAssets.Action":
                             bulkActions.DeleteWithAsset (documentIds, PortalId, ModuleId);
                             break;
+                        case "PublishDocuments.Action":
+                            bulkActions.Publish (documentIds, ModuleId);
+                            break;
+                        case "UnPublishDocuments.Action":
+                            bulkActions.UnPublish (documentIds, ModuleId);
+                            break;
                     }
 
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
@@ -342,6 +348,30 @@ namespace R7.Documents
                     "CopyDocuments.Action",
                     "",
                     IconController.IconURL ("FileCopy", "16X16", "Gray"),
+                    "",
+                    true,
+                    SecurityAccessLevel.Edit,
+                    !Settings.FolderMode,
+                    false);
+
+                actions.Add (
+                    GetNextActionID (),
+                    LocalizeString ("PublishDocuments.Action"),
+                    "PublishDocuments.Action",
+                    "",
+                    IconController.IconURL ("Cog", "16X16", "Gray"),
+                    "",
+                    true,
+                    SecurityAccessLevel.Edit,
+                    !Settings.FolderMode,
+                    false);
+
+                actions.Add (
+                    GetNextActionID (),
+                    LocalizeString ("UnPublishDocuments.Action"),
+                    "UnPublishDocuments.Action",
+                    "",
+                    IconController.IconURL ("Cog", "16X16", "Gray"),
                     "",
                     true,
                     SecurityAccessLevel.Edit,

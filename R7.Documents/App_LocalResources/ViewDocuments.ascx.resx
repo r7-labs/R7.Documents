@@ -49,15 +49,21 @@
         <value>Select/Unselect Document</value>
     </data>
 	<data name="CopyDocuments.Action" xml:space="preserve">
-        <value>Copy Documents</value>
+        <value>Copy Selected</value>
     </data>
 	<data name="CopySuffix.Text" xml:space="preserve">
         <value> (Copy)</value>
     </data>
+	<data name="PublishDocuments.Action" xml:space="preserve">
+        <value>Publish Selected</value>
+    </data>
+	<data name="UnPublishDocuments.Action" xml:space="preserve">
+        <value>Unpublish Selected</value>
+    </data>
 	<data name="DeleteDocuments.Action" xml:space="preserve">
-        <value>Delete Documents</value>
+        <value>Delete Selected</value>
     </data>
 	<data name="DeleteDocumentsWithAssets.Action" xml:space="preserve">
-        <value>Delete Documents with Assets</value>
+        <value>Delete Selected with Assets</value>
     </data>
 </root>

@@ -108,9 +108,13 @@ namespace R7.Documents.Models
             }
         }
 
-        public void UnPublish ()
+        public void UnPublish (DateTime? today = null)
         {
-            EndDate = DateTime.Today;
+            if (today == null) {
+                today = DateTime.Today;
+            }
+
+            EndDate = today;
             if (StartDate != null && StartDate > EndDate) {
                 StartDate = null;
             }
