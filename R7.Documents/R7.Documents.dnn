@@ -1,4 +1,4 @@
-﻿<dotnetnuke type="Package" version="5.0">
+<dotnetnuke type="Package" version="5.0">
 	<packages>
 		<package name="R7.Documents" type="Module" version="01.11.00">
 			<friendlyName>R7.Documents</friendlyName>
@@ -19,6 +19,14 @@
                 <dependency type="managedPackage" version="0.13.0">R7.Dnn.Extensions</dependency>
             </dependencies>
             <components>
+				<component type="Cleanup" version="01.11.00">
+					<files>
+                        <basePath>DesktopModules/R7.Documents/R7.Documents/GridStyles</basePath>
+						<file><name>dnn.xml</name></file>
+						<file><name>bootstrap.xml</name></file>
+						<file><name>bootstrap-condensed.xml</name></file>
+					</files>
+				</component>
 				<component type="Module">
 					<desktopModule>
 						<moduleName>R7.Documents</moduleName>

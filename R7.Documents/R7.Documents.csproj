@@ -104,7 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SqlDataProvider\" />
-    <Folder Include="GridStyles\" />
     <Folder Include="Properties\" />
     <Folder Include="Models\" />
     <Folder Include="Data\" />
@@ -141,9 +140,6 @@
     <None Include="App_LocalResources\ImportDocuments.ascx.ru-RU.resx" />
     <None Include="R7.Documents.dnn" />
     <None Include="SqlDataProvider\01.00.07.SqlDataProvider" />
-    <None Include="GridStyles\bootstrap.xml" />
-    <None Include="GridStyles\dnn.xml" />
-    <None Include="GridStyles\bootstrap-condensed.xml" />
     <None Include="SqlDataProvider\01.00.08.SqlDataProvider" />
     <None Include="SqlDataProvider\01.09.00.SqlDataProvider" />
     <None Include="App_LocalResources\SharedResources.resx" />

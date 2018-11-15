@@ -4,3 +4,32 @@
 
 data-cache-time: 3600  # cache time in seconds
 new-window: true       # default "open link in new window" for new documents
+
+grid-styles:           # grid styles
+
+  - name: dnn
+    grid-css-class: dnnGrid
+    header-css-class: dnnGridHeader
+    footer-css-class: dnnGridFooter
+    item-css-class: dnnGridItem
+    alt-item-css-class: dnnGridAltItem
+    grid-lines: None
+    width: "100%"
+
+  - name: bootstrap
+    grid-css-class: "table table-bordered table-striped table-hover"
+    header-css-class:
+    footer-css-class:
+    item-css-class:
+    alt-item-css-class:
+    grid-lines: Both
+    width: "100%"
+
+  - name: bootstrap-condensed
+    grid-css-class: "table table-bordered table-striped table-hover table-condensed"
+    header-css-class:
+    footer-css-class:
+    item-css-class:
+    alt-item-css-class:
+    grid-lines: Both
+    width: "100%"

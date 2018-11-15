@@ -24,7 +24,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Caching;
 using System.Web.UI.HtmlControls;
@@ -78,7 +77,7 @@ namespace R7.Documents
 
             grdDocuments.AllowSorting = Settings.AllowUserSort;
 
-            var gridStyle = GridStyle.Styles [Settings.GridStyle];
+            var gridStyle = DocumentsConfig.Instance.GridStyles.First (gs => gs.Name == Settings.GridStyle);
             gridStyle.ApplyToGrid (grdDocuments);
 
             AddActionHandler (new ActionEventHandler (DocumentsActionEventHandler));

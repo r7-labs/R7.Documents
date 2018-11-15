@@ -39,6 +39,7 @@ using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.ViewModels;
 using R7.Documents.Models;
 using R7.Documents.ViewModels;
+using R7.University.Components;
 
 namespace R7.Documents
 {
@@ -68,7 +69,7 @@ namespace R7.Documents
             ddlSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
 
             // bind grid styles
-            ddlGridStyle.DataSource = GridStyle.Styles.Values;
+            ddlGridStyle.DataSource = DocumentsConfig.Instance.GridStyles;
             ddlGridStyle.DataBind ();
 
             valFileFilter.ErrorMessage = LocalizeString ("FileFilter.Invalid");

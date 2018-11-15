@@ -24,6 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using System.Collections.Generic;
+
 namespace R7.Documents.Models
 {
     public class DocumentsPortalConfig
@@ -31,5 +33,38 @@ namespace R7.Documents.Models
         public int DataCacheTime { get; set; } = 3600;
 
         public bool NewWindow { get; set; } = true;
+
+        public List<GridStyle> GridStyles { get; set; } = new List<GridStyle> {
+            new GridStyle {
+                Name = "dnn",
+                GridCssClass = "dnnGrid",
+                HeaderCssClass = "dnnGridHeader",
+                FooterCssClass = "dnnGridFooter",
+                ItemCssClass = "dnnGridItem",
+                AltItemCssClass = "dnnGridAltItem",
+                GridLines = "None",
+                Width = "100%"
+            },
+            new GridStyle {
+                Name = "bootstrap",
+                GridCssClass = "table table-bordered table-striped table-hover",
+                HeaderCssClass = "",
+                FooterCssClass = "",
+                ItemCssClass = "",
+                AltItemCssClass = "",
+                GridLines = "Both",
+                Width = "100%"
+            },
+            new GridStyle {
+                Name = "bootstrap-condensed",
+                GridCssClass = "table table-bordered table-striped table-hover table-condensed",
+                HeaderCssClass = "",
+                FooterCssClass = "",
+                ItemCssClass = "",
+                AltItemCssClass = "",
+                GridLines = "Both",
+                Width = "100%"
+            }
+        };
     }
 }
