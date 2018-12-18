@@ -201,6 +201,7 @@
     <Compile Include="Models\DocumentsSettingsRepository.cs" />
     <Compile Include="Models\DocumentsPortalConfig.cs" />
     <Compile Include="Components\DocumentsConfig.cs" />
+    <Compile Include="Components\HttpOffContextHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

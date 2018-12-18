@@ -31,6 +31,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Search.Entities;
 using R7.Dnn.Extensions.Text;
+using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Models;
 
@@ -43,10 +44,7 @@ namespace R7.Documents
         public override IList<SearchDocument> GetModifiedSearchDocuments (ModuleInfo moduleInfo, DateTime beginDateUtc)
         {
             var searchDocs = new List<SearchDocument> ();
-			
-            var portalAlias = PortalAliasController.Instance.GetPortalAliasesByPortalId (moduleInfo.PortalID).First (pa => pa.IsPrimary);
-            var portalSettings = new PortalSettings (moduleInfo.TabID, portalAlias);
-
+			var portalSettings = HttpOffContextHelper.GetPortalSettings (moduleInfo.PortalID, moduleInfo.TabID, moduleInfo.CultureCode);
             var documents = DocumentsDataProvider.Instance.GetDocuments (moduleInfo.ModuleID, moduleInfo.PortalID);
 
             var now = DateTime.Now;
@@ -59,7 +57,8 @@ namespace R7.Documents
                         Description = document.Description,
                         ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
                         UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
-                        Url = Globals.NavigateURL (moduleInfo.TabID, portalSettings, "", "mid", moduleInfo.ModuleID.ToString ()),
+                        Url = Globals.NavigateURL (moduleInfo.TabID, false, portalSettings, "",
+                            portalSettings.PortalAlias.CultureCode, "mid", moduleInfo.ModuleID.ToString ()),
                         IsActive = document.IsPublished (now)
                     };
 					
