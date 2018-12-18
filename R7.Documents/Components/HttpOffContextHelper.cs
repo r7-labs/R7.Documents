@@ -39,6 +39,7 @@ namespace R7.Documents.Components
         /// <returns>The portal settings.</returns>
         /// <param name="portalId">Portal identifier.</param>
         /// <param name="tabId">Tab identifier.</param>
+        /// <param name="cultureCode">Culture code.</param>
         public static PortalSettings GetPortalSettings (int portalId, int tabId, string cultureCode)
         {
             var portalAliases = PortalAliasController.Instance.GetPortalAliasesByPortalId (portalId).ToList ();
