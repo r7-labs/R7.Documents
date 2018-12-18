@@ -27,7 +27,6 @@ using System.Xml;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
-using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Search.Entities;
 using R7.Dnn.Extensions.Text;
@@ -58,7 +57,7 @@ namespace R7.Documents
                         ModifiedTimeUtc = document.ModifiedDate.ToUniversalTime (),
                         UniqueKey = string.Format ("Documents_Document_{0}", document.ItemId),
                         Url = Globals.NavigateURL (moduleInfo.TabID, false, portalSettings, "",
-                            portalSettings.PortalAlias.CultureCode, "mid", moduleInfo.ModuleID.ToString ()),
+                            portalSettings.PortalAlias.CultureCode, "", "mid", moduleInfo.ModuleID.ToString ()),
                         IsActive = document.IsPublished (now)
                     };
 					
