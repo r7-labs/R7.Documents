@@ -30,7 +30,7 @@ namespace R7.Documents.Models
 {
     public class DocumentsPortalConfig
     {
-        public int DataCacheTime { get; set; } = 3600;
+        public int DataCacheTime { get; set; } = 60;
 
         public bool NewWindow { get; set; } = true;
 
