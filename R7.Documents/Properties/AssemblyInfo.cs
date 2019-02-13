@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
 [assembly: AssemblyVersion ("1.11.0.*")]
-[assembly: AssemblyInformationalVersion ("1.11.0-beta.2")]
+[assembly: AssemblyInformationalVersion ("1.11")]
 
 // The following attributes are used to specify the signing key for the assembly,
 // if desired. See the Mono documentation for more information about signing.
