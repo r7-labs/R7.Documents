@@ -9,12 +9,8 @@
     </PropertyGroup>
     <Target Name="InstallPackage" Condition=" '$(EnableInstallPackage)' == 'true' " DependsOnTargets="Preprocess;Tests">
         <RemoveDir Directories="$(TmpDir)" />
-        <!-- Read package version from the manifest -->
-        <XmlPeek Query="/dotnetnuke/packages/package[1]/@version" XmlInputPath="$(MainProjectPath)/$(MainProjectName).dnn">
-            <Output TaskParameter="Result" PropertyName="Version" />
-        </XmlPeek>
         <PropertyGroup>
-            <PackageFileName>$(PackageName)-$(Version)-Install.$(Configuration).zip</PackageFileName>
+            <PackageFileName>$(PackageName)-$(ReleaseVersion)-Install.$(Configuration).zip</PackageFileName>
         </PropertyGroup>
         <!-- Declare binaries -->
         <ItemGroup>
