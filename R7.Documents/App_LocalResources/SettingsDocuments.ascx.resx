@@ -63,7 +63,7 @@
     <data name="Icon.Column" xml:space="preserve">
         <value>Icon</value>
     </data>
-    <data name="btnAdd.Text" xml:space="preserve">
+    <data name="lnkAddSortColumn.Text" xml:space="preserve">
         <value>Add Sort Order</value>
     </data>
     <data name="btnDeleteSortOrder.Text" xml:space="preserve">

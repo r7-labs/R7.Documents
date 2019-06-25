@@ -15,7 +15,7 @@
 	<data name="ControlTitle_settings.Text" xml:space="preserve">
         <value>Настройки документов</value>
     </data>
-    <data name="btnAdd.Text" xml:space="preserve">
+    <data name="lnkAddSortColumn.Text" xml:space="preserve">
         <value>Добавить порядок сортировки</value>
     </data>
     <data name="btnDeleteSortOrder.Text" xml:space="preserve">
