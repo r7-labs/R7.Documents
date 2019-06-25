@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2019 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
+using DotNetNuke.Web.UI.WebControls;
 using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.Controls;
 using R7.Dnn.Extensions.Users;
@@ -62,6 +63,11 @@ namespace R7.Documents
         protected int? ItemId {
             get { return (int?) ViewState ["ItemId"] ?? null; }
             set { ViewState ["ItemId"] = value; }
+        }
+
+        protected bool IsFirstLoad {
+            get { return (bool?) ViewState ["IsFirstLoad"] ?? true; }
+            set { ViewState ["IsFirstLoad"] = value; }
         }
 
         protected enum EditDocumentTab
@@ -100,15 +106,15 @@ namespace R7.Documents
         protected override void OnInit (EventArgs e)
         {
             base.OnInit (e);
-			
+
             // set URLs for cancel links
             lnkCancel.NavigateUrl = UrlHelper.GetCancelUrl (UrlUtils.InPopUp ());
             lnkClose.NavigateUrl = Globals.NavigateURL ();
 
-            btnDelete.Attributes.Add ("onClick", 
+            btnDelete.Attributes.Add ("onClick",
                 "javascript:return confirm('" + LocalizeString ("Delete.Text")  + "');");
-            
-            btnDeleteWithAsset.Attributes.Add ("onClick", 
+
+            btnDeleteWithAsset.Attributes.Add ("onClick",
                 "javascript:return confirm('" + LocalizeString ("DeleteWithAsset.Text") + "');");
 
             // Configure categories entry as a list or textbox, based on user settings
@@ -149,6 +155,7 @@ namespace R7.Documents
 
                 if (!IsPostBack) {
                     LoadDocument ();
+                    IsFirstLoad = false;
                 }
             }
             catch (Exception exc) {
@@ -181,7 +188,7 @@ namespace R7.Documents
                 if (document != null) {
                     DocumentsDataProvider.Instance.DeleteDocument (ItemId.Value, sender == btnDeleteWithAsset, PortalId, ModuleId);
                     this.Message (string.Format (LocalizeString ("DocumentDeleted.Format"), document.Title), MessageType.Warning);
-        
+
                     mvEditDocument.ActiveViewIndex = 1;
                     btnEdit.Visible = false;
                     ItemId = null;
@@ -264,23 +271,28 @@ namespace R7.Documents
             btnDeleteWithAsset.Visible = false;
 
             txtSortIndex.Text = ((CalculateSortIndex () ?? 0) + 10).ToString ();
-            SelectDefaultFolder ();
+
+            if (IsFirstLoad) {
+                SelectFolder (ctlUrl, Settings.DefaultFolder ?? FolderHistory.GetLastFolderId (Request, PortalId));
+            }
 
             ctlUrl.NewWindow = DocumentsConfig.Instance.NewWindow;
         }
 
-        void SelectDefaultFolder ()
+        void SelectFolder (DnnUrlControl ctlUrl, int? folderId)
         {
-            var defaultFolder = Settings.DefaultFolder ?? FolderHistory.GetLastFolderId (Request, PortalId);
-            if (defaultFolder != null) {
-                var folderSelected = ctlUrl.SelectFolder (defaultFolder.Value, true);
-                if (!folderSelected) {
-                    var folder = FolderManager.Instance.GetFolder (defaultFolder.Value);
-                    if (folder != null) {
-                        this.Message (string.Format (LocalizeString ("DefaultFolder.Warning"), folder.FolderName),
-                                      MessageType.Warning, false);
-                    }
-                }
+            if (folderId == null) {
+                return;
+            }
+
+            var folderIsSelected = ctlUrl.SelectFolder (folderId.Value, true);
+            if (folderIsSelected) {
+                return;
+            }
+
+            var folder = FolderManager.Instance.GetFolder (folderId.Value);
+            if (folder != null) {
+                this.Message (string.Format (LocalizeString ("CannotSelectFolder.Text"), folder.FolderName), MessageType.Warning, false);
             }
         }
 
@@ -370,7 +382,7 @@ namespace R7.Documents
         }
 
         /// <summary>
-        /// Compare file's folder security with module security settings and display 
+        /// Compare file's folder security with module security settings and display
         /// a warning message if they do not match.
         /// </summary>
         /// <history>
@@ -539,7 +551,7 @@ namespace R7.Documents
                 CreatedByUserId = UserId,
                 OwnedByUserId = UserId
             };
-         
+
             Update (document, true);
         }
 
@@ -604,7 +616,7 @@ namespace R7.Documents
                     FolderHistory.RememberFolderByFileUrl (Request, Response, document.Url, PortalId);
                     ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
 
-                    // WTF: should do this after UpdateUrl, or DnnUrlControl loose its flags 
+                    // WTF: should do this after UpdateUrl, or DnnUrlControl loose its flags
                     mvEditDocument.ActiveViewIndex = 1;
                     btnEdit.Visible = true;
                     ItemId = document.ItemId;
@@ -664,7 +676,7 @@ namespace R7.Documents
             lstOwner.DataSource = UserController.GetUsers (PortalId)
                 .Cast<UserInfo> ()
                 .OrderBy (u => u.DisplayName);
-            
+
             lstOwner.DataBind ();
 
             // add default item

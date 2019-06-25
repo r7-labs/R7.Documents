@@ -98,7 +98,7 @@
     <data name="lblLastModifiedDate.Text" xml:space="preserve">
         <value>Изменен:</value>
     </data>
-    <data name="DefaultFolder.Warning" xml:space="preserve">
+    <data name="CannotSelectFolder.Text" xml:space="preserve">
         <value>Не удалось выбрать папку &quot;{0}&quot; - вы можете попробовать выбрать ее вручную.</value>
     </data>
     <data name="lblStartDate.Text" xml:space="preserve">

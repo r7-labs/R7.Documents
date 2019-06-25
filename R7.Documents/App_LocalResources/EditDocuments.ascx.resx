@@ -98,7 +98,7 @@
     <data name="lblLastModifiedDate.Text" xml:space="preserve">
         <value>Last Modified Date:</value>
     </data>
-    <data name="DefaultFolder.Warning" xml:space="preserve">
+    <data name="CannotSelectFolder.Text" xml:space="preserve">
         <value>Cannot select folder &quot;{0}&quot; - you could still try to select it manually.</value>
     </data>
 	<data name="lblStartDate.Text" xml:space="preserve">
