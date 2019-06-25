@@ -26,6 +26,7 @@
             <InstallManifestFiles Include="$(MainProjectPath)/*.dnn*" />
             <InstallManifestFiles Include="$(MainProjectPath)/license.htm" />
             <InstallManifestFiles Include="$(MainProjectPath)/releaseNotes.htm" />
+            <InstallManifestFiles Include="$(MainProjectPath)/icon.png" />
         </ItemGroup>
         <!-- Declare SqlDataProvider files -->
         <ItemGroup>
@@ -64,6 +65,7 @@
             <InstallResourceExcludeFiles Include="../.*" />
             <InstallResourceExcludeFiles Include="$(MainProjectPath)/license.htm" />
             <InstallResourceExcludeFiles Include="$(MainProjectPath)/releaseNotes.htm" />
+            <InstallResourceExcludeFiles Include="$(MainProjectPath)/icon.png" />
             <InstallResourceExcludeFiles Include="$(CustomExcludeFiles)" Condition=" '$(CustomExcludeFiles)' != '' " />
         </ItemGroup>
         <!-- Apply excluded files filters -->
