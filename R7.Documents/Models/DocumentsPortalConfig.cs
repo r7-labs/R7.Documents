@@ -57,7 +57,7 @@ namespace R7.Documents.Models
             },
             new GridStyle {
                 Name = "bootstrap-condensed",
-                GridCssClass = "table table-bordered table-striped table-hover table-condensed",
+                GridCssClass = "table table-bordered table-striped table-hover table-condensed table-sm",
                 HeaderCssClass = "",
                 FooterCssClass = "",
                 ItemCssClass = "",

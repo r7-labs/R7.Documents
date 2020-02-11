@@ -27,7 +27,7 @@ grid-styles:         # grid styles
     width: "100%"
 
   - name: bootstrap-condensed
-    grid-css-class: "table table-bordered table-striped table-hover table-condensed"
+    grid-css-class: "table table-bordered table-striped table-hover table-condensed table-sm"
     header-css-class:
     footer-css-class:
     item-css-class:
