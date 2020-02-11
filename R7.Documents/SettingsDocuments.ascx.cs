@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2020 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -74,6 +74,8 @@ namespace R7.Documents
 
             valFileFilter.ErrorMessage = LocalizeString ("FileFilter.Invalid");
             valFilenameToTitleRules.ErrorMessage = LocalizeString ("FilenameToTitleRules.Invalid");
+
+            ddlDefaultFolder.UndefinedItem = new ListItem (LocalizeString ("NotSelected.Text"), "-1");
         }
 
         protected override void OnLoad (EventArgs e)

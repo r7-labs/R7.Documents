@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -12,7 +12,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Category.Column" xml:space="preserve">
+	<data name="Category.Column" xml:space="preserve">
         <value>Категория</value>
     </data>
     <data name="Clicks.Column" xml:space="preserve">
@@ -50,5 +50,8 @@
     </data>
     <data name="Url.Column" xml:space="preserve">
         <value>Ссылка</value>
+    </data>
+	<data name="NotSelected.Text" xml:space="preserve">
+        <value>&lt;Не выбрано&gt;</value>
     </data>
 </root>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -29,9 +29,6 @@
     </data>
     <data name="lblDocuments.Help" xml:space="preserve">
         <value>Check all documents you want to import.</value>
-    </data>
-    <data name="NotSelected.Text" xml:space="preserve">
-        <value>&lt;Not Selected&gt;</value>
     </data>
     <data name="btnImport.Text" xml:space="preserve">
         <value>Import</value>

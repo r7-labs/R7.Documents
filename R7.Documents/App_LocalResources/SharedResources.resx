@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -51,42 +51,45 @@
     <data name="Clicks.Column" xml:space="preserve">
         <value>Clicks</value>
     </data>
+	<data name="NotSelected.Text" xml:space="preserve">
+        <value>&lt;Not Selected&gt;</value>
+    </data>
 	<data name="ModuleHelp.Text" xml:space="preserve">
         <value>&lt;h1&gt;About the Documents Module&lt;/h1&gt;
-&lt;p&gt;The Documents Module produces a list of documents with links to view or 
-  download the document (depending on the user's browser settings). Documents can 
+&lt;p&gt;The Documents Module produces a list of documents with links to view or
+  download the document (depending on the user's browser settings). Documents can
   be located within the portal, or can be a link to another website or portal.
 &lt;/p&gt;
 &lt;p&gt;
-  The document title, category, description, document owner, name of the user who 
-  created the document, the user who last updated the document, creation date, 
-  the date that the document was added or last updated, and the file size 
-  (internal documents only) are available for each listing. Link click tracking 
+  The document title, category, description, document owner, name of the user who
+  created the document, the user who last updated the document, creation date,
+  the date that the document was added or last updated, and the file size
+  (internal documents only) are available for each listing. Link click tracking
   and logging are also available.
 &lt;/p&gt;
 &lt;p&gt;
-  In the module settings page, you can configure the columns that are displayed, 
-  the column order&amp;nbsp;and the sort order of the documents listed. The documents 
-  module supports the DotNetNuke core "secure storage" feature, so that documents 
+  In the module settings page, you can configure the columns that are displayed,
+  the column order&amp;nbsp;and the sort order of the documents listed. The documents
+  module supports the DotNetNuke core "secure storage" feature, so that documents
   stored securely are not available to unauthorized users.
 &lt;/p&gt;
 &lt;h1&gt;Document Module Settings&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;
     &lt;b&gt;Use Documents Categories List:&lt;/b&gt;
-  Sets whether to use a free-text field for the document category field, or use a 
-  list defined in the Host-&amp;gt;Lists page. If you want to use a drop-down list, 
+  Sets whether to use a free-text field for the document category field, or use a
+  list defined in the Host-&amp;gt;Lists page. If you want to use a drop-down list,
   create a list in the Lists page called "Document Categories".
   &lt;li&gt;
     &lt;b&gt;Show Title Link:&lt;/b&gt;
-  Sets whether or not to show the document title (if included in the display 
+  Sets whether or not to show the document title (if included in the display
   columns) as a hyperlink to the document.
   &lt;li&gt;
     &lt;b&gt;Display Columns: &lt;/b&gt;
-  Sets which columns to display, and allows you to set what order to display the 
+  Sets which columns to display, and allows you to set what order to display the
   columns in.
   &lt;li&gt;
-    &lt;b&gt;Sorting: &lt;/b&gt;Sets the sort order that documents are displayed in. You can 
+    &lt;b&gt;Sorting: &lt;/b&gt;Sets the sort order that documents are displayed in. You can
     add multiple sort orders to add more than one "key" to sort by.
   &lt;/li&gt;
 &lt;/ol&gt;
@@ -115,15 +118,15 @@
     Click &lt;b&gt;Update&lt;/b&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1&gt;CSS Styling for the Documents Module&lt;/h1&gt;
-&lt;P&gt;The documents module renders an "outside" DIV tag with a CLASS attribute of 
-  "DNN_Documents". Each header cell has a CLASS attribute of [Name]Header, where 
-  [Name] is the column name - for example "TitleHeader", "SizeHeader", 
-  "CategoryHeader". Each data cell has a CLASS attribute of [Name]Item, for 
+&lt;P&gt;The documents module renders an "outside" DIV tag with a CLASS attribute of
+  "DNN_Documents". Each header cell has a CLASS attribute of [Name]Header, where
+  [Name] is the column name - for example "TitleHeader", "SizeHeader",
+  "CategoryHeader". Each data cell has a CLASS attribute of [Name]Item, for
   example "TitleItem", "SizeItem", "CategoryItem".&lt;/P&gt;
-&lt;P&gt;This allows skin developers to control the CSS style of individual columns. 
-  For example, use the following CSS to render the size column in red and set the 
+&lt;P&gt;This allows skin developers to control the CSS style of individual columns.
+  For example, use the following CSS to render the size column in red and set the
   column width to 50 pixels:&lt;/P&gt;
-&lt;P&gt;&lt;FONT face="Courier New" size="2"&gt;&amp;nbsp; .DNN_Documents .SizeItem {color: red; 
+&lt;P&gt;&lt;FONT face="Courier New" size="2"&gt;&amp;nbsp; .DNN_Documents .SizeItem {color: red;
     width: 50px} &lt;/FONT&gt;
 &lt;/P&gt;</value>
 	</data>
