@@ -110,6 +110,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="js\" />
     <Folder Include="Logic\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="module.css" />
@@ -124,6 +125,7 @@
     <Content Include="releaseNotes.htm" />
     <Content Include="packages.config" />
     <Content Include="js\selectDocuments.js" />
+    <Content Include="images\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
