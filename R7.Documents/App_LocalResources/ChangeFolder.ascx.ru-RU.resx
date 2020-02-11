@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -12,14 +12,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="ModuleHelp.Text" xml:space="preserve">
-        <value>&lt;p&gt;О модуле "Сменить папку"&lt;/p&gt;</value>
-    </data>
     <data name="ControlTitle_changefolder.Text" xml:space="preserve">
         <value>Сменить папку</value>
     </data>
     <data name="labelInfo.Text" xml:space="preserve">
-        <value>При нажатии на кнопку "Применить", для каждого файла, связанного с документом, будет предпринята попытка найти файл с таким же именем в выбранной папке. 
+        <value>При нажатии на кнопку "Применить", для каждого файла, связанного с документом, будет предпринята попытка найти файл с таким же именем в выбранной папке.
         Если такой файл будет найден, соответствующий документ может быть автоматически опубликован. Также можно указать, следует ли снимать с публикации пропущенные документы и удалять (или нет) старые файлы.</value>
     </data>
     <data name="lblFolder.Text" xml:space="preserve">
