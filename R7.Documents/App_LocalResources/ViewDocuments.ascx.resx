@@ -48,8 +48,8 @@
 	<data name="SelectUnselectDocument.Text" xml:space="preserve">
         <value>Select/Unselect Document</value>
     </data>
-	<data name="CopyDocuments.Action" xml:space="preserve">
-        <value>Copy Selected</value>
+	<data name="DuplicateDocuments.Action" xml:space="preserve">
+        <value>Duplicate Selected</value>
     </data>
 	<data name="CopySuffix.Text" xml:space="preserve">
         <value> (Copy)</value>

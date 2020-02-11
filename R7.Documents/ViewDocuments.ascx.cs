@@ -1,6 +1,6 @@
 ﻿//
 // Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
+// Copyright (c) 2014-2020 by Roman M. Yagodin <roman.yagodin@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -93,8 +93,8 @@ namespace R7.Documents
                 if (!documentIds.IsNullOrEmpty ()) {
                     var bulkActions = new DocumentBulkActions ();
                     switch (e.Action.CommandName) {
-                        case "CopyDocuments.Action":
-                            bulkActions.Copy (documentIds, ModuleId, LocalizeString ("CopySuffix.Text"));
+                        case "DuplicateDocuments.Action":
+                            bulkActions.Duplicate (documentIds, ModuleId, LocalizeString ("CopySuffix.Text"));
                             break;
                         case "DeleteDocuments.Action":
                             bulkActions.Delete (documentIds, PortalId, ModuleId);
@@ -343,8 +343,8 @@ namespace R7.Documents
 
                 actions.Add (
                     GetNextActionID (),
-                    LocalizeString ("CopyDocuments.Action"),
-                    "CopyDocuments.Action",
+                    LocalizeString ("DuplicateDocuments.Action"),
+                    "DuplicateDocuments.Action",
                     "",
                     IconController.IconURL ("FileCopy", "16X16", "Gray"),
                     "",

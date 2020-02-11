@@ -4,7 +4,7 @@
 // Author:
 //       Roman M. Yagodin <roman.yagodin@gmail.com>
 //
-// Copyright (c) 2018 Roman M. Yagodin
+// Copyright (c) 2018-2020 Roman M. Yagodin
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ namespace R7.Documents.Logic
 {
     public class DocumentBulkActions
     {
-        public void Copy (IEnumerable<int> documentIds, int moduleId, string copySuffix)
+        public void Duplicate (IEnumerable<int> documentIds, int moduleId, string copySuffix)
         {
             foreach (var documentId in documentIds) {
                 var document = DocumentsDataProvider.Instance.GetDocument (documentId, moduleId);
