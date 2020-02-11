@@ -52,6 +52,8 @@
         <ItemGroup>
             <LocalDeployResourceFilteredFiles Include="@(LocalDeployResourceFiles)" Exclude="@(LocalDeployResourceExcludeFiles)" />
         </ItemGroup>
+		<!-- Copy config file -->
+		<Copy SourceFiles="$(MainProjectPath)/R7.Documents.development.yml" DestinationFiles="$(DnnLocalDeployPath)/Portals/0/R7.Documents.yml" SkipUnchangedFiles="true" />
         <!-- Copy files -->
         <Copy SourceFiles="@(LocalDeployBinaryFiles)" DestinationFolder="$(DnnBinPath)" SkipUnchangedFiles="true" />
         <Copy SourceFiles="@(LocalDeployResourceFilteredFiles)" DestinationFolder="$(DnnModulesPath)/%(RecursiveDir)" SkipUnchangedFiles="true" />

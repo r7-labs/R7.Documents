@@ -145,7 +145,7 @@
     <None Include="App_LocalResources\SharedResources.resx" />
     <None Include="App_LocalResources\SharedResources.ru-RU.resx" />
     <None Include="SqlDataProvider\01.10.00.SqlDataProvider" />
-    <None Include="R7.Documents.default.yml" />
+    <None Include="R7.Documents.development.yml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DocumentsController.cs" />
