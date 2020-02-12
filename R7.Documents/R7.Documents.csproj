@@ -117,7 +117,6 @@
     <Content Include="ViewDocuments.ascx" />
     <Content Include="SettingsDocuments.ascx" />
     <Content Include="EditDocuments.ascx" />
-    <Content Include="ModuleHelp.htm" />
     <Content Include="ChangeFolder.ascx" />
     <Content Include="ImportDocuments.ascx" />
     <Content Include="admin.css" />
