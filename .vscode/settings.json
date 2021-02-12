@@ -6,9 +6,5 @@
         // build output
         "**/bin": true,
         "**/obj": true
-    },
-
-    "files.associations": {
-        "*.SqlDataProvider": "sql"
     }
 }

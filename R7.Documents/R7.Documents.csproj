@@ -130,22 +130,22 @@
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
     <None Include="App_LocalResources\EditDocuments.ascx.resx" />
     <None Include="App_LocalResources\SettingsDocuments.ascx.resx" />
-    <None Include="SqlDataProvider\Uninstall.SqlDataProvider" />
+    <Content Include="SqlDataProvider\Uninstall.dnn.sql" />
     <None Include="App_LocalResources\EditDocuments.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\SettingsDocuments.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\ViewDocuments.ascx.ru-RU.resx" />
-    <None Include="SqlDataProvider\01.00.00.SqlDataProvider" />
+    <Content Include="SqlDataProvider\01.00.00.dnn.sql" />
     <None Include="App_LocalResources\ChangeFolder.ascx.resx" />
     <None Include="App_LocalResources\ChangeFolder.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.ru-RU.resx" />
     <None Include="R7.Documents.dnn" />
-    <None Include="SqlDataProvider\01.00.07.SqlDataProvider" />
-    <None Include="SqlDataProvider\01.00.08.SqlDataProvider" />
-    <None Include="SqlDataProvider\01.09.00.SqlDataProvider" />
+    <Content Include="SqlDataProvider\01.00.07.dnn.sql" />
+    <Content Include="SqlDataProvider\01.00.08.dnn.sql" />
+    <Content Include="SqlDataProvider\01.09.00.dnn.sql" />
     <None Include="App_LocalResources\SharedResources.resx" />
     <None Include="App_LocalResources\SharedResources.ru-RU.resx" />
-    <None Include="SqlDataProvider\01.10.00.SqlDataProvider" />
+    <Content Include="SqlDataProvider\01.10.00.dnn.sql" />
     <None Include="R7.Documents.development.yml" />
   </ItemGroup>
   <ItemGroup>

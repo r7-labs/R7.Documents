@@ -25,7 +25,7 @@
         </ItemGroup>
         <!-- Declare SqlDataProvider files -->
         <ItemGroup>
-            <InstallSqlDataProviderFiles Include="$(MainProjectPath)/SqlDataProvider/*.SqlDataProvider" />
+            <InstallSqlDataProviderFiles Include="$(MainProjectPath)/SqlDataProvider/*.dnn.sql" />
         </ItemGroup>
         <!-- Declare resource files -->
         <ItemGroup>

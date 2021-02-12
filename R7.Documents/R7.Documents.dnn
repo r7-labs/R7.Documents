@@ -107,27 +107,27 @@
 					<scripts>
 						<basePath>DesktopModules\R7.Documents\R7.Documents</basePath>
 						<script type="Install">
-							<name>SqlDataProvider\01.00.00.SqlDataProvider</name>
+							<name>SqlDataProvider\01.00.00.dnn.sql</name>
 							<version>01.00.00</version>
 						</script>
 						<script type="Install">
-							<name>SqlDataProvider\01.00.07.SqlDataProvider</name>
+							<name>SqlDataProvider\01.00.07.dnn.sql</name>
 							<version>01.00.07</version>
 						</script>
 						<script type="Install">
-							<name>SqlDataProvider\01.00.08.SqlDataProvider</name>
+							<name>SqlDataProvider\01.00.08.dnn.sql</name>
 							<version>01.00.08</version>
 						</script>
 						<script type="Install">
-                            <name>SqlDataProvider\01.09.00.SqlDataProvider</name>
+                            <name>SqlDataProvider\01.09.00.dnn.sql</name>
                             <version>01.09.00</version>
                         </script>
 						<script type="Install">
-                            <name>SqlDataProvider\01.10.00.SqlDataProvider</name>
+                            <name>SqlDataProvider\01.10.00.dnn.sql</name>
                             <version>01.10.00</version>
                         </script>
 						<script type="UnInstall">
-							<name>SqlDataProvider\Uninstall.SqlDataProvider</name>
+							<name>SqlDataProvider\Uninstall.dnn.sql</name>
 						</script>
 					</scripts>
 				</component>
