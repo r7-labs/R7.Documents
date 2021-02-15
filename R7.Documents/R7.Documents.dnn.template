@@ -144,6 +144,10 @@
 							<path>bin</path>
 							<name>R7.Documents.dll</name>
 						</assembly>
+						<assembly>
+							<path>bin</path>
+							<name>R7.Documents.Core.dll</name>
+						</assembly>
 					</assemblies>
 				</component>
 			</components>
