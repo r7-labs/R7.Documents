@@ -17,9 +17,11 @@
             <InstallBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.dll" />
             <InstallBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.pdb" Condition="'$(Configuration)' == 'Debug'" />
         </ItemGroup>
+        <!-- Generate main manifest file -->
+        <Exec Command="$(Pwsh) GenerateManifest.ps1 &quot;$(MainProjectOutputPath)/$(MainProjectName).dnn.template&quot; $(ReleaseVersion)" />
         <!-- Declare manifest files -->
         <ItemGroup>
-            <InstallManifestFiles Include="$(MainProjectPath)/*.dnn*" />
+            <InstallManifestFiles Include="$(MainProjectOutputPath)/*.dnn" />
             <InstallManifestFiles Include="$(MainProjectPath)/license.htm" />
             <InstallManifestFiles Include="$(MainProjectPath)/releaseNotes.htm" />
         </ItemGroup>

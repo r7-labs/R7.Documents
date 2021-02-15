@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
 	<packages>
-		<package name="R7.Documents" type="Module" version="01.11.02">
+		<package name="R7.Documents" type="Module" version="{{Version}}">
 			<friendlyName>R7.Documents</friendlyName>
 			<description>This module renders a list of documents, including links to browse or download the document. Documents includes an edit page, which allows authorized users to edit the information about the Documents (for example, a friendly title) stored in the SQL database. Module based on the classic DNN Documents module.</description>
 			<iconFile>~/DesktopModules/R7.Documents/R7.Documents/images/icon.png</iconFile>

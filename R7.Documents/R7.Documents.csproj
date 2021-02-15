@@ -139,7 +139,9 @@
     <None Include="App_LocalResources\ChangeFolder.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.ru-RU.resx" />
-    <None Include="R7.Documents.dnn" />
+    <None Include="R7.Documents.dnn.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="SqlDataProvider\01.00.07.dnn.sql" />
     <Content Include="SqlDataProvider\01.00.08.dnn.sql" />
     <Content Include="SqlDataProvider\01.09.00.dnn.sql" />
