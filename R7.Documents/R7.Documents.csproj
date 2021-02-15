@@ -9,7 +9,7 @@
     <RootNamespace>R7.Documents</RootNamespace>
     <AssemblyName>R7.Documents</AssemblyName>
     <ReleaseVersion>1.11.2</ReleaseVersion>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
