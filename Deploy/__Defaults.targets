@@ -4,19 +4,21 @@
     <PropertyGroup>
         <EnableAfterBuild Condition=" '$(EnableAfterBuild)' == '' ">true</EnableAfterBuild>
     </PropertyGroup>
-    <!-- Configuration-specific defaults -->
+    <!-- Debug -->
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <EnableInstallPackage Condition=" '$(EnableInstallPackage)' == '' ">false</EnableInstallPackage>
         <EnableTests Condition=" '$(EnableTests)' == '' ">false</EnableTests>
         <EnableLocalDeploy Condition=" '$(EnableLocalDeploy)' == '' ">true</EnableLocalDeploy>
     </PropertyGroup>
+    <!-- Release -->
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <EnableInstallPackage Condition=" '$(EnableInstallPackage)' == '' ">true</EnableInstallPackage>
         <EnableTests Condition=" '$(EnableTests)' == '' ">true</EnableTests>
         <EnableLocalDeploy Condition=" '$(EnableLocalDeploy)' == '' ">false</EnableLocalDeploy>
     </PropertyGroup>
+    <!-- PowerShell -->
     <PropertyGroup>
-        <Pwsh Condition=" '$(OS)' == 'Unix' ">pwsh</Pwsh>
-        <Pwsh Condition=" '$(OS)' != 'Unix' ">powershell</Pwsh>
+        <PowerShell Condition=" '$(OS)' == 'Unix' ">pwsh</PowerShell>
+        <PowerShell Condition=" '$(OS)' != 'Unix' ">powershell</PowerShell>
     </PropertyGroup>
 </Project>

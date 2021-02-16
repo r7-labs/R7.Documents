@@ -1,90 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{B89C0162-5810-47A9-A89D-2D507E93AD98}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <RootNamespace>Deploy</RootNamespace>
-        <AssemblyName>Deploy</AssemblyName>
-        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <OutputType>Exe</OutputType>
         <ReleaseVersion>1.11.2</ReleaseVersion>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <RootNamespace>Deploy2</RootNamespace>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug</OutputPath>
-        <DefineConstants>DEBUG;</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <CustomCommands>
-          <CustomCommands>
-            <Command>
-              <type>Custom</type>
-              <name>Build Only</name>
-              <command>msbuild /t:Build /p:Configuration=${ProjectConfigName} /p:EnableAfterBuild=false ../R7.Documents.sln</command>
-            </Command>
-            <Command>
-              <type>Custom</type>
-              <name>Build &amp; Deploy</name>
-              <command>msbuild /t:Build /p:Configuration=${ProjectConfigName} /p:EnableTests=false /p:EnableInstallPackage=false /p:EnableLocalDeploy=true ../R7.Documents.sln</command>
-            </Command>
-            <Command>
-              <type>Custom</type>
-              <name>Re-deploy</name>
-              <command>msbuild /p:Configuration=${ProjectConfigName} /p:EnableTests=false LocalDeploy.targets</command>
-            </Command>
-            <Command>
-              <type>Custom</type>
-              <name>Make Install Package</name>
-              <command>msbuild /t:Build /p:Configuration=${ProjectConfigName} /p:EnableTests=true /p:EnableInstallPackage=true /p:EnableLocalDeploy=false ../R7.Documents.sln</command>
-            </Command>
-            <Command>
-              <type>Custom</type>
-              <name>Run Tests</name>
-              <command>msbuild /t:Build /p:Configuration=${ProjectConfigName} /p:EnableTests=true /p:EnableInstallPackage=false /p:EnableLocalDeploy=false ../R7.Documents.sln</command>
-            </Command>
-          </CustomCommands>
-        </CustomCommands>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release</OutputPath>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
+
     <ItemGroup>
-        <Reference Include="System" />
+      <ProjectReference Include="..\R7.Documents.Tests\R7.Documents.Tests.csproj" />
+      <ProjectReference Include="..\R7.Documents\R7.Documents.csproj" />
     </ItemGroup>
-    <ItemGroup>
-        <None Include="__Defaults.targets" />
-        <None Include="__Settings.targets" />
-        <None Include="InstallPackage.targets" />
-        <None Include="LocalDeploy.targets" />
-        <None Include="Preprocess.targets" />
-        <None Include="Tests.targets" />
-        <None Include="Deploy.csproj" />
-        <None Include="packages.config" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Dummy.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\R7.Documents\R7.Documents.csproj">
-            <Project>{CE24E9F1-305C-4801-97CF-28C255093F48}</Project>
-            <Name>R7.Documents</Name>
-        </ProjectReference>
-    </ItemGroup>
+
     <ItemGroup>
       <Content Include="GenerateManifest.ps1" />
     </ItemGroup>
-    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-    <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
+
     <Import Project="__Settings.targets" />
     <Import Project="__Defaults.targets" />
     <Import Project="Tests.targets" />
-    <Import Project="LocalDeploy.targets" />
     <Import Project="InstallPackage.targets" />
-    <Target Name="AfterBuild" DependsOnTargets="Tests;LocalDeploy;InstallPackage" Condition=" '$(EnableAfterBuild)' != 'false' " />
+    <Import Project="LocalDeploy.targets" />
+
+    <Target Name="AfterBuild">
+        <Message Text="AfterBuild" Importance="high" />
+    </Target>
+        
+    <!-- <Target Name="AfterBuild" DependsOnTargets="Tests;LocalDeploy;InstallPackage" Condition=" '$(EnableAfterBuild)' != 'false' " /> -->
+    <Target Name="CustomAfterBuild" AfterTargets="AfterBuild" DependsOnTargets="Tests;LocalDeploy;InstallPackage" Condition=" '$(EnableAfterBuild)' != 'false' " />
 </Project>

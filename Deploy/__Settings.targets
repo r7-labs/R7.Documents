@@ -1,16 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
-    <!-- Import MSBuild.Community.Tasks -->
-    <Import Project="../packages/MSBuildTasks.1.5.0.235/tools/MSBuild.Community.Tasks.Targets" Condition=" '$(MSBuildCommunityTasksPath)' == '' " />
     <!-- Main settings -->
     <PropertyGroup>
         <MainProjectName>R7.Documents</MainProjectName>
         <PackageName>R7.Documents</PackageName>
-        <DnnLocalDeployPath Condition=" '$(OS)' == 'Unix' ">$(HOME)/mnt/dnn8</DnnLocalDeployPath>
+        <DnnLocalDeployPath Condition=" '$(OS)' == 'Unix' ">/mnt/hdd/$(HOME)/mnt/dnn804</DnnLocalDeployPath>
         <DnnLocalDeployPath Condition=" '$(OS)' != 'Unix' ">C:\Dotnetnuke804</DnnLocalDeployPath>
         <!-- Set to /MVC for MVC modules -->
         <DnnModulesPathPrefix>/R7.Documents</DnnModulesPathPrefix>
-        <CustomExcludeFiles>../images/**/*</CustomExcludeFiles>
     </PropertyGroup>
     <!-- Derieved settings -->
     <PropertyGroup>

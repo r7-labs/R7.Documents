@@ -6,6 +6,6 @@
         <TestsImported>true</TestsImported>
     </PropertyGroup>
     <Target Name="Tests" Condition=" '$(EnableTests)' == 'true' ">
-        <!-- Run tests here -->
+        <Message Text="Run tests here..." />
     </Target>
 </Project>

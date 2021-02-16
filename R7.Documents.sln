@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7.Documents", "R7.Documents\R7.Documents.csproj", "{CE24E9F1-305C-4801-97CF-28C255093F48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy", "Deploy\Deploy.csproj", "{B89C0162-5810-47A9-A89D-2D507E93AD98}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7.Documents.Core", "R7.Documents.Core\R7.Documents.Core.csproj", "{4B12E05C-5133-42CA-8BEF-27218EAE7055}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7.Documents.Tests", "R7.Documents.Tests\R7.Documents.Tests.csproj", "{CE8A984D-DB72-4589-820F-B1D0737809D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy", "Deploy\Deploy.csproj", "{72A43543-EE74-4C80-85E1-1129B4DD1CEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,6 @@ Global
 		{CE24E9F1-305C-4801-97CF-28C255093F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE24E9F1-305C-4801-97CF-28C255093F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE24E9F1-305C-4801-97CF-28C255093F48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B89C0162-5810-47A9-A89D-2D507E93AD98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B89C0162-5810-47A9-A89D-2D507E93AD98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B89C0162-5810-47A9-A89D-2D507E93AD98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B89C0162-5810-47A9-A89D-2D507E93AD98}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B12E05C-5133-42CA-8BEF-27218EAE7055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B12E05C-5133-42CA-8BEF-27218EAE7055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B12E05C-5133-42CA-8BEF-27218EAE7055}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,6 +27,10 @@ Global
 		{CE8A984D-DB72-4589-820F-B1D0737809D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE8A984D-DB72-4589-820F-B1D0737809D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE8A984D-DB72-4589-820F-B1D0737809D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A43543-EE74-4C80-85E1-1129B4DD1CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A43543-EE74-4C80-85E1-1129B4DD1CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A43543-EE74-4C80-85E1-1129B4DD1CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A43543-EE74-4C80-85E1-1129B4DD1CEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

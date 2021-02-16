@@ -2,12 +2,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="Preprocess">
     <Import Project="__Settings.targets" Condition=" '$(BuildSettingsImported)' == '' " />
     <PropertyGroup>
-        <PreprocessImported>true</PreprocessImported>
+        <BundleImported>true</BundleImported>
     </PropertyGroup>
-    <Target Name="Preprocess">
-        <ItemGroup>
-            <!-- Declare files here -->
-        </ItemGroup>
-        <!-- Preprocess files here -->
+    <Target Name="Bundle">
+        <Message Text="Bundle things here..." />
     </Target>
 </Project>
