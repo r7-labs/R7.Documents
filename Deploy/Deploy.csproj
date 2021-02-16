@@ -21,11 +21,6 @@
     <Import Project="Tests.targets" />
     <Import Project="InstallPackage.targets" />
     <Import Project="LocalDeploy.targets" />
-
-    <Target Name="AfterBuild">
-        <Message Text="AfterBuild" Importance="high" />
-    </Target>
         
-    <!-- <Target Name="AfterBuild" DependsOnTargets="Tests;LocalDeploy;InstallPackage" Condition=" '$(EnableAfterBuild)' != 'false' " /> -->
     <Target Name="CustomAfterBuild" AfterTargets="AfterBuild" DependsOnTargets="Tests;LocalDeploy;InstallPackage" Condition=" '$(EnableAfterBuild)' != 'false' " />
 </Project>
