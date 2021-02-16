@@ -22,5 +22,5 @@
     <Import Project="InstallPackage.targets" />
     <Import Project="LocalDeploy.targets" />
         
-    <Target Name="CustomAfterBuild" AfterTargets="AfterBuild" DependsOnTargets="Tests;LocalDeploy;InstallPackage" Condition=" '$(EnableAfterBuild)' != 'false' " />
+    <Target Name="CustomAfterBuild" AfterTargets="AfterBuild;AfterRebuild" DependsOnTargets="Tests;LocalDeploy;InstallPackage" Condition=" '$(EnableAfterBuild)' != 'false' " />
 </Project>
