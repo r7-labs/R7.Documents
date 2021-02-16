@@ -33,7 +33,7 @@
         },
         {
             "taskName": "Build & Deploy",
-            "args": ["/t:Build", "/p:EnableTests=false", "/p:EnableInstallPackage=false", "/p:EnableLocalDeploy=true"],
+            "args": ["/t:Rebuild", "/p:EnableTests=false", "/p:EnableInstallPackage=false", "/p:EnableLocalDeploy=true"],
             // use the standard MS compiler pattern to detect errors, warnings and infos
             "problemMatcher": "$msCompile"
         },
@@ -43,7 +43,7 @@
         },
         {
             "taskName": "Make Install Package",
-            "args": ["/t:Build", "/p:EnableTests=true", "/p:EnableInstallPackage=true", "/p:EnableLocalDeploy=false"],
+            "args": ["/t:Rebuild", "/p:EnableTests=true", "/p:EnableInstallPackage=true", "/p:EnableLocalDeploy=false"],
             // use the standard MS compiler pattern to detect errors, warnings and infos
             "problemMatcher": "$msCompile"
         },
