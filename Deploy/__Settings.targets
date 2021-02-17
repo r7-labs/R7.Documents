@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <!-- Main settings -->
     <PropertyGroup>
-        <MainProjectName>R7.Documents</MainProjectName>
+        <MainProjectName>R7.Documents.Dnn</MainProjectName>
         <PackageName>R7.Documents</PackageName>
         <DnnLocalDeployPath Condition=" '$(OS)' == 'Unix' ">/mnt/hdd/$(HOME)/mnt/dnn804</DnnLocalDeployPath>
         <DnnLocalDeployPath Condition=" '$(OS)' != 'Unix' ">C:\Dotnetnuke804</DnnLocalDeployPath>

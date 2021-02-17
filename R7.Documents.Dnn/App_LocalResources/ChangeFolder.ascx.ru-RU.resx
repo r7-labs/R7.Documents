@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ControlTitle_changefolder.Text" xml:space="preserve">
+        <value>Сменить папку</value>
+    </data>
+    <data name="labelInfo.Text" xml:space="preserve">
+        <value>При нажатии на кнопку "Применить", для каждого файла, связанного с документом, будет предпринята попытка найти файл с таким же именем в выбранной папке.
+        Если такой файл будет найден, соответствующий документ может быть автоматически опубликован. Также можно указать, следует ли снимать с публикации пропущенные документы и удалять (или нет) старые файлы.</value>
+    </data>
+    <data name="lblFolder.Text" xml:space="preserve">
+        <value>Папка:</value>
+    </data>
+    <data name="lblFolder.Help" xml:space="preserve">
+        <value>Выберите папку для поиска файлов в ней.</value>
+    </data>
+    <data name="lblDeleteOldFiles.Text" xml:space="preserve">
+        <value>Удалять старые файлы?</value>
+    </data>
+    <data name="lblDeleteOldFiles.Help" xml:space="preserve">
+        <value>Отметьте, чтобы удалить файлы документов, для которых будут обнаружены соответствующие файлы в целевой папке.
+        Заметьте, что файл будет удален только тогда, когда на него не ссылаются другие документы.</value>
+    </data>
+    <data name="lblUnpublishSkipped.Text" xml:space="preserve">
+        <value>Снимать с публикации пропущенные?</value>
+    </data>
+    <data name="lblUnpublishSkipped.Help" xml:space="preserve">
+        <value>Отметьте, чтобы снять с публикации документы, для которых будут обнаружены соответствующие файлы в целевой папке.</value>
+    </data>
+    <data name="labelPublishUpdated.Text" xml:space="preserve">
+        <value>Публиковать обновленные документы?</value>
+    </data>
+    <data name="labelPublishUpdated.Help" xml:space="preserve">
+        <value>Отметьте чтобы опубликовать документы, для которых были найдены соответствующие файлы в целевой папке.</value>
+    </data>
+    <data name="lblUpdateDefaultFolder.Text" xml:space="preserve">
+        <value>Обновить папку по умолчанию?</value>
+    </data>
+    <data name="lblUpdateDefaultFolder.Help" xml:space="preserve">
+        <value>Отметьте, чтобы обновить папку по умолчанию в настройках модуля.</value>
+    </data>
+    <data name="btnApply.Text" xml:space="preserve">
+        <value>Применить</value>
+    </data>
+</root>

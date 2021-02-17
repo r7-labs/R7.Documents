@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\R7.Documents.Dnn\R7.Documents.Dnn.csproj" />
       <ProjectReference Include="..\R7.Documents.Tests\R7.Documents.Tests.csproj" />
-      <ProjectReference Include="..\R7.Documents\R7.Documents.csproj" />
     </ItemGroup>
 
     <ItemGroup>

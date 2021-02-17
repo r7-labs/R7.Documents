@@ -1,0 +1,156 @@
+<dotnetnuke type="Package" version="5.0">
+	<packages>
+		<package name="R7.Documents" type="Module" version="{{Version}}">
+			<friendlyName>R7.Documents</friendlyName>
+			<description>This module renders a list of documents, including links to browse or download the document. Documents includes an edit page, which allows authorized users to edit the information about the Documents (for example, a friendly title) stored in the SQL database. Module based on the classic DNN Documents module.</description>
+			<iconFile>~/DesktopModules/R7.Documents/R7.Documents.Dnn/images/icon.png</iconFile>
+			<owner>
+				<name>Roman M. Yagodin</name>
+				<organization>R7.Labs</organization>
+				<url>https://github.com/roman-yagodin/R7.Documents</url>
+				<email>roman.yagodin@gmail.com</email>
+			</owner>
+			<license src="license.htm" />
+			<releaseNotes src="releaseNotes.htm" />
+            <azureCompatible>true</azureCompatible>
+			<dependencies>
+                <dependency type="CoreVersion">08.00.04</dependency>
+                <dependency type="managedPackage" version="0.13.0">R7.Dnn.Extensions</dependency>
+            </dependencies>
+            <components>
+				<component type="Cleanup" version="01.11.00">
+					<files>
+                        <basePath>DesktopModules/R7.Documents/R7.Documents/GridStyles</basePath>
+						<file><name>dnn.xml</name></file>
+						<file><name>bootstrap.xml</name></file>
+						<file><name>bootstrap-condensed.xml</name></file>
+					</files>
+				</component>
+				<component type="Module">
+					<desktopModule>
+						<moduleName>R7.Documents</moduleName>
+						<foldername>R7.Documents</foldername>
+						<businessControllerClass>R7.Documents.DocumentsController</businessControllerClass>
+						<supportedFeatures>
+							<supportedFeature type="Portable" />
+							<supportedFeature type="Searchable" />
+						</supportedFeatures>
+						<moduleDefinitions>
+							<moduleDefinition>
+								<friendlyName>R7.Documents</friendlyName>
+								<definitionName>R7_Documents</definitionName>
+								<defaultCacheTime>0</defaultCacheTime>
+								<moduleControls>
+									<moduleControl>
+										<controlKey />
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents.Dnn/ViewDocuments.ascx</controlSrc>
+										<controlTitle />
+										<controlType>View</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPopUps>False</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+									<moduleControl>
+										<controlKey>Edit</controlKey>
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents.Dnn/EditDocuments.ascx</controlSrc>
+										<controlTitle>Edit</controlTitle>
+										<controlType>Edit</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>True</supportsPartialRendering>
+										<supportsPopUps>True</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+									<moduleControl>
+										<controlKey>ChangeFolder</controlKey>
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents.Dnn/ChangeFolder.ascx</controlSrc>
+										<controlTitle>Change Folder</controlTitle>
+										<controlType>Edit</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>True</supportsPartialRendering>
+										<supportsPopUps>True</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+									<moduleControl>
+										<controlKey>ImportDocuments</controlKey>
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents.Dnn/ImportDocuments.ascx</controlSrc>
+                                        <controlTitle>Import Documents</controlTitle>
+										<controlType>Edit</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>True</supportsPartialRendering>
+										<supportsPopUps>True</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+									<moduleControl>
+										<controlKey>Settings</controlKey>
+										<controlSrc>DesktopModules/R7.Documents/R7.Documents.Dnn/SettingsDocuments.ascx</controlSrc>
+                                        <controlTitle>Settings</controlTitle>
+										<controlType>Edit</controlType>
+										<iconFile />
+										<helpUrl />
+										<supportsPartialRendering>False</supportsPartialRendering>
+										<supportsPopUps>False</supportsPopUps>
+										<viewOrder>0</viewOrder>
+									</moduleControl>
+								</moduleControls>
+							</moduleDefinition>
+						</moduleDefinitions>
+					</desktopModule>
+				</component>
+				<component type="Script">
+					<scripts>
+						<basePath>DesktopModules\R7.Documents\R7.Documents.Dnn</basePath>
+						<script type="Install">
+							<name>SqlDataProvider\01.00.00.dnn.sql</name>
+							<version>01.00.00</version>
+						</script>
+						<script type="Install">
+							<name>SqlDataProvider\01.00.07.dnn.sql</name>
+							<version>01.00.07</version>
+						</script>
+						<script type="Install">
+							<name>SqlDataProvider\01.00.08.dnn.sql</name>
+							<version>01.00.08</version>
+						</script>
+						<script type="Install">
+                            <name>SqlDataProvider\01.09.00.dnn.sql</name>
+                            <version>01.09.00</version>
+                        </script>
+						<script type="Install">
+                            <name>SqlDataProvider\01.10.00.dnn.sql</name>
+                            <version>01.10.00</version>
+                        </script>
+						<script type="UnInstall">
+							<name>SqlDataProvider\Uninstall.dnn.sql</name>
+						</script>
+					</scripts>
+				</component>
+				<component type="ResourceFile">
+					<resourceFiles>
+						<basePath>DesktopModules\R7.Documents</basePath>
+						<resourceFile>
+							<name>Resources.zip</name>
+						</resourceFile>
+					</resourceFiles>
+				</component>
+				<component type="Assembly">
+					<assemblies>
+						<basePath>bin</basePath>
+						<assembly>
+							<path>bin</path>
+							<name>R7.Documents.dll</name>
+						</assembly>
+						<assembly>
+							<path>bin</path>
+							<name>R7.Documents.Core.dll</name>
+						</assembly>
+					</assemblies>
+				</component>
+			</components>
+		</package>
+	</packages>
+</dotnetnuke>

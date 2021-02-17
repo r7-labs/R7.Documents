@@ -34,11 +34,11 @@
 - All obsolete / deprecated DNN API calls were refreshed.
 - Enabled cross-platform development using MonoDevelop or Visual Studio Code.
 
-# Install 
+# Install
 
-Download release package and install as usual under Host &gt; Extensions &gt; Install Extension Wizard. 
+Download release package and install as usual under Host &gt; Extensions &gt; Install Extension Wizard.
 
 ## Install notes
 
 - R7.Documents module peacefully co-exists with original DNN Documents in the same DNN installation, on the same page, etc.
-- Russian localization resources will be installed along with english ones. If you don't need this, just delete all *.ru-RU.resx files from /DesktopModules/R7.Documents/R7.Documents/App_LocalResouces folder or modify Resouces.zip in the install package accordingly.
+- Russian localization resources will be installed along with english ones. If you don't need this, just delete all *.ru-RU.resx files from /DesktopModules/R7.Documents/R7.Documents.Dnn/App_LocalResouces folder or modify Resouces.zip in the install package accordingly.

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ControlTitle_changefolder.Text" xml:space="preserve">
+        <value>Change Folder</value>
+    </data>
+    <data name="labelInfo.Text" xml:space="preserve">
+        <value>Then you click "Apply" button, for each document's file in the module, a file with the same name will be searched in the selected folder.
+        If there is such a file, the document could be published automatically. You also can choose to unpublish skipped documents and delete (or not) old files.</value>
+    </data>
+    <data name="lblFolder.Text" xml:space="preserve">
+        <value>Folder:</value>
+    </data>
+    <data name="lblFolder.Help" xml:space="preserve">
+        <value>Please select a folder to search files in.</value>
+    </data>
+    <data name="lblDeleteOldFiles.Text" xml:space="preserve">
+        <value>Delete Old Files?</value>
+    </data>
+    <data name="lblDeleteOldFiles.Help" xml:space="preserve">
+        <value>Check to delete the files of documents, for which corresponding file will be found in the target folder.
+        Note what file will be deleted only then it isn't referenced by other documents.</value>
+    </data>
+    <data name="lblUnpublishSkipped.Text" xml:space="preserve">
+        <value>Unpublish Skipped Documents?</value>
+    </data>
+    <data name="lblUnpublishSkipped.Help" xml:space="preserve">
+        <value>Check to unpublish all documents, for which no corresponding file will be found in the target folder.</value>
+    </data>
+    <data name="labelPublishUpdated.Text" xml:space="preserve">
+        <value>Publish Updated Documents?</value>
+    </data>
+    <data name="labelPublishUpdated.Help" xml:space="preserve">
+        <value>Check to publish all documents, for which corresponding file will be found in the target folder.</value>
+    </data>
+    <data name="lblUpdateDefaultFolder.Text" xml:space="preserve">
+        <value>Update Default Folder?</value>
+    </data>
+    <data name="lblUpdateDefaultFolder.Help" xml:space="preserve">
+        <value>Check to update default folder value in the module settings.</value>
+    </data>
+    <data name="btnApply.Text" xml:space="preserve">
+        <value>Apply</value>
+    </data>
+</root>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="AddContent.Action" xml:space="preserve">
+        <value>Add Document</value>
+    </data>
+    <data name="ChangeFolder.Action" xml:space="preserve">
+        <value>Change Folder</value>
+    </data>
+    <data name="ImportDocuments.Action" xml:space="preserve">
+        <value>Import Documents</value>
+    </data>
+    <data name="Clicks.Format" xml:space="preserve">
+        <value>Downloaded {0} times</value>
+    </data>
+    <data name="DownloadLink.Text" xml:space="preserve">
+        <value>&lt;img src="/icons/Sigma/Dn_16X16_Standard.png" alt="Download" /&gt;</value>
+    </data>
+    <data name="Megabytes.Text" xml:space="preserve">
+        <value>Mb</value>
+    </data>
+    <data name="Kilobytes.Text" xml:space="preserve">
+        <value>Kb</value>
+    </data>
+    <data name="Unknown.Text" xml:space="preserve">
+        <value>Unknown</value>
+    </data>
+    <data name="NothingToDisplay.Text" xml:space="preserve">
+        <value>Nothing to display. Please add some documents.</value>
+    </data>
+    <data name="Page.Text" xml:space="preserve">
+        <value>Page</value>
+    </data>
+	<data name="SelectUnselectAllDocuments.Text" xml:space="preserve">
+        <value>Select All/Unselect All Documents</value>
+    </data>
+	<data name="SelectUnselectDocument.Text" xml:space="preserve">
+        <value>Select/Unselect Document</value>
+    </data>
+	<data name="DuplicateDocuments.Action" xml:space="preserve">
+        <value>Duplicate Selected</value>
+    </data>
+	<data name="CopySuffix.Text" xml:space="preserve">
+        <value> (Copy)</value>
+    </data>
+	<data name="PublishDocuments.Action" xml:space="preserve">
+        <value>Publish Selected</value>
+    </data>
+	<data name="UnPublishDocuments.Action" xml:space="preserve">
+        <value>Unpublish Selected</value>
+    </data>
+	<data name="DeleteDocuments.Action" xml:space="preserve">
+        <value>Delete Selected</value>
+    </data>
+	<data name="DeleteDocumentsWithAssets.Action" xml:space="preserve">
+        <value>Delete Selected with Assets</value>
+    </data>
+</root>
