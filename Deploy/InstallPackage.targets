@@ -16,8 +16,8 @@
 
         <!-- Declare binaries -->
         <ItemGroup>
-            <InstallBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.dll" />
-            <InstallBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.pdb" Condition="'$(Configuration)' == 'Debug'" />
+            <InstallBinaryFiles Include="$(MainProjectOutputPath)/$(BaseProjectName)*.dll" />
+            <InstallBinaryFiles Include="$(MainProjectOutputPath)/$(BaseProjectName)*.pdb" Condition="'$(Configuration)' == 'Debug'" />
         </ItemGroup>
 
         <!-- Generate main manifest file -->

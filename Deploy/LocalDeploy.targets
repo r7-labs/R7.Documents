@@ -13,8 +13,8 @@
 
         <!-- Declare binaries -->
         <ItemGroup>
-            <LocalDeployBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.dll" />
-            <LocalDeployBinaryFiles Include="$(MainProjectOutputPath)/$(MainProjectName)*.pdb" Condition="'$(Configuration)' == 'Debug'" />
+            <LocalDeployBinaryFiles Include="$(MainProjectOutputPath)/$(BaseProjectName)*.dll" />
+            <LocalDeployBinaryFiles Include="$(MainProjectOutputPath)/$(BaseProjectName)*.pdb" Condition="'$(Configuration)' == 'Debug'" />
         </ItemGroup>
 
         <!-- Declare resource files -->

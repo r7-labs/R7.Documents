@@ -146,7 +146,7 @@
 						</assembly>
 						<assembly>
 							<path>bin</path>
-							<name>R7.Documents.Core.dll</name>
+							<name>R7.Documents.Dnn.dll</name>
 						</assembly>
 					</assemblies>
 				</component>
