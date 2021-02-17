@@ -204,9 +204,9 @@
     <Compile Include="Components\HttpOffContextHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\R7.Documents.Core\R7.Documents.Core.csproj">
+    <ProjectReference Include="..\R7.Documents\R7.Documents.csproj">
       <Project>{4b12e05c-5133-42ca-8bef-27218eae7055}</Project>
-      <Name>R7.Documents.Core</Name>
+      <Name>R7.Documents</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

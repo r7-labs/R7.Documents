@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7.Documents.Dnn", "R7.Documents.Dnn\R7.Documents.Dnn.csproj", "{CE24E9F1-305C-4801-97CF-28C255093F48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7.Documents.Core", "R7.Documents.Core\R7.Documents.Core.csproj", "{4B12E05C-5133-42CA-8BEF-27218EAE7055}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7.Documents", "R7.Documents\R7.Documents.csproj", "{4B12E05C-5133-42CA-8BEF-27218EAE7055}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7.Documents.Tests", "R7.Documents.Tests\R7.Documents.Tests.csproj", "{CE8A984D-DB72-4589-820F-B1D0737809D0}"
 EndProject
