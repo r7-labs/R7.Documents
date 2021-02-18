@@ -41,6 +41,7 @@
             <LocalDeployResourceExcludeFiles Include="../.git/**/*" />
 			<LocalDeployResourceExcludeFiles Include="../.vs/**/*" />
             <LocalDeployResourceExcludeFiles Include="../.vscode/**/*" />
+            <LocalDeployResourceExcludeFiles Include="../.idea/**/*" />
             <LocalDeployResourceExcludeFiles Include="../packages/**/*" />
             <LocalDeployResourceExcludeFiles Include="../Deploy/**/*" />
             <LocalDeployResourceExcludeFiles Include="../.*" />
