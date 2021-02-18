@@ -14,7 +14,8 @@ function r7d_selectDocument(documentId, checked, value) {
 }
 function r7d_getModuleId(target) {
 	var c = $(target).closest("div.DnnModule").attr("class");
-	return c.substr(c.lastIndexOf("DnnModule-") + 10);
+	var moduleId = c.match("DnnModule-(\\d+)")[1];
+	return moduleId;
 }
 function r7d_selectDocument2(target) {
 	var documentId = $(target).data("document-id");
