@@ -63,7 +63,7 @@
 	<data name="DeleteDocuments.Action" xml:space="preserve">
         <value>Удалить отмеченные</value>
     </data>
-	<data name="DeleteDocumentsWithAssets.Action" xml:space="preserve">
-        <value>Удалить отмеченные с ресурсами</value>
+	<data name="DeleteDocumentsWithFiles.Action" xml:space="preserve">
+        <value>Удалить отмеченные с файлами</value>
     </data>
 </root>

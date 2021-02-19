@@ -112,7 +112,7 @@
             <li><asp:LinkButton id="btnUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="btnUpdate.Text" OnClick="btnUpdate_Click" /></li>
             <li>&nbsp;</li>
         	<li><asp:LinkButton id="btnDelete" runat="server" CssClass="dnnSecondaryAction" resourcekey="btnDelete" CausesValidation="False" OnClick="btnDelete_Click" /></li>
-			<li><asp:LinkButton id="btnDeleteWithAsset" runat="server" CssClass="dnnSecondaryAction" resourcekey="btnDeleteWithAsset.Text" CausesValidation="False" OnClick="btnDelete_Click" /></li>
+			<li><asp:LinkButton id="btnDeleteWithFile" runat="server" CssClass="dnnSecondaryAction" resourcekey="btnDeleteWithFile.Text" CausesValidation="False" OnClick="btnDelete_Click" /></li>
 			<li>&nbsp;</li>
 			<li><asp:HyperLink id="lnkCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" /></li>
 		</ul>

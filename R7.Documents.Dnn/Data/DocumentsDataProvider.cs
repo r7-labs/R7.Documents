@@ -1,30 +1,4 @@
-﻿//
-// DocumentsDataProvider.cs
-//
-// Author:
-//       Roman M. Yagodin <roman.yagodin@gmail.com>
-//
-// Copyright (c) 2016-2018 Roman M. Yagodin
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -107,30 +81,22 @@ namespace R7.Documents.Data
         }
 
         /// <summary>
-        /// Deletes the resource, accociated with the document (only files and URLs are supported).
+        /// Deletes the file, accociated with the document.
         /// </summary>
         /// <param name="document">Document.</param>
         /// <param name="portalId">Portal identifier.</param>
-        public int DeleteDocumentAsset (DocumentInfo document, int portalId)
+        public int DeleteDocumentFile (DocumentInfo document, int portalId)
         {
             // count resource references
             var count = GetObjects<DocumentInfo> ("WHERE [ItemID] <> @0 AND [Url] = @1", document.ItemId, document.Url).Count ();
 
             // if no other document references it
             if (count == 0) {
-                switch (Globals.GetURLType (document.Url)) {
-                    // delete file
-                    case TabType.File:
-                        var file = FileManager.Instance.GetFile (UrlHelper.GetResourceId (document.Url).Value);
-                        if (file != null) {
-                            FileManager.Instance.DeleteFile (file);
-                        }
-                        break;
-
-                    // delete URL
-                    case TabType.Url:
-                        new UrlController ().DeleteUrl (portalId, document.Url);
-                        break;
+                if (Globals.GetURLType (document.Url) == TabType.File) {
+                    var file = FileManager.Instance.GetFile (UrlHelper.GetResourceId (document.Url).Value);
+                    if (file != null) {
+                        FileManager.Instance.DeleteFile (file);
+                    }
                 }
             }
 
@@ -146,18 +112,18 @@ namespace R7.Documents.Data
             DataProvider.Instance ().DeleteUrlTracking (portalId, oldUrl, moduleId);
         }
 
-        public void DeleteDocument (int documentId, bool withAsset, int portalId, int moduleId)
+        public void DeleteDocument (int documentId, bool withFile, int portalId, int moduleId)
         {
             var document = GetDocument (documentId, moduleId);
             if (document != null) {
                 Delete (document);
                 DeleteDocumentUrl (document.Url, portalId, moduleId);
-                if (withAsset) {
-                    DeleteDocumentAsset (document, portalId);
+                if (withFile) {
+                    DeleteDocumentFile (document, portalId);
                 }
             }
         }
-    
+
         public void UpdateDocumentUrl (DocumentInfo document, string oldUrl, int portalId, int moduleId)
         {
             if (document.Url != oldUrl) {
@@ -207,7 +173,7 @@ namespace R7.Documents.Data
 
                 var urlCtrl = new UrlController ();
                 foreach (var document in documents) {
-                    urlCtrl.UpdateUrl (portalId, document.Url, "F", false, document.TrackClicks, document.ModuleId, document.NewWindow); 
+                    urlCtrl.UpdateUrl (portalId, document.Url, "F", false, document.TrackClicks, document.ModuleId, document.NewWindow);
                 }
 
                 return documents;

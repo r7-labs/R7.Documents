@@ -131,14 +131,14 @@
 	<data name="btnDelete.Text" xml:space="preserve">
         <value>Удалить</value>
     </data>
-	<data name="btnDeleteWithAsset.Text" xml:space="preserve">
-        <value>Удалить вместе с ресурсом</value>
+	<data name="btnDeleteWithFile.Text" xml:space="preserve">
+        <value>Удалить вместе с файлом</value>
     </data>
 	<data name="Delete.Text" xml:space="preserve">
         <value>Уверены, что хотите удалить этот документ?</value>
     </data>
-	<data name="DeleteWithAsset.Text" xml:space="preserve">
-        <value>Уверены, что хотите удалить этот документ вместе со связанным с ним ресурсом (файлом или ссылкой)? Обратите внимание, что ресурс будет удален только в том случае, если на него не ссылаются другие документы.</value>
+	<data name="DeleteWithFile.Text" xml:space="preserve">
+        <value>Уверены, что хотите удалить этот документ вместе со связанным с ним файлом? Обратите внимание, что файл будет удален только в том случае, если на него не ссылаются другие документы.</value>
     </data>
     <data name="btnAddMore.Text" xml:space="preserve">
         <value>Добавить</value>
@@ -161,8 +161,8 @@
 	<data name="DocumentDeleted.Format" xml:space="preserve">
         <value>Документ &quot;{0}&quot; удалён. Вы можете восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
     </data>
-	<data name="DocumentDeletedWithAsset.Format" xml:space="preserve">
-        <value>Документ &quot;{0}&quot; удалён вместе со связанным ресурсом (файлом). Вы можете попробовать восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
+	<data name="DocumentDeletedWithFile.Format" xml:space="preserve">
+        <value>Документ &quot;{0}&quot; удалён вместе со связанным файлом. Вы можете попробовать восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
     </data>
 	<data name="lblFeatured.Text" xml:space="preserve">
 		<value>Выделенный?</value>

@@ -63,7 +63,7 @@
 	<data name="DeleteDocuments.Action" xml:space="preserve">
         <value>Delete Selected</value>
     </data>
-	<data name="DeleteDocumentsWithAssets.Action" xml:space="preserve">
-        <value>Delete Selected with Assets</value>
+	<data name="DeleteDocumentsWithFiles.Action" xml:space="preserve">
+        <value>Delete Selected with Files</value>
     </data>
 </root>

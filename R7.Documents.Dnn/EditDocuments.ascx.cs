@@ -92,8 +92,8 @@ namespace R7.Documents
             btnDelete.Attributes.Add ("onClick",
                 "javascript:return confirm('" + LocalizeString ("Delete.Text")  + "');");
 
-            btnDeleteWithAsset.Attributes.Add ("onClick",
-                "javascript:return confirm('" + LocalizeString ("DeleteWithAsset.Text") + "');");
+            btnDeleteWithFile.Attributes.Add ("onClick",
+                "javascript:return confirm('" + LocalizeString ("DeleteWithFile.Text") + "');");
 
             // Configure categories entry as a list or textbox, based on user settings
             if (Settings.UseCategoriesList) {
@@ -164,7 +164,7 @@ namespace R7.Documents
                 // TODO: Duplicate calls
                 var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
                 if (document != null) {
-                    DocumentsDataProvider.Instance.DeleteDocument (ItemId.Value, sender == btnDeleteWithAsset, PortalId, ModuleId);
+                    DocumentsDataProvider.Instance.DeleteDocument (ItemId.Value, sender == btnDeleteWithFile, PortalId, ModuleId);
                     this.Message (string.Format (LocalizeString ("DocumentDeleted.Format"), document.Title), MessageType.Warning);
 
                     mvEditDocument.ActiveViewIndex = 1;
@@ -246,7 +246,7 @@ namespace R7.Documents
             btnAdd.Visible = true;
             btnUpdate.Visible = false;
             btnDelete.Visible = false;
-            btnDeleteWithAsset.Visible = false;
+            btnDeleteWithFile.Visible = false;
 
             txtSortIndex.Text = ((CalculateSortIndex () ?? 0) + 10).ToString ();
 
@@ -344,7 +344,7 @@ namespace R7.Documents
             btnAdd.Visible = false;
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
-            btnDeleteWithAsset.Visible = true;
+            btnDeleteWithFile.Visible = true;
         }
 
         void AddLog (string message, EventLogController.EventLogType logType)

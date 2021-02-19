@@ -1,25 +1,4 @@
-﻿//
-// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using DotNetNuke.Common;
@@ -54,7 +33,7 @@ namespace R7.Documents
         {
             try {
                 var folder = ddlFolder.SelectedFolder;
-				
+
                 if (folder != null) {
                     var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
                     var files = FolderManager.Instance.GetFiles (folder);
@@ -63,9 +42,9 @@ namespace R7.Documents
                         if (Globals.GetURLType (document.Url) == TabType.File) {
                             var docFileId = UrlHelper.GetResourceId (document.Url);
                             var docFile = FileManager.Instance.GetFile (docFileId.Value);
-							
+
                             if (docFile != null) {
-                                var updated = false; 
+                                var updated = false;
                                 var oldDocument = document.Clone ();
 
                                 var matchedFile = FindMatchedFile (docFile, files);
@@ -116,7 +95,7 @@ namespace R7.Documents
                 // safe remove old resources, if needed - need to do this before update!
                 if (chkDeleteOldFiles.Checked) {
                     if (oldDocument.Url != document.Url && !string.IsNullOrEmpty (oldDocument.Url)) {
-                        DocumentsDataProvider.Instance.DeleteDocumentAsset (
+                        DocumentsDataProvider.Instance.DeleteDocumentFile (
                             oldDocument,
                             PortalId);
                     }
@@ -139,7 +118,7 @@ namespace R7.Documents
                     document.UnPublish ();
                     DocumentsDataProvider.Instance.Update (document);
                 }
-            } 
+            }
         }
     }
 }

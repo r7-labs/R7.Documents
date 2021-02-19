@@ -20,7 +20,7 @@ namespace R7.Documents
         protected LinkButton btnUpdate;
 		protected HyperLink lnkCancel;
 		protected LinkButton btnDelete;
-        protected LinkButton btnDeleteWithAsset;
+        protected LinkButton btnDeleteWithFile;
 		protected LinkButton cmdUpdateOverride;
 		protected ModuleAuditControl ctlAudit;
 		protected TextBox txtSortIndex;

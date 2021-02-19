@@ -77,8 +77,8 @@ namespace R7.Documents
                         case "DeleteDocuments.Action":
                             bulkActions.Delete (documentIds, PortalId, ModuleId);
                             break;
-                        case "DeleteDocumentsWithAssets.Action":
-                            bulkActions.DeleteWithAsset (documentIds, PortalId, ModuleId);
+                        case "DeleteDocumentsWithFiles.Action":
+                            bulkActions.DeleteWithFile (documentIds, PortalId, ModuleId);
                             break;
                         case "PublishDocuments.Action":
                             bulkActions.Publish (documentIds, ModuleId);
@@ -382,8 +382,8 @@ namespace R7.Documents
 
                 actions.Add (
                     GetNextActionID (),
-                    LocalizeString ("DeleteDocumentsWithAssets.Action"),
-                    "DeleteDocumentsWithAssets.Action",
+                    LocalizeString ("DeleteDocumentsWithFiles.Action"),
+                    "DeleteDocumentsWithFiles.Action",
                     "",
                     IconController.IconURL ("Delete", "16X16", "Standard_2"),
                     "",
