@@ -164,7 +164,7 @@
 	<data name="DocumentDeletedWithFile.Format" xml:space="preserve">
         <value>Document &quot;{0}&quot; was deleted with related file. You can try to restore it by pressing &quot;Add&quot; button.</value>
     </data>
-	<data name="lblFeatured.Text" xml:space="preserve">
+	<data name="lblIsFeatured.Text" xml:space="preserve">
 		<value>IsFeatured?</value>
 	</data>
 	<data name="lblIsFeatured.Help" xml:space="preserve">

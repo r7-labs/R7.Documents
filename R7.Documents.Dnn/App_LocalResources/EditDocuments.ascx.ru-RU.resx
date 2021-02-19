@@ -164,7 +164,7 @@
 	<data name="DocumentDeletedWithFile.Format" xml:space="preserve">
         <value>Документ &quot;{0}&quot; удалён вместе со связанным файлом. Вы можете попробовать восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
     </data>
-	<data name="lblFeatured.Text" xml:space="preserve">
+	<data name="lblIsFeatured.Text" xml:space="preserve">
 		<value>Выделенный?</value>
 	</data>
 	<data name="lblIsFeatured.Help" xml:space="preserve">
