@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <ReleaseVersion>1.11.2</ReleaseVersion>
+        <ReleaseVersion>1.12.0</ReleaseVersion>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <RootNamespace>Deploy2</RootNamespace>
     </PropertyGroup>
@@ -21,6 +21,6 @@
     <Import Project="Tests.targets" />
     <Import Project="InstallPackage.targets" />
     <Import Project="LocalDeploy.targets" />
-        
+
     <Target Name="CustomAfterBuild" AfterTargets="AfterBuild;AfterRebuild" DependsOnTargets="Tests;LocalDeploy;InstallPackage" Condition=" '$(EnableAfterBuild)' != 'false' " />
 </Project>

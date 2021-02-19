@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>R7.Documents</RootNamespace>
     <AssemblyName>R7.Documents.Dnn</AssemblyName>
-    <ReleaseVersion>1.11.2</ReleaseVersion>
+    <ReleaseVersion>1.12.0</ReleaseVersion>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="module.css" />
+    <Content Include="SqlDataProvider\01.12.00.dnn.sql" />
     <Content Include="ViewDocuments.ascx" />
     <Content Include="SettingsDocuments.ascx" />
     <Content Include="EditDocuments.ascx" />

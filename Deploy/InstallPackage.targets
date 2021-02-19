@@ -21,7 +21,7 @@
         </ItemGroup>
 
         <!-- Generate main manifest file -->
-        <Exec Command="$(PowerShell) GenerateManifest.ps1 &quot;$(MainProjectOutputPath)/$(MainProjectName).dnn.template&quot; $(ReleaseVersion)" />
+        <Exec Command="$(PowerShell) GenerateManifest.ps1 &quot;$(MainProjectOutputPath)/$(BaseProjectName).dnn.template&quot; $(ReleaseVersion)" />
 
         <!-- Declare manifest files -->
         <ItemGroup>
