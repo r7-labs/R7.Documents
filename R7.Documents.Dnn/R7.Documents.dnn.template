@@ -124,6 +124,10 @@
                             <name>SqlDataProvider\01.10.00.dnn.sql</name>
                             <version>01.10.00</version>
                         </script>
+                        <script type="Install">
+                            <name>SqlDataProvider\01.12.00.dnn.sql</name>
+                            <version>01.12.00</version>
+                        </script>
 						<script type="UnInstall">
 							<name>SqlDataProvider\Uninstall.dnn.sql</name>
 						</script>

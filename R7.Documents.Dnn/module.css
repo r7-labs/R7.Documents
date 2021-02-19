@@ -5,7 +5,7 @@
  	white-space:nowrap
 }
 
-.ViewDocuments .SizeCell, 
+.ViewDocuments .SizeCell,
 .ViewDocuments .ClicksCell
 {
 	text-align:right;
@@ -19,8 +19,8 @@
 .ViewDocuments .EditCell img { vertical-align:baseline }
 .ViewDocuments .EditCell input[type='checkbox'] { margin-left:.3rem }
 
-.ViewDocuments .ClicksHeader, 
-.ViewDocuments .SizeHeader,  
+.ViewDocuments .ClicksHeader,
+.ViewDocuments .SizeHeader,
 .ViewDocuments .DownloadLinkHeader,
 .ViewDocuments .ModifiedDateHeader,
 .ViewDocuments .ModifiedByHeader,
@@ -36,3 +36,5 @@
 
 .ViewDocuments ._nonpublished { background-color:#ffc!important }
 .ViewDocuments ._nonpublished:hover { background-color:#fefe97!important }
+
+.ViewDocuments .r7docs-featured { font-weight:bold }

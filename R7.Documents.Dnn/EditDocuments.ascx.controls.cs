@@ -34,5 +34,6 @@ namespace R7.Documents
         protected MultiView mvEditDocument;
         protected LinkButton btnEdit;
         protected HyperLink lnkClose;
+        protected CheckBox chkIsFeatured;
 	}
 }

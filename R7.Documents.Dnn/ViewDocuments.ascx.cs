@@ -1,26 +1,4 @@
-﻿//
-// Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2020 by Roman M. Yagodin <roman.yagodin@gmail.com>
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +39,7 @@ namespace R7.Documents
         const int NOT_READ = -2;
 
         int titleColumnIndex = NOT_READ;
-		
+
         int downloadLinkColumnIndex = NOT_READ;
 
         List<DocumentViewModel> _documents;
@@ -165,7 +143,7 @@ namespace R7.Documents
             // Determine if we need to reverse the sort.  This is needed if an existing sort on the same column existed that was desc
             if (ViewState ["CurrentSortOrder"] != null && ViewState ["CurrentSortOrder"].ToString () != string.Empty) {
                 var existingSort = ViewState ["CurrentSortOrder"].ToString ();
-                if (existingSort.StartsWith (e.SortExpression, StringComparison.InvariantCulture) 
+                if (existingSort.StartsWith (e.SortExpression, StringComparison.InvariantCulture)
                     && existingSort.EndsWith ("ASC", StringComparison.InvariantCulture)) {
                     objCustomSortDirecton = Models.SortDirection.Descending;
                     strSortDirectionString = "DESC";
@@ -192,7 +170,7 @@ namespace R7.Documents
         protected override void OnPreRender (EventArgs e)
         {
             base.OnPreRender (e);
-			
+
             // only bind if not a user selected sort
             if (_documents == null) {
                 // use DocumentComparer to do sort based on the default sort order
@@ -220,7 +198,7 @@ namespace R7.Documents
         /// grdDocuments_ItemCreated runs when an item in the grid is created
         /// </summary>
         /// <remarks>
-        /// Set NavigateUrl for title, download links.  Also sets "scope" on 
+        /// Set NavigateUrl for title, download links.  Also sets "scope" on
         /// header rows so that text-to-speech readers can interpret the header row.
         /// </remarks>
         /// <history>
@@ -229,7 +207,7 @@ namespace R7.Documents
         protected void grdDocuments_RowCreated (object sender, GridViewRowEventArgs e)
         {
             try {
-                e.Row.Cells [0].Visible = IsEditable && !Settings.FolderMode;  
+                e.Row.Cells [0].Visible = IsEditable && !Settings.FolderMode;
 
                 switch (e.Row.RowType) {
                     case DataControlRowType.Header:
@@ -243,15 +221,11 @@ namespace R7.Documents
 						// as a template, which we can't data-bind, so we need to set the text
 						// value here
                         var document = Documents [e.Row.RowIndex];
-                        
+
 						// set CSS class for edit column cells
                         e.Row.Cells [0].CssClass = "EditCell";
 
-						// decorate unpublished items
-                        if (!document.IsPublished (HttpContext.Current.Timestamp)) {
-                            e.Row.CssClass = ((e.Row.RowIndex % 2 == 0) ? grdDocuments.RowStyle.CssClass
-                                : grdDocuments.AlternatingRowStyle.CssClass) + " _nonpublished";
-                        }
+                        e.Row.CssClass = GetRowCssClass (document, e.Row.RowIndex);
 
                         if (Settings.ShowTitleLink) {
                             if (titleColumnIndex == NOT_READ) {
@@ -264,7 +238,7 @@ namespace R7.Documents
                                 // dynamically set the title link URL
                                 var linkTitle = (HyperLink) e.Row.Controls [titleColumnIndex + 1].FindControl ("ctlTitle");
                                 linkTitle.Text = document.Title;
-								
+
                                 // set link title to display document description
                                 linkTitle.ToolTip = document.Description;
 
@@ -273,7 +247,7 @@ namespace R7.Documents
                             }
                         }
 
-						// if there's a "download" link, set the NavigateUrl 
+						// if there's a "download" link, set the NavigateUrl
                         if (downloadLinkColumnIndex == NOT_READ) {
                             downloadLinkColumnIndex = DocumentsSettings.FindGridColumn (
                                 DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK,
@@ -294,6 +268,23 @@ namespace R7.Documents
             catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
+        }
+
+        string GetRowCssClass (IDocument document, int rowIndex)
+        {
+            var rowCssClass = (rowIndex % 2 == 0)
+                ? grdDocuments.RowStyle.CssClass
+                : grdDocuments.AlternatingRowStyle.CssClass;
+
+            if (document.IsFeatured) {
+                rowCssClass += " r7docs-featured";
+            }
+
+            if (!document.IsPublished (HttpContext.Current.Timestamp)) {
+                rowCssClass += " _nonpublished";
+            }
+
+            return rowCssClass;
         }
 
         #endregion
@@ -540,7 +531,7 @@ namespace R7.Documents
                         }
                     }
                     break;
-            
+
                 case TabType.Tab:
                     var tab = TabController.Instance.GetTab (int.Parse (url), PortalId);
                     if (tab != null && TabPermissionController.CanViewPage (tab)) {
@@ -585,7 +576,7 @@ namespace R7.Documents
             objBoundColumn.DataField = dataField;
             objBoundColumn.DataFormatString = "{0:" + format + "}";
             objBoundColumn.HeaderText = title;
-		
+
             // added 5/17/2007 by Mitchel Sellers
             if (Settings.AllowUserSort) {
                 objBoundColumn.SortExpression = dataField;
@@ -616,13 +607,13 @@ namespace R7.Documents
             objTemplateColumn.HeaderText = (name == "ctlDownloadLink") ? string.Empty : title;
             objTemplateColumn.HeaderStyle.CssClass = cssClass + "Header";
             objTemplateColumn.ItemStyle.CssClass = cssClass + "Cell";
-			
+
             // added 5/17/2007 by Mitchel Sellers
             // add the sort expression, however ensure that it is NOT added for download
             if (Settings.AllowUserSort && !name.Equals ("ctlDownloadLink")) {
                 objTemplateColumn.SortExpression = dataField;
             }
-			
+
             grdDocuments.Columns.Add (objTemplateColumn);
         }
     }

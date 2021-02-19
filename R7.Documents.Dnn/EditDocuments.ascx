@@ -40,7 +40,7 @@
                         Type="Integer" MaximumValue="2147483647" MinimumValue="-2147483648"
 						resourcekey="SortIndex.Invalid" CssClass="dnnFormMessage dnnFormError" Display="Dynamic" />
                 </div>
-				<div class="dnnFormItem control-group-start">
+	            <div class="dnnFormItem control-group-start">
                     <dnn:Label id="lblStartDate" runat="server" ControlName="dtStartDate" />
                     <dnn:DnnDateTimePicker id="dtStartDate" runat="server" />
                 </div>
@@ -72,6 +72,10 @@
 				<div class="dnnFormItem">
                     <dnn:Label id="lblLinkAttributes" runat="server" ControlName="txtLinkAttributes" />
                     <asp:TextBox runat="server" id="txtLinkAttributes" MaxLength="255" />
+                </div>
+                <div class="dnnFormItem">
+                    <dnn:Label id="lblIsFeatured" runat="server" ControlName="chkIsFeatured" />
+                    <asp:CheckBox id="chkIsFeatured" runat="server" />
                 </div>
 				<div class="dnnFormItem">
                     <dnn:Label id="lblForceDownload" runat="server" ControlName="chkForceDownload" />

@@ -1,25 +1,4 @@
-﻿//
-// Copyright (c) 2014-2018 by Roman M. Yagodin <roman.yagodin@gmail.com>
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,7 +39,7 @@ namespace R7.Documents
                             portalSettings.PortalAlias.CultureCode, "", "mid", moduleInfo.ModuleID.ToString ()),
                         IsActive = document.IsPublished (now)
                     };
-					
+
                     searchDocs.Add (sd);
                 }
             }
@@ -78,20 +57,20 @@ namespace R7.Documents
         /// <param name="moduleId">The Id of the module to be exported</param>
         /// <history>
         ///		[cnurse]	    17 Nov 2004	documented
-        ///		[aglenwright]	18 Feb 2006	Added new fields: Createddate, description, 
+        ///		[aglenwright]	18 Feb 2006	Added new fields: Createddate, description,
         ///                             modifiedbyuser, modifieddate, OwnedbyUser, SortorderIndex
         ///                             Added DocumentsSettings
-        ///   [togrean]     10 Jul 2007 Fixed issues with importing documet settings since new fileds 
+        ///   [togrean]     10 Jul 2007 Fixed issues with importing documet settings since new fileds
         ///                             were added: AllowSorting, default folder, list name
-        ///   [togrean]     13 Jul 2007 Added support for exporting documents Url tracking options  
+        ///   [togrean]     13 Jul 2007 Added support for exporting documents Url tracking options
         /// </history>
         public string ExportModule (int moduleId)
         {
             var mCtrl = new ModuleController ();
             var module = mCtrl.GetModule (moduleId, Null.NullInteger);
-		
+
             var strXml = new StringBuilder ("<documents>");
-		
+
             try {
                 var documents = DocumentsDataProvider.Instance.GetDocuments (moduleId, module.PortalID);
 
@@ -119,6 +98,9 @@ namespace R7.Documents
                         strXml.AppendFormat (
                             "<linkattributes>{0}</linkattributes>",
                             XmlUtils.XMLEncode (document.LinkAttributes));
+                        strXml.AppendFormat (
+                            "<isfeatured>{0}</isfeatured>",
+                            XmlUtils.XMLEncode (document.IsFeatured.ToString ()));
 
                         // Export Url Tracking options too
                         var urlCtrl = new UrlController ();
@@ -177,18 +159,18 @@ namespace R7.Documents
         /// <param name="moduleId">The Id of the module to be imported</param>
         /// <history>
         ///		[cnurse]	    17 Nov 2004	documented
-        ///		[aglenwright]	18 Feb 2006	Added new fields: Createddate, description, 
+        ///		[aglenwright]	18 Feb 2006	Added new fields: Createddate, description,
         ///                             modifiedbyuser, modifieddate, OwnedbyUser, SortorderIndex
         ///                             Added DocumentsSettings
-        ///   [togrean]     10 Jul 2007 Fixed issues with importing documet settings since new fileds 
-        ///                             were added: AllowSorting, default folder, list name    
-        ///   [togrean]     13 Jul 2007 Added support for importing documents Url tracking options     
+        ///   [togrean]     10 Jul 2007 Fixed issues with importing documet settings since new fileds
+        ///                             were added: AllowSorting, default folder, list name
+        ///   [togrean]     13 Jul 2007 Added support for importing documents Url tracking options
         /// </history>
         public void ImportModule (int moduleId, string content, string version, int userId)
         {
             var mCtrl = new ModuleController ();
             var module = mCtrl.GetModule (moduleId, Null.NullInteger);
-			
+
             var xmlDocuments = Globals.GetContent (content, "documents");
             var documentNodes = xmlDocuments.SelectNodes ("document");
             var now = DateTime.Now;
@@ -204,6 +186,7 @@ namespace R7.Documents
                     SortOrderIndex = XmlUtils.GetNodeValueInt (documentNode, "sortorderindex"),
                     LinkAttributes = XmlUtils.GetNodeValue (documentNode, "linkattributes"),
                     ForceDownload = XmlUtils.GetNodeValueBoolean (documentNode, "forcedownload"),
+                    IsFeatured = XmlUtils.GetNodeValueBoolean (documentNode, "isfeatured"),
                     StartDate = GetNodeValueDateNullable (documentNode, "startDate"),
                     EndDate = GetNodeValueDateNullable (documentNode, "endDate"),
                     CreatedByUserId = userId,

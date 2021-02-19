@@ -164,4 +164,10 @@
 	<data name="DocumentDeletedWithAsset.Format" xml:space="preserve">
         <value>Document &quot;{0}&quot; was deleted with related asset (file). You can try to restore it by pressing &quot;Add&quot; button.</value>
     </data>
+	<data name="lblFeatured.Text" xml:space="preserve">
+		<value>IsFeatured?</value>
+	</data>
+	<data name="lblIsFeatured.Help" xml:space="preserve">
+		<value>Check to mark document as featured.</value>
+	</data>
 </root>

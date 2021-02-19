@@ -62,6 +62,8 @@ namespace R7.Documents.Models
 
         string LinkAttributes { get; }
 
+        bool IsFeatured { get; }
+
         bool TrackClicks { get; }
 
         bool NewWindow { get; }
