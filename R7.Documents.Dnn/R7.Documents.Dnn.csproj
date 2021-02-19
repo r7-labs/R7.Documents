@@ -113,6 +113,7 @@
     <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controls\UrlControlWrapper.ascx" />
     <Content Include="module.css" />
     <Content Include="SqlDataProvider\01.12.00.dnn.sql" />
     <Content Include="ViewDocuments.ascx" />
@@ -153,6 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DocumentsController.cs" />
+    <Compile Include="Controls\UrlControlWrapper.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>UrlControlWrapper.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewDocuments.ascx.cs">
       <DependentUpon>ViewDocuments.ascx</DependentUpon>
     </Compile>

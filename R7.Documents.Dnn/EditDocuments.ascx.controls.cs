@@ -1,6 +1,7 @@
 ﻿using System.Web.UI.WebControls;
 using DotNetNuke.UI.UserControls;
 using DotNetNuke.Web.UI.WebControls;
+using R7.Documents.Controls;
 
 namespace R7.Documents
 {
@@ -8,7 +9,7 @@ namespace R7.Documents
 	{
 		protected TextBox txtTitle;
 		protected RequiredFieldValidator valName;
-		protected DnnUrlControl ctlUrl;
+		protected UrlControlWrapper ctlUrl;
 		protected TextBox txtCategory;
 		protected TextBox txtDescription;
 		protected CheckBox chkForceDownload;

@@ -251,7 +251,7 @@ namespace R7.Documents
             txtSortIndex.Text = ((CalculateSortIndex () ?? 0) + 10).ToString ();
 
             if (IsFirstLoad) {
-                SelectFolder (ctlUrl, Settings.DefaultFolder ?? FolderHistory.GetLastFolderId (Request, PortalId));
+                SelectFolder (ctlUrl.BaseUrlControl, Settings.DefaultFolder ?? FolderHistory.GetLastFolderId (Request, PortalId));
             }
 
             ctlUrl.NewWindow = DocumentsConfig.Instance.NewWindow;

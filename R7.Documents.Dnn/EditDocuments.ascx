@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
-<%@ Register TagPrefix="dnn" TagName="URL" Src="~/controls/DnnUrlControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Tracking" Src="~/controls/URLTrackingControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
+<%@ Register TagPrefix="r7docs" TagName="Url" Src="~/DesktopModules/R7.Documents/R7.Documents.Dnn/Controls/UrlControlWrapper.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
@@ -26,13 +26,8 @@
         	    </div>
         		<div class="dnnFormItem">
         	        <dnn:Label id="lblUrl" runat="server" ControlName="ctlUrl" />
-        	       	<div class="dnnLeft">
-        	            <dnn:Url id="ctlUrl" runat="server" UrlType="F"
-    						ShowTabs="true" IncludeActiveTab="true"
-    						ShowNone="True"  ShowNewWindow="True"
-    						ShowSecure="True" ShowDatabase="True" />
-        	        </div>
-				</div>
+        	       	<r7docs:Url id="ctlUrl" runat="server" />
+        	    </div>
 				<div class="dnnFormItem">
                     <dnn:Label id="lblSortIndex" runat="server" ControlName="txtSortIndex" />
                     <asp:TextBox id="txtSortIndex" runat="server">10</asp:TextBox>
