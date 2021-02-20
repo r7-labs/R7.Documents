@@ -20,6 +20,7 @@ namespace R7.Documents.Models
         public const string COLUMN_DOWNLOADLINK = "DownloadLink";
         public const string COLUMN_CLICKS = "Clicks";
         public const string COLUMN_ICON = "Icon";
+        public const string COLUMN_ISFEATURED = "IsFeatured";
 
         public static HashSet<string> AvailableDisplayColumns = new HashSet<string> {
             COLUMN_ICON,
@@ -49,7 +50,8 @@ namespace R7.Documents.Models
             COLUMN_MODIFIEDDATE,
             COLUMN_MODIFIEDBY,
             COLUMN_SIZE,
-            COLUMN_CLICKS
+            COLUMN_CLICKS,
+            COLUMN_ISFEATURED
         };
 
         #region "Properties"

@@ -54,4 +54,7 @@
 	<data name="NotSelected.Text" xml:space="preserve">
         <value>&lt;Not Selected&gt;</value>
     </data>
+	<data name="IsFeatured.Column" xml:space="preserve">
+		<value>Is Featured?</value>
+	</data>
 </root>
