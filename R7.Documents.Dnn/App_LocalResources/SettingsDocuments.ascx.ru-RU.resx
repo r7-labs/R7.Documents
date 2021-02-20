@@ -123,12 +123,12 @@
     <data name="Root.Text" xml:space="preserve">
         <value>Корень</value>
     </data>
-    <data name="SortOrderAscending.Text" xml:space="preserve">
-        <value>По возрастанию</value>
-    </data>
-    <data name="SortOrderDescending.Text" xml:space="preserve">
-        <value>По убыванию</value>
-    </data>
+	<data name="SortOrderAscending.Text" xml:space="preserve">
+		<value>По возрастанию (А-Я)</value>
+	</data>
+	<data name="SortOrderDescending.Text" xml:space="preserve">
+		<value>По убыванию (Я-А)</value>
+	</data>
     <data name="UnableToFindLists.Text" xml:space="preserve">
         <value>Управление списками доступно в меню Хост &gt; Списки</value>
     </data>

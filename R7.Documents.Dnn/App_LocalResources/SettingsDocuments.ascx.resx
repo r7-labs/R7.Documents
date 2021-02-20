@@ -119,12 +119,12 @@
     <data name="msgNoListsAvailable.Text" xml:space="preserve">
         <value>There are no lists available for use.  Use the List Editor to manage lists.</value>
     </data>
-    <data name="SortOrderAscending.Text" xml:space="preserve">
-        <value>Ascending</value>
-    </data>
-    <data name="SortOrderDescending.Text" xml:space="preserve">
-        <value>Descending</value>
-    </data>
+	<data name="SortOrderAscending.Text" xml:space="preserve">
+		<value>Ascending (A-Z)</value>
+	</data>
+	<data name="SortOrderDescending.Text" xml:space="preserve">
+		<value>Descending (Z-A)</value>
+	</data>
     <data name="NoListAccess.Text" xml:space="preserve">
         <value>In order to create/edit a list you must contact your host admininstator.</value>
     </data>
