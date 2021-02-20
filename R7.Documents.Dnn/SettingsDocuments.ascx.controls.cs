@@ -16,7 +16,7 @@ namespace R7.Documents
 		protected DnnFolderDropDownList ddlDefaultFolder;
 		protected HyperLink lnkEditLists;
 		protected Label lblNoListsAvailable;
-		protected DropDownList ddlSortOrderDirection;
+		protected RadioButtonList rblSortOrderDirection;
 		protected CheckBox chkAllowUserSort;
 		protected Label lblCannotEditLists;
         protected TextBox txtDateTimeFormat;

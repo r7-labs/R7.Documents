@@ -1,26 +1,4 @@
-﻿//
-// Copyright (c) 2002-2011 by DotNetNuke Corporation
-// Copyright (c) 2014-2020 by Roman M. Yagodin <roman.yagodin@gmail.com>
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,9 +42,9 @@ namespace R7.Documents
         {
             base.OnInit (e);
 
-            // fill sort order direction combobox
-            ddlSortOrderDirection.AddItem (LocalizeString ("SortOrderAscending.Text"), "ASC");
-            ddlSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
+            rblSortOrderDirection.AddItem (LocalizeString ("SortOrderAscending.Text"), "ASC");
+            rblSortOrderDirection.AddItem (LocalizeString ("SortOrderDescending.Text"), "DESC");
+            rblSortOrderDirection.SelectedIndex = 0;
 
             // bind grid styles
             ddlGridStyle.DataSource = DocumentsConfig.Instance.GridStyles;
@@ -173,7 +151,7 @@ namespace R7.Documents
 
             objSortColumns = RetrieveSortColumnSettings ();
             objNewSortColumn.ColumnName = ddlSortFields.SelectedValue;
-            if (ddlSortOrderDirection.SelectedValue == "ASC") {
+            if (rblSortOrderDirection.SelectedValue == "ASC") {
                 objNewSortColumn.Direction = Models.SortDirection.Ascending;
             } else {
                 objNewSortColumn.Direction = Models.SortDirection.Descending;
@@ -232,7 +210,7 @@ namespace R7.Documents
                         // can be caused if the selected folder has been deleted
                         Exceptions.LogException (ex);
                     }
-                   
+
                     try {
                         ddlCategoriesList.SelectedValue = Settings.CategoriesListName;
                     }
@@ -271,7 +249,7 @@ namespace R7.Documents
                     // sort by DisplayOrder
                     BindColumnSettings (objColumnSettings);
 
-                    // load sort columns 
+                    // load sort columns
                     string strSortColumn = null;
                     foreach (string strSortColumn_loopVariable in DocumentsDisplayColumnInfo.AvailableSortColumns) {
                         strSortColumn = strSortColumn_loopVariable;

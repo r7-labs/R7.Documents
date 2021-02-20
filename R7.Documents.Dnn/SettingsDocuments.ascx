@@ -84,9 +84,11 @@
 		</div>
 	    <div class="dnnFormItem">
 	        <label class="dnnLabel"></label>
-	        <asp:DropDownList id="ddlSortOrderDirection" runat="server" CssClass="ddlSortOrderDirection" />
-	        <asp:LinkButton id="lnkAddSortColumn" runat="server" resourcekey="lnkAddSortColumn" CssClass="dnnSecondaryAction"
-                OnClick="lnkAddSortColumn_Click" />
+	        <asp:RadioButtonList id="rblSortOrderDirection" runat="server" CssClass="rblSortOrderDirection" RepeatDirection="Horizontal" />
+	    </div>
+	    <div class="dnnFormItem">
+			<label class="dnnLabel"></label>
+			<asp:LinkButton id="lnkAddSortColumn" runat="server" resourcekey="lnkAddSortColumn" CssClass="dnnSecondaryAction" OnClick="lnkAddSortColumn_Click" />
 	    </div>
 	    <div class="dnnFormItem">
 	        <label class="dnnLabel"></label>
