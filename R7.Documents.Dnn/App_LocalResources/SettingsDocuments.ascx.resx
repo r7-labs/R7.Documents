@@ -30,10 +30,7 @@
     <data name="lblGridStyle.Text" xml:space="preserve">
         <value>Grid Style:</value>
     </data>
-    <data name="labelGrid Style.Help" xml:space="preserve">
-        <value>Select one of the available styles for the documents grid.</value>
-    </data>
-    <data name="lblDisplayColumns.Text" xml:space="preserve">
+	<data name="lblDisplayColumns.Text" xml:space="preserve">
         <value>Display Columns:</value>
     </data>
     <data name="lblDisplayColumns.Help" xml:space="preserve">
@@ -137,4 +134,7 @@
     <data name="lblDateTimeFormat.Help" xml:space="preserve">
         <value>Enter .NET format string for date and time values (e.g. "ddd, dd MMM yyyy") or leave empty to use default format. More info here: https://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx</value>
     </data>
+	<data name="lblGridStyle.Help" xml:space="preserve">
+		<value>Select one of the available styles for the documents grid.</value>
+	</data>
 </root>
