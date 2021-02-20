@@ -191,8 +191,6 @@
     <Compile Include="Components\ModuleDefinitions.cs" />
     <Compile Include="Models\GridStyle.cs" />
     <Compile Include="Models\DocumentsSettings.cs" />
-    <Compile Include="Models\DocumentSortColumnInfo.cs" />
-    <Compile Include="Models\DocumentDisplayColumnInfo.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="Models\DocumentExtensions.cs" />
     <Compile Include="ViewModels\IDocumentViewModel.cs" />
