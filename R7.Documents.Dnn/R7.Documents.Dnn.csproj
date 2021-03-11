@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DocumentsController.cs" />
+    <Compile Include="Components\GridStyleApplicator.cs" />
     <Compile Include="ViewDocuments.ascx.cs">
       <DependentUpon>ViewDocuments.ascx</DependentUpon>
     </Compile>
@@ -189,7 +190,6 @@
     <Compile Include="Data\DocumentsDataProvider.cs" />
     <Compile Include="Components\ModuleSynchronizer.cs" />
     <Compile Include="Components\ModuleDefinitions.cs" />
-    <Compile Include="Models\GridStyle.cs" />
     <Compile Include="Models\DocumentsSettings.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="Models\DocumentExtensions.cs" />

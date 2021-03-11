@@ -20,6 +20,7 @@ using DotNetNuke.Services.Localization;
 using R7.Dnn.Extensions.Collections;
 using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.ViewModels;
+using R7.Documents.Components;
 using R7.Documents.Data;
 using R7.Documents.Logic;
 using R7.Documents.Models;
@@ -56,7 +57,8 @@ namespace R7.Documents
             grdDocuments.AllowSorting = Settings.AllowUserSort;
 
             var gridStyle = DocumentsConfig.Instance.GridStyles.First (gs => gs.Name == Settings.GridStyle);
-            gridStyle.ApplyToGrid (grdDocuments);
+            var gridStyleApplicator = new GridStyleApplicator ();
+            gridStyleApplicator.Apply (grdDocuments, gridStyle);
 
             AddActionHandler (new ActionEventHandler (DocumentsActionEventHandler));
         }
