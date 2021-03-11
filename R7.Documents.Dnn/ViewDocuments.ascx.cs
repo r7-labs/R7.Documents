@@ -22,7 +22,7 @@ using R7.Dnn.Extensions.Modules;
 using R7.Dnn.Extensions.ViewModels;
 using R7.Documents.Components;
 using R7.Documents.Data;
-using R7.Documents.Logic;
+using R7.Documents.Commands;
 using R7.Documents.Models;
 using R7.Documents.ViewModels;
 using R7.University.Components;
@@ -71,22 +71,22 @@ namespace R7.Documents
                                                          .Select (d => int.Parse (d));
 
                 if (!documentIds.IsNullOrEmpty ()) {
-                    var bulkActions = new DocumentBulkActions ();
+                    var bulkCommands = new DocumentBulkCommands ();
                     switch (e.Action.CommandName) {
                         case "DuplicateDocuments.Action":
-                            bulkActions.Duplicate (documentIds, ModuleId, LocalizeString ("CopySuffix.Text"));
+                            bulkCommands.Duplicate (documentIds, ModuleId, LocalizeString ("CopySuffix.Text"));
                             break;
                         case "DeleteDocuments.Action":
-                            bulkActions.Delete (documentIds, PortalId, ModuleId);
+                            bulkCommands.Delete (documentIds, PortalId, ModuleId);
                             break;
                         case "DeleteDocumentsWithFiles.Action":
-                            bulkActions.DeleteWithFile (documentIds, PortalId, ModuleId);
+                            bulkCommands.DeleteWithFile (documentIds, PortalId, ModuleId);
                             break;
                         case "PublishDocuments.Action":
-                            bulkActions.Publish (documentIds, ModuleId);
+                            bulkCommands.Publish (documentIds, ModuleId);
                             break;
                         case "UnPublishDocuments.Action":
-                            bulkActions.UnPublish (documentIds, ModuleId);
+                            bulkCommands.UnPublish (documentIds, ModuleId);
                             break;
                     }
 

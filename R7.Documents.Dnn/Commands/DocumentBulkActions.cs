@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using R7.Documents.Data;
 
-namespace R7.Documents.Logic
+namespace R7.Documents.Commands
 {
-    public class DocumentBulkActions
+    public class DocumentBulkCommands
     {
         public void Duplicate (IEnumerable<int> documentIds, int moduleId, string copySuffix)
         {

@@ -109,7 +109,7 @@
     <Folder Include="Data\" />
     <Folder Include="ViewModels\" />
     <Folder Include="js\" />
-    <Folder Include="Logic\" />
+    <Folder Include="Commands\" />
     <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
@@ -196,7 +196,7 @@
     <Compile Include="ViewModels\IDocumentViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModelComparer.cs" />
     <Compile Include="ViewModels\DocumentSortColumnViewModel.cs" />
-    <Compile Include="Logic\DocumentBulkActions.cs" />
+    <Compile Include="Commands\DocumentBulkActions.cs" />
     <Compile Include="Models\DocumentsSettingsRepository.cs" />
     <Compile Include="Models\DocumentsPortalConfig.cs" />
     <Compile Include="Components\DocumentsConfig.cs" />
