@@ -1,8 +1,10 @@
 # User-specific
 /.vs/
+/.idea/
 *.userprefs
 *.usertasks
 *.csproj.user
+*.DotSettings.user
 
 # Build output
 */bin/*
