@@ -6,8 +6,10 @@
 	        https://andrewlock.net/fixing-the-error-program-has-more-than-one-entry-point-defined-for-console-apps-containing-xunit-tests/ -->
         <GenerateProgramFile>false</GenerateProgramFile>
         <!-- End fix -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <IsPackable>false</IsPackable>
         <LangVersion>7.3</LangVersion>
+        <ReleaseVersion>1.12.0</ReleaseVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,6 +27,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\R7.Documents\R7.Documents.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\R7.Documents\Properties\SolutionInfo.cs" Link="Properties\SolutionInfo.cs" />
     </ItemGroup>
 
 </Project>

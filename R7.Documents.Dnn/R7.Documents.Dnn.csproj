@@ -199,6 +199,7 @@
     <Compile Include="Models\DocumentsPortalConfig.cs" />
     <Compile Include="Components\DocumentsConfig.cs" />
     <Compile Include="Components\HttpOffContextHelper.cs" />
+    <Compile Include="..\R7.Documents\Properties\SolutionInfo.cs" Link="Properties\SolutionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\R7.Documents\R7.Documents.csproj">
