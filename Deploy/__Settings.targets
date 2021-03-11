@@ -5,8 +5,8 @@
         <BaseProjectName>R7.Documents</BaseProjectName>
         <MainProjectName>R7.Documents.Dnn</MainProjectName>
         <PackageName>R7.Documents</PackageName>
-        <DnnLocalDeployPath Condition=" '$(OS)' == 'Unix' ">/mnt/hdd/$(HOME)/mnt/dnn980</DnnLocalDeployPath>
-        <DnnLocalDeployPath Condition=" '$(OS)' != 'Unix' ">C:\Dotnetnuke804</DnnLocalDeployPath>
+        <DnnLocalDeployPath Condition=" '$(OS)' == 'Unix' ">$(HOME)/mnt/dnn990</DnnLocalDeployPath>
+        <DnnLocalDeployPath Condition=" '$(OS)' != 'Unix' ">C:\Dotnetnuke990</DnnLocalDeployPath>
         <!-- Set to /MVC for MVC modules -->
         <DnnModulesPathPrefix>/R7.Documents</DnnModulesPathPrefix>
     </PropertyGroup>
