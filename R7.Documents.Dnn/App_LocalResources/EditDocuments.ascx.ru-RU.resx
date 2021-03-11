@@ -44,9 +44,9 @@
     <data name="lblForceDownload.Help">
         <value>При установке этого флага форсируется скачивание файла при переходе по ссылке. Полезно в тех случаях, когда нужно исключить открытие документов непосредственно в браузере пользователя.</value>
     </data>
-    <data name="lblForceDownload.Text">
-        <value>Скачивание?</value>
-    </data>
+	<data name="lblForceDownload.Text">
+		<value>Скачивать?</value>
+	</data>
     <data name="lblLinkAttributes.Text" xml:space="preserve">
         <value>Атрибуты ссылки:</value>
     </data>
@@ -165,7 +165,7 @@
         <value>Документ &quot;{0}&quot; удалён вместе со связанным файлом. Вы можете попробовать восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
     </data>
 	<data name="lblIsFeatured.Text" xml:space="preserve">
-		<value>Выделенный?</value>
+		<value>Выделить?</value>
 	</data>
 	<data name="lblIsFeatured.Help" xml:space="preserve">
 		<value>Отметьте, чтобы выделить документ.</value>
