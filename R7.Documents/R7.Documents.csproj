@@ -4,7 +4,7 @@
         <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
         <RootNamespace>R7.Documents</RootNamespace>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <ReleaseVersion>1.12.0</ReleaseVersion>
+        <ReleaseVersion>1.13.0</ReleaseVersion>
     </PropertyGroup>
 
 </Project>
