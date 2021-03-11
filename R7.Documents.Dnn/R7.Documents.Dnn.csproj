@@ -193,8 +193,6 @@
     <Compile Include="Models\DocumentsSettings.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="Models\DocumentExtensions.cs" />
-    <Compile Include="ViewModels\IDocumentViewModel.cs" />
-    <Compile Include="ViewModels\DocumentViewModelComparer.cs" />
     <Compile Include="ViewModels\DocumentSortColumnViewModel.cs" />
     <Compile Include="Commands\DocumentBulkActions.cs" />
     <Compile Include="Models\DocumentsSettingsRepository.cs" />
