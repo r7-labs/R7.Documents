@@ -18,12 +18,12 @@ namespace R7.Documents.ViewModels
     {
         protected IDocument Model;
 
-        protected ViewModelContext<DocumentsSettings> Context;
+        protected ViewModelContext<DocumentsSettings> Dnn;
 
-        public DocumentViewModel (IDocument document, ViewModelContext<DocumentsSettings> context)
+        public DocumentViewModel (IDocument document, ViewModelContext<DocumentsSettings> dnn)
         {
             Model = document;
-            Context = context;
+            Dnn = dnn;
         }
 
         #region IDocumentViewModel implementation
@@ -77,13 +77,13 @@ namespace R7.Documents.ViewModels
         }
 
         string _createdByUser;
-        public string CreatedByUser => _createdByUser ?? (_createdByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.CreatedByUserId) ?? Context.LocalizeString ("None_Specified"));
+        public string CreatedByUser => _createdByUser ?? (_createdByUser = UserHelper.GetUserDisplayName (Dnn.Module.PortalId, Model.CreatedByUserId) ?? Dnn.LocalizeString ("None_Specified"));
 
         string _modifiedByUser;
-        public string ModifiedByUser => _modifiedByUser ?? (_modifiedByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.ModifiedByUserId) ?? Context.LocalizeString ("None_Specified"));
+        public string ModifiedByUser => _modifiedByUser ?? (_modifiedByUser = UserHelper.GetUserDisplayName (Dnn.Module.PortalId, Model.ModifiedByUserId) ?? Dnn.LocalizeString ("None_Specified"));
 
         string _ownedByUser;
-        public string OwnedByUser => _ownedByUser ?? (_ownedByUser = UserHelper.GetUserDisplayName (Context.Module.PortalId, Model.OwnedByUserId) ?? Context.LocalizeString ("None_Specified"));
+        public string OwnedByUser => _ownedByUser ?? (_ownedByUser = UserHelper.GetUserDisplayName (Dnn.Module.PortalId, Model.OwnedByUserId) ?? Dnn.LocalizeString ("None_Specified"));
 
         #endregion
 
@@ -94,16 +94,16 @@ namespace R7.Documents.ViewModels
                     try {
                         if (Size > 0) {
                             if (Size > (1024 * 1024)) {
-                                _formatSize = string.Format ("{0:#,##0.00} {1}", Size / 1024f / 1024f, Localization.GetString ("Megabytes.Text", Context.LocalResourceFile));
+                                _formatSize = string.Format ("{0:#,##0.00} {1}", Size / 1024f / 1024f, Dnn.LocalizeString ("Megabytes.Text"));
                             } else {
-                                _formatSize = string.Format ("{0:#,##0.00} {1}", Size / 1024f, Localization.GetString ("Kilobytes.Text", Context.LocalResourceFile));
+                                _formatSize = string.Format ("{0:#,##0.00} {1}", Size / 1024f, Dnn.LocalizeString ("Kilobytes.Text"));
                             }
                         }
                     } catch (Exception ex) {
                         Exceptions.LogException (ex);
                     }
                     if (_formatSize == null) {
-                        _formatSize = Localization.GetString ("Unknown.Text", Context.LocalResourceFile);
+                        _formatSize = Dnn.LocalizeString ("Unknown.Text");
                     }
                 }
                 return _formatSize;
@@ -134,7 +134,7 @@ namespace R7.Documents.ViewModels
 
                     case TabType.Tab:
                         _formatIcon = string.Format ("<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" />",
-                                                     IconController.IconURL ("FileLink", "16X16", "Black"), Localization.GetString ("Page.Text", Context.LocalResourceFile));
+                                                     IconController.IconURL ("FileLink", "16X16", "Black"), Dnn.LocalizeString ("Page.Text"));
                         break;
 
                     default:
