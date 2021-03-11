@@ -55,8 +55,8 @@
         <value> (Копия)</value>
     </data>
 	<data name="PublishDocuments.Action" xml:space="preserve">
-        <value>Опубликовать отмеченные</value>
-    </data>
+		<value>Публиковать отмеченные</value>
+	</data>
 	<data name="UnPublishDocuments.Action" xml:space="preserve">
         <value>Снять отмеченные с публикации</value>
     </data>
