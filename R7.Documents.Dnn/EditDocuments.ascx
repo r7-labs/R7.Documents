@@ -35,7 +35,7 @@
 				</div>
 				<div class="dnnFormItem">
                     <dnn:Label id="lblSortIndex" runat="server" ControlName="txtSortIndex" />
-                    <asp:TextBox id="txtSortIndex" runat="server">10</asp:TextBox>
+                    <asp:TextBox id="txtSortIndex" runat="server" TextMode="Number">10</asp:TextBox>
                     <asp:RangeValidator id="valSortIndex" runat="server" ControlToValidate="txtSortIndex"
                         Type="Integer" MaximumValue="2147483647" MinimumValue="-2147483648"
 						resourcekey="SortIndex.Invalid" CssClass="dnnFormMessage dnnFormError" Display="Dynamic" />
