@@ -152,18 +152,18 @@
 	<data name="btnEdit.Text" xml:space="preserve">
         <value>Edit</value>
     </data>
-    <data name="DocumentAdded.Format" xml:space="preserve">
-        <value>Document &quot;{0}&quot; was added successfully.</value>
-    </data>
+	<data name="DocumentAdded.Format" xml:space="preserve">
+		<value>Document &lt;strong&gt;{0}&lt;/strong&gt; was added successfully.</value>
+	</data>
 	<data name="DocumentUpdated.Format" xml:space="preserve">
-        <value>Document &quot;{0}&quot; was updated successfully.</value>
-    </data>
+		<value>Document &lt;strong&gt;{0}&lt;/strong&gt; was updated successfully.</value>
+	</data>
 	<data name="DocumentDeleted.Format" xml:space="preserve">
-        <value>Document &quot;{0}&quot; was deleted. You can restore it by pressing &quot;Add&quot; button.</value>
-    </data>
+		<value>Document &lt;strong&gt;{0}&lt;/strong&gt; was deleted. You can restore it by pressing "Add" button.</value>
+	</data>
 	<data name="DocumentDeletedWithFile.Format" xml:space="preserve">
-        <value>Document &quot;{0}&quot; was deleted with related file. You can try to restore it by pressing &quot;Add&quot; button.</value>
-    </data>
+		<value>Document &lt;strong&gt;{0}&lt;/strong&gt; was deleted with related file. You can try to restore it by pressing "Add" button.</value>
+	</data>
 	<data name="lblIsFeatured.Text" xml:space="preserve">
 		<value>IsFeatured?</value>
 	</data>

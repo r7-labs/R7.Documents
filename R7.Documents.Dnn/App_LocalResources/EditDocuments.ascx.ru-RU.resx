@@ -152,18 +152,18 @@
 	<data name="btnEdit.Text" xml:space="preserve">
         <value>Изменить</value>
     </data>
-    <data name="DocumentAdded.Format" xml:space="preserve">
-        <value>Документ &quot;{0}&quot; успешно добавлен.</value>
-    </data>
+	<data name="DocumentAdded.Format" xml:space="preserve">
+		<value>Документ &lt;strong&gt;{0}&lt;/strong&gt; успешно добавлен.</value>
+	</data>
 	<data name="DocumentUpdated.Format" xml:space="preserve">
-        <value>Документ &quot;{0}&quot; успешно сохранён.</value>
-    </data>
+		<value>Документ &lt;strong&gt;{0}&lt;/strong&gt; успешно сохранён.</value>
+	</data>
 	<data name="DocumentDeleted.Format" xml:space="preserve">
-        <value>Документ &quot;{0}&quot; удалён. Вы можете восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
-    </data>
+		<value>Документ &lt;strong&gt;{0}&lt;/strong&gt; удалён. Вы можете восстановить его, нажав кнопку "Добавить".</value>
+	</data>
 	<data name="DocumentDeletedWithFile.Format" xml:space="preserve">
-        <value>Документ &quot;{0}&quot; удалён вместе со связанным файлом. Вы можете попробовать восстановить его, нажав кнопку &quot;Добавить&quot;.</value>
-    </data>
+		<value>Документ &lt;strong&gt;{0}&lt;/strong&gt; удалён вместе со связанным файлом. Вы можете попробовать восстановить его, нажав кнопку "Добавить".</value>
+	</data>
 	<data name="lblIsFeatured.Text" xml:space="preserve">
 		<value>Выделить?</value>
 	</data>
