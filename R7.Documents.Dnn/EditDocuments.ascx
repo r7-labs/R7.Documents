@@ -52,6 +52,12 @@
     	</div>
     	<div id="document-advanced-tab">
             <fieldset>
+	            <div class="dnnFormItem">
+                    <dnn:Label id="lblParentDocument" runat="server" ControlName="ddlParentDocument" />
+                    <asp:DropDownList id="ddlParentDocument" runat="server"
+						DataTextField="Title"
+						DataValueField="ItemID" />
+                </div>
 				<div class="dnnFormItem">
                     <dnn:Label id="lblDescription" runat="server" ControlName="txtDescription" />
                     <asp:TextBox id="txtDescription" runat="server" TextMode="MultiLine" Rows="3" />

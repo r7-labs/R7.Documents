@@ -116,6 +116,19 @@ namespace R7.Documents
                 lstCategory.Visible = false;
                 txtCategory.Visible = true;
             }
+
+            InitParentDocuments ();
+        }
+
+        void InitParentDocuments ()
+        {
+            var parentDocuments = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId)
+                .Where (d => d.ParentDocumentId == null)
+                .OrderBy (d => d.Title);
+
+            ddlParentDocument.DataSource = parentDocuments;
+            ddlParentDocument.DataBind ();
+            ddlParentDocument.InsertDefaultItem (LocalizeString ("None_Specified"));
         }
 
         /// <summary>
@@ -299,6 +312,8 @@ namespace R7.Documents
                 dtCreatedDate.SelectedDate = document.CreatedDate;
                 dtLastModifiedDate.SelectedDate = document.ModifiedDate;
                 txtSortIndex.Text = document.SortOrderIndex.ToString ();
+
+                ddlParentDocument.SelectByValue (document.ParentDocumentId);
 
                 if (!string.IsNullOrEmpty (document.Url)) {
                     ctlUrl.Url = document.Url;
@@ -564,6 +579,7 @@ namespace R7.Documents
                     document.LinkAttributes = txtLinkAttributes.Text;
                     document.IsFeatured = chkIsFeatured.Checked;
                     document.ModifiedByUserId = UserInfo.UserID;
+                    document.ParentDocumentId = ParseHelper.ParseToNullable<int> (ddlParentDocument.SelectedValue, true);
 
                     UpdateDateTime (document, oldDocument);
                     UpdateOwner (document);

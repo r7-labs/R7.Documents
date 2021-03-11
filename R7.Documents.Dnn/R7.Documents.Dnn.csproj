@@ -115,6 +115,7 @@
   <ItemGroup>
     <Content Include="module.css" />
     <Content Include="SqlDataProvider\01.12.00.dnn.sql" />
+    <Content Include="SqlDataProvider\01.13.00.dnn.sql" />
     <Content Include="ViewDocuments.ascx" />
     <Content Include="SettingsDocuments.ascx" />
     <Content Include="EditDocuments.ascx" />

@@ -35,5 +35,6 @@ namespace R7.Documents
         protected LinkButton btnEdit;
         protected HyperLink lnkClose;
         protected CheckBox chkIsFeatured;
+        protected DropDownList ddlParentDocument;
 	}
 }

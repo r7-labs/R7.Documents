@@ -32,6 +32,8 @@ namespace R7.Documents.Models
     {
         int ItemId { get; }
 
+        int? ParentDocumentId { get; }
+
         int ModuleId { get; }
 
         int CreatedByUserId { get; }

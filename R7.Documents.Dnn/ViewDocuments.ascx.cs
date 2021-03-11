@@ -503,7 +503,9 @@ namespace R7.Documents
         IEnumerable<DocumentViewModel> LoadDocuments_Internal ()
         {
             var viewModelContext = new ViewModelContext<DocumentsSettings> (this, Settings);
-            return GetDocuments ().Select (d => new DocumentViewModel (d, viewModelContext));
+            return GetDocuments ()
+                .Where (d => d.ParentDocumentId == null)
+                .Select (d => new DocumentViewModel (d, viewModelContext));
         }
 
         IEnumerable<DocumentInfo> GetDocuments ()

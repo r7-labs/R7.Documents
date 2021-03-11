@@ -5,7 +5,6 @@ using DotNetNuke.Entities.Icons;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
-using DotNetNuke.Services.Localization;
 using R7.Dnn.Extensions.Models;
 using R7.Dnn.Extensions.Text;
 using R7.Dnn.Extensions.Users;
@@ -43,6 +42,8 @@ namespace R7.Documents.ViewModels
         public bool ForceDownload => Model.ForceDownload;
 
         public int ItemId => Model.ItemId;
+
+        public int? ParentDocumentId => Model.ParentDocumentId;
 
         public string LinkAttributes => Model.LinkAttributes;
 
