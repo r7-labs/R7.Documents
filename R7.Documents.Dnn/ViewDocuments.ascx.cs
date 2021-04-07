@@ -300,7 +300,7 @@ namespace R7.Documents
 
                 actions.Add (
                     GetNextActionID (),
-                    Localization.GetString (ModuleActionType.AddContent, LocalResourceFile),
+                    LocalizeString (ModuleActionType.AddContent),
                     ModuleActionType.AddContent,
                     "",
                     IconController.IconURL ("Add"),
@@ -312,7 +312,7 @@ namespace R7.Documents
 
                 actions.Add (
                     GetNextActionID (),
-                    Localization.GetString ("ImportDocuments.Action", LocalResourceFile),
+                    LocalizeString ("ImportDocuments.Action"),
                     "ImportDocuments.Action",
                     "",
                     IconController.IconURL ("Rt"),
@@ -324,7 +324,7 @@ namespace R7.Documents
 
                 actions.Add (
                     GetNextActionID (),
-                    Localization.GetString ("ChangeFolder.Action", LocalResourceFile),
+                    LocalizeString ("ChangeFolder.Action"),
                     "ChangeFolder.Action",
                     "",
                     IconController.IconURL ("FileMove", "16X16", "Gray"),
@@ -462,17 +462,17 @@ namespace R7.Documents
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_ICON:
-                        AddDocumentColumn (Localization.GetString ("Icon.Column", LocalResourceFile), "Icon",
+                        AddDocumentColumn (LocalizeString ("Icon.Column"), "Icon",
                             nameof (DocumentViewModel.FormatIcon), false);
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_TITLE:
                         if (Settings.ShowTitleLink) {
-                            AddDownloadLink (Localization.GetString ("Title.Column", LocalResourceFile),
+                            AddDownloadLink (LocalizeString ("Title.Column"),
                                 "Title", nameof (DocumentViewModel.Title), "ctlTitle");
                         }
                         else {
-                            AddDocumentColumn (Localization.GetString ("Title.Column", LocalResourceFile),
+                            AddDocumentColumn (LocalizeString ("Title.Column"),
                                 "Title", nameof (DocumentViewModel.Title));
                         }
                         break;
@@ -601,7 +601,7 @@ namespace R7.Documents
             var objTemplateColumn = new TemplateField ();
 
             objTemplateColumn.ItemTemplate = new DownloadColumnTemplate (
-                name, Localization.GetString ("DownloadLink.Text", LocalResourceFile), ListItemType.Item
+                name, LocalizeString ("DownloadLink.Text"), ListItemType.Item
             );
 
             objTemplateColumn.HeaderText = (name == "ctlDownloadLink") ? string.Empty : title;
