@@ -422,54 +422,63 @@ namespace R7.Documents
 
             // add columns dynamically
             foreach (var column in Settings.GetDisplayColumnList (LocalResourceFile)) {
-                if (column.Visible) {
-                    switch (column.ColumnName) {
-                        case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
-                        case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
-                        case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
-                            AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName);
-                            break;
+                if (!column.Visible) {
+                    continue;
+                }
 
-                        case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
-                        case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
-                            AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName + "User");
-                            break;
+                switch (column.ColumnName) {
+                    case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
+                    case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
+                    case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
+                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName,
+                            column.ColumnName);
+                        break;
 
-                        case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
-                        case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
-                        case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
-                            AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName, true, dateTimeFormat);
-                            break;
+                    case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
+                    case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
+                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName,
+                            column.ColumnName + "User");
+                        break;
 
-                        case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
-                            AddDownloadLink ("DownloadLink.Column", "DownloadLink", "DownloadLink", "ctlDownloadLink");
-                            break;
+                    case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
+                    case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
+                    case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
+                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName,
+                            column.ColumnName, true, dateTimeFormat);
+                        break;
 
-                        case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
-                            AddDocumentColumn (LocalizeString ("Owner.Column"), "Owner", "OwnedByUser");
-                            break;
+                    case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
+                        AddDownloadLink ("DownloadLink.Column", "DownloadLink", "DownloadLink", "ctlDownloadLink");
+                        break;
 
-                        case DocumentsDisplayColumnInfo.COLUMN_SIZE:
-                            AddDocumentColumn (LocalizeString ("Size.Column"), "Size", "FormatSize");
-                            break;
+                    case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
+                        AddDocumentColumn (LocalizeString ("Owner.Column"), "Owner", "OwnedByUser");
+                        break;
 
-                        case DocumentsDisplayColumnInfo.COLUMN_ICON:
-                            AddDocumentColumn (Localization.GetString ("Icon.Column", LocalResourceFile), "Icon", "FormatIcon", false);
-                            break;
+                    case DocumentsDisplayColumnInfo.COLUMN_SIZE:
+                        AddDocumentColumn (LocalizeString ("Size.Column"), "Size", "FormatSize");
+                        break;
 
-                        case DocumentsDisplayColumnInfo.COLUMN_TITLE:
-                            if (Settings.ShowTitleLink) {
-                                AddDownloadLink (Localization.GetString ("Title.Column", LocalResourceFile), "Title", "Title", "ctlTitle");
-                            }
-                            else {
-                                AddDocumentColumn (Localization.GetString ("Title.Column", LocalResourceFile), "Title", "Title");
-                            }
-                            break;
+                    case DocumentsDisplayColumnInfo.COLUMN_ICON:
+                        AddDocumentColumn (Localization.GetString ("Icon.Column", LocalResourceFile), "Icon",
+                            "FormatIcon", false);
+                        break;
 
-                        case DocumentsDisplayColumnInfo.COLUMN_SIGNATURE:
-                            AddDocumentColumn (LocalizeString ("Signature.Column"), "signature-link", "SignatureLink", false);
-                            break;
-                    }
+                    case DocumentsDisplayColumnInfo.COLUMN_TITLE:
+                        if (Settings.ShowTitleLink) {
+                            AddDownloadLink (Localization.GetString ("Title.Column", LocalResourceFile), "Title",
+                                "Title", "ctlTitle");
+                        }
+                        else {
+                            AddDocumentColumn (Localization.GetString ("Title.Column", LocalResourceFile), "Title",
+                                "Title");
+                        }
+                        break;
+
+                    case DocumentsDisplayColumnInfo.COLUMN_SIGNATURE:
+                        AddDocumentColumn (LocalizeString ("Signature.Column"), "signature-link", "SignatureLink",
+                            false);
+                        break;
                 }
             }
         }
