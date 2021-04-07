@@ -438,7 +438,7 @@ namespace R7.Documents
                         case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
                         case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
                         case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
-                            AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName, dateTimeFormat);
+                            AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName, column.ColumnName, true, dateTimeFormat);
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
@@ -454,7 +454,7 @@ namespace R7.Documents
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_ICON:
-                            AddDocumentColumn (Localization.GetString ("Icon.Column", LocalResourceFile), "Icon", "FormatIcon");
+                            AddDocumentColumn (Localization.GetString ("Icon.Column", LocalResourceFile), "Icon", "FormatIcon", false);
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_TITLE:
@@ -467,7 +467,7 @@ namespace R7.Documents
                             break;
 
                         case DocumentsDisplayColumnInfo.COLUMN_SIGNATURE:
-                            AddDocumentColumn (LocalizeString ("Signature.Column"), "signature-link", "SignatureLink");
+                            AddDocumentColumn (LocalizeString ("Signature.Column"), "signature-link", "SignatureLink", false);
                             break;
                     }
                 }
@@ -552,15 +552,11 @@ namespace R7.Documents
             return false;
         }
 
-        void AddDocumentColumn (string title, string cssClass, string dataField, string format = null)
+        void AddDocumentColumn (string title, string cssClass, string dataField, bool htmlEncode = true, string format = null)
         {
             var objBoundColumn = new BoundField ();
 
-            // TODO: Introduce parameter
-            // don't HTML encode icons markup
-            if (dataField == "FormatIcon" || dataField == "SignatureLink") {
-                objBoundColumn.HtmlEncode = false;
-            }
+            objBoundColumn.HtmlEncode = htmlEncode;
 
             objBoundColumn.DataField = dataField;
 
