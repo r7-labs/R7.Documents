@@ -47,11 +47,12 @@ namespace R7.Documents.ViewModels
 
             objSortColumn = (DocumentsSortColumnInfo) mobjSortColumns [sortColumnIndex];
 
+            var isLastCompare = sortColumnIndex == mobjSortColumns.Count - 1;
             if (objSortColumn.Direction == SortDirection.Ascending) {
-                intResult = CompareValues (objSortColumn.ColumnName, objX, objY);
+                intResult = CompareValues (objSortColumn.ColumnName, objX, objY, isLastCompare);
             }
             else {
-                intResult = CompareValues (objSortColumn.ColumnName, objY, objX);
+                intResult = CompareValues (objSortColumn.ColumnName, objY, objX, isLastCompare);
             }
 
             // Difference not found, sort by next sort column
@@ -62,7 +63,7 @@ namespace R7.Documents.ViewModels
             return intResult;
         }
 
-        int CompareValues (string columnName, IDocumentViewModel x, IDocumentViewModel y)
+        int CompareValues (string columnName, IDocumentViewModel x, IDocumentViewModel y, bool isLastCompare)
         {
             switch (columnName) {
                 case DocumentsDisplayColumnInfo.COLUMN_SORTORDER:
@@ -74,20 +75,29 @@ namespace R7.Documents.ViewModels
                 case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
                     return x.CreatedByUser.CompareTo (y.CreatedByUser);
 
-                case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
-                    return x.CreatedDate.CompareTo (y.CreatedDate);
-
-                case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
-                    return x.PublishedOnDate.CompareTo (y.PublishedOnDate);
-
-                case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
-                    return x.Description.CompareTo (y.Description);
-
                 case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
                     return x.ModifiedByUser.CompareTo (y.ModifiedByUser);
 
+                case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
+                    if (isLastCompare) {
+                        return x.CreatedDate.CompareTo (y.CreatedDate);
+                    }
+                    return x.CreatedDate.Date.CompareTo (y.CreatedDate.Date);
+
+                case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
+                    if (isLastCompare) {
+                        return x.PublishedOnDate.CompareTo (y.PublishedOnDate);
+                    }
+                    return x.PublishedOnDate.Date.CompareTo (y.PublishedOnDate.Date);
+
                 case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
-                    return x.ModifiedDate.CompareTo (y.ModifiedDate);
+                    if (isLastCompare) {
+                        return x.ModifiedDate.CompareTo (y.ModifiedDate);
+                    }
+                    return x.ModifiedDate.Date.CompareTo (y.ModifiedDate.Date);
+
+                case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
+                    return x.Description.CompareTo (y.Description);
 
                 case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
                     return x.OwnedByUser.CompareTo (y.OwnedByUser);
