@@ -70,29 +70,32 @@ namespace R7.Documents
                                                          .Split (new char [] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                                                          .Select (d => int.Parse (d));
 
-                if (!documentIds.IsNullOrEmpty ()) {
-                    var bulkCommands = new DocumentBulkCommands ();
-                    switch (e.Action.CommandName) {
-                        case "DuplicateDocuments.Action":
-                            bulkCommands.Duplicate (documentIds, ModuleId, LocalizeString ("CopySuffix.Text"));
-                            break;
-                        case "DeleteDocuments.Action":
-                            bulkCommands.Delete (documentIds, PortalId, ModuleId);
-                            break;
-                        case "DeleteDocumentsWithFiles.Action":
-                            bulkCommands.DeleteWithFile (documentIds, PortalId, ModuleId);
-                            break;
-                        case "PublishDocuments.Action":
-                            bulkCommands.Publish (documentIds, ModuleId);
-                            break;
-                        case "UnPublishDocuments.Action":
-                            bulkCommands.UnPublish (documentIds, ModuleId);
-                            break;
-                    }
-
-                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-                    Response.Redirect (Globals.NavigateURL (), true);
+                if (documentIds.IsNullOrEmpty ()) {
+                    return;
                 }
+
+                var bulkCommands = new DocumentBulkCommands ();
+                switch (e.Action.CommandName) {
+                    case "DuplicateDocuments.Action":
+                        bulkCommands.Duplicate (documentIds, ModuleId, LocalizeString ("CopySuffix.Text"));
+                        break;
+                    case "DeleteDocuments.Action":
+                        bulkCommands.Delete (documentIds, PortalId, ModuleId);
+                        break;
+                    case "DeleteDocumentsWithFiles.Action":
+                        bulkCommands.DeleteWithFile (documentIds, PortalId, ModuleId);
+                        break;
+                    case "PublishDocuments.Action":
+                        bulkCommands.Publish (documentIds, ModuleId);
+                        break;
+                    case "UnPublishDocuments.Action":
+                        bulkCommands.UnPublish (documentIds, ModuleId);
+                        break;
+                }
+
+                ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
+                Response.Redirect (Globals.NavigateURL (), true);
+
             }
             catch (Exception ex) {
                 Exceptions.ProcessModuleLoadException (this, ex);
