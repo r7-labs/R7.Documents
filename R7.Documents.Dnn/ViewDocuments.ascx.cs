@@ -452,32 +452,34 @@ namespace R7.Documents
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
-                        AddDocumentColumn (LocalizeString ("Owner.Column"), "Owner", "OwnedByUser");
+                        AddDocumentColumn (LocalizeString ("Owner.Column"), "Owner",
+                            nameof (DocumentViewModel.OwnedByUser));
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_SIZE:
-                        AddDocumentColumn (LocalizeString ("Size.Column"), "Size", "FormatSize");
+                        AddDocumentColumn (LocalizeString ("Size.Column"), "Size",
+                            nameof (DocumentViewModel.FormatSize));
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_ICON:
                         AddDocumentColumn (Localization.GetString ("Icon.Column", LocalResourceFile), "Icon",
-                            "FormatIcon", false);
+                            nameof (DocumentViewModel.FormatIcon), false);
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_TITLE:
                         if (Settings.ShowTitleLink) {
-                            AddDownloadLink (Localization.GetString ("Title.Column", LocalResourceFile), "Title",
-                                "Title", "ctlTitle");
+                            AddDownloadLink (Localization.GetString ("Title.Column", LocalResourceFile),
+                                "Title", nameof (DocumentViewModel.Title), "ctlTitle");
                         }
                         else {
-                            AddDocumentColumn (Localization.GetString ("Title.Column", LocalResourceFile), "Title",
-                                "Title");
+                            AddDocumentColumn (Localization.GetString ("Title.Column", LocalResourceFile),
+                                "Title", nameof (DocumentViewModel.Title));
                         }
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_SIGNATURE:
-                        AddDocumentColumn (LocalizeString ("Signature.Column"), "signature-link", "SignatureLink",
-                            false);
+                        AddDocumentColumn (LocalizeString ("Signature.Column"), "signature-link",
+                            nameof (DocumentViewModel.SignatureLink), false);
                         break;
                 }
             }
