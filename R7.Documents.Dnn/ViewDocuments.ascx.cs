@@ -116,7 +116,7 @@ namespace R7.Documents
                     }
                 }
                 else {
-                    LoadColumns ();
+                    BindColumns ();
                     grdDocuments.DataSource = Documents;
                     grdDocuments.DataBind ();
                 }
@@ -416,7 +416,7 @@ namespace R7.Documents
             }
         }
 
-        void LoadColumns ()
+        void BindColumns ()
         {
             var dateTimeFormat = Settings.GetDateTimeFormat ();
 
