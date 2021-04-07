@@ -552,25 +552,7 @@ namespace R7.Documents
             return false;
         }
 
-        /// <summary>
-        /// Dynamically adds a column to the datagrid
-        /// </summary>
-        /// <param name="title">The name of the property to read data from</param>
-        /// <param name="cssClass"></param>
-        /// <param name="dataField">The name of the property to read data from</param>
-        void AddDocumentColumn (string title, string cssClass, string dataField)
-        {
-            AddDocumentColumn (title, cssClass, dataField, "");
-        }
-
-        /// <summary>
-        /// Dynamically adds a column to the datagrid
-        /// </summary>
-        /// <param name="title">The name of the property to read data from</param>
-        /// <param name="cssClass"></param>
-        /// <param name="dataField">The name of the property to read data from</param>
-        /// <param name="format">Format string for value</param>
-        void AddDocumentColumn (string title, string cssClass, string dataField, string format)
+        void AddDocumentColumn (string title, string cssClass, string dataField, string format = null)
         {
             var objBoundColumn = new BoundField ();
 
@@ -581,7 +563,11 @@ namespace R7.Documents
             }
 
             objBoundColumn.DataField = dataField;
-            objBoundColumn.DataFormatString = "{0:" + format + "}";
+
+            if (format != null) {
+                objBoundColumn.DataFormatString = "{0:" + format + "}";
+            }
+
             objBoundColumn.HeaderText = title;
 
             // added 5/17/2007 by Mitchel Sellers
