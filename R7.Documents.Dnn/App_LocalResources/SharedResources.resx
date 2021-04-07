@@ -57,4 +57,7 @@
 	<data name="IsFeatured.Column" xml:space="preserve">
 		<value>Is Featured?</value>
 	</data>
+	<data name="Signature.Column" xml:space="preserve">
+		<value>Signature</value>
+	</data>
 </root>

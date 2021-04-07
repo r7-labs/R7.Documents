@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Icons;
@@ -183,6 +184,36 @@ namespace R7.Documents.ViewModels
 
                 return _toolTip;
             }
+        }
+
+        public HtmlString SignatureLink {
+            get {
+                var sigFile = GetSignatureFile (Url);
+                if (sigFile == null) {
+                    return new HtmlString (string.Empty);
+                }
+                return new HtmlString ($"<a href=\"{Globals.LinkClick ("fileid=" + sigFile.FileId, Dnn.Module.TabId, Dnn.Module.ModuleId)}\">.sig</a>");
+            }
+        }
+
+        IFileInfo GetSignatureFile (string url)
+        {
+            if (Globals.GetURLType (Url) != TabType.File) {
+                return null;
+            }
+
+            var fileId = ParseHelper.ParseToNullable<int> (Url.ToLowerInvariant ().Substring ("fileid=".Length));
+            if (fileId == null) {
+                return null;
+            }
+
+            var file = FileManager.Instance.GetFile (fileId.Value);
+            if (file == null) {
+                return null;
+            }
+
+            var folder = FolderManager.Instance.GetFolder (file.FolderId);
+            return FileManager.Instance.GetFile (folder, file.FileName + ".sig");
         }
     }
 }

@@ -10,6 +10,7 @@ namespace R7.Documents.Models
         public const string COLUMN_CREATEDDATE = "CreatedDate";
         public const string COLUMN_PUBLISHEDONDATE = "PublishedOnDate";
         public const string COLUMN_TITLE = "Title";
+        public const string COLUMN_SIGNATURE = "Signature";
         public const string COLUMN_CATEGORY = "Category";
         public const string COLUMN_OWNEDBY = "Owner";
         public const string COLUMN_MODIFIEDBY = "ModifiedBy";
@@ -25,6 +26,7 @@ namespace R7.Documents.Models
         public static HashSet<string> AvailableDisplayColumns = new HashSet<string> {
             COLUMN_ICON,
             COLUMN_TITLE,
+            COLUMN_SIGNATURE,
             COLUMN_DESCRIPTION,
             COLUMN_CATEGORY,
             COLUMN_OWNEDBY,
@@ -66,7 +68,7 @@ namespace R7.Documents.Models
 
         #endregion
 
-        #region "ICompareable Interface"
+        #region IComparable implementation
 
         public int CompareTo (object obj)
         {

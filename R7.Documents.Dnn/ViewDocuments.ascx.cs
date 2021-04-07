@@ -465,6 +465,10 @@ namespace R7.Documents
                                 AddDocumentColumn (Localization.GetString ("Title.Column", LocalResourceFile), "Title", "Title");
                             }
                             break;
+
+                        case DocumentsDisplayColumnInfo.COLUMN_SIGNATURE:
+                            AddDocumentColumn (LocalizeString ("Signature.Column"), "signature-link", "SignatureLink");
+                            break;
                     }
                 }
             }
@@ -570,8 +574,9 @@ namespace R7.Documents
         {
             var objBoundColumn = new BoundField ();
 
+            // TODO: Introduce parameter
             // don't HTML encode icons markup
-            if (dataField == "FormatIcon") {
+            if (dataField == "FormatIcon" || dataField == "SignatureLink") {
                 objBoundColumn.HtmlEncode = false;
             }
 
