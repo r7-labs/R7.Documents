@@ -6,15 +6,15 @@
     margin-bottom:.5em;
 }
 
-.dnnEditDocs .dnnFormItem input[type=checkbox], 
+.dnnEditDocs .dnnFormItem input[type=checkbox],
 .dnnTabsModule .dnnFormItem input[type=radio] { width:auto }
 
 .dnnEditDocs .dnnRight { display:block; width:68% }
 
 .dnnEditDocs .urlControl br { display:block }
 
-.dnnEditDocs .urlControl > label 
-{ 
+.dnnEditDocs .urlControl > label
+{
 	display:block;
 	float:none;
 	text-align:left
@@ -40,7 +40,12 @@
     margin-top:8px
 }
 
-.dnnDocSettings .ddlSortFields, 
+/* #27 */
+.dnnEditDocs a[id$='_btnChangeOwner'] {
+    display:none
+}
+
+.dnnDocSettings .ddlSortFields,
 .dnnDocSettings .ddlSortOrderDirection { width:290px }
 
 .dnnDocSettings .ddlSortFields { margin-bottom:1em }
