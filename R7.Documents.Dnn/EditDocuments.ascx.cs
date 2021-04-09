@@ -7,8 +7,10 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Framework;
 using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.FileSystem;
@@ -255,6 +257,8 @@ namespace R7.Documents
             }
 
             ctlUrl.NewWindow = DocumentsConfig.Instance.NewWindow;
+
+            AdjustControlTitle (LocalizeString ("NewDocument.Text"));
         }
 
         void SelectFolder (DnnUrlControl ctlUrl, int? folderId)
@@ -335,6 +339,8 @@ namespace R7.Documents
 
                 ctlUrlTracking.URL = document.Url;
                 ctlUrlTracking.ModuleID = ModuleId;
+
+                AdjustControlTitle (document.Title);
             }
             else {
                 AddLog ("Security violation: Attempt to access document not related to the module.", EventLogController.EventLogType.ADMIN_ALERT);
@@ -670,6 +676,13 @@ namespace R7.Documents
                     superUsers.DisplayName + " (" + superUsers.Username + ")", superUsers.UserID.ToString ())
                 );
             }
+        }
+
+        void AdjustControlTitle (string appendix)
+        {
+            const string separator = " &gt; ";
+            var module = ModuleController.Instance.GetModule (ModuleId, TabId, false);
+            ((CDefault) Page).Title = ((CDefault) Page).Title.Append (module.ModuleTitle, separator).Append (appendix, separator);
         }
     }
 }

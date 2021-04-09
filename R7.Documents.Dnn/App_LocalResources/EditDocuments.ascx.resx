@@ -170,4 +170,7 @@
 	<data name="lblIsFeatured.Help" xml:space="preserve">
 		<value>Check to mark document as featured.</value>
 	</data>
+	<data name="NewDocument.Text" xml:space="preserve">
+		<value>New Document</value>
+	</data>
 </root>

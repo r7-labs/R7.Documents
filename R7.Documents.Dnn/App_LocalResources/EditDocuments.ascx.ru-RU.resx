@@ -170,4 +170,7 @@
 	<data name="lblIsFeatured.Help" xml:space="preserve">
 		<value>Отметьте, чтобы выделить документ.</value>
 	</data>
+	<data name="NewDocument.Text" xml:space="preserve">
+		<value>Новый документ</value>
+	</data>
 </root>
