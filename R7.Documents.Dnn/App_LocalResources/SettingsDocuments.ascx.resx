@@ -137,4 +137,10 @@
 	<data name="lblGridStyle.Help" xml:space="preserve">
 		<value>Select one of the available styles for the documents grid.</value>
 	</data>
+	<data name="lblAutoHide.Text" xml:space="preserve">
+		<value>Automatically Hide?</value>
+	</data>
+	<data name="lblAutoHide.Help" xml:space="preserve">
+		<value>Check to autohide module without visible content.</value>
+	</data>
 </root>

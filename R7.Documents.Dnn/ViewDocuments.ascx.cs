@@ -111,7 +111,7 @@ namespace R7.Documents
 
             try {
                 if (Documents.Count == 0) {
-                    if (IsEditable) {
+                    if (IsEditable || !Settings.AutoHide) {
                         this.Message ("NothingToDisplay.Text", MessageType.Info, true);
                     }
                     else {

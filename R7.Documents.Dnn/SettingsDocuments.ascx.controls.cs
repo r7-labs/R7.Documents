@@ -24,5 +24,6 @@ namespace R7.Documents
         protected CustomValidator valFileFilter;
         protected TextBox txtFilenameToTitleRules;
         protected CustomValidator valFilenameToTitleRules;
+        protected CheckBox chkAutoHide;
 	}
 }

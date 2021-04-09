@@ -35,6 +35,9 @@ namespace R7.Documents.Models
     public class DocumentsSettings
     {
         [TabModuleSetting (Prefix = "Documents_")]
+        public bool AutoHide { get; set; } = true;
+
+        [TabModuleSetting (Prefix = "Documents_")]
         public bool ShowTitleLink { get; set; } = true;
 
         [TabModuleSetting (Prefix = "Documents_")]
@@ -86,7 +89,7 @@ namespace R7.Documents.Models
         public List<DocumentsDisplayColumnInfo> GetDisplayColumnList (string localResourceFile)
         {
             var objColumnSettings = new List<DocumentsDisplayColumnInfo> ();
-		
+
             if (!string.IsNullOrWhiteSpace (DisplayColumns)) {
                 // read "saved" column sort orders in first
                 foreach (var strColumn in DisplayColumns.Split( new [] {','}, StringSplitOptions.RemoveEmptyEntries)) {
@@ -144,7 +147,7 @@ namespace R7.Documents.Models
 
         public static int FindColumn (string columnName, List<DocumentsDisplayColumnInfo> columnList, bool visibleOnly)
         {
-            // find a display column in the list and return it's index 
+            // find a display column in the list and return it's index
             var intIndex = 0;
 
             for (intIndex = 0; intIndex <= columnList.Count - 1; intIndex++) {
@@ -159,9 +162,9 @@ namespace R7.Documents.Models
 
         public static int FindGridColumn (string columnName, List<DocumentsDisplayColumnInfo> columnList, bool visibleOnly)
         {
-            // find a display column in the list and return it's "column" index 
+            // find a display column in the list and return it's "column" index
             // as it will be displayed within the grid.  This function differs from FindColumn
-            // in that it "ignores" invisible columns when counting which column index to 
+            // in that it "ignores" invisible columns when counting which column index to
             // return.
             var intIndex = 0;
             var intResult = 0;

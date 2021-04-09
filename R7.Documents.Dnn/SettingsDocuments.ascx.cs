@@ -199,6 +199,7 @@ namespace R7.Documents
                     txtDateTimeFormat.Text = Settings.DateTimeFormat;
                     txtFileFilter.Text = Settings.FileFilter;
                     txtFilenameToTitleRules.Text = Settings.FilenameToTitleRules;
+                    chkAutoHide.Checked = Settings.AutoHide;
 
                     try {
                         if (Settings.DefaultFolder != null) {
@@ -368,6 +369,7 @@ namespace R7.Documents
             Settings.GridStyle = ddlGridStyle.SelectedItem.Value;
             Settings.FileFilter = txtFileFilter.Text.Trim ();
             Settings.FilenameToTitleRules = txtFilenameToTitleRules.Text;
+            Settings.AutoHide = chkAutoHide.Checked;
 
             try {
                 DateTime.Now.ToString (txtDateTimeFormat.Text);

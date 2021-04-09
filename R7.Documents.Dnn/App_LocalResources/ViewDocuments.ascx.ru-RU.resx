@@ -36,9 +36,9 @@
     <data name="Unknown.Text" xml:space="preserve">
         <value>Неизвестно</value>
     </data>
-    <data name="NothingToDisplay.Text" xml:space="preserve">
-        <value>Нечего отображать. Добавьте документы.</value>
-    </data>
+	<data name="NothingToDisplay.Text" xml:space="preserve">
+		<value>Пусто!</value>
+	</data>
     <data name="Page.Text" xml:space="preserve">
         <value>Страница</value>
     </data>

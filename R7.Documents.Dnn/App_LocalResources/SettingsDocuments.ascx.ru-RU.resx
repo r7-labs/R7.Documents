@@ -138,4 +138,10 @@
     <data name="lblDateTimeFormat.Help" xml:space="preserve">
         <value>Введите строку формата .NET для даты и времени (например, "ddd, dd MMM yyyy") или оставьте поле пустым, чтобы использовать формат по умолчанию. Подробнее здесь: https://msdn.microsoft.com/ru-ru/library/8kb3ddd4.aspx</value>
     </data>
+	<data name="lblAutoHide.Text" xml:space="preserve">
+		<value>Автоматически скрывать?</value>
+	</data>
+	<data name="lblAutoHide.Help" xml:space="preserve">
+		<value>Отметьте, чтобы автоматически скрывать модуль без видимого содержимого.</value>
+	</data>
 </root>

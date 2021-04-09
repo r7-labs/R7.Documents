@@ -116,5 +116,9 @@
 	        <dnn:Label id="lblAllowUserSort" runat="server" ControlName="chkAllowUserSort" />
 	        <asp:CheckBox id="chkAllowUserSort" runat="server" />
 	    </div>
+		 <div class="dnnFormItem">
+            <dnn:Label id="lblAutoHide" runat="server" ControlName="chkAutoHide" />
+            <asp:CheckBox id="chkAutoHide" runat="server" />
+        </div>
 	</fieldset>
 </div>
