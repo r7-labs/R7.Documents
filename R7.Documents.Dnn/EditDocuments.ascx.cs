@@ -143,16 +143,6 @@ namespace R7.Documents
             }
         }
 
-        void LoadDocument ()
-        {
-            if (ItemId != null) {
-                LoadExistingDocument (ItemId.Value);
-            }
-            else {
-                LoadNewDocument ();
-            }
-        }
-
         /// <summary>
         /// btnDelete_Click runs when the delete button is clicked
         /// </summary>
@@ -235,6 +225,16 @@ namespace R7.Documents
 
         #endregion
 
+        void LoadDocument ()
+        {
+            if (ItemId == null) {
+                LoadNewDocument ();
+            }
+            else {
+                LoadExistingDocument (ItemId.Value);
+            }
+        }
+
         void LoadNewDocument ()
         {
             try {
@@ -259,34 +259,6 @@ namespace R7.Documents
             ctlUrl.NewWindow = DocumentsConfig.Instance.NewWindow;
 
             AdjustControlTitle (LocalizeString ("NewDocument.Text"));
-        }
-
-        void SelectFolder (DnnUrlControl ctlUrl, int? folderId)
-        {
-            if (folderId == null) {
-                return;
-            }
-
-            var folderIsSelected = ctlUrl.SelectFolder (folderId.Value, true);
-            if (folderIsSelected) {
-                return;
-            }
-
-            var folder = FolderManager.Instance.GetFolder (folderId.Value);
-            if (folder != null) {
-                this.Message (string.Format (LocalizeString ("CannotSelectFolder.Text"), folder.FolderName), MessageType.Warning, false);
-            }
-        }
-
-        int? CalculateSortIndex ()
-        {
-            // HACK: Calculate sortindex for new documents
-            var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
-            if (documents != null && documents.Any ()) {
-                return documents.Max (d => d.SortOrderIndex);
-            }
-
-            return null;
         }
 
         void LoadExistingDocument (int documentId)
@@ -351,6 +323,34 @@ namespace R7.Documents
             btnUpdate.Visible = true;
             btnDelete.Visible = true;
             btnDeleteWithFile.Visible = true;
+        }
+
+        void SelectFolder (DnnUrlControl ctlUrl, int? folderId)
+        {
+            if (folderId == null) {
+                return;
+            }
+
+            var folderIsSelected = ctlUrl.SelectFolder (folderId.Value, true);
+            if (folderIsSelected) {
+                return;
+            }
+
+            var folder = FolderManager.Instance.GetFolder (folderId.Value);
+            if (folder != null) {
+                this.Message (string.Format (LocalizeString ("CannotSelectFolder.Text"), folder.FolderName), MessageType.Warning, false);
+            }
+        }
+
+        int? CalculateSortIndex ()
+        {
+            // HACK: Calculate sortindex for new documents
+            var documents = DocumentsDataProvider.Instance.GetDocuments (ModuleId, PortalId);
+            if (documents != null && documents.Any ()) {
+                return documents.Max (d => d.SortOrderIndex);
+            }
+
+            return null;
         }
 
         void AddLog (string message, EventLogController.EventLogType logType)
