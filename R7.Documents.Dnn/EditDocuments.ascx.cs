@@ -237,8 +237,7 @@ namespace R7.Documents
             else {
                 var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
                 if (document == null) {
-                    AddLog ("Security violation: Attempt to access document not related to the module.",
-                        EventLogController.EventLogType.ADMIN_ALERT);
+                    AdminAlert ("Security violation: Attempt to access document not related to the module.");
                     Response.Redirect (Globals.NavigateURL (), true);
                     return;
                 }
@@ -356,7 +355,7 @@ namespace R7.Documents
             return null;
         }
 
-        void AddLog (string message, EventLogController.EventLogType logType)
+        void AdminAlert (string message)
         {
             var log = new LogInfo ();
             log.AddProperty ("Module", ModuleConfiguration.ModuleDefinition.DefinitionName);
@@ -365,7 +364,7 @@ namespace R7.Documents
             log.AddProperty ("UserEmail", UserInfo.Email);
             log.AddProperty ("RawUrl", Request.RawUrl);
             log.AddProperty ("Message", message);
-            log.LogTypeKey = logType.ToString ();
+            log.LogTypeKey = EventLogController.EventLogType .ADMIN_ALERT.ToString ();
             EventLogController.Instance.AddLog (log);
         }
 
