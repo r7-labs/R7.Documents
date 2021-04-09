@@ -227,11 +227,24 @@ namespace R7.Documents
 
         void LoadDocument ()
         {
+            var moduleTitle = ModuleController.Instance.GetModule (ModuleId, TabId, false).ModuleTitle;
+            AppendToControlTitle (moduleTitle);
+
             if (ItemId == null) {
+                AppendToControlTitle (LocalizeString ("NewDocument.Text"));
                 LoadNewDocument ();
             }
             else {
-                LoadExistingDocument (ItemId.Value);
+                var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
+                if (document == null) {
+                    AddLog ("Security violation: Attempt to access document not related to the module.",
+                        EventLogController.EventLogType.ADMIN_ALERT);
+                    Response.Redirect (Globals.NavigateURL (), true);
+                    return;
+                }
+
+                AppendToControlTitle (document.Title);
+                LoadExistingDocument (document);
             }
         }
 
@@ -240,7 +253,8 @@ namespace R7.Documents
             try {
                 lstOwner.SelectedValue = UserId.ToString ();
                 txtOwner.Text = UserInfo.DisplayName;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 // defensive code only, would only happen if the owner user has been deleted
                 Exceptions.LogException (ex);
             }
@@ -257,67 +271,56 @@ namespace R7.Documents
             }
 
             ctlUrl.NewWindow = DocumentsConfig.Instance.NewWindow;
-
-            AdjustControlTitle (LocalizeString ("NewDocument.Text"));
         }
 
-        void LoadExistingDocument (int documentId)
+        void LoadExistingDocument (IDocument document)
         {
-            var document = DocumentsDataProvider.Instance.GetDocument (documentId, ModuleId);
-            if (document != null) {
-                txtTitle.Text = document.Title;
-                txtDescription.Text = document.Description;
-                chkForceDownload.Checked = document.ForceDownload;
-                dtStartDate.SelectedDate = document.StartDate;
-                dtEndDate.SelectedDate = document.EndDate;
-                txtLinkAttributes.Text = document.LinkAttributes;
-                chkIsFeatured.Checked = document.IsFeatured;
-                dtCreatedDate.SelectedDate = document.CreatedDate;
-                dtLastModifiedDate.SelectedDate = document.ModifiedDate;
-                txtSortIndex.Text = document.SortOrderIndex.ToString ();
+            txtTitle.Text = document.Title;
+            txtDescription.Text = document.Description;
+            chkForceDownload.Checked = document.ForceDownload;
+            dtStartDate.SelectedDate = document.StartDate;
+            dtEndDate.SelectedDate = document.EndDate;
+            txtLinkAttributes.Text = document.LinkAttributes;
+            chkIsFeatured.Checked = document.IsFeatured;
+            dtCreatedDate.SelectedDate = document.CreatedDate;
+            dtLastModifiedDate.SelectedDate = document.ModifiedDate;
+            txtSortIndex.Text = document.SortOrderIndex.ToString ();
 
-                if (!string.IsNullOrEmpty (document.Url)) {
-                    ctlUrl.Url = document.Url;
-                }
+            if (!string.IsNullOrEmpty (document.Url)) {
+                ctlUrl.Url = document.Url;
+            }
 
-                // test to see if the document has been removed/deleted
-                if (CheckFileExists (document.Url)) {
-                    CheckFileSecurity (document.Url);
-                }
+            // test to see if the document has been removed/deleted
+            if (CheckFileExists (document.Url)) {
+                CheckFileSecurity (document.Url);
+            }
 
-                txtOwner.Text = UserHelper.GetUserDisplayName (PortalId, document.OwnedByUserId) ?? LocalizeString ("None_Specified");
+            txtOwner.Text = UserHelper.GetUserDisplayName (PortalId, document.OwnedByUserId) ?? LocalizeString ("None_Specified");
 
-                if (txtCategory.Visible) {
-                    txtCategory.Text = document.Category;
+            if (txtCategory.Visible) {
+                txtCategory.Text = document.Category;
+            } else {
+                // look for the category by name
+                var found = lstCategory.Items.FindByText (document.Category);
+                if (found != null) {
+                    lstCategory.SelectedValue = found.Value;
                 } else {
-                    // look for the category by name
-                    var found = lstCategory.Items.FindByText (document.Category);
+                    // legacy support, do a fall-back
+                    found = lstCategory.Items.FindByValue (document.Category);
                     if (found != null) {
                         lstCategory.SelectedValue = found.Value;
-                    } else {
-                        // legacy support, do a fall-back
-                        found = lstCategory.Items.FindByValue (document.Category);
-                        if (found != null) {
-                            lstCategory.SelectedValue = found.Value;
-                        }
                     }
                 }
-
-                // FIXME: Audit data not preserved between postbacks
-                ctlAudit.CreatedByUser = UserHelper.GetUserDisplayName (PortalId, document.CreatedByUserId) ?? LocalizeString ("None_Specified");
-                ctlAudit.CreatedDate = document.CreatedDate.ToString ();
-                ctlAudit.LastModifiedByUser = UserHelper.GetUserDisplayName (PortalId, document.ModifiedByUserId) ?? LocalizeString ("None_Specified");
-                ctlAudit.LastModifiedDate = document.ModifiedDate.ToString ();
-
-                ctlUrlTracking.URL = document.Url;
-                ctlUrlTracking.ModuleID = ModuleId;
-
-                AdjustControlTitle (document.Title);
             }
-            else {
-                AddLog ("Security violation: Attempt to access document not related to the module.", EventLogController.EventLogType.ADMIN_ALERT);
-                Response.Redirect (Globals.NavigateURL (), true);
-            }
+
+            // FIXME: Audit data not preserved between postbacks
+            ctlAudit.CreatedByUser = UserHelper.GetUserDisplayName (PortalId, document.CreatedByUserId) ?? LocalizeString ("None_Specified");
+            ctlAudit.CreatedDate = document.CreatedDate.ToString ();
+            ctlAudit.LastModifiedByUser = UserHelper.GetUserDisplayName (PortalId, document.ModifiedByUserId) ?? LocalizeString ("None_Specified");
+            ctlAudit.LastModifiedDate = document.ModifiedDate.ToString ();
+
+            ctlUrlTracking.URL = document.Url;
+            ctlUrlTracking.ModuleID = ModuleId;
 
             btnAdd.Visible = false;
             btnUpdate.Visible = true;
@@ -678,11 +681,9 @@ namespace R7.Documents
             }
         }
 
-        void AdjustControlTitle (string appendix)
+        void AppendToControlTitle (string appendix)
         {
-            const string separator = " &gt; ";
-            var module = ModuleController.Instance.GetModule (ModuleId, TabId, false);
-            ((CDefault) Page).Title = ((CDefault) Page).Title.Append (module.ModuleTitle, separator).Append (appendix, separator);
+            ((CDefault) Page).Title = ((CDefault) Page).Title.Append (appendix, " &gt; ");
         }
     }
 }
