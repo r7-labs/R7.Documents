@@ -1,30 +1,4 @@
-﻿//
-// IDocument.cs
-//
-// Author:
-//       Roman M. Yagodin <roman.yagodin@gmail.com>
-//
-// Copyright (c) 2017 Roman M. Yagodin
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-using System;
+﻿using System;
 
 namespace R7.Documents.Models
 {
@@ -73,5 +47,50 @@ namespace R7.Documents.Models
         int Clicks { get; }
 
         DateTime PublishedOnDate { get; }
+    }
+
+    public interface IDocumentMutable : IDocument
+    {
+        new int ItemId { get; set; }
+
+        new int ModuleId { get; set; }
+
+        new int CreatedByUserId { get; set; }
+
+        new int ModifiedByUserId { get; set; }
+
+        new DateTime CreatedDate { get; set; }
+
+        new DateTime ModifiedDate { get; set; }
+
+        new DateTime? StartDate { get; set; }
+
+        new DateTime? EndDate { get; set; }
+
+        new string Url { get; set; }
+
+        new string Title { get; set; }
+
+        new string Category { get; set; }
+
+        new int OwnedByUserId { get; set; }
+
+        new int SortOrderIndex { get; set; }
+
+        new string Description { get; set; }
+
+        new bool ForceDownload { get; set; }
+
+        new string LinkAttributes { get; set; }
+
+        new bool IsFeatured { get; set; }
+
+        new bool TrackClicks { get; set; }
+
+        new bool NewWindow { get; set; }
+
+        new int Size { get; set; }
+
+        new int Clicks { get; set; }
     }
 }

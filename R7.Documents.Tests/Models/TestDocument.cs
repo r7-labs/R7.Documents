@@ -3,7 +3,7 @@ using R7.Documents.Models;
 
 namespace R7.Documents.Tests.Models
 {
-    public class TestDocument: IDocument
+    public class TestDocument: IDocumentMutable
     {
         public int ItemId { get; set; }
         public int ModuleId { get; set; }
@@ -26,6 +26,6 @@ namespace R7.Documents.Tests.Models
         public bool NewWindow { get; set; }
         public int Size { get; set; }
         public int Clicks { get; set; }
-        public DateTime PublishedOnDate { get; set; }
+        public DateTime PublishedOnDate { get; }
     }
 }

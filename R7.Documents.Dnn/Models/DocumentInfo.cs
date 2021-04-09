@@ -10,9 +10,9 @@ namespace R7.Documents.Models
     [TableName ("Documents_Documents")]
     [PrimaryKey ("ItemId", AutoIncrement = true)]
     [Scope ("ModuleId")]
-    public class DocumentInfo: IDocument
+    public class DocumentInfo: IDocumentMutable
     {
-        #region IDocument implementation
+        #region IDocumentMutable implementation
 
         public int ItemId { get; set; }
 
