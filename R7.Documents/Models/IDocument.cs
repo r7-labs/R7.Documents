@@ -45,8 +45,6 @@ namespace R7.Documents.Models
         int Size { get; }
 
         int Clicks { get; }
-
-        DateTime PublishedOnDate { get; }
     }
 
     public interface IDocumentMutable : IDocument

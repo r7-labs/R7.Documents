@@ -1,4 +1,5 @@
-﻿using R7.Documents.Models;
+﻿using System;
+using R7.Documents.Models;
 
 namespace R7.Documents.ViewModels
 {
@@ -9,5 +10,7 @@ namespace R7.Documents.ViewModels
         string ModifiedByUser { get; }
 
         string OwnedByUser { get; }
+
+        DateTime PublishedOnDate { get; }
     }
 }

@@ -55,12 +55,12 @@ namespace R7.Documents.Tests.ViewModels
 
         public int Clicks => _document.Clicks;
 
-        public DateTime PublishedOnDate => _document.PublishedOnDate;
-
         public string CreatedByUser => throw new NotImplementedException ();
 
         public string ModifiedByUser => throw new NotImplementedException ();
 
         public string OwnedByUser => throw new NotImplementedException ();
+
+        public DateTime PublishedOnDate => throw new NotImplementedException ();
     }
 }

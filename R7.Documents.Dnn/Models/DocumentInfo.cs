@@ -64,16 +64,7 @@ namespace R7.Documents.Models
             set { _clicks = value; }
         }
 
-        [IgnoreColumn]
-        public DateTime PublishedOnDate {
-            get {
-                return ModelHelper.PublishedOnDate (StartDate, CreatedDate);
-            }
-        }
-
         #endregion
-
-        #region Methods
 
         public DocumentInfo Clone ()
         {
@@ -99,7 +90,5 @@ namespace R7.Documents.Models
                 StartDate = null;
             }
         }
-
-        #endregion
     }
 }

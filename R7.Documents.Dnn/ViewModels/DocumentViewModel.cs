@@ -71,11 +71,7 @@ namespace R7.Documents.ViewModels
 
         public bool IsFeatured => Model.IsFeatured;
 
-        public DateTime PublishedOnDate {
-            get {
-                return ModelHelper.PublishedOnDate (StartDate, CreatedDate);
-            }
-        }
+        public DateTime PublishedOnDate => ModelHelper.PublishedOnDate (StartDate, CreatedDate);
 
         string _createdByUser;
         public string CreatedByUser => _createdByUser ?? (_createdByUser = UserHelper.GetUserDisplayName (Dnn.Module.PortalId, Model.CreatedByUserId) ?? Dnn.LocalizeString ("None_Specified"));
