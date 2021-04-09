@@ -153,7 +153,6 @@ namespace R7.Documents
         protected void btnDelete_Click (object sender, EventArgs e)
         {
             try {
-                // TODO: Duplicate calls
                 var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
                 if (document != null) {
                     DocumentsDataProvider.Instance.DeleteDocument (ItemId.Value, sender == btnDeleteWithFile, PortalId, ModuleId);
