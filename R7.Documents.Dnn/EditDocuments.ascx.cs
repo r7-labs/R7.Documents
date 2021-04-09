@@ -223,6 +223,35 @@ namespace R7.Documents
             }
         }
 
+        protected void btnAdd_Click (object sender, EventArgs e)
+        {
+            var document = new DocumentInfo {
+                ItemId = 0,
+                ModuleId = ModuleId,
+                CreatedByUserId = UserId,
+                OwnedByUserId = UserId
+            };
+
+            Update (document, true);
+        }
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// btnUpdate_Click runs when the update button is clicked
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <history>
+        ///     [cnurse]    9/22/2004   Updated to reflect design changes for Help, 508 support
+        ///                       and localisation
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        protected void btnUpdate_Click (object sender, EventArgs e)
+        {
+            var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
+            Update (document, false);
+        }
+
         #endregion
 
         void LoadDocument ()
@@ -530,86 +559,60 @@ namespace R7.Documents
             return true;
         }
 
-        protected void btnAdd_Click (object sender, EventArgs e)
-        {
-            var document = new DocumentInfo {
-                ItemId = 0,
-                ModuleId = ModuleId,
-                CreatedByUserId = UserId,
-                OwnedByUserId = UserId
-            };
-
-            Update (document, true);
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// btnUpdate_Click runs when the update button is clicked
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        ///     [cnurse]    9/22/2004   Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void btnUpdate_Click (object sender, EventArgs e)
-        {
-            var document = DocumentsDataProvider.Instance.GetDocument (ItemId.Value, ModuleId);
-            Update (document, false);
-        }
-
         void Update (DocumentInfo document, bool isNew)
         {
             try {
-                if (Page.IsValid) {
-                    var oldDocument = document.Clone ();
-
-                    document.Title = txtTitle.Text;
-                    document.Description = txtDescription.Text;
-                    document.ForceDownload = chkForceDownload.Checked;
-                    document.Url = ctlUrl.Url;
-                    document.LinkAttributes = txtLinkAttributes.Text;
-                    document.IsFeatured = chkIsFeatured.Checked;
-                    document.ModifiedByUserId = UserInfo.UserID;
-
-                    UpdateDateTime (document, oldDocument);
-                    UpdateOwner (document);
-                    UpdateCategory (document);
-
-                    int sortIndex;
-                    document.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 10;
-
-                    if (isNew) {
-                        DocumentsDataProvider.Instance.Add (document);
-                    } else {
-                        DocumentsDataProvider.Instance.Update (document);
-                        if (document.Url != oldDocument.Url) {
-                            // delete old URL tracking data
-                            DocumentsDataProvider.Instance.DeleteDocumentUrl (oldDocument.Url, PortalId, ModuleId);
-                        }
-                    }
-
-                    // add or update URL tracking
-                    var ctrlUrl = new UrlController ();
-                    ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
-
-                    this.Message (string.Format (LocalizeString (isNew ? "DocumentAdded.Format" : "DocumentUpdated.Format"), document.Title), MessageType.Success);
-
-                    if (!CheckFileExists (ctlUrl.Url) || !CheckFileSecurity (ctlUrl.Url)) {
-                        // display warning
-                        this.Message ("DocumentLinkWarningHeading.Text", "DocumentLinkWarning.Text", MessageType.Warning, true);
-                    }
-
-                    FolderHistory.RememberFolderByFileUrl (Request, Response, document.Url, PortalId);
-                    ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
-
-                    // WTF: should do this after UpdateUrl, or DnnUrlControl loose its flags
-                    mvEditDocument.ActiveViewIndex = 1;
-                    btnEdit.Visible = true;
-                    ItemId = document.ItemId;
+                if (!Page.IsValid) {
+                    return;
                 }
-            } catch (Exception exc) {
+
+                var oldDocument = document.Clone ();
+
+                document.Title = txtTitle.Text;
+                document.Description = txtDescription.Text;
+                document.ForceDownload = chkForceDownload.Checked;
+                document.Url = ctlUrl.Url;
+                document.LinkAttributes = txtLinkAttributes.Text;
+                document.IsFeatured = chkIsFeatured.Checked;
+                document.ModifiedByUserId = UserInfo.UserID;
+
+                UpdateDateTime (document, oldDocument);
+                UpdateOwner (document);
+                UpdateCategory (document);
+
+                int sortIndex;
+                document.SortOrderIndex = int.TryParse (txtSortIndex.Text, out sortIndex) ? sortIndex : 10;
+
+                if (isNew) {
+                    DocumentsDataProvider.Instance.Add (document);
+                } else {
+                    DocumentsDataProvider.Instance.Update (document);
+                    if (document.Url != oldDocument.Url) {
+                        // delete old URL tracking data
+                        DocumentsDataProvider.Instance.DeleteDocumentUrl (oldDocument.Url, PortalId, ModuleId);
+                    }
+                }
+
+                // add or update URL tracking
+                var ctrlUrl = new UrlController ();
+                ctrlUrl.UpdateUrl (PortalId, ctlUrl.Url, ctlUrl.UrlType, ctlUrl.Log, ctlUrl.Track, ModuleId, ctlUrl.NewWindow);
+
+                this.Message (string.Format (LocalizeString (isNew ? "DocumentAdded.Format" : "DocumentUpdated.Format"), document.Title), MessageType.Success);
+
+                if (!CheckFileExists (ctlUrl.Url) || !CheckFileSecurity (ctlUrl.Url)) {
+                    // display warning
+                    this.Message ("DocumentLinkWarningHeading.Text", "DocumentLinkWarning.Text", MessageType.Warning, true);
+                }
+
+                FolderHistory.RememberFolderByFileUrl (Request, Response, document.Url, PortalId);
+                ModuleSynchronizer.Synchronize (ModuleId, TabModuleId);
+
+                // WTF: should do this after UpdateUrl, or DnnUrlControl loose its flags
+                mvEditDocument.ActiveViewIndex = 1;
+                btnEdit.Visible = true;
+                ItemId = document.ItemId;
+            }
+            catch (Exception exc) {
                 Exceptions.ProcessModuleLoadException (this, exc);
             }
         }
