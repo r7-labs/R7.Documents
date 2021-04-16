@@ -282,7 +282,7 @@ namespace R7.Documents
                 : grdDocuments.AlternatingRowStyle.CssClass;
 
             if (document.IsFeatured) {
-                rowCssClass += " r7docs-featured";
+                rowCssClass += " document-featured";
             }
 
             if (!document.IsPublished (HttpContext.Current.Timestamp)) {

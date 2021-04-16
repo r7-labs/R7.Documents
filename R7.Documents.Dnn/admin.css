@@ -1,27 +1,33 @@
-﻿.dnnEditDocs .control-group-start {
-    margin-top:1em;
+﻿.r7-docs-edit .control-group-start {
+    margin-top:1em
 }
 
-.dnnEditDocs .control-group-end {
-    margin-bottom:.5em;
+.r7-docs-edit .control-group-end {
+    margin-bottom:.5em
 }
 
-.dnnEditDocs .dnnFormItem input[type=checkbox],
-.dnnTabsModule .dnnFormItem input[type=radio] { width:auto }
+.r7-docs-edit .dnnFormItem input[type=checkbox],
+.dnnTabsModule .dnnFormItem input[type=radio] {
+    width:auto
+}
 
-.dnnEditDocs .dnnRight { display:block; width:68% }
+.r7-docs-edit .dnnRight {
+    display:block;
+    width:68%
+}
 
-.dnnEditDocs .urlControl br { display:block }
+.r7-docs-edit .urlControl br {
+    display:block
+}
 
-.dnnEditDocs .urlControl > label
-{
+.r7-docs-edit .urlControl > label {
 	display:block;
 	float:none;
 	text-align:left
 }
 
-.dnnEditDocs .dnnModuleAuditControl,
-.dnnEditDocs .dnnUrlTrackingControl {
+.r7-docs-edit .dnnModuleAuditControl,
+.r7-docs-edit .dnnUrlTrackingControl {
     display:inline-block;
     width:45%;
     max-width:445px;
@@ -30,24 +36,30 @@
     background-color:#f0f0f0
 }
 
-.dnnEditDocs .dnnModuleAuditControl p {
+.r7-docs-edit .dnnModuleAuditControl p {
     margin-bottom:0
 }
 
-.dnnEditDocs .dnnFormItem .wide-textbox {
+.r7-docs-edit .dnnFormItem .wide-textbox {
     width:97%;
     max-width:inherit;
     margin-top:8px
 }
 
 /* #27 */
-.dnnEditDocs a[id$='_btnChangeOwner'] {
+.r7-docs-edit a[id$='_btnChangeOwner'] {
     display:none
 }
 
-.dnnDocSettings .ddlSortFields,
-.dnnDocSettings .ddlSortOrderDirection { width:290px }
+.r7-docs-settings .ddlSortFields,
+.r7-docs-settings .ddlSortOrderDirection {
+    width:290px
+}
 
-.dnnDocSettings .ddlSortFields { margin-bottom:1em }
+.r7-docs-settings .ddlSortFields {
+    margin-bottom:1em
+}
 
-.dnnDocSettings .ddlSortOrderDirection { float:left;margin-right:1em }
+.r7-docs-settings .ddlSortOrderDirection {
+    float:left;margin-right:1em
+}

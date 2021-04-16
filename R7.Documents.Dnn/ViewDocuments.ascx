@@ -1,7 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ViewDocuments.ascx.cs" Inherits="R7.Documents.ViewDocuments" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 <dnn:DnnJsInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents.Dnn/js/selectDocuments.js" ForceProvider="DnnFormBottomProvider" />
-<div class="ViewDocuments">
+<div class="r7-docs">
   <asp:GridView id="grdDocuments" runat="server" EnableViewState="false"
 				AutoGenerateColumns="false" UseAccessibleHeader="true"
 				ItemType="R7.Documents.ViewModels.DocumentViewModel" DataKeyField="ItemId"

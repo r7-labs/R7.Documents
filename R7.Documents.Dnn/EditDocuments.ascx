@@ -7,7 +7,7 @@
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
 <dnn:DnnCssInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents.Dnn/admin.css" Priority="200" />
-<div class="dnnForm dnnEditDocs dnnClear" id="dnnEditDocs">
+<div class="dnnForm dnnClear r7-docs-edit">
 	<asp:MultiView id="mvEditDocument" runat="server" ActiveViewIndex="0">
 	<asp:View runat="server">
 	<div id="document-tabs" class="dnnForm dnnClear">

@@ -1,40 +1,61 @@
-﻿.ViewDocuments td {
+﻿.r7-docs td {
 	padding:4px;
 	vertical-align:top;
  	white-space:nowrap
 }
 
-.ViewDocuments .SizeCell,
-.ViewDocuments .ClicksCell {
+.r7-docs .SizeCell,
+.r7-docs .ClicksCell {
 	text-align:right
 }
 
-.ViewDocuments .DescriptionCell,
-.ViewDocuments .TitleCell { white-space:normal }
+.r7-docs .DescriptionCell,
+.r7-docs .TitleCell {
+	white-space:normal
+}
 
-.ViewDocuments .IconCell,
-.ViewDocuments .signature-linkCell,
-.ViewDocuments .EditCell { text-align:center }
-.ViewDocuments .EditCell img { vertical-align:baseline }
-.ViewDocuments .EditCell input[type='checkbox'] { margin-left:.3rem }
+.r7-docs .IconCell,
+.r7-docs .signature-linkCell,
+.r7-docs .EditCell {
+	text-align:center
+}
 
-.ViewDocuments .ClicksHeader,
-.ViewDocuments .SizeHeader,
-.ViewDocuments .DownloadLinkHeader,
-.ViewDocuments .ModifiedDateHeader,
-.ViewDocuments .ModifiedByHeader,
-.ViewDocuments .CreatedDateHeader,
-.ViewDocuments .CreatedByHeader,
-.ViewDocuments .PublishedOnDateHeader,
-.ViewDocuments .OwnerHeader,
-.ViewDocuments .CategoryHeader,
-.ViewDocuments .EditHeader,
-.ViewDocuments .IconHeader,
-.ViewDocuments .signature-linkHeader { width:1px }
+.r7-docs .EditCell img {
+	vertical-align:baseline
+}
 
-.ViewDocuments .EditHeader { text-align:right }
+.r7-docs .EditCell input[type='checkbox'] {
+	margin-left:.3rem
+}
 
-.ViewDocuments ._nonpublished { background-color:#ffc!important }
-.ViewDocuments ._nonpublished:hover { background-color:#fefe97!important }
+.r7-docs .ClicksHeader,
+.r7-docs .SizeHeader,
+.r7-docs .DownloadLinkHeader,
+.r7-docs .ModifiedDateHeader,
+.r7-docs .ModifiedByHeader,
+.r7-docs .CreatedDateHeader,
+.r7-docs .CreatedByHeader,
+.r7-docs .PublishedOnDateHeader,
+.r7-docs .OwnerHeader,
+.r7-docs .CategoryHeader,
+.r7-docs .EditHeader,
+.r7-docs .IconHeader,
+.r7-docs .signature-linkHeader {
+	width:1px
+}
 
-.ViewDocuments .r7docs-featured { font-weight:bold }
+.r7-docs .EditHeader {
+	text-align:right
+}
+
+.r7-docs ._nonpublished {
+	background-color:#ffc!important
+}
+
+.r7-docs ._nonpublished:hover {
+	background-color:#fefe97!important
+}
+
+.r7-docs .document-featured {
+	font-weight:bold
+}

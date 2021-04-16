@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 
 <dnn:DnnCssInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents.Dnn/admin.css" Priority="200" />
-<div class="dnnForm dnnDocSettings" id="dnnDocSettings">
+<div class="dnnForm r7-docs-settings">
 	<fieldset>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="lblUseCategoriesList" runat="server" ControlName="chkUseCategoriesList" />
