@@ -25,5 +25,5 @@ function r7d_selectDocument2(target) {
 }
 function r7d_selectDeselectAll(target) {
 	var moduleId = r7d_getModuleId(target);
-	$("div.DnnModule-" + moduleId + " .EditCell input[type='checkbox']").prop("checked", target.checked).trigger("change");
+	$("div.DnnModule-" + moduleId + " .edit-cell input[type='checkbox']").prop("checked", target.checked).trigger("change");
 }
