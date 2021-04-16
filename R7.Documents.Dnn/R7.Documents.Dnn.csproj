@@ -109,11 +109,12 @@
     <Folder Include="Models\" />
     <Folder Include="Data\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="js\" />
     <Folder Include="Commands\" />
-    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\admin.css" />
+    <Content Include="assets\images\icon.png" />
+    <Content Include="assets\js\documentSelector.js" />
     <Content Include="module.css" />
     <Content Include="SqlDataProvider\01.12.00.dnn.sql" />
     <Content Include="ViewDocuments.ascx" />
@@ -121,12 +122,9 @@
     <Content Include="EditDocuments.ascx" />
     <Content Include="ChangeFolder.ascx" />
     <Content Include="ImportDocuments.ascx" />
-    <Content Include="admin.css" />
     <Content Include="license.htm" />
     <Content Include="releaseNotes.htm" />
     <Content Include="packages.config" />
-    <Content Include="js\documentSelector.js" />
-    <Content Include="images\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_LocalResources\ViewDocuments.ascx.resx" />
