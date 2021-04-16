@@ -286,7 +286,7 @@ namespace R7.Documents
             }
 
             if (!document.IsPublished (HttpContext.Current.Timestamp)) {
-                rowCssClass += " _nonpublished";
+                rowCssClass += " document-unpublished";
             }
 
             return rowCssClass;

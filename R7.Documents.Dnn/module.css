@@ -48,11 +48,11 @@
 	text-align:right
 }
 
-.r7-docs ._nonpublished {
+.r7-docs .document-unpublished {
 	background-color:#ffc!important
 }
 
-.r7-docs ._nonpublished:hover {
+.r7-docs .document-unpublished:hover {
 	background-color:#fefe97!important
 }
 
