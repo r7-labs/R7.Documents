@@ -4,47 +4,47 @@
  	white-space:nowrap
 }
 
-.r7-docs .SizeCell,
-.r7-docs .ClicksCell {
+.r7-docs .size-cell,
+.r7-docs .clicks-cell {
 	text-align:right
 }
 
-.r7-docs .DescriptionCell,
-.r7-docs .TitleCell {
+.r7-docs .description-cell,
+.r7-docs .title-cell {
 	white-space:normal
 }
 
-.r7-docs .IconCell,
-.r7-docs .signature-linkCell,
-.r7-docs .EditCell {
+.r7-docs .icon-cell,
+.r7-docs .signature-link-cell,
+.r7-docs .edit-cell {
 	text-align:center
 }
 
-.r7-docs .EditCell img {
+.r7-docs .edit-cell img {
 	vertical-align:baseline
 }
 
-.r7-docs .EditCell input[type='checkbox'] {
+.r7-docs .edit-cell input[type='checkbox'] {
 	margin-left:.3rem
 }
 
-.r7-docs .ClicksHeader,
-.r7-docs .SizeHeader,
-.r7-docs .DownloadLinkHeader,
-.r7-docs .ModifiedDateHeader,
-.r7-docs .ModifiedByHeader,
-.r7-docs .CreatedDateHeader,
-.r7-docs .CreatedByHeader,
-.r7-docs .PublishedOnDateHeader,
-.r7-docs .OwnerHeader,
-.r7-docs .CategoryHeader,
-.r7-docs .EditHeader,
-.r7-docs .IconHeader,
-.r7-docs .signature-linkHeader {
+.r7-docs .clicks-header,
+.r7-docs .size-header,
+.r7-docs .download-link-header,
+.r7-docs .modifieddate-header,
+.r7-docs .modifiedby-header,
+.r7-docs .createddate-header,
+.r7-docs .createdby-header,
+.r7-docs .publishedondate-header,
+.r7-docs .owner-header,
+.r7-docs .category-header,
+.r7-docs .edit-header,
+.r7-docs .icon-header,
+.r7-docs .signature-link-header {
 	width:1px
 }
 
-.r7-docs .EditHeader {
+.r7-docs .edit-header {
 	text-align:right
 }
 

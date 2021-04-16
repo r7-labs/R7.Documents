@@ -217,7 +217,7 @@ namespace R7.Documents
                 switch (e.Row.RowType) {
                     case DataControlRowType.Header:
                         e.Row.TableSection = TableRowSection.TableHeader;
-                        e.Row.Cells [0].CssClass = "EditHeader";
+                        e.Row.Cells [0].CssClass = "edit-header";
                         e.Row.Cells [0].Controls.Add (CreateSelectUnselectAllDocumentsCheckBox ());
                         break;
 
@@ -228,7 +228,7 @@ namespace R7.Documents
                         var document = Documents [e.Row.RowIndex];
 
 						// set CSS class for edit column cells
-                        e.Row.Cells [0].CssClass = "EditCell";
+                        e.Row.Cells [0].CssClass = "edit-cell";
 
                         e.Row.CssClass = GetRowCssClass (document, e.Row.RowIndex);
 
@@ -433,50 +433,50 @@ namespace R7.Documents
                     case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
                     case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
                     case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
-                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName,
+                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName.ToLowerInvariant (),
                             column.ColumnName);
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
                     case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
-                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName,
+                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName.ToLowerInvariant (),
                             column.ColumnName + "User");
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
                     case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
                     case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
-                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName,
+                        AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName.ToLowerInvariant (),
                             column.ColumnName, true, dateTimeFormat);
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
-                        AddDownloadLink ("DownloadLink.Column", "DownloadLink", "DownloadLink", "ctlDownloadLink");
+                        AddDownloadLink ("DownloadLink.Column", "download-link", "DownloadLink", "ctlDownloadLink");
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
-                        AddDocumentColumn (LocalizeString ("Owner.Column"), "Owner",
+                        AddDocumentColumn (LocalizeString ("Owner.Column"), "owner",
                             nameof (DocumentViewModel.OwnedByUser));
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_SIZE:
-                        AddDocumentColumn (LocalizeString ("Size.Column"), "Size",
+                        AddDocumentColumn (LocalizeString ("Size.Column"), "size",
                             nameof (DocumentViewModel.FormatSize));
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_ICON:
-                        AddDocumentColumn (LocalizeString ("Icon.Column"), "Icon",
+                        AddDocumentColumn (LocalizeString ("Icon.Column"), "icon",
                             nameof (DocumentViewModel.FormatIcon), false);
                         break;
 
                     case DocumentsDisplayColumnInfo.COLUMN_TITLE:
                         if (Settings.ShowTitleLink) {
                             AddDownloadLink (LocalizeString ("Title.Column"),
-                                "Title", nameof (DocumentViewModel.Title), "ctlTitle");
+                                nameof (DocumentViewModel.Title).ToLowerInvariant (), nameof (DocumentViewModel.Title), "ctlTitle");
                         }
                         else {
                             AddDocumentColumn (LocalizeString ("Title.Column"),
-                                "Title", nameof (DocumentViewModel.Title));
+                                nameof (DocumentViewModel.Title).ToLowerInvariant (), nameof (DocumentViewModel.Title));
                         }
                         break;
 
@@ -585,8 +585,8 @@ namespace R7.Documents
                 objBoundColumn.SortExpression = dataField;
             }
 
-            objBoundColumn.HeaderStyle.CssClass = cssClass + "Header";
-            objBoundColumn.ItemStyle.CssClass = cssClass + "Cell";
+            objBoundColumn.HeaderStyle.CssClass = cssClass + "-header";
+            objBoundColumn.ItemStyle.CssClass = cssClass + "-cell";
 
             grdDocuments.Columns.Add (objBoundColumn);
         }
@@ -608,8 +608,8 @@ namespace R7.Documents
             );
 
             objTemplateColumn.HeaderText = (name == "ctlDownloadLink") ? string.Empty : title;
-            objTemplateColumn.HeaderStyle.CssClass = cssClass + "Header";
-            objTemplateColumn.ItemStyle.CssClass = cssClass + "Cell";
+            objTemplateColumn.HeaderStyle.CssClass = cssClass + "-header";
+            objTemplateColumn.ItemStyle.CssClass = cssClass + "-cell";
 
             // added 5/17/2007 by Mitchel Sellers
             // add the sort expression, however ensure that it is NOT added for download
