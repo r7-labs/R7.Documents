@@ -125,7 +125,7 @@
     <Content Include="license.htm" />
     <Content Include="releaseNotes.htm" />
     <Content Include="packages.config" />
-    <Content Include="js\selectDocuments.js" />
+    <Content Include="js\documentSelector.js" />
     <Content Include="images\icon.png" />
   </ItemGroup>
   <ItemGroup>

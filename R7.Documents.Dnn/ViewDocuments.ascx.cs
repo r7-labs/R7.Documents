@@ -194,7 +194,7 @@ namespace R7.Documents
             var allCheckBox = new HtmlInputCheckBox ();
             allCheckBox.Checked = false;
             allCheckBox.Attributes.Add ("title", LocalizeString ("SelectUnselectAllDocuments.Text"));
-            allCheckBox.Attributes.Add ("onchange", "r7d_selectDeselectAll(this)");
+            allCheckBox.Attributes.Add ("onchange", "r7_documentSelector.toggleAll(this)");
 
             return allCheckBox;
         }
