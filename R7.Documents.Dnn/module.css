@@ -1,20 +1,19 @@
-﻿.ViewDocuments td
-{
+﻿.ViewDocuments td {
 	padding:4px;
 	vertical-align:top;
  	white-space:nowrap
 }
 
 .ViewDocuments .SizeCell,
-.ViewDocuments .ClicksCell
-{
-	text-align:right;
+.ViewDocuments .ClicksCell {
+	text-align:right
 }
 
 .ViewDocuments .DescriptionCell,
 .ViewDocuments .TitleCell { white-space:normal }
 
 .ViewDocuments .IconCell,
+.ViewDocuments .signature-linkCell,
 .ViewDocuments .EditCell { text-align:center }
 .ViewDocuments .EditCell img { vertical-align:baseline }
 .ViewDocuments .EditCell input[type='checkbox'] { margin-left:.3rem }
@@ -30,7 +29,8 @@
 .ViewDocuments .OwnerHeader,
 .ViewDocuments .CategoryHeader,
 .ViewDocuments .EditHeader,
-.ViewDocuments .IconHeader { width:1px }
+.ViewDocuments .IconHeader,
+.ViewDocuments .signature-linkHeader { width:1px }
 
 .ViewDocuments .EditHeader { text-align:right }
 
