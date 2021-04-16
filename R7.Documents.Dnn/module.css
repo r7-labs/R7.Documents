@@ -1,7 +1,9 @@
 ﻿.r7-docs td {
-	padding:4px;
-	vertical-align:top;
- 	white-space:nowrap
+	white-space:nowrap
+}
+
+.r7-docs table.dnnGrid td {
+    vertical-align:top
 }
 
 .r7-docs .size-cell,
