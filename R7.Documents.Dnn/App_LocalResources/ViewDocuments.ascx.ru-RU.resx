@@ -66,4 +66,10 @@
 	<data name="DeleteDocumentsWithFiles.Action" xml:space="preserve">
         <value>Удалить отмеченные с файлами</value>
     </data>
+	<data name="SignatureLink_Tooltip.Text" xml:space="preserve">
+		<value>Электронная подпись</value>
+	</data>
+	<data name="SignatureLink_Label.Text" xml:space="preserve">
+		<value>.sig</value>
+	</data>
 </root>

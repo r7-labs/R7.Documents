@@ -188,7 +188,11 @@ namespace R7.Documents.ViewModels
                 if (sigFile == null) {
                     return new HtmlString (string.Empty);
                 }
-                return new HtmlString ($"<a href=\"{Globals.LinkClick ("fileid=" + sigFile.FileId, Dnn.Module.TabId, Dnn.Module.ModuleId)}\">.sig</a>");
+
+                return new HtmlString (
+                    $"<a href=\"{Globals.LinkClick ("fileid=" + sigFile.FileId, Dnn.Module.TabId, Dnn.Module.ModuleId)}\""
+                    + $" title=\"{Dnn.LocalizeString ("SignatureLink_Tooltip.Text")}\">"
+                    + $"{Dnn.LocalizeString ("SignatureLink_Label.Text")}</a>");
             }
         }
 

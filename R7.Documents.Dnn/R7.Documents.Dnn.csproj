@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="etc" />
     <Folder Include="SqlDataProvider\" />
     <Folder Include="Properties\" />
     <Folder Include="Models\" />
@@ -140,6 +141,8 @@
     <None Include="App_LocalResources\ChangeFolder.ascx.ru-RU.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.resx" />
     <None Include="App_LocalResources\ImportDocuments.ascx.ru-RU.resx" />
+    <None Include="etc\volgau.com\App_LocalResources\ViewDocuments.ascx.Host.resx" />
+    <None Include="etc\volgau.com\App_LocalResources\ViewDocuments.ascx.ru-RU.Host.resx" />
     <None Include="R7.Documents.dnn.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

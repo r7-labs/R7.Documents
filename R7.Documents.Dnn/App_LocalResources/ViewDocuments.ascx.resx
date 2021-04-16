@@ -66,4 +66,10 @@
 	<data name="DeleteDocumentsWithFiles.Action" xml:space="preserve">
         <value>Delete Selected with Files</value>
     </data>
+	<data name="SignatureLink_Label.Text" xml:space="preserve">
+		<value>.sig</value>
+	</data>
+	<data name="SignatureLink_Tooltip.Text" xml:space="preserve">
+		<value>Digital Signature</value>
+	</data>
 </root>
