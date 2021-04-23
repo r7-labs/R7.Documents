@@ -235,7 +235,7 @@ namespace R7.Documents
                         if (Settings.ShowTitleLink) {
                             if (titleColumnIndex == NOT_READ) {
                                 titleColumnIndex = DocumentsSettings.FindGridColumn (
-                                    DocumentsDisplayColumnInfo.COLUMN_TITLE,
+                                    DocumentsDisplayColumn.COLUMN_TITLE,
                                     Settings.GetDisplayColumnList (LocalResourceFile), true);
                             }
 
@@ -255,7 +255,7 @@ namespace R7.Documents
 						// if there's a "download" link, set the NavigateUrl
                         if (downloadLinkColumnIndex == NOT_READ) {
                             downloadLinkColumnIndex = DocumentsSettings.FindGridColumn (
-                                DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK,
+                                DocumentsDisplayColumn.COLUMN_DOWNLOADLINK,
                                 Settings.GetDisplayColumnList (LocalResourceFile), true);
                         }
                         if (downloadLinkColumnIndex >= 0) {
@@ -430,46 +430,46 @@ namespace R7.Documents
                 }
 
                 switch (column.ColumnName) {
-                    case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
-                    case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
-                    case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
+                    case DocumentsDisplayColumn.COLUMN_CATEGORY:
+                    case DocumentsDisplayColumn.COLUMN_DESCRIPTION:
+                    case DocumentsDisplayColumn.COLUMN_CLICKS:
                         AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName.ToLowerInvariant (),
                             column.ColumnName);
                         break;
 
-                    case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
-                    case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
+                    case DocumentsDisplayColumn.COLUMN_CREATEDBY:
+                    case DocumentsDisplayColumn.COLUMN_MODIFIEDBY:
                         AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName.ToLowerInvariant (),
                             column.ColumnName + "User");
                         break;
 
-                    case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
-                    case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
-                    case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
+                    case DocumentsDisplayColumn.COLUMN_CREATEDDATE:
+                    case DocumentsDisplayColumn.COLUMN_MODIFIEDDATE:
+                    case DocumentsDisplayColumn.COLUMN_PUBLISHEDONDATE:
                         AddDocumentColumn (LocalizeString (column.ColumnName + ".Column"), column.ColumnName.ToLowerInvariant (),
                             column.ColumnName, true, dateTimeFormat);
                         break;
 
-                    case DocumentsDisplayColumnInfo.COLUMN_DOWNLOADLINK:
+                    case DocumentsDisplayColumn.COLUMN_DOWNLOADLINK:
                         AddDownloadLink ("DownloadLink.Column", "download-link", "DownloadLink", "ctlDownloadLink");
                         break;
 
-                    case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
+                    case DocumentsDisplayColumn.COLUMN_OWNEDBY:
                         AddDocumentColumn (LocalizeString ("Owner.Column"), "owner",
                             nameof (DocumentViewModel.OwnedByUser));
                         break;
 
-                    case DocumentsDisplayColumnInfo.COLUMN_SIZE:
+                    case DocumentsDisplayColumn.COLUMN_SIZE:
                         AddDocumentColumn (LocalizeString ("Size.Column"), "size",
                             nameof (DocumentViewModel.FormatSize));
                         break;
 
-                    case DocumentsDisplayColumnInfo.COLUMN_ICON:
+                    case DocumentsDisplayColumn.COLUMN_ICON:
                         AddDocumentColumn (LocalizeString ("Icon.Column"), "icon",
                             nameof (DocumentViewModel.FormatIcon), false);
                         break;
 
-                    case DocumentsDisplayColumnInfo.COLUMN_TITLE:
+                    case DocumentsDisplayColumn.COLUMN_TITLE:
                         if (Settings.ShowTitleLink) {
                             AddDownloadLink (LocalizeString ("Title.Column"),
                                 nameof (DocumentViewModel.Title).ToLowerInvariant (), nameof (DocumentViewModel.Title), "ctlTitle");
@@ -480,7 +480,7 @@ namespace R7.Documents
                         }
                         break;
 
-                    case DocumentsDisplayColumnInfo.COLUMN_SIGNATURE:
+                    case DocumentsDisplayColumn.COLUMN_SIGNATURE:
                         AddDocumentColumn (LocalizeString ("Signature.Column"), "signature-link",
                             nameof (DocumentViewModel.SignatureLink), false);
                         break;

@@ -66,52 +66,52 @@ namespace R7.Documents.ViewModels
         int CompareValues (string columnName, IDocumentViewModel x, IDocumentViewModel y, bool isLastCompare)
         {
             switch (columnName) {
-                case DocumentsDisplayColumnInfo.COLUMN_SORTORDER:
+                case DocumentsDisplayColumn.COLUMN_SORTORDER:
                     return x.SortOrderIndex.CompareTo (y.SortOrderIndex);
 
-                case DocumentsDisplayColumnInfo.COLUMN_CATEGORY:
+                case DocumentsDisplayColumn.COLUMN_CATEGORY:
                     return x.Category.CompareTo (y.Category);
 
-                case DocumentsDisplayColumnInfo.COLUMN_CREATEDBY:
+                case DocumentsDisplayColumn.COLUMN_CREATEDBY:
                     return x.CreatedByUser.CompareTo (y.CreatedByUser);
 
-                case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDBY:
+                case DocumentsDisplayColumn.COLUMN_MODIFIEDBY:
                     return x.ModifiedByUser.CompareTo (y.ModifiedByUser);
 
-                case DocumentsDisplayColumnInfo.COLUMN_CREATEDDATE:
+                case DocumentsDisplayColumn.COLUMN_CREATEDDATE:
                     if (isLastCompare) {
                         return x.CreatedDate.CompareTo (y.CreatedDate);
                     }
                     return x.CreatedDate.Date.CompareTo (y.CreatedDate.Date);
 
-                case DocumentsDisplayColumnInfo.COLUMN_PUBLISHEDONDATE:
+                case DocumentsDisplayColumn.COLUMN_PUBLISHEDONDATE:
                     if (isLastCompare) {
                         return x.PublishedOnDate.CompareTo (y.PublishedOnDate);
                     }
                     return x.PublishedOnDate.Date.CompareTo (y.PublishedOnDate.Date);
 
-                case DocumentsDisplayColumnInfo.COLUMN_MODIFIEDDATE:
+                case DocumentsDisplayColumn.COLUMN_MODIFIEDDATE:
                     if (isLastCompare) {
                         return x.ModifiedDate.CompareTo (y.ModifiedDate);
                     }
                     return x.ModifiedDate.Date.CompareTo (y.ModifiedDate.Date);
 
-                case DocumentsDisplayColumnInfo.COLUMN_DESCRIPTION:
+                case DocumentsDisplayColumn.COLUMN_DESCRIPTION:
                     return x.Description.CompareTo (y.Description);
 
-                case DocumentsDisplayColumnInfo.COLUMN_OWNEDBY:
+                case DocumentsDisplayColumn.COLUMN_OWNEDBY:
                     return x.OwnedByUser.CompareTo (y.OwnedByUser);
 
-                case DocumentsDisplayColumnInfo.COLUMN_SIZE:
+                case DocumentsDisplayColumn.COLUMN_SIZE:
                     return x.Size.CompareTo (y.Size);
 
-                case DocumentsDisplayColumnInfo.COLUMN_TITLE:
+                case DocumentsDisplayColumn.COLUMN_TITLE:
                     return x.Title.CompareTo (y.Title);
 
-                case DocumentsDisplayColumnInfo.COLUMN_CLICKS:
+                case DocumentsDisplayColumn.COLUMN_CLICKS:
                     return x.Clicks.CompareTo (y.Clicks);
 
-                case DocumentsDisplayColumnInfo.COLUMN_ISFEATURED:
+                case DocumentsDisplayColumn.COLUMN_ISFEATURED:
                     return x.IsFeatured.CompareTo (y.IsFeatured);
             }
 

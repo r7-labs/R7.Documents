@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace R7.Documents.Models
 {
     [Serializable]
-    public class DocumentsDisplayColumnInfo : IComparable
+    public class DocumentsDisplayColumn : IComparable
     {
         public const string COLUMN_CREATEDBY = "CreatedBy";
         public const string COLUMN_CREATEDDATE = "CreatedDate";
@@ -72,9 +72,9 @@ namespace R7.Documents.Models
 
         public int CompareTo (object obj)
         {
-            DocumentsDisplayColumnInfo objYItem = null;
+            DocumentsDisplayColumn objYItem = null;
 
-            objYItem = (DocumentsDisplayColumnInfo) obj;
+            objYItem = (DocumentsDisplayColumn) obj;
             return DisplayOrder.CompareTo (objYItem.DisplayOrder);
         }
 
