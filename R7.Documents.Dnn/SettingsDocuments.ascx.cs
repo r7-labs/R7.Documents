@@ -21,12 +21,6 @@ using R7.University.Components;
 
 namespace R7.Documents
 {
-    /// <summary>
-    /// Provides the UI for managing Document's module settings
-    /// </summary>
-    /// <history>
-    /// 	[cnurse]	9/22/2004	Moved Documents to a separate Project
-    /// </history>
     public partial class SettingsDocuments : ModuleSettingsBase<DocumentsSettings>
     {
         const string VIEWSTATE_SORTCOLUMNSETTINGS = "SortColumnSettings";
@@ -181,9 +175,6 @@ namespace R7.Documents
 
         #endregion
 
-        /// <summary>
-        /// LoadSettings loads the settings from the Databas and displays them
-        /// </summary>
         public override void LoadSettings ()
         {
             DocumentsDisplayColumn objColumn = null;
@@ -286,9 +277,6 @@ namespace R7.Documents
             }
         }
 
-        /// <summary>
-        /// UpdateSettings saves the modified settings to the Database
-        /// </summary>
         public override void UpdateSettings ()
         {
             try {
@@ -335,15 +323,6 @@ namespace R7.Documents
 
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Read settings from the screen into the passed-in DocumentsSettings object
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// </history>
-        /// -----------------------------------------------------------------------------
         void FillSettings ()
         {
             string strDisplayColumns = "";
