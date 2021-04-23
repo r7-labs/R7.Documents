@@ -79,5 +79,22 @@ namespace R7.Documents.Models
         }
 
         #endregion
+
+        public static List<DocumentsDisplayColumn> ParseDisplayColumns (string strDisplayColumns)
+        {
+            var displayColumns = new List<DocumentsDisplayColumn> ();
+            if (!string.IsNullOrEmpty (strDisplayColumns)) {
+                foreach (string strDisplayColumn in strDisplayColumns.Split ('#')) {
+                    var displayColumn = new DocumentsDisplayColumn ();
+                    displayColumn.ColumnName = strDisplayColumn.Split (',') [0];
+                    displayColumn.LocalizedColumnName = strDisplayColumn.Split (',') [1];
+                    displayColumn.DisplayOrder = Convert.ToInt32 (strDisplayColumn.Split (',') [2]);
+                    displayColumn.Visible = Convert.ToBoolean (strDisplayColumn.Split (',') [3]);
+                    displayColumns.Add (displayColumn);
+                }
+            }
+
+            return displayColumns;
+        }
     }
 }

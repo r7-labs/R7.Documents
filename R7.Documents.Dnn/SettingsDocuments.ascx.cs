@@ -394,7 +394,7 @@ namespace R7.Documents
                 Settings.DefaultFolder = null;
             }
 
-            var objColumnSettings = ParseDisplayColumnSettings ((string) ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
+            var objColumnSettings = DocumentsDisplayColumn.ParseDisplayColumns ((string) ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
             intIndex = 0;
             foreach (DocumentsDisplayColumn objColumnInfo_loopVariable in objColumnSettings) {
                 objColumn = objColumnInfo_loopVariable;
@@ -429,7 +429,7 @@ namespace R7.Documents
             int intDisplayOrderTemp = 0;
 
             // first, find the column we want
-            var objColumnSettings = ParseDisplayColumnSettings ();
+            var objColumnSettings = DocumentsDisplayColumn.ParseDisplayColumns ((string) ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);;
             intIndex = DocumentsSettings.FindColumn (columnName, objColumnSettings, false);
 
             // swap display orders
@@ -513,24 +513,6 @@ namespace R7.Documents
                 strValues = strValues + objDisplayColumn.ColumnName + "," + objDisplayColumn.LocalizedColumnName + "," + objDisplayColumn.DisplayOrder + "," + objDisplayColumn.Visible;
             }
             ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS] = strValues;
-        }
-
-        List<DocumentsDisplayColumn> ParseDisplayColumnSettings (string strDisplayColumns)
-        {
-            var displayColumns = new List<DocumentsDisplayColumn> ();
-
-            if (!string.IsNullOrEmpty (strDisplayColumns)) {
-                foreach (string strDisplayColumn in strDisplayColumns.Split ('#')) {
-                    var displayColumn = new DocumentsDisplayColumn ();
-                    displayColumn.ColumnName = strDisplayColumn.Split (',') [0];
-                    displayColumn.LocalizedColumnName = strDisplayColumn.Split (',') [1];
-                    displayColumn.DisplayOrder = Convert.ToInt32 (strDisplayColumn.Split (',') [2]);
-                    displayColumn.Visible = Convert.ToBoolean (strDisplayColumn.Split (',') [3]);
-                    displayColumns.Add (displayColumn);
-                }
-            }
-
-            return displayColumns;
         }
     }
 }
