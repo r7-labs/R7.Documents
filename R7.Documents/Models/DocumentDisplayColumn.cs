@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace R7.Documents.Models
 {
@@ -80,6 +81,8 @@ namespace R7.Documents.Models
 
         #endregion
 
+        public string FormatDisplayColumnSetting () => $"{ColumnName},{LocalizedColumnName},{DisplayOrder},{Visible}";
+
         public static List<DocumentDisplayColumn> ParseDisplayColumnsSettings (string displayColumnsSettings)
         {
             var displayColumns = new List<DocumentDisplayColumn> ();
@@ -98,16 +101,6 @@ namespace R7.Documents.Models
         }
 
         public static string FormatDisplayColumnSettings (IList<DocumentDisplayColumn> displayColumns)
-        {
-            var strValues = "";
-            foreach (DocumentDisplayColumn objDisplayColumn in displayColumns) {
-                if (strValues != string.Empty) {
-                    strValues = strValues + "#";
-                }
-                strValues = strValues + objDisplayColumn.ColumnName + "," + objDisplayColumn.LocalizedColumnName + "," + objDisplayColumn.DisplayOrder + "," + objDisplayColumn.Visible;
-            }
-
-            return strValues;
-        }
+            => string.Join ("#", displayColumns.Select (dc => dc.FormatDisplayColumnSetting ()));
     }
 }
