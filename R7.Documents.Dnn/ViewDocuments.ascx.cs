@@ -520,8 +520,8 @@ namespace R7.Documents
 
         IEnumerable<DocumentViewModel> LoadDocuments_Internal ()
         {
-            var viewModelContext = new ViewModelContext<DocumentsSettings> (this, Settings);
-            return GetDocuments ().Select (d => new DocumentViewModel (d, viewModelContext));
+            var dnn = new ViewModelContext<DocumentsSettings> (this, Settings);
+            return GetDocuments ().Select (d => new DocumentViewModel (d, dnn));
         }
 
         IEnumerable<DocumentInfo> GetDocuments ()

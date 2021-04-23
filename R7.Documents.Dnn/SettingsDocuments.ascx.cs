@@ -33,8 +33,8 @@ namespace R7.Documents
 
         const string VIEWSTATE_DISPLAYCOLUMNSETTINGS = "DisplayColumnSettings";
 
-        ViewModelContext _viewModelContext;
-        protected ViewModelContext ViewModelContext => _viewModelContext ?? (_viewModelContext = new ViewModelContext (this));
+        ViewModelContext _dnn;
+        protected ViewModelContext Dnn => _dnn ?? (_dnn = new ViewModelContext (this));
 
         #region Event handlers
 
@@ -309,7 +309,7 @@ namespace R7.Documents
         {
             SaveSortColumnSettings (objSortColumns);
             grdSortColumns.DataSource = objSortColumns.Cast<IDocumentsSortColumn> ()
-                .Select (sc => new DocumentSortColumnViewModel (sc, ViewModelContext));
+                .Select (sc => new DocumentSortColumnViewModel (sc, Dnn));
             grdSortColumns.DataKeyField = "ColumnName";
 
             Localization.LocalizeDataGrid (ref grdSortColumns, LocalResourceFile);
