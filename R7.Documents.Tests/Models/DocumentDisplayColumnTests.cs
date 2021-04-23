@@ -9,15 +9,15 @@ namespace R7.Documents.Tests.Models
         [Fact]
         public void ParseDisplayColumnsSettingsTest ()
         {
-            var testDisplayColumns = new List<DocumentsDisplayColumn> () {
-                new DocumentsDisplayColumn {
-                    ColumnName = DocumentsDisplayColumn.COLUMN_TITLE,
+            var testDisplayColumns = new List<DocumentDisplayColumn> () {
+                new DocumentDisplayColumn {
+                    ColumnName = DocumentDisplayColumn.COLUMN_TITLE,
                     LocalizedColumnName = "",
                     DisplayOrder = 1,
                     Visible = true
                 },
-                new DocumentsDisplayColumn {
-                    ColumnName = DocumentsDisplayColumn.COLUMN_DESCRIPTION,
+                new DocumentDisplayColumn {
+                    ColumnName = DocumentDisplayColumn.COLUMN_DESCRIPTION,
                     LocalizedColumnName = "",
                     DisplayOrder = 2,
                     Visible = false
@@ -25,7 +25,7 @@ namespace R7.Documents.Tests.Models
             };
 
             var displayColumns =
-                DocumentsDisplayColumn.ParseDisplayColumns ("Title,,1,true#Description,,2,false");
+                DocumentDisplayColumn.ParseDisplayColumns ("Title,,1,true#Description,,2,false");
 
             for (var i = 0; i < testDisplayColumns.Count; i++) {
                 Assert.Equal (testDisplayColumns[i].ColumnName, displayColumns[i].ColumnName);

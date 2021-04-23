@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace R7.Documents.Models
 {
     [Serializable]
-    public class DocumentsDisplayColumn : IComparable
+    public class DocumentDisplayColumn : IComparable
     {
         public const string COLUMN_CREATEDBY = "CreatedBy";
         public const string COLUMN_CREATEDDATE = "CreatedDate";
@@ -72,20 +72,20 @@ namespace R7.Documents.Models
 
         public int CompareTo (object obj)
         {
-            DocumentsDisplayColumn objYItem = null;
+            DocumentDisplayColumn objYItem = null;
 
-            objYItem = (DocumentsDisplayColumn) obj;
+            objYItem = (DocumentDisplayColumn) obj;
             return DisplayOrder.CompareTo (objYItem.DisplayOrder);
         }
 
         #endregion
 
-        public static List<DocumentsDisplayColumn> ParseDisplayColumns (string strDisplayColumns)
+        public static List<DocumentDisplayColumn> ParseDisplayColumns (string strDisplayColumns)
         {
-            var displayColumns = new List<DocumentsDisplayColumn> ();
+            var displayColumns = new List<DocumentDisplayColumn> ();
             if (!string.IsNullOrEmpty (strDisplayColumns)) {
                 foreach (string strDisplayColumn in strDisplayColumns.Split ('#')) {
-                    var displayColumn = new DocumentsDisplayColumn ();
+                    var displayColumn = new DocumentDisplayColumn ();
                     displayColumn.ColumnName = strDisplayColumn.Split (',') [0];
                     displayColumn.LocalizedColumnName = strDisplayColumn.Split (',') [1];
                     displayColumn.DisplayOrder = Convert.ToInt32 (strDisplayColumn.Split (',') [2]);

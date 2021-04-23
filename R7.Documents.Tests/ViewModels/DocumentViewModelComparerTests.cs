@@ -13,12 +13,12 @@ namespace R7.Documents.Tests.ViewModels
         void DateComparisonTest ()
         {
             var colOrder = new DocumentsSortColumn {
-                ColumnName = DocumentsDisplayColumn.COLUMN_SORTORDER,
+                ColumnName = DocumentDisplayColumn.COLUMN_SORTORDER,
                 Direction = SortDirection.Ascending
             };
 
             var colModifiedDate = new DocumentsSortColumn {
-                ColumnName = DocumentsDisplayColumn.COLUMN_MODIFIEDDATE,
+                ColumnName = DocumentDisplayColumn.COLUMN_MODIFIEDDATE,
                 Direction = SortDirection.Ascending
             };
 

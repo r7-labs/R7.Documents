@@ -41,12 +41,12 @@ namespace R7.Documents.Models
         public bool ShowTitleLink { get; set; } = true;
 
         [TabModuleSetting (Prefix = "Documents_")]
-        public string SortOrder { get; set; } = DocumentsDisplayColumn.COLUMN_SORTORDER;
+        public string SortOrder { get; set; } = DocumentDisplayColumn.COLUMN_SORTORDER;
 
         [TabModuleSetting (Prefix = "Documents_")]
-        public string DisplayColumns { get; set; } = DocumentsDisplayColumn.COLUMN_ICON + ";true," +
-                    DocumentsDisplayColumn.COLUMN_TITLE + ";true," +
-                    DocumentsDisplayColumn.COLUMN_DOWNLOADLINK + ";true";
+        public string DisplayColumns { get; set; } = DocumentDisplayColumn.COLUMN_ICON + ";true," +
+                    DocumentDisplayColumn.COLUMN_TITLE + ";true," +
+                    DocumentDisplayColumn.COLUMN_DOWNLOADLINK + ";true";
 
         [TabModuleSetting (Prefix = "Documents_")]
         public bool AllowUserSort { get; set; } = false;
@@ -86,9 +86,9 @@ namespace R7.Documents.Models
 
         public bool FolderMode => DefaultFolder != null && !string.IsNullOrEmpty (FileFilter);
 
-        public List<DocumentsDisplayColumn> GetDisplayColumnList (string localResourceFile)
+        public List<DocumentDisplayColumn> GetDisplayColumnList (string localResourceFile)
         {
-            var objColumnSettings = new List<DocumentsDisplayColumn> ();
+            var objColumnSettings = new List<DocumentDisplayColumn> ();
 
             if (!string.IsNullOrWhiteSpace (DisplayColumns)) {
                 // read "saved" column sort orders in first
@@ -96,8 +96,8 @@ namespace R7.Documents.Models
                     var strColumnData = strColumn.Split (new [] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                     var strColumnName = strColumnData [0];
 
-                    if (DocumentsDisplayColumn.AvailableDisplayColumns.Contains (strColumnName)) {
-                        var objColumnInfo = new DocumentsDisplayColumn {
+                    if (DocumentDisplayColumn.AvailableDisplayColumns.Contains (strColumnName)) {
+                        var objColumnInfo = new DocumentDisplayColumn {
                             ColumnName = strColumnName,
                             DisplayOrder = objColumnSettings.Count + 1,
                             Visible = bool.Parse (strColumnData [1]),
@@ -145,7 +145,7 @@ namespace R7.Documents.Models
 
         #region Static methods
 
-        public static int FindColumn (string columnName, List<DocumentsDisplayColumn> columnList, bool visibleOnly)
+        public static int FindColumn (string columnName, List<DocumentDisplayColumn> columnList, bool visibleOnly)
         {
             // find a display column in the list and return it's index
             var intIndex = 0;
@@ -160,7 +160,7 @@ namespace R7.Documents.Models
             return -1;
         }
 
-        public static int FindGridColumn (string columnName, List<DocumentsDisplayColumn> columnList, bool visibleOnly)
+        public static int FindGridColumn (string columnName, List<DocumentDisplayColumn> columnList, bool visibleOnly)
         {
             // find a display column in the list and return it's "column" index
             // as it will be displayed within the grid.  This function differs from FindColumn
