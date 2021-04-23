@@ -96,5 +96,18 @@ namespace R7.Documents.Models
 
             return displayColumns;
         }
+
+        public static string FormatDisplayColumnSettings (IList<DocumentDisplayColumn> displayColumns)
+        {
+            var strValues = "";
+            foreach (DocumentDisplayColumn objDisplayColumn in displayColumns) {
+                if (strValues != string.Empty) {
+                    strValues = strValues + "#";
+                }
+                strValues = strValues + objDisplayColumn.ColumnName + "," + objDisplayColumn.LocalizedColumnName + "," + objDisplayColumn.DisplayOrder + "," + objDisplayColumn.Visible;
+            }
+
+            return strValues;
+        }
     }
 }

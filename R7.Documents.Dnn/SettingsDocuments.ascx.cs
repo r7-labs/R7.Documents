@@ -336,7 +336,10 @@ namespace R7.Documents
         void BindColumnSettings (List<DocumentDisplayColumn> objColumnSettings)
         {
             objColumnSettings.Sort ();
-            SaveDisplayColumnSettings (objColumnSettings);
+
+            // custom viewstate implementation to avoid reflection
+            ViewState[VIEWSTATE_DISPLAYCOLUMNSETTINGS] = DocumentDisplayColumn.FormatDisplayColumnSettings (objColumnSettings);
+
             grdDisplayColumns.DataSource = objColumnSettings;
             grdDisplayColumns.DataKeyField = "ColumnName";
 
@@ -349,7 +352,6 @@ namespace R7.Documents
             var imageDownload = (ImageButton)grdDisplayColumns.Items [grdDisplayColumns.Items.Count - 1].Cells [2].FindControl ("imgDown");
             // set down arrow invisible on the last item
             imageDownload.Visible = false;
-
         }
 
         void FillSettings ()
@@ -497,22 +499,6 @@ namespace R7.Documents
             }
 
             return objSortColumnSettings;
-        }
-
-        void SaveDisplayColumnSettings (List<DocumentDisplayColumn> objSettings)
-        {
-            // custom viewstate implementation to avoid reflection
-            DocumentDisplayColumn objDisplayColumn = null;
-            var strValues = "";
-
-            foreach (DocumentDisplayColumn objDisplayColumnInfo_loopVariable in objSettings) {
-                objDisplayColumn = objDisplayColumnInfo_loopVariable;
-                if (strValues != string.Empty) {
-                    strValues = strValues + "#";
-                }
-                strValues = strValues + objDisplayColumn.ColumnName + "," + objDisplayColumn.LocalizedColumnName + "," + objDisplayColumn.DisplayOrder + "," + objDisplayColumn.Visible;
-            }
-            ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS] = strValues;
         }
     }
 }
