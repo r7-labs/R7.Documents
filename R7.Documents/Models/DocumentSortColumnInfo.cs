@@ -3,7 +3,7 @@
 namespace R7.Documents.Models
 {
     [Serializable]
-    public class DocumentsSortColumnInfo : IDocumentsSortColumn
+    public class DocumentsSortColumn : IDocumentsSortColumn
     {
         public SortDirection Direction { get; set; } = SortDirection.Ascending;
 

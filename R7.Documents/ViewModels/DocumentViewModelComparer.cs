@@ -38,14 +38,14 @@ namespace R7.Documents.ViewModels
 
         int Compare (int sortColumnIndex, IDocumentViewModel objX, IDocumentViewModel objY)
         {
-            var objSortColumn = default(DocumentsSortColumnInfo);
+            var objSortColumn = default(DocumentsSortColumn);
             int intResult = 0;
 
             if (sortColumnIndex >= mobjSortColumns.Count) {
                 return 0;
             }
 
-            objSortColumn = (DocumentsSortColumnInfo) mobjSortColumns [sortColumnIndex];
+            objSortColumn = (DocumentsSortColumn) mobjSortColumns [sortColumnIndex];
 
             var isLastCompare = sortColumnIndex == mobjSortColumns.Count - 1;
             if (objSortColumn.Direction == SortDirection.Ascending) {

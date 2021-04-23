@@ -147,7 +147,7 @@ namespace R7.Documents
         protected void lnkAddSortColumn_Click (object sender, EventArgs e)
         {
             var objSortColumns = default (ArrayList);
-            var objNewSortColumn = new DocumentsSortColumnInfo ();
+            var objNewSortColumn = new DocumentsSortColumn ();
 
             objSortColumns = RetrieveSortColumnSettings ();
             objNewSortColumn.ColumnName = ddlSortFields.SelectedValue;
@@ -164,11 +164,11 @@ namespace R7.Documents
         protected void grdSortColumns_DeleteCommand (object source, DataGridCommandEventArgs e)
         {
             var objSortColumns = default (ArrayList);
-            var objSortColumnToDelete = new DocumentsSortColumnInfo ();
+            var objSortColumnToDelete = new DocumentsSortColumn ();
 
             objSortColumns = RetrieveSortColumnSettings ();
 
-            foreach (DocumentsSortColumnInfo objSortColumnToDelete_loopVariable in objSortColumns) {
+            foreach (DocumentsSortColumn objSortColumnToDelete_loopVariable in objSortColumns) {
                 objSortColumnToDelete = objSortColumnToDelete_loopVariable;
                 if (objSortColumnToDelete.ColumnName == grdSortColumns.DataKeys [e.Item.ItemIndex].ToString ()) {
                     objSortColumns.Remove (objSortColumnToDelete);
@@ -351,7 +351,7 @@ namespace R7.Documents
             int intIndex = 0;
             var objSortColumns = default (ArrayList);
             string strSortColumnList = "";
-            DocumentsSortColumnInfo objSortColumn = null;
+            DocumentsSortColumn objSortColumn = null;
 
             // ensure that if categories list is checked that we did have an available category
             if ((chkUseCategoriesList.Checked && !lblNoListsAvailable.Visible)) {
@@ -404,7 +404,7 @@ namespace R7.Documents
             Settings.DisplayColumns = strDisplayColumns;
 
             objSortColumns = RetrieveSortColumnSettings ();
-            foreach (DocumentsSortColumnInfo objSortColumn_loopVariable in objSortColumns) {
+            foreach (DocumentsSortColumn objSortColumn_loopVariable in objSortColumns) {
                 objSortColumn = objSortColumn_loopVariable;
                 if (strSortColumnList != string.Empty) {
                     strSortColumnList = strSortColumnList + ",";
@@ -453,16 +453,16 @@ namespace R7.Documents
         void SaveSortColumnSettings (ArrayList objSettings)
         {
             // custom viewstate implementation to avoid reflection
-            DocumentsSortColumnInfo objSortColumnInfo = null;
+            DocumentsSortColumn objSortColumn = null;
             string strValues = "";
 
-            foreach (DocumentsSortColumnInfo objSortColumnInfo_loopVariable in objSettings) {
-                objSortColumnInfo = objSortColumnInfo_loopVariable;
+            foreach (DocumentsSortColumn objSortColumnInfo_loopVariable in objSettings) {
+                objSortColumn = objSortColumnInfo_loopVariable;
                 if (strValues != string.Empty) {
                     strValues = strValues + "#";
                 }
 
-                strValues = strValues + objSortColumnInfo.ColumnName + "," + objSortColumnInfo.Direction.ToString ();
+                strValues = strValues + objSortColumn.ColumnName + "," + objSortColumn.Direction.ToString ();
             }
             ViewState [VIEWSTATE_SORTCOLUMNSETTINGS] = strValues;
         }
@@ -471,20 +471,20 @@ namespace R7.Documents
         {
             // custom viewstate implementation to avoid reflection
             var objSortColumnSettings = new ArrayList ();
-            DocumentsSortColumnInfo objSortColumnInfo = null;
+            DocumentsSortColumn objSortColumn = null;
 
             string strValues = null;
 
             strValues = Convert.ToString (ViewState [VIEWSTATE_SORTCOLUMNSETTINGS]);
             if (!string.IsNullOrEmpty (strValues)) {
                 foreach (string strSortColumnSetting in strValues.Split ('#')) {
-                    objSortColumnInfo = new DocumentsSortColumnInfo ();
-                    objSortColumnInfo.ColumnName = strSortColumnSetting.Split (',') [0];
-                    objSortColumnInfo.Direction = (Models.SortDirection) Enum.Parse (
+                    objSortColumn = new DocumentsSortColumn ();
+                    objSortColumn.ColumnName = strSortColumnSetting.Split (',') [0];
+                    objSortColumn.Direction = (Models.SortDirection) Enum.Parse (
                         typeof (Models.SortDirection),
                         strSortColumnSetting.Split (',') [1]);
 
-                    objSortColumnSettings.Add (objSortColumnInfo);
+                    objSortColumnSettings.Add (objSortColumn);
                 }
             }
 

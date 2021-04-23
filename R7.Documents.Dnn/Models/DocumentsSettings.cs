@@ -114,14 +114,14 @@ namespace R7.Documents.Models
 
         public ArrayList GetSortColumnList ()
         {
-            var objSortColumn = default (DocumentsSortColumnInfo);
+            var objSortColumn = default (DocumentsSortColumn);
             string strSortColumn = null;
             var objSortColumns = new ArrayList ();
 
             if (!string.IsNullOrEmpty (SortOrder)) {
                 foreach (string strSortColumn_loopVariable in SortOrder.Split (',')) {
                     strSortColumn = strSortColumn_loopVariable;
-                    objSortColumn = new DocumentsSortColumnInfo ();
+                    objSortColumn = new DocumentsSortColumn ();
                     if (strSortColumn.StartsWith ("-", StringComparison.InvariantCulture)) {
                         objSortColumn.Direction = Models.SortDirection.Descending;
                         objSortColumn.ColumnName = strSortColumn.Substring (1);

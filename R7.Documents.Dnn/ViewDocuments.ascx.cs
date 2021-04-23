@@ -138,7 +138,7 @@ namespace R7.Documents
         protected void grdDocuments_Sorting (object sender, GridViewSortEventArgs e)
         {
             var objCustomSortList = new ArrayList ();
-            var objCustomSortColumn = new DocumentsSortColumnInfo ();
+            var objCustomSortColumn = new DocumentsSortColumn ();
             var objCustomSortDirecton = Models.SortDirection.Ascending;
             var strSortDirectionString = "ASC";
 
