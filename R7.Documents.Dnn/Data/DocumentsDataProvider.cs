@@ -151,34 +151,35 @@ namespace R7.Documents.Data
         public IEnumerable<DocumentInfo> CreateDocumentsFromFolder (int folderId, int portalId, int moduleId, string fileFilter, IEnumerable<string []> rules)
         {
             var folder = FolderManager.Instance.GetFolder (folderId);
-            if (folder != null) {
-                var urlController = new UrlController ();
-                var files = FolderManager.Instance.GetFiles (folder);
-                var documents = files.Where (f => Regex.IsMatch (f.FileName, fileFilter))
-                                     .Select (f => new DocumentInfo {
-                    ItemId = 0,
-                    Url = "FileID=" + f.FileId,
-                    Title = FilenameToTitle (f.FileName, rules),
-                    Size = f.Size,
-                    CreatedByUserId = f.CreatedByUserID,
-                    CreatedDate = f.CreatedOnDate,
-                    ModifiedByUserId = f.LastModifiedByUserID,
-                    ModifiedDate = f.LastModifiedOnDate,
-                    OwnedByUserId = f.CreatedByUserID,
-                    Clicks = urlController.GetUrlTracking (portalId, "FileID=" + f.FileId, moduleId)?.Clicks ?? 0,
-                    ModuleId = moduleId,
-                    TrackClicks = true,
-                    NewWindow = DocumentsConfig.Instance.NewWindow
-                });
-
-                var urlCtrl = new UrlController ();
-                foreach (var document in documents) {
-                    urlCtrl.UpdateUrl (portalId, document.Url, "F", false, document.TrackClicks, document.ModuleId, document.NewWindow);
-                }
-
-                return documents;
+            if (folder == null) {
+                return Enumerable.Empty<DocumentInfo> ();
             }
-            return Enumerable.Empty<DocumentInfo> ();
+
+            var urlController = new UrlController ();
+            var files = FolderManager.Instance.GetFiles (folder);
+            var documents = files.Where (f => Regex.IsMatch (f.FileName, fileFilter))
+                                 .Select (f => new DocumentInfo {
+                ItemId = 0,
+                Url = "FileID=" + f.FileId,
+                Title = FilenameToTitle (f.FileName, rules),
+                Size = f.Size,
+                CreatedByUserId = f.CreatedByUserID,
+                CreatedDate = f.CreatedOnDate,
+                ModifiedByUserId = f.LastModifiedByUserID,
+                ModifiedDate = f.LastModifiedOnDate,
+                OwnedByUserId = f.CreatedByUserID,
+                Clicks = urlController.GetUrlTracking (portalId, "FileID=" + f.FileId, moduleId)?.Clicks ?? 0,
+                ModuleId = moduleId,
+                TrackClicks = true,
+                NewWindow = DocumentsConfig.Instance.NewWindow
+            });
+
+            var urlCtrl = new UrlController ();
+            foreach (var document in documents) {
+                urlCtrl.UpdateUrl (portalId, document.Url, "F", false, document.TrackClicks, document.ModuleId, document.NewWindow);
+            }
+
+            return documents;
         }
 
         string FilenameToTitle (string filename, IEnumerable<string []> rules)
