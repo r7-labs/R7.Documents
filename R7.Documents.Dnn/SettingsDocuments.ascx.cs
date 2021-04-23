@@ -173,6 +173,35 @@ namespace R7.Documents
             BindSortSettings (objSortColumns);
         }
 
+        protected void valFileFilter_ServerValidate (object sender, ServerValidateEventArgs e)
+        {
+            try {
+                Regex.IsMatch ("Any", txtFileFilter.Text.Trim ());
+            }
+            catch {
+                e.IsValid = false;
+                return;
+            }
+
+            e.IsValid = true;
+        }
+
+        protected void valFilenameToTitleRules_ServerValidate (object sender, ServerValidateEventArgs e)
+        {
+            try {
+                var rules = DocumentsSettings.ParseFilenameToTitleRules (txtFilenameToTitleRules.Text);
+                foreach (var rule in rules) {
+                    Regex.Replace ("Any", rule [0], rule [1]);
+                }
+            }
+            catch {
+                e.IsValid = false;
+                return;
+            }
+
+            e.IsValid = true;
+        }
+
         #endregion
 
         public override void LoadSettings ()
@@ -508,35 +537,6 @@ namespace R7.Documents
             }
 
             return objDisplayColumnSettings;
-        }
-
-        protected void valFileFilter_ServerValidate (object sender, ServerValidateEventArgs e)
-        {
-            try {
-                Regex.IsMatch ("Any", txtFileFilter.Text.Trim ());
-            }
-            catch {
-                e.IsValid = false;
-                return;
-            }
-
-            e.IsValid = true;
-        }
-
-        protected void valFilenameToTitleRules_ServerValidate (object sender, ServerValidateEventArgs e)
-        {
-            try {
-                var rules = DocumentsSettings.ParseFilenameToTitleRules (txtFilenameToTitleRules.Text);
-                foreach (var rule in rules) {
-                    Regex.Replace ("Any", rule [0], rule [1]);
-                }
-            }
-            catch {
-                e.IsValid = false;
-                return;
-            }
-
-            e.IsValid = true;
         }
     }
 }
