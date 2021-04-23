@@ -11,7 +11,7 @@
 
 ## End-user differences
 
-- Multi-tabbed, popup-enabled document editing UI.
+- Multi-tabbed, popup-enabled document editing UI with multiple tweaks.
 - Icon column to display file extension or document type.
 - Display files from specific folder as documents.
 - Editable document dates.
@@ -23,22 +23,26 @@
 - Delete documents along with linked files.
 - Bulk copy and delete operations within a module.
 - Customizable styles - Bootstrap and DNN grid styles included.
-- YAML-based portal-level configuration (see `R7.Documents.default.yml`)
+- YAML-based portal-level configuration.
 - DNN 7.1+ search integration.
+- Ability to autohide module without content from non-editors.
+- Improved sorting.
 
-## Developer differences
+## For developer
 
-- Module code converted from VB.NET to C#.
-- New DAL 2 used instead of DAL.
-- Module settings now stored in standard DNN tables.
-- All obsolete / deprecated DNN API calls were refreshed.
-- Enabled cross-platform development using MonoDevelop or Visual Studio Code.
+- Module source code converted from VB.NET to C#.
+- Refreshed obsolete / deprecated DNN API calls.
+- Module stores settings in standard DNN tables.
+- Data access code converted to DAL 2.
+- WIP: Automated unit tests project.
+- WIP: Moving parts of the code to .NET Standard.
+- Cross-platform development using MonoDevelop, Rider or Visual Studio Code.
 
 # Install
 
-Download release package and install as usual under Host &gt; Extensions &gt; Install Extension Wizard.
+Download release package and install via Host &gt; Extensions.
 
 ## Install notes
 
-- R7.Documents module peacefully co-exists with original DNN Documents in the same DNN installation, on the same page, etc.
+- R7.Documents module peacefully co-exists with the original DNN Documents in the same DNN installation, on the same page, etc.
 - Russian localization resources will be installed along with english ones. If you don't need this, just delete all *.ru-RU.resx files from /DesktopModules/R7.Documents/R7.Documents.Dnn/App_LocalResouces folder or modify Resouces.zip in the install package accordingly.
