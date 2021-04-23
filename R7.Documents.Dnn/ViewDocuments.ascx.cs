@@ -189,14 +189,14 @@ namespace R7.Documents
             Localization.LocalizeGridView (ref grdDocuments, LocalResourceFile);
         }
 
-        HtmlInputCheckBox CreateSelectUnselectAllDocumentsCheckBox ()
+        HtmlInputCheckBox CreateToggleAllCheckBox ()
         {
-            var allCheckBox = new HtmlInputCheckBox ();
-            allCheckBox.Checked = false;
-            allCheckBox.Attributes.Add ("title", LocalizeString ("SelectUnselectAllDocuments.Text"));
-            allCheckBox.Attributes.Add ("onchange", "r7_documentSelector.toggleAll(this)");
+            var cbxToggleAll = new HtmlInputCheckBox ();
+            cbxToggleAll.Checked = false;
+            cbxToggleAll.Attributes.Add ("title", LocalizeString ("ToggleAllDocuments.Text"));
+            cbxToggleAll.Attributes.Add ("onchange", "r7_documentSelector.toggleAll(this)");
 
-            return allCheckBox;
+            return cbxToggleAll;
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace R7.Documents
                     case DataControlRowType.Header:
                         e.Row.TableSection = TableRowSection.TableHeader;
                         e.Row.Cells [0].CssClass = "edit-header";
-                        e.Row.Cells [0].Controls.Add (CreateSelectUnselectAllDocumentsCheckBox ());
+                        e.Row.Cells [0].Controls.Add (CreateToggleAllCheckBox ());
                         break;
 
                     case DataControlRowType.DataRow:

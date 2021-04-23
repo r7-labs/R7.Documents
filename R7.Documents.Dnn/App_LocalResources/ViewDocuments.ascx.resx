@@ -42,7 +42,7 @@
     <data name="Page.Text" xml:space="preserve">
         <value>Page</value>
     </data>
-	<data name="SelectUnselectAllDocuments.Text" xml:space="preserve">
+	<data name="ToggleAllDocuments.Text" xml:space="preserve">
         <value>Select All/Unselect All Documents</value>
     </data>
 	<data name="SelectUnselectDocument.Text" xml:space="preserve">

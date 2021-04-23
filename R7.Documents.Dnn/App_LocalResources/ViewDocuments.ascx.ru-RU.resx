@@ -42,7 +42,7 @@
     <data name="Page.Text" xml:space="preserve">
         <value>Страница</value>
     </data>
-	<data name="SelectUnselectAllDocuments.Text" xml:space="preserve">
+	<data name="ToggleAllDocuments.Text" xml:space="preserve">
         <value>Отметить все документы/Снять отметку</value>
     </data>
 	<data name="SelectUnselectDocument.Text" xml:space="preserve">
