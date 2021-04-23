@@ -67,7 +67,7 @@
         <value>Удалить отмеченные с файлами</value>
     </data>
 	<data name="SignatureLink_Tooltip.Text" xml:space="preserve">
-		<value>Электронная подпись</value>
+		<value>Цифровая подпись</value>
 	</data>
 	<data name="SignatureLink_Label.Text" xml:space="preserve">
 		<value>.sig</value>

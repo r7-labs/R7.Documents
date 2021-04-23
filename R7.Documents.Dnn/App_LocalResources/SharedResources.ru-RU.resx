@@ -57,7 +57,4 @@
 	<data name="IsFeatured.Column" xml:space="preserve">
 		<value>Выделен?</value>
 	</data>
-	<data name="Signature.Column" xml:space="preserve">
-		<value>ЭЦП</value>
-	</data>
 </root>
