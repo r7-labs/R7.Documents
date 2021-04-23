@@ -70,11 +70,9 @@
 	<data name="lblFileFilter.Text" xml:space="preserve">
         <value>Фильтр файлов:</value>
     </data>
-    <data name="lblFileFilter.Help" xml:space="preserve">
-        <value>Введите регулярное выражения для фильтра файлов.
-		Если выражение задано, модуль будет пытаться отобразить файлы из папки по умолчанию,
-		имена которых соответствуют заданному регулярному выражению.</value>
-    </data>
+	<data name="lblFileFilter.Help" xml:space="preserve">
+		<value>Введите регулярное выражение для фильтра файлов, например ".\pdf$". Модуль будет отображать файлы из папки по умолчанию, имена которых соответствуют заданному регулярному выражению.</value>
+	</data>
 	<data name="FileFilter.Invalid" xml:space="preserve">
         <value>Фильтр файлов должен быть корректным регулярным выражением .NET.</value>
     </data>

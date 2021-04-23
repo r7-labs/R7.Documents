@@ -82,10 +82,9 @@
 	<data name="lblFileFilter.Text" xml:space="preserve">
         <value>File Filter:</value>
     </data>
-    <data name="lblFileFilter.Help" xml:space="preserve">
-        <value>Enter file filter regex.  If specified, module will try to display files
-		from the default folder that names will match provided regex.</value>
-    </data>
+	<data name="lblFileFilter.Help" xml:space="preserve">
+		<value>Enter file filter regex, e.g. "\.pdf$". The module will display files from the default folder that names will match provided regex.</value>
+	</data>
 	<data name="FileFilter.Invalid" xml:space="preserve">
         <value>File filter must be valid .NET regex.</value>
     </data>
