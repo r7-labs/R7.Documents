@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>R7.Documents</RootNamespace>
     <AssemblyName>R7.Documents.Dnn</AssemblyName>
-    <ReleaseVersion>1.13.0</ReleaseVersion>
+    <ReleaseVersion>1.13.1</ReleaseVersion>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

@@ -9,7 +9,7 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <IsPackable>false</IsPackable>
         <LangVersion>7.3</LangVersion>
-        <ReleaseVersion>1.13.0</ReleaseVersion>
+        <ReleaseVersion>1.13.1</ReleaseVersion>
     </PropertyGroup>
 
     <ItemGroup>
