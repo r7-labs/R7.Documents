@@ -394,7 +394,7 @@ namespace R7.Documents
                 Settings.DefaultFolder = null;
             }
 
-            var objColumnSettings = ParseDisplayColumnSettings ();
+            var objColumnSettings = ParseDisplayColumnSettings ((string) ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
             intIndex = 0;
             foreach (DocumentsDisplayColumn objColumnInfo_loopVariable in objColumnSettings) {
                 objColumn = objColumnInfo_loopVariable;
@@ -515,28 +515,22 @@ namespace R7.Documents
             ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS] = strValues;
         }
 
-        List<DocumentsDisplayColumn> ParseDisplayColumnSettings ()
+        List<DocumentsDisplayColumn> ParseDisplayColumnSettings (string strDisplayColumns)
         {
-            // custom viewstate implementation to avoid reflection
-            var objDisplayColumnSettings = new List<DocumentsDisplayColumn> ();
-            DocumentsDisplayColumn objDisplayColumn = null;
+            var displayColumns = new List<DocumentsDisplayColumn> ();
 
-            string strValues = null;
-
-            strValues = Convert.ToString (ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
-            if (!string.IsNullOrEmpty (strValues)) {
-                foreach (string strDisplayColumnSetting in strValues.Split ('#')) {
-                    objDisplayColumn = new DocumentsDisplayColumn ();
-                    objDisplayColumn.ColumnName = strDisplayColumnSetting.Split (',') [0];
-                    objDisplayColumn.LocalizedColumnName = strDisplayColumnSetting.Split (',') [1];
-                    objDisplayColumn.DisplayOrder = Convert.ToInt32 (strDisplayColumnSetting.Split (',') [2]);
-                    objDisplayColumn.Visible = Convert.ToBoolean (strDisplayColumnSetting.Split (',') [3]);
-
-                    objDisplayColumnSettings.Add (objDisplayColumn);
+            if (!string.IsNullOrEmpty (strDisplayColumns)) {
+                foreach (string strDisplayColumn in strDisplayColumns.Split ('#')) {
+                    var displayColumn = new DocumentsDisplayColumn ();
+                    displayColumn.ColumnName = strDisplayColumn.Split (',') [0];
+                    displayColumn.LocalizedColumnName = strDisplayColumn.Split (',') [1];
+                    displayColumn.DisplayOrder = Convert.ToInt32 (strDisplayColumn.Split (',') [2]);
+                    displayColumn.Visible = Convert.ToBoolean (strDisplayColumn.Split (',') [3]);
+                    displayColumns.Add (displayColumn);
                 }
             }
 
-            return objDisplayColumnSettings;
+            return displayColumns;
         }
     }
 }
