@@ -5,9 +5,7 @@ param ([string]$version)
 $mainProject = "R7.Documents"
 
 $versionStripped = $version -replace "-.*$"
-$projectFilesRegex = "Deploy\.csproj$|" + ($mainProject -replace "\.", "\.") + "(.*)\.csproj$"
-
-$projectFilesRegex
+$projectFilesRegex = "^Deploy\.csproj$|^" + ($mainProject -replace "\.", "\.") + "(.*)\.csproj$"
 
 $currentFolder = Get-Location
 
