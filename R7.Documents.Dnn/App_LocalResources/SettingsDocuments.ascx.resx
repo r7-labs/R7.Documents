@@ -142,4 +142,7 @@
 	<data name="lblAutoHide.Help" xml:space="preserve">
 		<value>Check to autohide module without visible content.</value>
 	</data>
+	<data name="Signature.Column" xml:space="preserve">
+		<value>Signature</value>
+	</data>
 </root>

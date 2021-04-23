@@ -142,4 +142,7 @@
 	<data name="lblAutoHide.Help" xml:space="preserve">
 		<value>Отметьте, чтобы автоматически скрывать модуль без видимого содержимого.</value>
 	</data>
+	<data name="Signature.Column" xml:space="preserve">
+		<value>ЭЦП</value>
+	</data>
 </root>
