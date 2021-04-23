@@ -394,7 +394,7 @@ namespace R7.Documents
                 Settings.DefaultFolder = null;
             }
 
-            var objColumnSettings = RetrieveDisplayColumnSettings ();
+            var objColumnSettings = ParseDisplayColumnSettings ();
             intIndex = 0;
             foreach (DocumentsDisplayColumn objColumnInfo_loopVariable in objColumnSettings) {
                 objColumn = objColumnInfo_loopVariable;
@@ -429,7 +429,7 @@ namespace R7.Documents
             int intDisplayOrderTemp = 0;
 
             // first, find the column we want
-            var objColumnSettings = RetrieveDisplayColumnSettings ();
+            var objColumnSettings = ParseDisplayColumnSettings ();
             intIndex = DocumentsSettings.FindColumn (columnName, objColumnSettings, false);
 
             // swap display orders
@@ -515,7 +515,7 @@ namespace R7.Documents
             ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS] = strValues;
         }
 
-        List<DocumentsDisplayColumn> RetrieveDisplayColumnSettings ()
+        List<DocumentsDisplayColumn> ParseDisplayColumnSettings ()
         {
             // custom viewstate implementation to avoid reflection
             var objDisplayColumnSettings = new List<DocumentsDisplayColumn> ();
