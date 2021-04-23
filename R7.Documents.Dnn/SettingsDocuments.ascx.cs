@@ -394,7 +394,7 @@ namespace R7.Documents
                 Settings.DefaultFolder = null;
             }
 
-            var objColumnSettings = DocumentDisplayColumn.ParseDisplayColumns ((string) ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
+            var objColumnSettings = DocumentDisplayColumn.ParseDisplayColumnsSettings ((string) ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);
             intIndex = 0;
             foreach (DocumentDisplayColumn objColumnInfo_loopVariable in objColumnSettings) {
                 objColumn = objColumnInfo_loopVariable;
@@ -429,7 +429,7 @@ namespace R7.Documents
             int intDisplayOrderTemp = 0;
 
             // first, find the column we want
-            var objColumnSettings = DocumentDisplayColumn.ParseDisplayColumns ((string) ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);;
+            var objColumnSettings = DocumentDisplayColumn.ParseDisplayColumnsSettings ((string) ViewState [VIEWSTATE_DISPLAYCOLUMNSETTINGS]);;
             intIndex = DocumentsSettings.FindColumn (columnName, objColumnSettings, false);
 
             // swap display orders

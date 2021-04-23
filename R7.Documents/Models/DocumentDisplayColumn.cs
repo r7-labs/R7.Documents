@@ -80,11 +80,11 @@ namespace R7.Documents.Models
 
         #endregion
 
-        public static List<DocumentDisplayColumn> ParseDisplayColumns (string strDisplayColumns)
+        public static List<DocumentDisplayColumn> ParseDisplayColumnsSettings (string displayColumnsSettings)
         {
             var displayColumns = new List<DocumentDisplayColumn> ();
-            if (!string.IsNullOrEmpty (strDisplayColumns)) {
-                foreach (string strDisplayColumn in strDisplayColumns.Split ('#')) {
+            if (!string.IsNullOrEmpty (displayColumnsSettings)) {
+                foreach (string strDisplayColumn in displayColumnsSettings.Split ('#')) {
                     var displayColumn = new DocumentDisplayColumn ();
                     displayColumn.ColumnName = strDisplayColumn.Split (',') [0];
                     displayColumn.LocalizedColumnName = strDisplayColumn.Split (',') [1];

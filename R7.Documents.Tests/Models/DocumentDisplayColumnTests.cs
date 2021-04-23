@@ -25,7 +25,7 @@ namespace R7.Documents.Tests.Models
             };
 
             var displayColumns =
-                DocumentDisplayColumn.ParseDisplayColumns ("Title,,1,true#Description,,2,false");
+                DocumentDisplayColumn.ParseDisplayColumnsSettings ("Title,,1,true#Description,,2,false");
 
             for (var i = 0; i < testDisplayColumns.Count; i++) {
                 Assert.Equal (testDisplayColumns[i].ColumnName, displayColumns[i].ColumnName);
