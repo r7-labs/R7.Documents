@@ -70,6 +70,6 @@
 		<value>Цифровая подпись</value>
 	</data>
 	<data name="SignatureLink_Label.Text" xml:space="preserve">
-		<value>.sig</value>
+		<value>ЭЦП</value>
 	</data>
 </root>

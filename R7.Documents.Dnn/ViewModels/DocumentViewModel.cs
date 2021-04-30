@@ -213,7 +213,12 @@ namespace R7.Documents.ViewModels
             }
 
             var folder = FolderManager.Instance.GetFolder (file.FolderId);
-            return FileManager.Instance.GetFile (folder, file.FileName + ".sig");
+            var sigFile = FileManager.Instance.GetFile (folder, file.FileName + ".sig");
+            if (sigFile == null) {
+                sigFile = FileManager.Instance.GetFile (folder, file.FileName + ".p7s");
+            }
+
+            return sigFile;
         }
     }
 }
