@@ -16,7 +16,7 @@
         <EnableTests Condition=" '$(EnableTests)' == '' ">true</EnableTests>
         <EnableLocalDeploy Condition=" '$(EnableLocalDeploy)' == '' ">false</EnableLocalDeploy>
     </PropertyGroup>
-    <!-- PowerShell -->
+    <!-- Tools -->
     <PropertyGroup>
         <PowerShell Condition=" '$(OS)' == 'Unix' ">pwsh</PowerShell>
         <PowerShell Condition=" '$(OS)' != 'Unix' ">powershell</PowerShell>

@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <ReleaseVersion>1.13.1</ReleaseVersion>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <RootNamespace>Deploy2</RootNamespace>
     </PropertyGroup>

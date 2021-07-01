@@ -4,15 +4,20 @@
     <Import Project="Bundle.targets" Condition=" '$(BundleImported)' == '' " />
     <Import Project="Tests.targets" Condition=" '$(TestsImported)' == '' " />
 
-    <PropertyGroup>
-        <!-- Enable install package creation by default (standalone) -->
-        <EnableInstallPackage Condition=" '$(EnableInstallPackage)' == '' ">true</EnableInstallPackage>
-        <PackageFileName>$(PackageName)-$(ReleaseVersion)-Install.$(Configuration).zip</PackageFileName>
-    </PropertyGroup>
-
     <Target Name="InstallPackage" Condition=" '$(EnableInstallPackage)' == 'true' " DependsOnTargets="Bundle;Tests">
         <!-- Pre-cleanup -->
         <RemoveDir Directories="$(TmpDir)" />
+
+        <!-- Get version -->
+        <Exec Command="$(PowerShell) GetVersion.ps1" ConsoleToMsBuild="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="PackageVersion" />
+        </Exec>
+
+        <PropertyGroup>
+            <!-- Enable install package creation by default (standalone) -->
+            <EnableInstallPackage Condition=" '$(EnableInstallPackage)' == '' ">true</EnableInstallPackage>
+            <PackageFileName>$(PackageName)-$(PackageVersion)-Install.$(Configuration).zip</PackageFileName>
+        </PropertyGroup>
 
         <!-- Declare binaries -->
         <ItemGroup>
@@ -21,7 +26,7 @@
         </ItemGroup>
 
         <!-- Generate main manifest file -->
-        <Exec Command="$(PowerShell) GenerateManifest.ps1 &quot;$(MainProjectOutputPath)/$(BaseProjectName).dnn.template&quot; $(ReleaseVersion)" />
+        <Exec Command="$(PowerShell) GenerateManifest.ps1 &quot;$(MainProjectOutputPath)/$(BaseProjectName).dnn.template&quot; $(PackageVersion)" />
 
         <!-- Declare manifest files -->
         <ItemGroup>
