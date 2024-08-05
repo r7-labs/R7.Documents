@@ -1,4 +1,4 @@
-﻿using System.Web.UI.WebControls;
+using System.Web.UI.WebControls;
 using DotNetNuke.UI.UserControls;
 using DotNetNuke.Web.UI.WebControls;
 
@@ -27,10 +27,10 @@ namespace R7.Documents
 		protected RangeValidator valSortIndex;
 		protected LinkButton btnChangeOwner;
 		protected URLTrackingControl ctlUrlTracking;
-		protected DnnDateTimePicker dtCreatedDate;
-		protected DnnDateTimePicker dtLastModifiedDate;
-        protected DnnDateTimePicker dtStartDate;
-        protected DnnDateTimePicker dtEndDate;
+		protected TextBox dtCreatedDate;
+		protected TextBox dtLastModifiedDate;
+        protected TextBox dtStartDate;
+        protected TextBox dtEndDate;
         protected MultiView mvEditDocument;
         protected LinkButton btnEdit;
         protected HyperLink lnkClose;

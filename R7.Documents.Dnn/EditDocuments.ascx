@@ -1,9 +1,8 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
+<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="EditDocuments.ascx.cs" Inherits="R7.Documents.EditDocuments" %>
 <%@ Register TagPrefix="dnn" TagName="URL" Src="~/controls/DnnUrlControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Tracking" Src="~/controls/URLTrackingControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
-<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
 <dnn:DnnCssInclude runat="server" FilePath="~/DesktopModules/R7.Documents/R7.Documents.Dnn/assets/css/admin.css" Priority="200" />
@@ -42,11 +41,11 @@
                 </div>
 	            <div class="dnnFormItem control-group-start">
                     <dnn:Label id="lblStartDate" runat="server" ControlName="dtStartDate" />
-                    <dnn:DnnDateTimePicker id="dtStartDate" runat="server" />
+                    <asp:TextBox id="dtStartDate" type="datetime-local" runat="server" />
                 </div>
                 <div class="dnnFormItem">
                     <dnn:Label id="lblEndDate" runat="server" ControlName="dtEndDate" />
-                    <dnn:DnnDateTimePicker id="dtEndDate" runat="server" />
+                    <asp:TextBox id="dtEndDate" type="datetime-local" runat="server" />
                 </div>
             </fieldset>
     	</div>
@@ -63,11 +62,11 @@
                 </div>
 				<div class="dnnFormItem control-group-start" >
                     <dnn:Label id="lblCreatedDate" runat="server" ControlName="dtCreatedDate" />
-                    <dnn:DnnDateTimePicker id="dtCreatedDate" runat="server" />
+                    <asp:TextBox id="dtCreatedDate" type="datetime-local" runat="server" />
                 </div>
                 <div class="dnnFormItem control-group-end">
                     <dnn:Label id="lblLastModifiedDate" runat="server" ControlName="dtLastModifiedDate" />
-                    <dnn:DnnDateTimePicker id="dtLastModifiedDate" runat="server" />
+                    <asp:TextBox id="dtLastModifiedDate" type="datetime-local" runat="server" />
                 </div>
 				<div class="dnnFormItem">
                     <dnn:Label id="lblLinkAttributes" runat="server" ControlName="txtLinkAttributes" />
