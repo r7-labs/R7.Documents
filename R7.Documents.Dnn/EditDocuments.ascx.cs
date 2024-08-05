@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -26,6 +26,9 @@ using R7.Dnn.Extensions.Urls;
 using R7.Dnn.Extensions.Text;
 using R7.Dnn.Extensions.FileSystem;
 using R7.University.Components;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Web.Services.Description;
 
 namespace R7.Documents
 {
@@ -305,12 +308,12 @@ namespace R7.Documents
             txtTitle.Text = document.Title;
             txtDescription.Text = document.Description;
             chkForceDownload.Checked = document.ForceDownload;
-            dtStartDate.SelectedDate = document.StartDate;
-            dtEndDate.SelectedDate = document.EndDate;
+            dtStartDate.Text = document.StartDate?.ToString("yyyy-MM-ddTHH:mm");
+            dtEndDate.Text = document.EndDate?.ToString("yyyy-MM-ddTHH:mm");
             txtLinkAttributes.Text = document.LinkAttributes;
             chkIsFeatured.Checked = document.IsFeatured;
-            dtCreatedDate.SelectedDate = document.CreatedDate;
-            dtLastModifiedDate.SelectedDate = document.ModifiedDate;
+            dtCreatedDate.Text = document.CreatedDate.ToString("yyyy-MM-ddTHH:mm");
+            dtLastModifiedDate.Text = document.ModifiedDate.ToString("yyyy-MM-ddTHH:mm");
             txtSortIndex.Text = document.SortOrderIndex.ToString ();
 
             if (!string.IsNullOrEmpty (document.Url)) {
@@ -644,19 +647,34 @@ namespace R7.Documents
         {
             var now = DateTime.Now;
 
-            document.StartDate = dtStartDate.SelectedDate;
-            document.EndDate = dtEndDate.SelectedDate;
-
-            if (dtCreatedDate.SelectedDate == null) {
-                document.CreatedDate = now;
-            } else {
-                document.CreatedDate = dtCreatedDate.SelectedDate.Value;
+            DateTime dateResult;
+            if (DateTime.TryParse(dtStartDate.Text.Replace("-", "/"), CultureInfo.CurrentCulture, DateTimeStyles.AssumeLocal, out dateResult))
+            {
+                document.StartDate = dateResult;
+            }
+            else
+            {
+                document.StartDate = null;
+            }
+            if (DateTime.TryParse(dtEndDate.Text.Replace("-", "/"), CultureInfo.CurrentCulture, DateTimeStyles.AssumeLocal, out dateResult))
+            {
+                document.EndDate = dateResult;
+            }
+            else
+            {
+                document.EndDate = null;
             }
 
-            if (dtLastModifiedDate.SelectedDate == null || oldDocument.Url != ctlUrl.Url) {
+            if (DateTime.TryParse(dtCreatedDate.Text.Replace("-", "/"), CultureInfo.CurrentCulture, DateTimeStyles.AssumeLocal, out dateResult)) {
+                document.CreatedDate = dateResult;
+            } else {
+                document.CreatedDate = now;
+            }
+
+            if (!DateTime.TryParse(dtLastModifiedDate.Text.Replace("-", "/"), CultureInfo.CurrentCulture, DateTimeStyles.AssumeLocal, out dateResult) || oldDocument.Url != ctlUrl.Url) {
                 document.ModifiedDate = now;
             } else {
-                document.ModifiedDate = dtLastModifiedDate.SelectedDate.Value;
+                document.ModifiedDate = dateResult;
             }
         }
 
